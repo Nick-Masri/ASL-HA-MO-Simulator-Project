@@ -39,7 +39,11 @@ class Assets:
         self.current_position = cp
 
 class Station:
+<<<<<<< HEAD
     def __init__(self, station_id, available_cars, waiting_customers='0'):
+=======
+    def __init__(self, station_id, waiting_customers=-1, available_cars=-1):
+>>>>>>> 8ec48969da188d4d4b28071a78122f2f2453982a
         self.station_id = station_id
         self.available_cars = available_cars
         self.waiting_customers = waiting_customers
