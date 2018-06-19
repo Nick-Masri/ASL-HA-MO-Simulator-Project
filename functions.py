@@ -59,8 +59,9 @@ class Station:
         self.available_cars = ac
 
 
-class CreateDict:
-    def __init__(self, list):
-        for x in list:
-            [x[0]] = Asset(x[0], x[1])
-        return dict
+
+def CreateDict(list):
+    dict = {}
+    for x in list:
+        dict[x[0]] = Asset(x[0], x[1])
+    return dict
