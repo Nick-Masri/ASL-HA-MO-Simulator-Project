@@ -45,6 +45,7 @@ for station in range(len(station_list)):
 employee_dict = CreateDict(employee_list)
 car_dict = CreateDict(car_list)
 
+'''
 # run through and update statuses
 for _ in range(24):
     for _ in range(59):
@@ -54,3 +55,10 @@ for _ in range(24):
     time[1] = 0
     time[0] += 1
     instructionsEveryHour()
+    '''
+
+
+for num in range(1440):
+    checkEveryMinute()
+    if (num % 60) == 0:
+        instructionsEveryHour()
