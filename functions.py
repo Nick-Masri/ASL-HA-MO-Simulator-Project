@@ -1,7 +1,6 @@
-class Employee:
-    def __init__(self, emp_id, emp_type, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
-        self.emp_id = emp_id # Employee ID number
-        self.emp_type = emp_type # pedestrian = 0, driver = 1
+class Assets:
+    def __init__(self, asset_id,  current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
+        self.asset_id = asset_id # Employee ID number
         self.status = status # 0 = IDLE, 1 = en route, 2 = rebalancing
         self.origin = origin # IDLE = -1
         self.destination = destination # IDLE = -1
@@ -11,9 +10,7 @@ class Employee:
     
     # Get Methods
     def get_id(self):
-        return self.emp_id
-    def get_type(self):
-        return self.emp_type
+        return self.asset_id
     def get_status(self):
         return self.status
     def get_origin(self):
@@ -27,49 +24,6 @@ class Employee:
     def get_current_position(self):
         return self.current_position
     
-    # Mutator Methods
-    def change_type(self, t):
-        self.emp_type = t
-    def change_status(self, s):
-        self.status = s
-    def change_origin(self, o):
-        self.origin = o
-    def change_destination(self, d):
-        self.destination = d
-    def change_o_time(self, ot):
-        self.o_time = ot
-    def change_d_time(self, dt):
-        self.d_time = dt
-    def change_current_position(self, cp):
-        self.current_position = cp
-
-
-class Car:
-    def __init__(self, car_id, current_position, status=0, origin=-1, destination=-1, o_time=-1, d_time=-1):
-        self.car_id = car_id # Car ID number
-        self.status = status # 0 = IDLE, 1 = in customer use, 2 = in rebalancer use
-        self.origin = origin # IDLE = -1
-        self.destination = destination # IDLE = -1
-        self.o_time = o_time # IDLE = -1
-        self.d_time = d_time # IDLE = -1
-        self.current_position = current_position  # if IDLE = current station number
-        
-    # Get Methods
-    def get_id(self):
-        return self.car_id
-    def get_status(self):
-        return self.status
-    def get_origin(self):
-        return self.origin
-    def get_destination(self):
-        return self.destination
-    def get_o_time(self):
-        return self.o_time
-    def get_d_time(self):
-        return self.d_time
-    def get_current_position(self):
-        return self.current_position
-
     # Mutator Methods
     def change_status(self, s):
         self.status = s

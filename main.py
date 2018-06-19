@@ -39,7 +39,7 @@ for i in range(1, 11):
 # Calling the Functions
 
 for x in employee_list:
-    employee_dict[x[0]] = Employee(x[0], x[1])
+    employee_dict[x[0]] = Assets(x[0], x[1])
 
 
 def checkEveryMinute():
@@ -56,4 +56,4 @@ for _ in range(24):
     time[1] = 0
     time[0] += 1
     instructionsEveryHour()
-    #print time
+    #print(time)
