@@ -28,7 +28,7 @@ car_list = [[1, 1],
             [7, 9], 
             [8,10]]
 
-station_list = [1,2,3,4,5,6,7,8,9,10]
+station_list = [num for num in range(11)]
 
 graph = [[0,5,8,11,13,13,12,11,8,5],  # needs to be 50x50
          [5,0,5,8,11,13,13,12,11,8], 
@@ -41,7 +41,6 @@ graph = [[0,5,8,11,13,13,12,11,8,5],  # needs to be 50x50
          [8,11,13,13,12,11,8,5,0,5], 
          [5,8,11,13,13,12,11,8,5,0]]
 
-station_list = [num for num in range(50)]
 
 #for x in employee_list:
 #    employee_dict[x[0]] = Assets(x[0], x[1])
@@ -58,11 +57,8 @@ car_dict = {}
 for station in range(len(station_list)):
     station_dict[station] = Station(station)
 
-for employee in employee_list:
-    employee_dict[employee[0]] = Asset(employee[0], employee[1])
-
-for car in car_list:
-    car_dict[car[0]] = Asset(car[0], car[1])
+employee_dict = CreateDict(employee_list)
+car_dict = CreateDict(car_list)
 
 # run through and update statuses
 for _ in range(24):
