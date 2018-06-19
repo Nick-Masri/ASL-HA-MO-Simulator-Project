@@ -85,7 +85,7 @@ class Car:
         self.current_position = cp
 
 class Station:
-    def __init__(self, station_id, waiting_customers, available_cars):
+    def __init__(self, station_id, waiting_customers=-1, available_cars=-1):
         self.station_id = station_id
         self.waiting_customers = waiting_customers
         self. available_cars = available_cars
