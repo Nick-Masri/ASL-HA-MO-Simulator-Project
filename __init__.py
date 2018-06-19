@@ -40,10 +40,19 @@ car_dict = {}
 
 # Create Objects
 for station in range(len(station_list)):
-    station_dict[station] = Station(station)
+    temp = []
+    for car in car_list:
+        if car[1] == station:
+            temp.append(car[0])
+    station_dict[station] = Station(station, temp)
 
-employee_dict = CreateDict(employee_list)
-car_dict = CreateDict(car_list)
+print(station_dict)
+for di in station_dict:
+    print(station_dict[di].get_available_cars())
+
+
+employee_dict = create_dict(employee_list)
+car_dict = create_dict(car_list)
 
 for num in range(1440):
     checkEveryMinute()

@@ -1,7 +1,7 @@
 from classes import *
-import __init__
+# import __init__
 
-def checkEveryMinute(employees, stations, cars):
+def checkEveryMinute():
     ## Old lists
     # update arrivals status (if dt = curr)
     # update departures status (if ot = curr)
@@ -15,11 +15,11 @@ def instructionsEveryHour():
     pass
 
 
-def CreateDict(_list):
+def create_dict(_list):
     _dict = {}
     for x in _list:
         _dict[x[0]] = Asset(x[0], x[1])
     return _dict
 
-def calc_d_time(origin, destination, o_time):
-    return __init__.GRAPH[origin][destination] + o_time
+# def calc_d_time(origin, destination, o_time):
+#     return __init__.GRAPH[origin][destination] + o_time
