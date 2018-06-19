@@ -20,5 +20,5 @@ def CreateDict(_list):
         _dict[x[0]] = Asset(x[0], x[1])
     return _dict
 
-def calc_d_time(origin, destination, o_time):
+def calc_d_time(graph, origin, destination, o_time):
     return graph[origin][destination] + o_time
