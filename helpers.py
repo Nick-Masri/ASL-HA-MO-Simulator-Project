@@ -1,3 +1,5 @@
+from classes import *
+
 def checkEveryMinute():
     pass
 
