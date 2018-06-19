@@ -45,7 +45,7 @@ class Employee:
 
 
 class Car:
-    def __init__(self, id, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
+    def __init__(self, id, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1, current_position):
         self.id = id # Car ID number
         self.status = status # 0 = IDLE, 1 = in customer use, 2 = in rebalancer use
         self.origin = origin # IDLE = -1
