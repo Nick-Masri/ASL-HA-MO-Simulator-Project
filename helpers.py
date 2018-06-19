@@ -1,8 +1,14 @@
 from classes import *
 
 def checkEveryMinute():
-    pass
+    ## Old lists
+    # update arrivals status (if dt = curr)
+    # update departures status (if ot = curr)
 
+    ## New lists
+    # update the status of new customers/ employees (everyone not in a list)
+    # Figure out who we prioritize
+    pass
 
 def instructionsEveryHour():
     pass
