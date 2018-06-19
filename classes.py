@@ -1,5 +1,5 @@
 class Asset:
-    def __init__(self, asset_id,  current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
+    def __init__(self, asset_id,  current_position, status='IDLE', origin=None, destination=None, o_time=None, d_time=None):
         self.asset_id = asset_id # Employee ID number
         self.status = status # 0 = IDLE, 1 = en route, 2 = rebalancing
         self.origin = origin # IDLE = -1
