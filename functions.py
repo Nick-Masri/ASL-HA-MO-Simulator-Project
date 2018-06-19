@@ -1,6 +1,7 @@
 class Employee:
-    def __init__(self, id, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
+    def __init__(self, id, type, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
         self.id = id
+        self.type = type
         self.status = status
         self.origin = origin
         self.destination = destination
@@ -11,6 +12,8 @@ class Employee:
     # Get Methods
     def get_id(self):
         return self.id
+    def get_type(self):
+        return self.type
     def get_status(self):
         return self.status
     def get_origin(self):
@@ -25,6 +28,8 @@ class Employee:
         return self.current_position
     
     # Mutator Methods
+    def change_type(self, t):
+        self.type = t
     def change_status(self, s):
         self.status = s
     def change_origin(self, o):
