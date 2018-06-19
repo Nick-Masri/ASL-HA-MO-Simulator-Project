@@ -1,13 +1,13 @@
 class Employee:
     def __init__(self, id, type, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
-        self.id = id
-        self.type = type
-        self.status = status
-        self.origin = origin
-        self.destination = destination
-        self.o_time = o_time
-        self.d_time = d_time
-        self.current_position = current_position
+        self.id = id # Employee ID number
+        self.type = type # pedestrian = 0, driver = 1
+        self.status = status # 0 = IDLE, 1 = en route, 2 = rebalancing
+        self.origin = origin # IDLE = -1
+        self.destination = destination # IDLE = -1
+        self.o_time = o_time # IDLE = -1
+        self.d_time = d_time # IDLE = -1
+        self.current_position = current_position # if IDLE = current station number
     
     # Get Methods
     def get_id(self):
@@ -46,13 +46,13 @@ class Employee:
 
 class Car:
     def __init__(self, id, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
-        self.id = id
-        self.status = status
-        self.origin = origin
-        self.destination = destination
-        self.o_time = o_time
-        self.d_time = d_time
-        self.current_position = current_position
+        self.id = id # Car ID number
+        self.status = status # 0 = IDLE, 1 = in customer use, 2 = in rebalancer use
+        self.origin = origin # IDLE = -1
+        self.destination = destination # IDLE = -1
+        self.o_time = o_time # IDLE = -1
+        self.d_time = d_time # IDLE = -1
+        self.current_position = current_position  # if IDLE = current station number
         
     # Get Methods
     def get_id(self):
