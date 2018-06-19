@@ -39,10 +39,10 @@ class Assets:
         self.current_position = cp
 
 class Station:
-    def __init__(self, station_id, waiting_customers, available_cars):
+    def __init__(self, station_id, available_cars, waiting_customers='0'):
         self.station_id = station_id
+        self.available_cars = available_cars
         self.waiting_customers = waiting_customers
-        self. available_cars = available_cars
     # Get Methods
     def get_id(self):
         return self.station_id
@@ -56,3 +56,10 @@ class Station:
         self.waiting_customers = wc
     def change_available_cars(self, ac):
         self.available_cars = ac
+
+
+class CreateDict:
+    def __init__(self, list):
+        for x in list:
+            [x[0]] = Assets(x[0], x[1])
+        return dict

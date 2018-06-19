@@ -19,6 +19,8 @@ car_list = [[1, 1],
             [7, 9], 
             [8,10]]
 
+station_list = [1,2,3,4,5,6,7,8,9,10]
+
 map = [[0,5,8,11,13,13,12,11,8,5], # needs to be 50x50
        [5,0,5,8,11,13,13,12,11,8], 
        [8,5,0,5,8,11,13,13,12,11], 
@@ -31,15 +33,19 @@ map = [[0,5,8,11,13,13,12,11,8,5], # needs to be 50x50
        [5,8,11,13,13,12,11,8,5,0]]
 
 
-station_list = []
 employee_dict = {}
+car_dict = {}
 
-for i in range(1, 11):
-    station_list.append((i))
-# Calling the Functions
 
-for x in employee_list:
-    employee_dict[x[0]] = Assets(x[0], x[1])
+#for x in employee_list:
+#    employee_dict[x[0]] = Assets(x[0], x[1])
+
+CreateDict(employee_list)
+
+
+for x in car_list:
+    car_dict[x[0]] = Assets(x[0], x[1])
+
 
 
 def checkEveryMinute():
