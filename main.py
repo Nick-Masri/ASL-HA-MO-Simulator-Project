@@ -19,11 +19,11 @@ car_list = [[1, 1],
             [7, 9], 
             [8,10]]
 
-map = [[0,5,8,11,13,13,12,11,8,5], #  needs to be 50x50
+map = [[0,5,8,11,13,13,12,11,8,5], # needs to be 50x50
        [5,0,5,8,11,13,13,12,11,8], 
        [8,5,0,5,8,11,13,13,12,11], 
        [11,8,5,0,5,8,11,13,13,12], 
-       [12,11,8,5,0,5,8,11,13,13],
+       [12,11,8,5,0,5,8,11,13,13], 
        [13,12,11,8,5,0,5,8,11,13], 
        [13,13,12,11,8,5,0,5,8,11], 
        [11,13,13,12,11,8,5,0,5,8], 
@@ -57,9 +57,9 @@ for time[0] < 24:
 from functions.py import *
 
 for current_time in :
-For loop through the time of day (for current_time in day_time:)
-For loop through the cars
-Check if destination_time == current_time
-Change status of employee from rebalancing to idle
-Check if any of the employees are idle:
+    For loop through the time of day (for current_time in day_time:)
+        For loop through the cars
+            Check if destination_time == current_time
+                Change status of employee from rebalancing to idle
+            Check if any of the employees are idle:
 '''
