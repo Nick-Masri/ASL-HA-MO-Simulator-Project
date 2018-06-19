@@ -1,7 +1,7 @@
 class Employee:
-    def __init__(self, id, type, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
-        self.id = id # Employee ID number
-        self.type = type # pedestrian = 0, driver = 1
+    def __init__(self, emp_id, emp_type, current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
+        self.emp_id = emp_id # Employee ID number
+        self.emp_type = emp_type # pedestrian = 0, driver = 1
         self.status = status # 0 = IDLE, 1 = en route, 2 = rebalancing
         self.origin = origin # IDLE = -1
         self.destination = destination # IDLE = -1
@@ -11,9 +11,9 @@ class Employee:
     
     # Get Methods
     def get_id(self):
-        return self.id
+        return self.emp_id
     def get_type(self):
-        return self.type
+        return self.emp_type
     def get_status(self):
         return self.status
     def get_origin(self):
@@ -29,7 +29,7 @@ class Employee:
     
     # Mutator Methods
     def change_type(self, t):
-        self.type = t
+        self.emp_type = t
     def change_status(self, s):
         self.status = s
     def change_origin(self, o):
@@ -45,8 +45,8 @@ class Employee:
 
 
 class Car:
-    def __init__(self, id, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1, current_position):
-        self.id = id # Car ID number
+    def __init__(self, car_id, current_position, status=0, origin=-1, destination=-1, o_time=-1, d_time=-1):
+        self.car_id = car_id # Car ID number
         self.status = status # 0 = IDLE, 1 = in customer use, 2 = in rebalancer use
         self.origin = origin # IDLE = -1
         self.destination = destination # IDLE = -1
@@ -56,7 +56,7 @@ class Car:
         
     # Get Methods
     def get_id(self):
-        return self.id
+        return self.car_id
     def get_status(self):
         return self.status
     def get_origin(self):
@@ -85,13 +85,13 @@ class Car:
         self.current_position = cp
 
 class Station:
-    def __init__(self, id, waiting_customers, available_cars):
-        self.id = id
+    def __init__(self, station_id, waiting_customers, available_cars):
+        self.station_id = station_id
         self.waiting_customers = waiting_customers
         self. available_cars = available_cars
     # Get Methods
     def get_id(self):
-        return self.id
+        return self.station_id
     def get_waiting_customers(self):
         return self.waiting_customers
     def get_available_cars(self):
