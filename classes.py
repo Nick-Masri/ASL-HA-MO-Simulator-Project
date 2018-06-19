@@ -38,6 +38,7 @@ class Asset:
     def change_current_position(self, cp):
         self.current_position = cp
 
+
 class Station:
     def __init__(self, station_id, available_cars=0, waiting_customers=0):
         self.station_id = station_id
@@ -59,9 +60,3 @@ class Station:
         self.available_cars = ac
 
 
-
-def CreateDict(list):
-    dict = {}
-    for x in list:
-        dict[x[0]] = Asset(x[0], x[1])
-    return dict

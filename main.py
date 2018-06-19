@@ -1,14 +1,6 @@
 #!/usr/bin/python
 from classes import *
-
-
-def checkEveryMinute():
-    pass
-
-
-def instructionsEveryHour():
-    pass
-
+from helpers import *
 
 # Initializing Time
 time = [0, 0, 0]  # Time Starts at 0
