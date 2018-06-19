@@ -41,13 +41,6 @@ graph = [[0,5,8,11,13,13,12,11,8,5],  # needs to be 50x50
          [8,11,13,13,12,11,8,5,0,5], 
          [5,8,11,13,13,12,11,8,5,0]]
 
-
-#for x in employee_list:
-#    employee_dict[x[0]] = Assets(x[0], x[1])
-
-# CreateDict(employee_list)
-
-
 # dicts for holding objects
 employee_dict = {}
 station_dict = {}
@@ -69,4 +62,3 @@ for _ in range(24):
     time[1] = 0
     time[0] += 1
     instructionsEveryHour()
-    print(time)
