@@ -69,7 +69,7 @@ for _ in range(24):
     for _ in range(59):
         time[1] += 1
         checkEveryMinute()
-        #print(time)
+        print(time)
     time[1] = 0
     time[0] += 1
     instructionsEveryHour()
