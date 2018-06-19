@@ -15,4 +15,4 @@ def CreateDict(_list):
     return _dict
 
 def calc_d_time(origin, destination, o_time):
-    return graph[o][d] + o_time
+    return graph[origin][destination] + o_time
