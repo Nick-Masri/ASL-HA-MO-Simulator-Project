@@ -1,4 +1,4 @@
-class Assets:
+class Asset:
     def __init__(self, asset_id,  current_position, status='IDLE', origin=-1, destination=-1, o_time=-1, d_time=-1):
         self.asset_id = asset_id # Employee ID number
         self.status = status # 0 = IDLE, 1 = en route, 2 = rebalancing
@@ -39,14 +39,11 @@ class Assets:
         self.current_position = cp
 
 class Station:
-<<<<<<< HEAD
-    def __init__(self, station_id, available_cars, waiting_customers='0'):
-=======
-    def __init__(self, station_id, waiting_customers=-1, available_cars=-1):
->>>>>>> 8ec48969da188d4d4b28071a78122f2f2453982a
+    def __init__(self, station_id, available_cars=0, waiting_customers=0):
         self.station_id = station_id
         self.available_cars = available_cars
         self.waiting_customers = waiting_customers
+
     # Get Methods
     def get_id(self):
         return self.station_id
@@ -65,5 +62,5 @@ class Station:
 class CreateDict:
     def __init__(self, list):
         for x in list:
-            [x[0]] = Assets(x[0], x[1])
+            [x[0]] = Asset(x[0], x[1])
         return dict

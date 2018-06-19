@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from functions import *
 
+
 def checkEveryMinute():
     pass
 
@@ -40,23 +41,13 @@ map = [[0,5,8,11,13,13,12,11,8,5], # needs to be 50x50
        [8,11,13,13,12,11,8,5,0,5], 
        [5,8,11,13,13,12,11,8,5,0]]
 
-
-<<<<<<< HEAD
-employee_dict = {}
-car_dict = {}
-
+station_list = [num for num in range(50)]
 
 #for x in employee_list:
 #    employee_dict[x[0]] = Assets(x[0], x[1])
 
-CreateDict(employee_list)
+# CreateDict(employee_list)
 
-
-for x in car_list:
-    car_dict[x[0]] = Assets(x[0], x[1])
-
-=======
-station_list = [num for num in range(50)]
 
 # dicts for holding objects
 employee_dict = {}
@@ -66,13 +57,12 @@ car_dict = {}
 # Create Objects
 for station in range(len(station_list)):
     station_dict[station] = Station(station)
->>>>>>> 8ec48969da188d4d4b28071a78122f2f2453982a
 
 for employee in employee_list:
-    employee_dict[employee[0]] = Employee(employee[0], employee[1])
+    employee_dict[employee[0]] = Asset(employee[0], employee[1])
 
 for car in car_list:
-    car_dict[car[0]] = Car(car[0], car[1])
+    car_dict[car[0]] = Asset(car[0], car[1])
 
 # run through and update statuses
 for _ in range(24):
