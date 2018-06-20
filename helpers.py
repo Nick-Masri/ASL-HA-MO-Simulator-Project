@@ -16,4 +16,4 @@ def create_dict(_list):
     return _dict
 
 def calc_d_time(origin, destination, o_time):
-    return globals.GRAPH_var[origin][destination] + o_time
+    return GRAPH_var[origin][destination] + o_time
