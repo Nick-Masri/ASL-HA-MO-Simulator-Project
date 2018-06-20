@@ -109,3 +109,7 @@ class Station:
     def change_request_list(self, rl):
         self.request_list = rl
 
+    # Unique Methods
+    def assign_employee(self):
+        pass
+    
