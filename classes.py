@@ -75,12 +75,13 @@ class Employee(Person):
         self.emp_id = e
         
 class Station:
-    def __init__(self, station_id, cars, employee_list, waiting_customers_list, en_route_list):
+    def __init__(self, station_id, cars, employee_list, customer_requests, en_route_list, request_list):
         self.station_id = station_id
         self.cars = cars
         self.employee_list = employee_list
-        self.waiting_customers_list = waiting_customers_list
+        self.customer_requests = customer_requests
         self.en_route_list = en_route_list
+        self.request_list = request_list
 
     # Get Methods
     def get_id(self):
@@ -89,18 +90,22 @@ class Station:
         return self.cars
     def get_employee_list(self):
         return self.employee_list
-    def get_waiting_customers_list(self):
-        return self.waiting_customers_list
+    def get_customer_requests(self):
+        return self.customer_requests
     def get_en_route_list(self):
         return self.en_route_list
+    def get_request_list(self):
+        return self.request_list
     
     # Mutator Methods
     def change_cars(self, c):
         self.cars = c
     def change_employee_list(self, l):
         self.employee_list = l
-    def change_waiting_customers_list(self, w):
-        self.waiting_customers_list = w
+    def change_customer_requests(self, cl):
+        self.customer_requests = cl
     def change_en_route_list(self, er):
         self.en_route_list = er
+    def change_request_list(self, rl):
+        self.request_list = rl
 
