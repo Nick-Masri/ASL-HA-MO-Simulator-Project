@@ -4,7 +4,6 @@ from globals import *
 def checkEveryMinute(station_dict, employee_requests, customer_requests, current_time):
 
     for station in station_dict:
-        # Go through employee_requests to only have employees at this station
         # Go through customer_requests to only have employees at this station
 
         curr_station = station_dict[station]
@@ -29,7 +28,7 @@ def checkEveryMinute(station_dict, employee_requests, customer_requests, current
         # Loop 2
         employee_assignment_list = []
         for employee_request in employee_requests:
-            employee_assignment_list.append(employee_list[employee_requests.index(employee_request)], employee_request)
+            employee_assignment_list.append(employee_list[employee_requests.index(employee_request)], employee_requests)
 
         # Loop 3
         for customer_request in customer_requests:
