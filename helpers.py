@@ -9,12 +9,12 @@ def checkEveryMinute(station_dict, employee_requests, customer_requests):
             pass
 
         # Loop 2
-        for employee_request in station.get_employee_list():
-            pass
+        for employee_request in employee_requests:
+            station.assign_employee(station.get_employee_list(employee_requests.index(employee_request)), employee_request)
 
         # Loop 3
         for customer_request in customer_requests:
-            pass
+            station.append_customer_list(customer_request)
 
         # Loop 4
         for request in (station.get_request_list()):
