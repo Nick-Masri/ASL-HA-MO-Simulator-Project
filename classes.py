@@ -76,7 +76,6 @@ class Employee(Person):
         self.employee_id = e
     
     # Unique Methods
-    
     def reset(self):
         self.current_position = self.destination
         self.origin = None
