@@ -1,10 +1,24 @@
 from classes import *
 from globals import *
 
-def checkEveryMinute(station_dict):
+def checkEveryMinute(station_dict, employee_requests, customer_requests):
+
     for station in station_dict:
-        pass # loop one
-        pass # loop four
+        # Loop 1
+        for person in station.get_en_route_list():
+            pass
+
+        # Loop 2
+        for employee_request in station.get_employee_list():
+            pass
+
+        # Loop 3
+        for customer_request in customer_requests:
+            pass
+
+        # Loop 4
+        for request in (station.get_request_list()):
+            pass
 
 def instructionsEveryHour():
     pass
