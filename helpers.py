@@ -10,22 +10,25 @@ def checkEveryMinute(station_dict, employee_requests, customer_requests):
         curr_station = station_dict[station]
 
         employee_list = curr_station.get_employee_list()
-        customer_list = curr_station.get_customer_list()
+        waiting_customers = curr_station.get_waiting_list()
 
         # Loop 1
         for person in curr_station.get_en_route_list():
             pass
 
         # Loop 2
+        employee_assignment_list = []
         for employee_request in employee_requests:
-            station.assign_employee(employee_list[employee_requests.index(employee_request)], employee_request)
+            employee_assignment_list.append(employee_list[employee_requests.index(employee_request)], employee_request)
 
         # Loop 3
         for customer_request in customer_requests:
-            customer_list.append(customer_request)
+            waiting_customers.append(customer_request)
 
+
+        request_list = employee_assignment_list + waiting_customers
         # Loop 4
-        for request in (station.get_request_list()):
+        for request in (request_list):
             pass
 
 def instructionsEveryHour():
