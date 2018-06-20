@@ -58,4 +58,3 @@ class Station:
         self.waiting_customers = wc
     def change_available_cars(self, ac):
         self.available_cars = ac
-
