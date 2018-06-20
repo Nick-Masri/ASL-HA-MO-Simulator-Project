@@ -102,8 +102,8 @@ class Station:
         self.cars = c
     def change_employee_list(self, l):
         self.employee_list = l
-    def change_customer_requests(self, cl):
-        self.customer_requests = cl
+    def change_customer_requests(self, cr):
+        self.customer_requests = cr
     def change_en_route_list(self, er):
         self.en_route_list = er
     def change_request_list(self, rl):
