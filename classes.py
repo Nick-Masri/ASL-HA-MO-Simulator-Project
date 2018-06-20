@@ -1,7 +1,8 @@
 import globals
+from operator import itemgetter
 
 class Person:
-    def __init__(self, origin, destination, origin_time, destination_time, current_position, vehicle_id = None):
+    def __init__(self, origin, destination, origin_time, current_position, vehicle_id = None):
         self.origin = origin
         self.destination = destination
         self.origin_time = origin_time
@@ -73,13 +74,22 @@ class Employee(Person):
         self.vehicle_id = v
     def change_employee_id(self, e):
         self.employee_id = e
+    
+    # Unique Methods
+    
+    def reset(self):
+        self.current_position = self.destination
+        self.origin = None
+        self.destination = None
+        self.origin_time = None
+        self.vehicle_id = None
         
 class Station:
-    def __init__(self, station_id, cars, employee_list, customer_requests, en_route_list, request_list):
+    def __init__(self, station_id, cars, employee_list, waiting_customers, en_route_list, request_list):
         self.station_id = station_id
         self.cars = cars
         self.employee_list = employee_list
-        self.customer_requests = customer_requests
+        self.waiting_customers = waiting_customers
         self.en_route_list = en_route_list
         self.request_list = request_list
 
@@ -90,10 +100,10 @@ class Station:
         return self.cars
     def get_employee_list(self):
         return self.employee_list
-    def get_customer_requests(self):
-        return self.customer_requests
-    def get_en_route_list(self):
-        return self.en_route_list
+    def get_waiting_customers(self): # sorted by origin_time, least to greatest
+        return sorted(self.waiting_customers, key = itemgetter(2))
+    def get_en_route_list(self): # sorted by destination_time, least to greatest
+        return sorted(self.en_route_list, key = itemgetter(3))
     def get_request_list(self):
         return self.request_list
     
@@ -102,8 +112,8 @@ class Station:
         self.cars = c
     def change_employee_list(self, el):
         self.employee_list = el
-    def change_customer_requests(self, cr):
-        self.customer_requests = cr
+    def change_waiting_customers(self, cr):
+        self.waiting_customers = cr
     def change_en_route_list(self, er):
         self.en_route_list = er
     def change_request_list(self, rl):
@@ -112,6 +122,4 @@ class Station:
     # Unique Methods
     def assign_employee(self):
         pass
-    
-    def
     
