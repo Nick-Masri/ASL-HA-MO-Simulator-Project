@@ -1,5 +1,5 @@
 from classes import *
-# import __init__
+import globals
 
 def checkEveryMinute():
     ## Old lists
@@ -21,5 +21,6 @@ def create_dict(_list):
         _dict[x[0]] = Asset(x[0], x[1])
     return _dict
 
-# def calc_d_time(origin, destination, o_time):
-#     return __init__.GRAPH[origin][destination] + o_time
+
+def calc_d_time(origin, destination, o_time):
+    return globals.GRAPH_var[origin][destination] + o_time
