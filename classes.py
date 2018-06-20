@@ -91,7 +91,7 @@ class Station:
     def get_employee_list(self):
         return self.employee_list
     def get_customer_requests(self):
-        return self.customer_requests
+        return self.waiting_customer_list
     def get_en_route_list(self):
         return self.en_route_list
     def get_request_list(self):
