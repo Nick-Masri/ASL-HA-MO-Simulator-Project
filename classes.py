@@ -100,8 +100,8 @@ class Station:
     # Mutator Methods
     def change_cars(self, c):
         self.cars = c
-    def change_employee_list(self, l):
-        self.employee_list = l
+    def change_employee_list(self, el):
+        self.employee_list = el
     def change_customer_requests(self, cr):
         self.customer_requests = cr
     def change_en_route_list(self, er):
@@ -112,4 +112,6 @@ class Station:
     # Unique Methods
     def assign_employee(self):
         pass
+    
+    def
     
