@@ -6,24 +6,25 @@ def checkEveryMinute(station_dict, employee_requests, customer_requests, current
     for station in station_dict:
         # Go through customer_requests to only have employees at this station
 
-        curr_station = station_dict[station]
-
-        employee_list = curr_station.get_employee_list()
-        waiting_customers = curr_station.get_waiting_list()
+        current_station = station_dict[station]
+        current_car_list = current_station.get_car_list()
+        employee_list = current_station.get_employee_list()
+        waiting_customers = current_station.get_waiting_list()
 
         # Loop 1
-        for person in curr_station.get_en_route_list():
-            curr_car_list = station.get_car_list()
+        enroute_list = current_station.get_enroute_list()
+        for person in enroute_list:
             if person.get_desintation_time() == current_time:
-                curr_vehicle_id = person.get_verichle_id()
-                if curr_vehicle_id != None:
-                    curr_car_list.append(person.get_verichle_id())
-                if isinstance(Person(), Person):  # Is it a customer?
-                    # get rid of person object
-                    pass
-                else:  # If employee then reset that employee and add to the employee queue
+                current_vehicle_id = person.get_vehicle_id()
+                if current_vehicle_id is not None: # If person came in a car, add their car to the car list
+                    current_car_list.append(person.get_verichle_id())
+
+                if isinstance(Employee(), Person):  # Is it a employee?
                     person.reset()
                     employee_list.append(person)
+
+                enroute_list.remove(person)  # Person is no longer enroute, remove from list
+
 
         # Loop 2
         employee_assignment_list = []
