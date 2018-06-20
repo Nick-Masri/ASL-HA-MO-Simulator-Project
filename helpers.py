@@ -16,20 +16,23 @@ def checkEveryMinute(station_dict, employee_requests, customer_requests, current
         for person in enroute_list:
             if person.get_desintation_time() == current_time:
                 current_vehicle_id = person.get_vehicle_id()
-                if current_vehicle_id is not None: # If person came in a car, add their car to the car list
-                    current_car_list.append(person.get_verichle_id())
+                if current_vehicle_id is not None:  # If person came in a car, add their car to the car list
+                    current_car_list.append(current_vehicle_id)
 
                 if isinstance(Employee(), Person):  # Is it a employee?
                     person.reset()
                     employee_list.append(person)
-
+                # For memory concerns should we delete the a customer object that after they return?
                 enroute_list.remove(person)  # Person is no longer enroute, remove from list
 
 
         # Loop 2
-        employee_assignment_list = []
         for employee_request in employee_requests:
-            employee_assignment_list.append(employee_list[employee_requests.index(employee_request)], employee_requests)
+            current_employee = employee_list[employee_requests.index(employee_request)]
+            current_employee.change_origin(employee_request[0])  # Set origin
+            current_employee.change_origin(employee_request[1])  # Set departure
+            current_employee.change_origin(employee_request[2])  # Set origin time
+            # Probably need to update the type of employee (pedestrian or driver?)
 
         # Loop 3
         for customer_request in customer_requests:
