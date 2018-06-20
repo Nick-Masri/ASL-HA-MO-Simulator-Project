@@ -38,9 +38,9 @@ class Person:
         self.vehicle_id = v
         
 class Employee(Person):
-    def __init__(self, origin, destination, origin_time, destination_time, current_position, vehicle_id = None, emp_id):
+    def __init__(self, origin, destination, origin_time, destination_time, current_position, vehicle_id = None, employee_id):
         Person.__init__(self, origin, destination, origin_time, destination_time, current_position, vehicle_id = None)
-        self.emp_id = emp_id
+        self.employee_id = employee_id
     
     # Get Methods
     def get_origin(self):
@@ -55,8 +55,8 @@ class Employee(Person):
         return self.current_position
     def get_vehicle_id(self):
         return self.vehicle_id
-    def get_emp_id(self):
-        return self.emp_id
+    def get_employee_id(self):
+        return self.employee_id
     
     # Mutator Methods
     def change_origin(self,o):
@@ -71,8 +71,8 @@ class Employee(Person):
         self.current_position = cp
     def change_vehicle_id(self, v):
         self.vehicle_id = v
-    def change_emp_id(self, e):
-        self.emp_id = e
+    def change_employee_id(self, e):
+        self.employee_id = e
         
 class Station:
     def __init__(self, station_id, cars, employee_list, customer_requests, en_route_list, request_list):
@@ -91,7 +91,7 @@ class Station:
     def get_employee_list(self):
         return self.employee_list
     def get_customer_requests(self):
-        return self.waiting_customer_list
+        return self.customer_requests
     def get_en_route_list(self):
         return self.en_route_list
     def get_request_list(self):
