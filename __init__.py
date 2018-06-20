@@ -17,13 +17,11 @@ for station in range(len(STATION_LIST)):
             temp.append(car[0])
         STATION_DICT[station] = Station(station, temp)
 
-
-
 employee_dict = create_dict(EMPLOYEE_LIST)
 car_dict = create_dict(CAR_LIST)
 
 
 for num in range(1440):
-    checkEveryMinute(STATION_DICT)
+    #checkEveryMinute(STATION_DICT)
     if (num % 60) == 0:
         instructionsEveryHour()
