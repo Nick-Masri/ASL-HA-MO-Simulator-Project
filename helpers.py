@@ -33,22 +33,25 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
         for driver_request in driver_requests:
             # current_employee = employee_list[driver_requests.index(driver_request)]
             current_employee = employee_list.pop(0)  # Grabs an employee and removes from current station list
-            current_employee.change_origin(driver_request[0])  # Set origin
-            current_employee.change_origin(driver_request[1])  # Set departure
-            current_employee.change_origin(driver_request[2])  # Set origin time
-            current_employee.change_vehicle_id(current_car_list.pop(0))  # Get first car and remove from car list
+            current_car = current_car_list.pop(0)  # Grabs a car and removes from the current station list
+            # current_employee.change_origin(driver_request[0])  # Set origin
+            # current_employee.change_destination(driver_request[1])  # Set departure
+            # current_employee.change_origin_time(driver_request[2])  # Set origin time
+            # current_employee.change_vehicle_id(current_car_list.pop(0))  # Get first car and remove from car list
             # do we need to change the current_position?
 
+            current_employee.update_status(driver_request, current_car)  # New function that takes care of the lines above
             # Move the employee to the destination enroute list
             station_dict[driver_request[1]].get_enroute_list().append(current_employee)
 
         # Send out Pedestrians
         for pedestrian_request in pedestrian_requests:
-            current_employee = employee_list.pop(0)
-            current_employee.change_origin(pedestrian_request[0])  # Set origin
-            current_employee.change_origin(pedestrian_request[1])  # Set departure
-            current_employee.change_origin(pedestrian_request[2])  # Set origin time
+            current_employee = employee_list.pop(0)  # Grabs an employee and removes from current station list
+            # current_employee.change_origin(pedestrian_request[0])  # Set origin
+            # current_employee.change_destination(pedestrian_request[1])  # Set departure
+            # current_employee.change_origin_time(pedestrian_request[2])  # Set origin time
 
+            current_employee.update_status(pedestrian_request)
             # Move the employee to the destination enroute list
             station_dict[pedestrian_request[1]].get_enroute_list().append(current_employee)
 
@@ -58,11 +61,12 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
         
         # Send out customers
         for customer_request in customer_requests:
-            current_customer = customer_list.pop(0)
-            current_customer.change_origin(customer_request[0])  # Set origin
-            current_customer.change_origin(customer_request[1])  # Set departure
-            current_customer.change_origin(customer_request[2])  # Set origin time
+            current_customer = customer_list.pop(0)  # Grabs an customer and removes from current station list
+            # current_customer.change_origin(customer_request[0])  # Set origin
+            # current_customer.change_destination(customer_request[1])  # Set departure
+            # current_customer.change_origin_time(customer_request[2])  # Set origin time
 
+            current_customer.update_status(customer_request)
             # Move the customer to the destination enroute list
             station_dict[customer_request[1]].get_enroute_list().append(current_customer)
 

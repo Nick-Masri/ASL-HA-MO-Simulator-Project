@@ -49,6 +49,11 @@ class Person:
     def change_vehicle_id(self, v):
         self.vehicle_id = v
 
+    def update_status(self, request):
+        self.origin = request[0]
+        self.destination = request[1]
+        self.origin_time = request[2]
+
 
 class Employee(Person):
     def __init__(self, origin, destination, origin_time, destination_time, current_position, vehicle_id=None,
@@ -99,6 +104,13 @@ class Employee(Person):
 
     def change_employee_id(self, e):
         self.employee_id = e
+
+    def update_status(self, request, new_car = None):
+        self.origin = request[0]
+        self.destination = request[1]
+        self.origin_time = request[2]
+        self.vehicle_id = new_car
+
 
     # Unique Methods
     def reset(self):
