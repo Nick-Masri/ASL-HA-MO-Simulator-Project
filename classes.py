@@ -131,7 +131,7 @@ class Station:
     def get_waiting_customers(self):  # sorted by origin_time, least to greatest
         return sorted(self.waiting_customers, key=itemgetter(2))
 
-    def get_en_route_list(self):  # sorted by destination_time, least to greatest
+    def get_enroute_list(self):  # sorted by destination_time, least to greatest
         return sorted(self.en_route_list, key=itemgetter(3))
 
     def get_request_list(self):
