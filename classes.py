@@ -7,7 +7,10 @@ class Person:
         self.origin = origin
         self.destination = destination
         self.origin_time = origin_time
-        self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
+        if origin is None:
+            self.destination_time = None
+        else:
+            self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
         self.current_position = current_position
         self.vehicle_id = vehicle_id
 
@@ -18,7 +21,7 @@ class Person:
                 and self.destination == other.get_destination()
                 and self.origin_time == other.get_origin_time()
                 and self.current_position == other.get_current_position()
-                and self.vehicle_id == other.get_vehichle_id()
+                and self.vehicle_id == other.get_vehicle_id()
                 )
 
     # Get Methods
@@ -71,12 +74,23 @@ class Employee(Person):
         Person.__init__(self, origin, destination, origin_time, current_position, vehicle_id)
         self.employee_id = employee_id
 
+    # comparison methods
+    def __eq__(self, other):
+        """Override the default Equals behavior"""
+        return (self.origin == other.get_origin()
+                and self.destination == other.get_destination()
+                and self.origin_time == other.get_origin_time()
+                and self.current_position == other.get_current_position()
+                and self.vehicle_id == other.get_vehicle_id()
+                and self.employee_id == other.get_employee_id()
+                )
+
     # Get Methods
     def get_origin(self):
         return self.origin
 
     def get_destination(self):
-        return self.origin_time + globals.GRAPH_VAR[self.origin][self.destination]
+        return self.destination
 
     def get_origin_time(self):
         return self.origin_time
