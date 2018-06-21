@@ -120,9 +120,9 @@ class Station:
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
-        self.waiting_customers = None
-        self.en_route_list = None
-        self.request_list = None
+        self.waiting_customers = []
+        self.en_route_list = []
+        self.request_list = []
 
     # Get Methods
     def get_id(self):
