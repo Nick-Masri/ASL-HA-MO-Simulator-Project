@@ -3,12 +3,12 @@ from operator import itemgetter
 
 
 class Person:
-    def __init__(self, origin, destination, origin_time, current_position, vehicle_id=None):
+    def __init__(self, origin, destination, origin_time, vehicle_id=None):
         self.origin = origin
         self.destination = destination
         self.origin_time = origin_time
         self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
-        self.current_position = current_position
+        self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
     # Get Methods
@@ -53,6 +53,7 @@ class Person:
         self.origin = request[0]
         self.destination = request[1]
         self.origin_time = request[2]
+        self.current_position = [request[0], request[1]]
         self.vehicle_id = new_car
 
 
