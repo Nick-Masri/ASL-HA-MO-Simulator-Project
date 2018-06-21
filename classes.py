@@ -56,9 +56,8 @@ class Person:
 
 
 class Employee(Person):
-    def __init__(self, origin, destination, origin_time, destination_time, current_position, vehicle_id=None,
-                 employee_id):
-        Person.__init__(self, origin, destination, origin_time, destination_time, current_position, vehicle_id=None)
+    def __init__(self, origin, destination, origin_time, current_position, employee_id, vehicle_id=None):
+        Person.__init__(self, origin, destination, origin_time, current_position, vehicle_id)
         self.employee_id = employee_id
 
     # Get Methods
@@ -66,7 +65,7 @@ class Employee(Person):
         return self.origin
 
     def get_destination(self):
-        return origin_time + globals.GRAPH_VAR[origin][destination]
+        return self.origin_time + globals.GRAPH_VAR[self.origin][self.destination]
 
     def get_origin_time(self):
         return self.origin_time
@@ -105,12 +104,11 @@ class Employee(Person):
     def change_employee_id(self, e):
         self.employee_id = e
 
-    def update_status(self, request, new_car = None):
+    def update_status(self, request, new_car=None):
         self.origin = request[0]
         self.destination = request[1]
         self.origin_time = request[2]
         self.vehicle_id = new_car
-
 
     # Unique Methods
     def reset(self):
