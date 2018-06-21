@@ -5,22 +5,24 @@ from globals import *
 
 
 # dicts for holding objects
-EMPLOYEE_DICT = {}
 STATION_DICT = {}
-CAR_DICT = {}
 
 # Create Objects
-for station in range(len(STATION_LIST)):
-    temp = []
-    for car in CAR_LIST:
-        if car[1] == station:
-            temp.append(car[0])
-        STATION_DICT[station] = Station(station, temp)
+for station in range(1, len(STATION_LIST)):
+    temp1 = []
+    temp2 = []
+    for cars in CAR_LIST:
+        if cars[1] == station:
+            temp1.append(cars[0])
+    for emps in EMPLOYEE_LIST:
+        if emps[1] == station:
+            temp2.append(emps[0])
+    STATION_DICT[station] = Station(station, temp1, temp2)
+    
+    print(STATION_DICT.get(station).get_car_list())
+    #print(STATION_DICT.get(station).get_employee_list())
 
-employee_dict = create_dict(EMPLOYEE_LIST)
-car_dict = create_dict(CAR_LIST)
-
-
+# Full loop of 24 hours of checks
 for num in range(1440):
     #checkEveryMinute(STATION_DICT)
     if (num % 60) == 0:
