@@ -11,6 +11,16 @@ class Person:
         self.current_position = current_position
         self.vehicle_id = vehicle_id
 
+    # comparison methods
+    def __eq__(self, other):
+        """Override the default Equals behavior"""
+        return (self.origin == other.get_origin()
+                and self.destination == other.get_destination()
+                and self.origin_time == other.get_origin_time()
+                and self.current_position == other.get_current_position()
+                and self.vehicle_id == other.get_vehichle_id()
+                )
+
     # Get Methods
     def get_origin(self):
         return self.origin
