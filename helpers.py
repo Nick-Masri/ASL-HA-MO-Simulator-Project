@@ -9,7 +9,7 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
         current_station = station_dict[station]
         current_car_list = current_station.get_car_list()
         employee_list = current_station.get_employee_list()
-        waiting_customers = current_station.get_waiting_list()
+        customer_list = current_station.get_waiting_list()
 
         # Loop 1
         enroute_list = current_station.get_enroute_list()
@@ -25,9 +25,11 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
                 # For memory concerns should we delete the a customer object that after they return?
                 enroute_list.remove(person)  # Person is no longer enroute, remove from list
 
+        ## This whole section needs some functions, there's a lot of repeated logic here.
+        ## Do we need to update current_location? Is it a duplicate?
 
         # Assign driver requests to employees currently at the station
-        # I wonder if we can just send out the drivers here...
+        # Sends drivers out right away
         for driver_request in driver_requests:
             # current_employee = employee_list[driver_requests.index(driver_request)]
             current_employee = employee_list.pop(0)  # Grabs an employee and removes from current station list
@@ -37,20 +39,32 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
             current_employee.change_vehicle_id(current_car_list.pop(0))  # Get first car and remove from car list
             # do we need to change the current_position?
 
-            # Move the employee
+            # Move the employee to the destination enroute list
             station_dict[driver_request[1]].get_enroute_list().append(current_employee)
 
+        # Send out Pedestrians
+        for pedestrian_request in pedestrian_requests:
+            current_employee = employee_list.pop(0)
+            current_employee.change_origin(pedestrian_request[0])  # Set origin
+            current_employee.change_origin(pedestrian_request[1])  # Set departure
+            current_employee.change_origin(pedestrian_request[2])  # Set origin time
+
+            # Move the employee to the destination enroute list
+            station_dict[pedestrian_request[1]].get_enroute_list().append(current_employee)
 
         # Add customer requests to the customer wait list
         for customer_request in customer_requests:
-            waiting_customers.append(customer_request)
-
-        # Send out Pedestrians
-        for pedestrians in pedestrian_requests:
+            customer_list.append(customer_request)
         
-        # Loop 4
-        for request in (request_list):
-            pass
+        # Send out customers
+        for customer_request in customer_requests:
+            current_customer = customer_list.pop(0)
+            current_customer.change_origin(customer_request[0])  # Set origin
+            current_customer.change_origin(customer_request[1])  # Set departure
+            current_customer.change_origin(customer_request[2])  # Set origin time
+
+            # Move the customer to the destination enroute list
+            station_dict[customer_request[1]].get_enroute_list().append(current_customer)
 
 def instructionsEveryHour():
     pass
