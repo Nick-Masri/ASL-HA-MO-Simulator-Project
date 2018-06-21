@@ -31,33 +31,25 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
 
         # Looping through driver requests and assigning them
         for driver_request in driver_requests:
-
             current_employee = employee_list.pop(0)
-            current_car = current_car_list.pop(0)
-
             current_employee.update_status(driver_request, current_car)
-
             station_dict[driver_request[1]].append_enroute_list(current_employee)
+
+            current_car = current_car_list.pop(0)
 
         # Looping through pedestrian requests and assigning them
         for pedestrian_request in pedestrian_requests:
+            current_employee = employee_list.pop(0)
             current_employee.update_status(pedestrian_request)
-            # Move the employee to the destination enroute list
             station_dict[pedestrian_request[1]].append_enroute_list(current_employee)
 
-        # Add customer requests to the customer wait list
-        for customer_request in customer_requests:
-            customer_list.append(customer_request)
-        
         # Send out customers
         for customer_request in customer_requests:
-            current_customer = customer_list.pop(0)  # Grabs an customer and removes from current station list
-            # current_customer.change_origin(customer_request[0])  # Set origin
-            # current_customer.change_destination(customer_request[1])  # Set departure
-            # current_customer.change_origin_time(customer_request[2])  # Set origin time
+            current_car = current_car_list.pop(0)
+            customer_list.append(customer_request)
 
-            current_customer.update_status(customer_request)
-            # Move the customer to the destination enroute list
+            current_customer = customer_list.pop(0)
+            current_customer.update_status(customer_request, current_car)
             station_dict[customer_request[1]].get_enroute_list().append(current_customer)
 
 
