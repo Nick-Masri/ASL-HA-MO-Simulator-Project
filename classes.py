@@ -8,7 +8,7 @@ class Person:
         self.destination = destination
         self.origin_time = origin_time
         self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
-        self.current_position = origin
+        self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
     # comparison methods
@@ -63,7 +63,7 @@ class Person:
         self.origin = request[0]
         self.destination = request[1]
         self.origin_time = request[2]
-        self.current_position = self.origin + "-" + self.destination
+        self.current_position = [request[0], request[1]]
         self.vehicle_id = new_car
 
 
