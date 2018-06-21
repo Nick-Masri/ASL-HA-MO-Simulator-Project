@@ -31,11 +31,16 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
 
         # Looping through driver requests and assigning them
         for driver_request in driver_requests:
-            current_employee = employee_list.pop(0)
-            current_employee.update_status(driver_request, current_car)
-            station_dict[driver_request[1]].append_enroute_list(current_employee)
+            try:
+                current_car = current_car_list.pop(0)
 
-            current_car = current_car_list.pop(0)
+                current_employee = employee_list.pop(0)
+                current_employee.update_status(driver_request, current_car)
+                station_dict[driver_request[1]].append_enroute_list(current_employee)
+            except IndexError:
+                # Save the Employee_list
+                break
+
 
         # Looping through pedestrian requests and assigning them
         for pedestrian_request in pedestrian_requests:
@@ -43,14 +48,21 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
             current_employee.update_status(pedestrian_request)
             station_dict[pedestrian_request[1]].append_enroute_list(current_employee)
 
-        # Send out customers
+        # Appending customer requests
         for customer_request in customer_requests:
-            current_car = current_car_list.pop(0)
             customer_list.append(customer_request)
 
-            current_customer = customer_list.pop(0)
-            current_customer.update_status(customer_request, current_car)
-            station_dict[customer_request[1]].get_enroute_list().append(current_customer)
+        # Sending out customers
+        for customer_request in customer_requests:
+            try:
+                current_car = current_car_list.pop(0)
+
+                current_customer = customer_list.pop(0)
+                current_customer.update_status(customer_request, current_car)
+                station_dict[customer_request[1]].get_enroute_list().append(current_customer)
+            except IndexError:
+                    break
+
 
 
 def instructionsEveryHour():
