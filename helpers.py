@@ -1,7 +1,7 @@
 from classes import *
 from globals import *
 
-def checkEveryMinute(station_dict, employee_requests, customer_requests, current_time):
+def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
 
     for station in station_dict:
         # Go through customer_requests to only have employees at this station
@@ -26,20 +26,21 @@ def checkEveryMinute(station_dict, employee_requests, customer_requests, current
                 enroute_list.remove(person)  # Person is no longer enroute, remove from list
 
 
-        # Loop 2
-        for employee_request in employee_requests:
-            current_employee = employee_list[employee_requests.index(employee_request)]
-            current_employee.change_origin(employee_request[0])  # Set origin
-            current_employee.change_origin(employee_request[1])  # Set departure
-            current_employee.change_origin(employee_request[2])  # Set origin time
+        # Assign driver requests to employees currently at the station
+        for driver_request in driver_requests:
+            current_employee = employee_list[employee_requests.index(driver_request)]
+            current_employee.change_origin(driver_request[0])  # Set origin
+            current_employee.change_origin(driver_request[1])  # Set departure
+            current_employee.change_origin(driver_request[2])  # Set origin time
             # Probably need to update the type of employee (pedestrian or driver?)
 
-        # Loop 3
+        # Add customer requests to the customer wait list
         for customer_request in customer_requests:
             waiting_customers.append(customer_request)
 
+        # Send out Pedestrians
 
-        request_list = employee_assignment_list + waiting_customers
+        
         # Loop 4
         for request in (request_list):
             pass
