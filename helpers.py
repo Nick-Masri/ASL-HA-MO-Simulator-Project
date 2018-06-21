@@ -16,18 +16,16 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
         enroute_list = current_station.get_enroute_list()
         for person in enroute_list:
             if person.get_destination_time() == current_time:
+                enroute_list.remove(person)
                 current_vehicle_id = person.get_vehicle_id()
-                if current_vehicle_id is not None:  # If person came in a car, add their car to the car list
+                if current_vehicle_id is not None:
                     current_car_list.append(current_vehicle_id)
 
-                if isinstance(person, Employee):  # Is it a employee?
+                if isinstance(person, Employee):
                     person.reset()
                     employee_list.append(person)
-                # For memory concerns should we delete the a customer object that after they return?
-                enroute_list.remove(person)  # Person is no longer enroute, remove from list
-
-        ## This whole section needs some functions, there's a lot of repeated logic here.
-        ## Do we need to update current_location? Is it a duplicate?
+                else:
+                    del person
 
         # Assign driver requests to employees currently at the station
         # Sends drivers out right away
