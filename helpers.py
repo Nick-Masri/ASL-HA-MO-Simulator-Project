@@ -2,7 +2,7 @@ from classes import *
 from globals import *
 
 
-def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
+def check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
 
     for station in station_dict:
         # Go through customer_requests to only have employees at this station
@@ -11,7 +11,7 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
 
         current_car_list = current_station.get_car_list()
         employee_list = current_station.get_employee_list()
-        customer_list = current_station.get_waiting_list()
+        customer_list = current_station.get_waiting_customers()
         enroute_list = current_station.get_enroute_list()
 
         # Looping through arrivals
@@ -32,17 +32,19 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
 
         # Looping through driver requests and assigning them
         for driver_request in driver_requests:
-            try:
-                current_car = current_car_list.pop(0)
+            if driver_request[2] == current_time:
+                try:
+                    current_car = current_car_list.pop(0)
 
-                current_employee = employee_list.pop(0)
-                current_employee.update_status(driver_request, current_car)
-                station_dict[driver_request[1]].append_enroute_list(current_employee)
-            except IndexError:
-                # Save the Employee instructions
-                print('Not enough cars for the employees')
+                    current_employee = employee_list.pop(0)
+                    current_employee.update_status(driver_request, current_car)
+                    station_dict[driver_request[1]].append_enroute_list(current_employee)
+                except IndexError:
+                    # Save the Employee instructions
+                    print('Not enough cars for the employees')
+                    break
+            else:
                 break
-
 
         # Looping through pedestrian requests and assigning them
         for pedestrian_request in pedestrian_requests:
@@ -68,7 +70,7 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
 
 
 
-def instructionsEveryHour():
+def instructions_every_five_minutes():
     pass
 
 
@@ -78,5 +80,3 @@ def create_dict(_list):
         _dict[x[0]] = Person(x[0], x[1])
     return _dict
 
-def calc_d_time(origin, destination, o_time):
-    return GRAPH_VAR[origin][destination] + o_time

@@ -58,8 +58,8 @@ class Person:
 
 
 class Employee(Person):
-    def __init__(self, origin, destination, origin_time, current_position, employee_id, vehicle_id=None):
-        Person.__init__(self, origin, destination, origin_time, current_position, vehicle_id)
+    def __init__(self, origin, destination, origin_time, employee_id, vehicle_id=None):
+        Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
         self.employee_id = employee_id
 
     # Get Methods
@@ -120,9 +120,9 @@ class Station:
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
-        self.waiting_customers = None
-        self.en_route_list = None
-        self.request_list = None
+        self.waiting_customers = []
+        self.en_route_list = []
+        self.request_list = []
 
     # Get Methods
     def get_id(self):
