@@ -5,7 +5,6 @@ from globals import *
 
 # Setup Vars
 station_dict = {}
-time = 0
 
 # Requests
 driver_requests = []
@@ -30,8 +29,8 @@ for station in range(1, len(STATION_LIST)):
 # Full loop of 24 hours of checks
 
 
-for num in range(1440):
-    time += 1
+for time in range(1440):
+
     check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-    if (num % 5) == 0:
+    if (time % 5) == 0:
         instructions_every_five_minutes()

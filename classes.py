@@ -116,11 +116,11 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, car_list, employee_list):
+    def __init__(self, station_id, car_list, employee_list, waiting_customer=[], en_route_list=[], request_list=[]):
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
-        self.waiting_customers = []
+        self.waiting_customers = waiting_customer
         self.en_route_list = []
         self.request_list = []
 
@@ -137,11 +137,11 @@ class Station:
     def get_waiting_customers(self):  # sorted by origin_time, least to greatest
         return sorted(self.waiting_customers, key=itemgetter(2))
 
-    def get_enroute_list(self):  # sorted by destination_time, least to greatest
+    def get_en_route_list(self):  # sorted by destination_time, least to greatest
         return sorted(self.en_route_list, key=itemgetter(3))
 
-    def append_enroute_list(self, employee):
-        self.get_enroute_list().append(employee)
+    def append_en_route_list(self, employee):
+        self.get_en_route_list().append(employee)
 
     def get_request_list(self):
         return self.request_list
