@@ -53,6 +53,7 @@ class Person:
         self.origin = request[0]
         self.destination = request[1]
         self.origin_time = request[2]
+        self.current_position = self.origin + "-" + self.destination
         self.vehicle_id = new_car
 
 
