@@ -8,7 +8,7 @@ from globals import *
 STATION_DICT = {}
 
 # Create Objects
-for station in range(len(STATION_LIST)):
+for station in range(1, len(STATION_LIST)):
     temp1 = []
     temp2 = []
     for cars in CAR_LIST:
@@ -19,7 +19,7 @@ for station in range(len(STATION_LIST)):
             temp2.append(emps[0])
     STATION_DICT[station] = Station(station, temp1, temp2)
     
-    #print(STATION_DICT.get(station).get_car_list())
+    print(STATION_DICT.get(station).get_car_list())
     #print(STATION_DICT.get(station).get_employee_list())
 
 # Full loop of 24 hours of checks
