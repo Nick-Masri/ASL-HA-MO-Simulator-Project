@@ -137,13 +137,13 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, car_list, employee_list, waiting_customers, en_route_list, request_list):
+    def __init__(self, station_id, car_list, employee_list):
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
-        self.waiting_customers = waiting_customers
-        self.en_route_list = en_route_list
-        self.request_list = request_list
+        self.waiting_customers = None
+        self.en_route_list = None
+        self.request_list = None
 
     # Get Methods
     def get_id(self):
@@ -184,5 +184,4 @@ class Station:
         self.request_list = rl
 
     # Unique Methods
-    def assign_employee(self):
-        pass
+

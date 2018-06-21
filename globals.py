@@ -14,11 +14,13 @@ GRAPH_VAR = [[0,5,8,11,13,13,12,11,8,5],  # needs to be 50x50 eventually
 TIME = [0, 0, 0]  # Time Starts at 0
 
 # Initializing Setup Variables (Random rn)
+# [Employee ID #, Station ID #]
 EMPLOYEE_LIST = [[1, 2],
                  [2, 5],
                  [3, 7],
                  [4, 10]]
 
+# [Car ID #, Station ID #]
 CAR_LIST = [[1, 1],
             [2, 2],
             [3, 2],
