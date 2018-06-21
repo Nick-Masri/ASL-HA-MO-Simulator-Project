@@ -1,6 +1,7 @@
 from classes import *
 from globals import *
 
+
 def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
 
     for station in station_dict:
@@ -19,7 +20,7 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
                 if current_vehicle_id is not None:  # If person came in a car, add their car to the car list
                     current_car_list.append(current_vehicle_id)
 
-                if isinstance(Employee(), Person):  # Is it a employee?
+                if isinstance(person, Employee):  # Is it a employee?
                     person.reset()
                     employee_list.append(person)
                 # For memory concerns should we delete the a customer object that after they return?
@@ -70,8 +71,10 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
             # Move the customer to the destination enroute list
             station_dict[customer_request[1]].get_enroute_list().append(current_customer)
 
+
 def instructionsEveryHour():
     pass
+
 
 def create_dict(_list):
     _dict = {}
