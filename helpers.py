@@ -39,13 +39,13 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
 
             current_employee.update_status(driver_request, current_car)  # New function that takes care of the lines above
             # Move the employee to the destination enroute list
-            station_dict[driver_request[1]].get_enroute_list().append(current_employee)
+            station_dict[driver_request[1]].append_enroute_list(current_employee)
 
         # Send out Pedestrians
         for pedestrian_request in pedestrian_requests:
             current_employee.update_status(pedestrian_request)
             # Move the employee to the destination enroute list
-            station_dict[pedestrian_request[1]].get_enroute_list().append(current_employee)
+            station_dict[pedestrian_request[1]].append_enroute_list(current_employee)
 
         # Add customer requests to the customer wait list
         for customer_request in customer_requests:

@@ -139,6 +139,9 @@ class Station:
     def get_enroute_list(self):  # sorted by destination_time, least to greatest
         return sorted(self.en_route_list, key=itemgetter(3))
 
+    def append_enroute_list(self, employee):
+        self.get_enroute_list().append(employee)
+
     def get_request_list(self):
         return self.request_list
 
