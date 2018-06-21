@@ -28,4 +28,4 @@ CAR_LIST = [[1, 1],
             [7, 9],
             [8,10]]
 
-STATION_LIST = [num for num in range(11)]
+STATION_LIST = [num for num in range(1, 11)]

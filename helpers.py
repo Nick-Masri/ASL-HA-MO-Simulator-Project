@@ -8,6 +8,7 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
         # Go through customer_requests to only have employees at this station
 
         current_station = station_dict[station]
+
         current_car_list = current_station.get_car_list()
         employee_list = current_station.get_employee_list()
         customer_list = current_station.get_waiting_list()
