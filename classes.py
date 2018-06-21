@@ -72,7 +72,7 @@ class Person:
 
 class Employee(Person):
     def __init__(self, origin, destination, origin_time, employee_id, vehicle_id=None):
-        Person.__init__(self, origin, destination, origin_time, vehicle_id)
+        Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
         self.employee_id = employee_id
 
     # comparison methods
@@ -141,11 +141,11 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, car_list, employee_list):
+    def __init__(self, station_id, car_list, employee_list, waiting_customer=[], en_route_list=[], request_list=[]):
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
-        self.waiting_customers = []
+        self.waiting_customers = waiting_customer
         self.en_route_list = []
         self.request_list = []
 
@@ -181,11 +181,9 @@ class Station:
     def change_en_route_list(self, er):
         self.en_route_list = er
 
-    def append_en_route_list(self, employee):
-        self.en_route_list.append(employee)
-
     def change_request_list(self, rl):
         self.request_list = rl
 
     # Unique Methods
-
+    def append_en_route_list(self, employee):
+        self.en_route_list.append(employee)
