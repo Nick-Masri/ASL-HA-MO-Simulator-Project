@@ -49,10 +49,11 @@ class Person:
     def change_vehicle_id(self, v):
         self.vehicle_id = v
 
-    def update_status(self, request):
+    def update_status(self, request, new_car=None):
         self.origin = request[0]
         self.destination = request[1]
         self.origin_time = request[2]
+        self.vehicle_id = new_car
 
 
 class Employee(Person):
@@ -104,12 +105,6 @@ class Employee(Person):
     def change_employee_id(self, e):
         self.employee_id = e
 
-    def update_status(self, request, new_car=None):
-        self.origin = request[0]
-        self.destination = request[1]
-        self.origin_time = request[2]
-        self.vehicle_id = new_car
-
     # Unique Methods
     def reset(self):
         self.current_position = self.destination
@@ -120,9 +115,9 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, cars, employee_list, waiting_customers, en_route_list, request_list):
+    def __init__(self, station_id, car_list, employee_list, waiting_customers, en_route_list, request_list):
         self.station_id = station_id
-        self.cars = cars
+        self.car_list = car_list
         self.employee_list = employee_list
         self.waiting_customers = waiting_customers
         self.en_route_list = en_route_list
@@ -132,8 +127,8 @@ class Station:
     def get_id(self):
         return self.station_id
 
-    def get_cars(self):
-        return self.cars
+    def get_car_list(self):
+        return self.car_list
 
     def get_employee_list(self):
         return self.employee_list
@@ -144,12 +139,15 @@ class Station:
     def get_enroute_list(self):  # sorted by destination_time, least to greatest
         return sorted(self.en_route_list, key=itemgetter(3))
 
+    def append_enroute_list(self, employee):
+        self.get_enroute_list().append(employee)
+
     def get_request_list(self):
         return self.request_list
 
     # Mutator Methods
-    def change_cars(self, c):
-        self.cars = c
+    def change_car_list(self, c):
+        self.car_list = c
 
     def change_employee_list(self, el):
         self.employee_list = el
