@@ -11,56 +11,60 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
         current_car_list = current_station.get_car_list()
         employee_list = current_station.get_employee_list()
         customer_list = current_station.get_waiting_list()
-
-        # Loop 1
         enroute_list = current_station.get_enroute_list()
+
+        # Looping through arrivals
         for person in enroute_list:
             if person.get_destination_time() == current_time:
+
+                enroute_list.remove(person)
                 current_vehicle_id = person.get_vehicle_id()
-                if current_vehicle_id is not None:  # If person came in a car, add their car to the car list
+
+                if current_vehicle_id is not None:
                     current_car_list.append(current_vehicle_id)
 
-                if isinstance(person, Employee):  # Is it a employee?
+                if isinstance(person, Employee):
                     person.reset()
                     employee_list.append(person)
-                # For memory concerns should we delete the a customer object that after they return?
-                enroute_list.remove(person)  # Person is no longer enroute, remove from list
+                else:
+                    del person
 
-        ## This whole section needs some functions, there's a lot of repeated logic here.
-        ## Do we need to update current_location? Is it a duplicate?
-
-        # Assign driver requests to employees currently at the station
-        # Sends drivers out right away
+        # Looping through driver requests and assigning them
         for driver_request in driver_requests:
+            try:
+                current_car = current_car_list.pop(0)
 
-            current_employee = employee_list.pop(0)  # Grabs an employee and removes from current station list
-            current_car = current_car_list.pop(0)  # Grabs a car and removes from the current station list
-            # do we need to change the current_position?
+                current_employee = employee_list.pop(0)
+                current_employee.update_status(driver_request, current_car)
+                station_dict[driver_request[1]].append_enroute_list(current_employee)
+            except IndexError:
+                # Save the Employee instructions
+                print('Not enough cars for the employees')
+                break
 
-            current_employee.update_status(driver_request, current_car)  # New function that takes care of the lines above
-            # Move the employee to the destination enroute list
-            station_dict[driver_request[1]].append_enroute_list(current_employee)
 
-        # Send out Pedestrians
+        # Looping through pedestrian requests and assigning them
         for pedestrian_request in pedestrian_requests:
+            current_employee = employee_list.pop(0)
             current_employee.update_status(pedestrian_request)
-            # Move the employee to the destination enroute list
             station_dict[pedestrian_request[1]].append_enroute_list(current_employee)
 
-        # Add customer requests to the customer wait list
+        # Appending customer requests
         for customer_request in customer_requests:
             customer_list.append(customer_request)
-        
-        # Send out customers
-        for customer_request in customer_requests:
-            current_customer = customer_list.pop(0)  # Grabs an customer and removes from current station list
-            # current_customer.change_origin(customer_request[0])  # Set origin
-            # current_customer.change_destination(customer_request[1])  # Set departure
-            # current_customer.change_origin_time(customer_request[2])  # Set origin time
 
-            current_customer.update_status(customer_request)
-            # Move the customer to the destination enroute list
-            station_dict[customer_request[1]].get_enroute_list().append(current_customer)
+        # Sending out customers
+        for customer_request in customer_requests:
+            try:
+                current_car = current_car_list.pop(0)
+
+                current_customer = customer_list.pop(0)
+                current_customer.update_status(customer_request, current_car)
+                station_dict[customer_request[1]].get_enroute_list().append(current_customer)
+            except IndexError:
+                    print('Not enough cars for the customers')
+                    break
+
 
 
 def instructionsEveryHour():

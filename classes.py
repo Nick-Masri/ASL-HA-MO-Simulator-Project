@@ -3,15 +3,12 @@ from operator import itemgetter
 
 
 class Person:
-    def __init__(self, origin, destination, origin_time, current_position, vehicle_id=None):
+    def __init__(self, origin, destination, origin_time, vehicle_id=None):
         self.origin = origin
         self.destination = destination
         self.origin_time = origin_time
-        if origin is None:
-            self.destination_time = None
-        else:
-            self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
-        self.current_position = current_position
+        self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
+        self.current_position = origin
         self.vehicle_id = vehicle_id
 
     # comparison methods
@@ -66,12 +63,13 @@ class Person:
         self.origin = request[0]
         self.destination = request[1]
         self.origin_time = request[2]
+        self.current_position = self.origin + "-" + self.destination
         self.vehicle_id = new_car
 
 
 class Employee(Person):
-    def __init__(self, origin, destination, origin_time, current_position, employee_id, vehicle_id=None):
-        Person.__init__(self, origin, destination, origin_time, current_position, vehicle_id)
+    def __init__(self, origin, destination, origin_time, employee_id, vehicle_id=None):
+        Person.__init__(self, origin, destination, origin_time, vehicle_id)
         self.employee_id = employee_id
 
     # comparison methods
