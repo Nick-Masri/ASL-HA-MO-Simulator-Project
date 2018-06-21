@@ -51,4 +51,3 @@ def test_update_station_list():
     print("______________")
     assert person in stations[3].en_route_list
 
-def
