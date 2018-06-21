@@ -7,7 +7,10 @@ class Person:
         self.origin = origin
         self.destination = destination
         self.origin_time = origin_time
-        self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
+        if origin is None or destination is None or origin_time is None:
+            self.destination_time = None
+        else:
+            self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
         self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
@@ -133,6 +136,7 @@ class Employee(Person):
         self.origin = None
         self.destination = None
         self.origin_time = None
+        self.destination_time = None
         self.vehicle_id = None
 
 
@@ -141,9 +145,9 @@ class Station:
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
-        self.waiting_customers = None
-        self.en_route_list = None
-        self.request_list = None
+        self.waiting_customers = []
+        self.en_route_list = []
+        self.request_list = []
 
     # Get Methods
     def get_id(self):
@@ -158,11 +162,8 @@ class Station:
     def get_waiting_customers(self):  # sorted by origin_time, least to greatest
         return sorted(self.waiting_customers, key=itemgetter(2))
 
-    def get_enroute_list(self):  # sorted by destination_time, least to greatest
+    def get_en_route_list(self):  # sorted by destination_time, least to greatest
         return sorted(self.en_route_list, key=itemgetter(3))
-
-    def append_enroute_list(self, employee):
-        self.get_enroute_list().append(employee)
 
     def get_request_list(self):
         return self.request_list
@@ -179,6 +180,9 @@ class Station:
 
     def change_en_route_list(self, er):
         self.en_route_list = er
+
+    def append_en_route_list(self, employee):
+        self.en_route_list.append(employee)
 
     def change_request_list(self, rl):
         self.request_list = rl

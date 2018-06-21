@@ -77,5 +77,11 @@ def create_dict(_list):
         _dict[x[0]] = Person(x[0], x[1])
     return _dict
 
+
 def calc_d_time(origin, destination, o_time):
     return GRAPH_VAR[origin][destination] + o_time
+
+
+
+
+
