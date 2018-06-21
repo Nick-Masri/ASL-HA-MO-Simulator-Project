@@ -140,9 +140,6 @@ class Station:
     def get_en_route_list(self):  # sorted by destination_time, least to greatest
         return sorted(self.en_route_list, key=itemgetter(3))
 
-    def append_en_route_list(self, employee):
-        self.get_en_route_list().append(employee)
-
     def get_request_list(self):
         return self.request_list
 
@@ -164,3 +161,8 @@ class Station:
 
     # Unique Methods
 
+    def append_enroute_list(self, employee):
+        self.enroute_list().append(employee)
+        
+    def append_waiting_customers(self, customer):
+        self.waiting_customers.append(customer)

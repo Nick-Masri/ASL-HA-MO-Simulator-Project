@@ -11,6 +11,10 @@ driver_requests = []
 pedestrian_requests = []
 customer_requests = []
 
+# holds people in (o, d, ot) form
+person_list = []
+
+
 # Create Objects
 for station in range(1, len(STATION_LIST)):
     temp1 = []
@@ -23,8 +27,20 @@ for station in range(1, len(STATION_LIST)):
             temp2.append(emps[0])
     station_dict[station] = Station(station, temp1, temp2)
     
-    #print(STATION_DICT.get(station).get_car_list())
-    #print(STATION_DICT.get(station).get_employee_list())
+    #print(station_dict.get(station).get_car_list())
+    #print(station_dict.get(station).get_employee_list())
+
+# Turning Person Matrix to (o, d, ot) form
+for origin in PERSON_LIST:
+    for destination in origin:
+        person_list.append(Person(origin[0]+1, destination+1, 0))
+#print(person_list[0].get_origin())
+
+#Place Person objects into repspective station waiting lists
+for station in station_dict:
+    for customer in person_list:
+        if customer.get_origin() == station:
+            station_dict[station].append_waiting_customers(customer)
 
 # Full loop of 24 hours of checks
 

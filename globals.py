@@ -27,4 +27,10 @@ CAR_LIST = [[1, 1],
             [7, 9],
             [8,10]]
 
-STATION_LIST = [num for num in range(1, 11)]
+
+# Form of [origin][destination] = # of people requesting that route
+PERSON_LIST = [[0,1,0],
+               [2,0,3],
+               [0,1,0]]
+
+STATION_LIST = [num for num in range(11)]
