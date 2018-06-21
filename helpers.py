@@ -38,7 +38,8 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
                 current_employee.update_status(driver_request, current_car)
                 station_dict[driver_request[1]].append_enroute_list(current_employee)
             except IndexError:
-                # Save the Employee_list
+                # Save the Employee instructions
+                print('Not enough cars for the employees')
                 break
 
 
@@ -61,6 +62,7 @@ def checkEveryMinute(station_dict, driver_requests, pedestrian_requests, custome
                 current_customer.update_status(customer_request, current_car)
                 station_dict[customer_request[1]].get_enroute_list().append(current_customer)
             except IndexError:
+                    print('Not enough cars for the customers')
                     break
 
 
