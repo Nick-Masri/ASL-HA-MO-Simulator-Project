@@ -1,5 +1,6 @@
 import globals
 from operator import itemgetter
+import operator
 
 
 class Person:
@@ -141,13 +142,13 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, car_list, employee_list, waiting_customer=[], en_route_list=[], request_list=[]):
+    def __init__(self, station_id, car_list=[], employee_list=[], waiting_customer=[], en_route_list=[], request_list=[]):
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
         self.waiting_customers = waiting_customer
-        self.en_route_list = []
-        self.request_list = []
+        self.en_route_list = en_route_list
+        self.request_list = request_list
 
     # Get Methods
     def get_id(self):
@@ -159,14 +160,26 @@ class Station:
     def get_employee_list(self):
         return self.employee_list
 
+<<<<<<< HEAD
     def get_waiting_customers(self, sorted):  # sorted by origin_time, least to greatest
         if sorted == True:
             return sorted(self.waiting_customers, key=itemgetter(2))
         else:
             return self.waiting_customers
+=======
+    def get_waiting_customers(self, is_sorted=False):  # sorted by origin_time, least to greatest
+        if is_sorted:
+>>>>>>> master
 
-    def get_en_route_list(self):  # sorted by destination_time, least to greatest
-        return sorted(self.en_route_list, key=itemgetter(3))
+            return sorted(self.waiting_customers, key=operator.attrgetter('origin_time'))
+        else:
+            return self.waiting_customers
+
+    def get_en_route_list(self, is_sorted=False):  # sorted by destination_time, least to greatest
+        if is_sorted:
+            return sorted(self.en_route_list, key=operator.attrgetter('origin_time'))
+        else:
+            return self.en_route_list
 
     def get_request_list(self):
         return self.request_list
@@ -189,8 +202,8 @@ class Station:
 
     # Unique Methods
 
-    def append_enroute_list(self, employee):
-        self.en_route_list().append(employee)
+    def append_en_route_list(self, employee):
+        self.en_route_list.append(employee)
         
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)

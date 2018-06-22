@@ -45,5 +45,28 @@ def test_update_station_list():
     stations = {1: Station(1, [], []), 3: Station(3, [], [])}
     person = Person(1, 2, 3)
     stations[3].append_en_route_list(person)
-    assert person in stations[3].en_route_list
+    assert person in stations[3].get_en_route_list()
 
+
+def test_get_waiting_customers():
+    a = Person(1, 2, 10)
+    b = Person(1, 5, 3)
+    c = Person(1, 2, 8)
+    station = Station(1, [], [], [a, b, c])
+    # Not sorted
+    assert [a, b, c] == station.get_waiting_customers()
+
+    # Sorted
+    assert [b, c, a] == station.get_waiting_customers(True)
+
+def test_get_en_route_list():
+    a = Employee(1, 2, 10, 1)
+    b = Employee(1, 5, 3, 2)
+    c = Employee(1, 2, 8, 3)
+    station = Station(1, [], [], [], [a, b, c])
+
+    # Not sorted
+    assert [a, b, c] == station.get_en_route_list()
+
+    # Sorted
+    assert [b, c, a] == station.get_en_route_list(True)
