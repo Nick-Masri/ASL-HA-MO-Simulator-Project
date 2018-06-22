@@ -1,5 +1,6 @@
 import globals
 from operator import itemgetter
+import operator
 
 
 class Person:
@@ -141,7 +142,7 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, car_list, employee_list, waiting_customer=[], en_route_list=[], request_list=[]):
+    def __init__(self, station_id, car_list=[], employee_list=[], waiting_customer=[], en_route_list=[], request_list=[]):
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
@@ -159,11 +160,18 @@ class Station:
     def get_employee_list(self):
         return self.employee_list
 
-    def get_waiting_customers(self):  # sorted by origin_time, least to greatest
-        return sorted(self.waiting_customers, key=itemgetter(2))
+    def get_waiting_customers(self, is_sorted=False):  # sorted by origin_time, least to greatest
+        if is_sorted:
 
-    def get_en_route_list(self):  # sorted by destination_time, least to greatest
-        return sorted(self.en_route_list, key=itemgetter(3))
+            return sorted(self.waiting_customers, key=operator.attrgetter('origin_time'))
+        else:
+            return self.waiting_customers
+
+    def get_en_route_list(self, is_sorted=False):  # sorted by destination_time, least to greatest
+        if is_sorted:
+            return sorted(self.en_route_list, key=itemgetter(3))
+        else:
+            return self.en_route_list
 
     def get_request_list(self):
         return self.request_list
