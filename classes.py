@@ -187,7 +187,7 @@ class Station:
     # Unique Methods
 
     def append_enroute_list(self, employee):
-        self.enroute_list().append(employee)
+        self.en_route_list().append(employee)
         
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)

@@ -5,10 +5,10 @@ from globals import *
 def check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
 
     for station in station_dict:
-        # Go through customer_requests to only have employees at this station
+        # NEED TO ADD Go through customer_requests to only have employees at this station
 
+        # Grab information relevant to this loop and organize
         current_station = station_dict[station]
-
         current_car_list = current_station.get_car_list()
         employee_list = current_station.get_employee_list()
         customer_list = current_station.get_waiting_customers()

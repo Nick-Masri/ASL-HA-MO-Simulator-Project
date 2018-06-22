@@ -43,11 +43,7 @@ def test_employee_reset():
 # Stations
 def test_update_station_list():
     stations = {1: Station(1, [], []), 3: Station(3, [], [])}
-    destination = 3
     person = Person(1, 2, 3)
     stations[3].append_en_route_list(person)
-    print("______________")
-    print(stations[3].en_route_list)
-    print("______________")
     assert person in stations[3].en_route_list
 
