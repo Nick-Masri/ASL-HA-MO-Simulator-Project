@@ -160,17 +160,8 @@ class Station:
     def get_employee_list(self):
         return self.employee_list
 
-<<<<<<< HEAD
-    def get_waiting_customers(self, sorted):  # sorted by origin_time, least to greatest
-        if sorted == True:
-            return sorted(self.waiting_customers, key=itemgetter(2))
-        else:
-            return self.waiting_customers
-=======
     def get_waiting_customers(self, is_sorted=False):  # sorted by origin_time, least to greatest
         if is_sorted:
->>>>>>> master
-
             return sorted(self.waiting_customers, key=operator.attrgetter('origin_time'))
         else:
             return self.waiting_customers
