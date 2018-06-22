@@ -85,15 +85,16 @@ def check_every_minute(station_dict, driver_requests, pedestrian_requests, custo
         update_customer_list(customer_requests, current_time, customer_list)
         assign_customers(customer_list, current_car_list, station_dict)
 
-def instructions_every_five_minutes(current_time, matrix):
+def format_instructions(current_time, matrix):
     # convert matrix to o,d,o_t
+    requests =[]
     return requests
 
-
-
-def create_dict(_list):
-    _dict = {}
-    for x in _list:
-        _dict[x[0]] = Person(x[0], x[1])
-    return _dict
+def load_instructions(selecter):
+    if selecter == 'driver':
+        return DRIVER_INSTRUCTIONS
+    if selecter == 'pedestrian':
+        return PEDESTRIAN_INSTRUCTIONS
+    if selecter == 'customer'
+        return CUSTOMER_INSTRUCTIONS
 

@@ -6,7 +6,8 @@ station_dict = {}
 
 
 
-for employee in employee_list:
+for employee in EMPLOYEE_LIST:
+
 
 
 
@@ -24,11 +25,10 @@ driver_matrix = []
 pedestrian_matrix = []
 customer_matrix = []
 
-
 # Full loop of 24 hours of checks
 for time in range(1440):
-    if (time % 5) == 0:
-        driver_requests = instructions_every_five_minutes(time, driver_matrix)
-        pedestrian_requests = instructions_every_five_minutes(time, pedestrian_matrix)
-        customer_requests = instructions_every_five_minutes(time, customer_matrix)
+    if (time % 5) == 0 or (time == 0):
+        driver_requests = format_instructions(time, load_instructions('driver'))
+        pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
+        customer_requests = format_instructions(time, load_instructions('customer'))
     check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, time)

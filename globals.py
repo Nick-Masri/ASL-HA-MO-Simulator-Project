@@ -1,3 +1,6 @@
+####################
+# INIT CONDITIONS #
+###################
 GRAPH_VAR = [[0,5,8,11,13,13,12,11,8,5],  # needs to be 50x50 eventually
              [5,0,5,8,11,13,13,12,11,8],
              [8,5,0,5,8,11,13,13,12,11],
@@ -28,3 +31,8 @@ CAR_LIST = [[1, 1],
             [8,10]]
 
 STATION_LIST = [num for num in range(len(GRAPH_VAR))]
+
+############
+# Requests #
+############
+
