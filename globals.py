@@ -1,3 +1,5 @@
+import random
+
 GRAPH_VAR = [[0,5,8,11,13,13,12,11,8,5,7,9,14,4,15,3,7,5,11,12,8,20,18,9,6,8,5,11,12,5,6,14,20,16,13,9,3,11,13,7,5,8,2,11,12,6,5,9,13,13],  # needs to be 50x50 eventually
              [13,0,5,8,11,13,13,12,11,8,5,7,9,14,4,15,3,7,5,11,12,8,20,18,9,6,8,5,11,12,5,6,14,20,16,13,9,3,11,13,7,5,8,2,11,12,6,5,9,13],
              [13,13,0,5,8,11,13,13,12,11,8,5,7,9,14,4,15,3,7,5,11,12,8,20,18,9,6,8,5,11,12,5,6,14,20,16,13,9,3,11,13,7,5,8,2,11,12,6,5,9],
@@ -57,8 +59,8 @@ EMPLOYEE_LIST = [[1, 5],
                  [3, 36],
                  [4, 47]]
 
-# [Car ID #, Station ID #], contains cars with unique IDs 
-# (250 total, 0-249) assigned 5 to each station (50 total, 0-49)
+# [Car ID #, Station ID #], contains cars with unique IDs (250 total, ID# 0-249)
+#                           assigned 5 to each station ID (50 total, ID# 0-49)
 CAR_LIST = []
 temp_limit = 5
 station_temp_id = 0
@@ -82,4 +84,4 @@ PERSON_LIST = [[0,1,0],
                [0,1,0]]
 
 #STATION_LIST contains 51 stations, starting at 0, going to 50
-STATION_LIST = [num for num in range(51)]
+STATION_LIST = [num for num in range(50)]
