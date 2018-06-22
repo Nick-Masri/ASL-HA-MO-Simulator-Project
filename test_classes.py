@@ -58,3 +58,15 @@ def test_get_waiting_customers():
 
     # Sorted
     assert [b, c, a] == station.get_waiting_customers(True)
+
+def test_get_en_route_list():
+    a = Employee(1, 2, 10, 1)
+    b = Employee(1, 5, 3, 2)
+    c = Employee(1, 2, 8, 3)
+    station = Station(1, [], [], [], [a, b, c])
+
+    # Not sorted
+    assert [a, b, c] == station.get_en_route_list()
+
+    # Sorted
+    assert [b, c, a] == station.get_en_route_list(True)
