@@ -1,4 +1,5 @@
 import random
+random.seed(1477)
 
 GRAPH_VAR = [[0,5,8,11,13,13,12,11,8,5,7,9,14,4,15,3,7,5,11,12,8,20,18,9,6,8,5,11,12,5,6,14,20,16,13,9,3,11,13,7,5,8,2,11,12,6,5,9,13,13],  # needs to be 50x50 eventually
              [13,0,5,8,11,13,13,12,11,8,5,7,9,14,4,15,3,7,5,11,12,8,20,18,9,6,8,5,11,12,5,6,14,20,16,13,9,3,11,13,7,5,8,2,11,12,6,5,9,13],
@@ -52,14 +53,14 @@ GRAPH_VAR = [[0,5,8,11,13,13,12,11,8,5,7,9,14,4,15,3,7,5,11,12,8,20,18,9,6,8,5,1
              [5,8,11,13,13,12,11,8,5,7,9,14,4,15,3,7,5,11,12,8,20,18,9,6,8,5,11,12,5,6,14,20,16,13,9,3,11,13,7,5,8,2,11,12,6,5,9,13,13,0]]
 
 
-# Initializing Setup Variables (Random rn)
-# [Employee ID #, Station ID #]
+"""Initializing Setup Variables (Random rn)"""
+# [Employee ID#, Station ID#]
 EMPLOYEE_LIST = [[1, 5],
                  [2, 12],
                  [3, 36],
                  [4, 47]]
 
-# [Car ID #, Station ID #], contains cars with unique IDs (250 total, ID# 0-249)
+# [Car ID#, Station ID#], contains cars with unique IDs (250 total, ID# 0-249)
 #                           assigned 5 to each station ID (50 total, ID# 0-49)
 CAR_LIST = []
 temp_limit = 5
