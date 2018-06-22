@@ -90,7 +90,8 @@ PERSON_LIST = [50*[0] for i in repeat(None, 50)]
 for row in PERSON_LIST:
     for column in row:
         if column:
-            pass
+            pass 
+        """UNIFINISHED"""
 #print(PERSON_LIST)
 
 #STATION_LIST contains 50 stations, starting at 0, going to 50
