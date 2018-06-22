@@ -57,13 +57,13 @@ def check_every_minute(station_dict, driver_requests, pedestrian_requests, custo
             customer_list.append(customer_request)
 
         # Sending out customers
-        for customer_request in customer_requests:
+        for customer in customer_list:
             try:
                 current_car = current_car_list.pop(0)
 
                 current_customer = customer_list.pop(0)
-                current_customer.update_status(customer_request, current_car)
-                station_dict[customer_request[1]].get_en_route_list().append(current_customer)
+                current_customer.update_status(customer, current_car)
+                station_dict[customer[1]].get_en_route_list().append(current_customer)
             except IndexError:
                     print('Not enough cars for the customers')
                     break
