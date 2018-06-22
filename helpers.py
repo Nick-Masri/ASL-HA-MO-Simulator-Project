@@ -85,8 +85,10 @@ def check_every_minute(station_dict, driver_requests, pedestrian_requests, custo
         update_customer_list(customer_requests, current_time, customer_list)
         assign_customers(customer_list, current_car_list, station_dict)
 
-def instructions_every_five_minutes():
-    pass
+def instructions_every_five_minutes(current_time, matrix):
+    # convert matrix to o,d,o_t
+    return requests
+
 
 
 def create_dict(_list):

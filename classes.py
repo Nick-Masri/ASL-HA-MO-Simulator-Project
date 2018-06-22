@@ -159,8 +159,11 @@ class Station:
     def get_employee_list(self):
         return self.employee_list
 
-    def get_waiting_customers(self):  # sorted by origin_time, least to greatest
-        return sorted(self.waiting_customers, key=itemgetter(2))
+    def get_waiting_customers(self, sorted):  # sorted by origin_time, least to greatest
+        if sorted == True:
+            return sorted(self.waiting_customers, key=itemgetter(2))
+        else:
+            return self.waiting_customers
 
     def get_en_route_list(self):  # sorted by destination_time, least to greatest
         return sorted(self.en_route_list, key=itemgetter(3))
