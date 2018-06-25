@@ -1,6 +1,19 @@
+import pandas as pd
+
+
 ####################
 # INIT CONDITIONS #
 ##################
+
+GRAPH_VAR = pd.read_csv('travel_times_matrix_hamo.csv')
+GRAPH_VAR = GRAPH_VAR.set_index('station_id')
+GRAPH_VAR.columns = pd.to_numeric(GRAPH_VAR.columns)
+#print(GRAPH_VAR.index)
+#print(GRAPH_VAR.loc[2549,30])
+print(GRAPH_VAR)
+
+
+'''
 GRAPH_VAR = [[0,5,8,11,13,13,12,11,8,5],  # needs to be 50x50 eventually
              [5,0,5,8,11,13,13,12,11,8],
              [8,5,0,5,8,11,13,13,12,11],
@@ -29,6 +42,8 @@ CAR_LIST = [[1, 1],
             [6, 6],
             [7, 8],
             [8, 10]]
+            
+            '''
 
 #################
 # Instructions #
