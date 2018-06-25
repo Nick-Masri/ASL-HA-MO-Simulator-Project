@@ -86,15 +86,24 @@ def check_every_minute(station_dict, driver_requests, pedestrian_requests, custo
         assign_customers(customer_list, current_car_list, station_dict)
 
 def format_instructions(current_time, matrix):
-    # convert matrix to o,d,o_t
-    requests =[]
+    requests = []
+
+    try:
+        for timestamp in matrix[current_time]:
+            for row in timestamp:
+                for number in row:
+                    for __ in range(number):
+                        requests.append(timestamp.index(row), row.index(number), current_time)
+    except IndexError:
+        print("No Requests")
+
     return requests
 
-def load_instructions(selecter):
-    if selecter == 'driver':
+def load_instructions(selector):
+    if selector == 'driver':
         return DRIVER_INSTRUCTIONS
-    if selecter == 'pedestrian':
+    if selector == 'pedestrian':
         return PEDESTRIAN_INSTRUCTIONS
-    if selecter == 'customer'
+    if selector == 'customer':
         return CUSTOMER_INSTRUCTIONS
 
