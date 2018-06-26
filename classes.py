@@ -162,7 +162,6 @@ class Station:
 
     def get_waiting_customers(self, is_sorted=False):  # sorted by origin_time, least to greatest
         if is_sorted:
-
             return sorted(self.waiting_customers, key=operator.attrgetter('origin_time'))
         else:
             return self.waiting_customers

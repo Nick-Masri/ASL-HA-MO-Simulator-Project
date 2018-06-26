@@ -46,7 +46,7 @@ for station in station_dict:
 
 
 for time in range(1440):
-
-    check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
     if (time % 5) == 0:
         instructions_every_five_minutes()
+    check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+

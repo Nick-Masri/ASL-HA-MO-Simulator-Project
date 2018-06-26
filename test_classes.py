@@ -41,10 +41,17 @@ def test_employee_reset():
 
 
 # Stations
-def test_update_station_list():
+def test_append_en_route_list():
     stations = {1: Station(1, [], []), 3: Station(3, [], [])}
     person = Person(1, 2, 3)
     stations[3].append_en_route_list(person)
+    assert person in stations[3].get_en_route_list()
+
+
+def test_append_waiting_customers():
+    stations = {1: Station(1, [], []), 3: Station(3, [], [])}
+    person = Person(1, 2, 3)
+    stations[3].append_waiting_customers(person)
     assert person in stations[3].get_en_route_list()
 
 
@@ -58,6 +65,7 @@ def test_get_waiting_customers():
 
     # Sorted
     assert [b, c, a] == station.get_waiting_customers(True)
+
 
 def test_get_en_route_list():
     a = Employee(1, 2, 10, 1)
