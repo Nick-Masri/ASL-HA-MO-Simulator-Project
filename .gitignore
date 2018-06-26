@@ -11,5 +11,4 @@ src/*.egg-info
 lib
 lib64
 .idea
-./data/*
-.DS_Store
+data/*
