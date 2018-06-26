@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 ####################
@@ -10,8 +11,25 @@ GRAPH_VAR = GRAPH_VAR.set_index('station_id')
 GRAPH_VAR.columns = pd.to_numeric(GRAPH_VAR.columns)
 #print(GRAPH_VAR.index)
 #print(GRAPH_VAR.loc[2549,30])
-print(GRAPH_VAR)
+#print(GRAPH_VAR)
 
+# A = np.load('hamo10days.npy')
+# #print(A)
+# for i in A:
+#     for j in i:
+#         print(j)
+
+B = np.load('station_mapping.npy')
+#print(B)
+
+C = np.load('time10days.npy')
+#print(C)
+
+D = np.load('mean_demand_weekday_5min.npy')
+
+for i in D:
+    for x in i:
+        print(x)
 
 '''
 GRAPH_VAR = [[0,5,8,11,13,13,12,11,8,5],  # needs to be 50x50 eventually

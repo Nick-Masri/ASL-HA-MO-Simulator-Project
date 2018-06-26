@@ -4,8 +4,6 @@ from helpers import *
 # Setup Vars
 station_dict = {}
 
-for employee in EMPLOYEE_LIST:
-    pass
 
 for station in range(1, len(GRAPH_VAR)+1):
     temp1 = []
