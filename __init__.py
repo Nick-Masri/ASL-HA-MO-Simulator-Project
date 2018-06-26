@@ -15,6 +15,7 @@ customer_requests = []
 person_list = []
 
 
+print(CAR_TRAVEL_TIMES)
 # Create Objects
 for station in range(1, len(STATION_LIST)):
     temp1 = []
@@ -26,7 +27,7 @@ for station in range(1, len(STATION_LIST)):
         if emps[1] == station:
             temp2.append(emps[0])
     station_dict[station] = Station(station, temp1, temp2)
-    
+
     print(station_dict.get(station).get_car_list())
     #print(station_dict.get(station).get_employee_list())
 
