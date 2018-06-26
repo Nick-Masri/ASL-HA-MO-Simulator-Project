@@ -70,7 +70,6 @@ def check_every_minute(station_dict, driver_requests, pedestrian_requests, custo
                     break
 
 
-
 def instructions_every_five_minutes():
     pass
 
@@ -87,7 +86,7 @@ def import_travel_times(filename):
     return pd.read_csv(filename)
 
 
-def find_travel_time(time_graph, origin, destination):
+def get_travel_time(time_graph, origin, destination):
     """
     little function for finding the value in a travel time graph
     :param time_graph: The padas Data Frame made for travel times
