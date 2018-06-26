@@ -1,5 +1,4 @@
 import globals
-from operator import itemgetter
 import operator
 
 

@@ -1,7 +1,4 @@
 from classes import *
-from globals import *
-import pandas as pd
-
 
 def check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
 
@@ -81,11 +78,6 @@ def create_dict(_list):
     return _dict
 
 
-def import_travel_times(filename):
-
-    return pd.read_csv(filename)
-
-
 def get_travel_time(time_graph, origin, destination):
     """
     little function for finding the value in a travel time graph
@@ -95,4 +87,3 @@ def get_travel_time(time_graph, origin, destination):
     :return: Travel Time
     """
     return time_graph.loc[time_graph['station_id'] == origin][str(destination)].values[0]
-

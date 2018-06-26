@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from classes import *
 from helpers import *
-from globals import *
+# from globals import *
 
 # Setup Vars
 station_dict = {}
