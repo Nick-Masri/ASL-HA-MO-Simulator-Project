@@ -121,5 +121,10 @@ def get_travel_time(time_graph, origin, destination):
     :param destination: Where the car is going
     :return: Travel Time
     """
-    return time_graph.loc[time_graph['station_id'] == origin][str(destination)].values[0]
+    # I wonder if this could be more efficient. Maybe sort the time graph?
+    origin = STATION_MAPPING_INT[origin]
+    destination = STATION_MAPPING_INT[destination]
+    # print(origin)
+    print(destination)
+    return time_graph.loc[time_graph['station_id'] == origin, str(destination)].values[0]
 
