@@ -38,7 +38,6 @@ CUST_REQUESTS = []
 for req in raw_requests:
     request_block = np.nonzero(req)
     temp = []
-    print(request_block[0])
     if len(request_block[0]) > 0:
         for num in range(len(request_block)-1):
             temp.append((request_block[0][num], request_block[1][num]))
