@@ -28,6 +28,9 @@ STATION_LIST = pd.to_numeric(CAR_TRAVEL_TIMES.columns.values[1:]).tolist()
 
 
 # Customer Requests
+# Imports them and puts them into a 3d array. Each list item in the outer list is a 5 min block
+# Within the five minute blocks there are tuples that list every set of instuctions (origin, desitnation)
+
 CUST_REQUESTS = np.load('./data/10_days/hamo10days.npy')
 time1 = CUST_REQUESTS[0]
 temp = np.nonzero(time1)
