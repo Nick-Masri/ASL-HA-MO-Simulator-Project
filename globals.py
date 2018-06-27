@@ -44,7 +44,6 @@ for req in raw_requests:
             temp.append((request_block[0][num], request_block[1][num]))
     CUST_REQUESTS.append(temp)
 
-print(CUST_REQUESTS)
 
 
 
