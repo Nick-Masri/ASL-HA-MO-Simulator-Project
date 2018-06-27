@@ -10,11 +10,11 @@ random.seed(1477)
 def import_travel_times(filename):
     return pd.read_csv(filename)
 
+
 # Station Mapping
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
+# in the form {logical index: Real Station Number}
 STATION_MAPPING_INT = {int(v):int(k) for k,v in STATION_MAPPING.items()}
-print(STATION_MAPPING_INT)
-# print(STATION_MAPPING['4'])
 
 # Initializing the travel time matrices. They're Pandas DataFrames. Use the get method to get times.
 CAR_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_car.csv")
@@ -31,13 +31,22 @@ STATION_LIST = pd.to_numeric(CAR_TRAVEL_TIMES.columns.values[1:]).tolist()
 # Imports them and puts them into a 3d array. Each list item in the outer list is a 5 min block
 # Within the five minute blocks there are tuples that list every set of instuctions (origin, desitnation)
 
-CUST_REQUESTS = np.load('./data/10_days/hamo10days.npy')
-time1 = CUST_REQUESTS[0]
-temp = np.nonzero(time1)
-print(temp)
-print(time1[17, 17])
-for i in range(len(temp[0])):
-    print(time1[temp[0][i], temp[1][i]])
+raw_requests = np.load('./data/10_days/hamo10days.npy')
+
+
+CUST_REQUESTS = []
+for req in raw_requests:
+    request_block = np.nonzero(req)
+    temp = []
+    print(request_block[0])
+    if len(request_block[0]) > 0:
+        for num in range(len(request_block)-1):
+            temp.append((request_block[0][num], request_block[1][num]))
+    CUST_REQUESTS.append(temp)
+
+print(CUST_REQUESTS)
+
+
 
 
 
