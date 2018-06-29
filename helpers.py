@@ -1,6 +1,7 @@
 from classes import *
 from globals import *
 
+
 def arrivals(arrival_list, time, cars, employees):
     for person in arrival_list:
         if person.get_destination_time() == time:
@@ -60,7 +61,6 @@ def assign_customers(list, cars, station_dictionary):
 
 
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
-
     errors = []
 
     for station in station_dict:
@@ -82,8 +82,6 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         if overload <= 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -Overload))
 
-
-
         # Assign Employees
         assign_drivers(driver_requests, current_time, current_car_list, employee_list, current_station)
         assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
@@ -94,6 +92,8 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 
     return station_dict, errors
 
+
+# Not currently in use
 def format_instructions(current_time, matrix):
     requests = []
 
@@ -102,11 +102,12 @@ def format_instructions(current_time, matrix):
             for row in timestamp:
                 for number in row:
                     for __ in range(number):
-                        requests.append(timestamp.index(row), row.index(number), current_time)
+                        requests.append([timestamp.index(row), row.index(number), current_time])
     except IndexError:
         print("No Requests")
 
     return requests
+
 
 def load_instructions(selector):
     if selector == 'driver':
@@ -131,4 +132,3 @@ def get_travel_time(time_graph, origin, destination):
     origin = STATION_MAPPING_INT[origin]
     destination = STATION_MAPPING_INT[destination]
     return time_graph.loc[time_graph['station_id'] == origin, str(destination)].values[0]
-
