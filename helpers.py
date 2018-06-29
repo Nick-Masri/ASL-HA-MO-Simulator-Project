@@ -47,12 +47,11 @@ def update_customer_list(requests, time, list):
         list.append(customer)
 
 
-def assign_customers(list, cars, station_dictionary):
-    for customer in list:
+def assign_customers(customer_list, cars, station_dictionary):
+    for customer in customer_list:
         try:
             current_car = cars.pop(0)
-
-            current_customer = list.pop(0)
+            current_customer = customer_list.pop(0)
             current_customer.update_status(customer, current_car)
             station_dictionary[customer[1]].get_en_route_list().append(current_customer)
         except IndexError:
