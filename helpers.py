@@ -53,7 +53,7 @@ def assign_customers(customer_list, cars, station_dictionary):
             current_car = cars.pop(0)
             current_customer = customer_list.pop(0)
             current_customer.update_status(customer, current_car)
-            station_dictionary[customer[1]].get_en_route_list().append(current_customer)
+            station_dictionary[customer.get_destination()].get_en_route_list().append(current_customer)
         except IndexError:
             print('Not enough cars for the customers')
             break
