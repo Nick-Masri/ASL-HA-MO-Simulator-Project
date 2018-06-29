@@ -66,7 +66,7 @@ class Person:
         self.origin = request.get_origin()
         self.destination = request.get_destination()
         self.origin_time = request.get_origin_time()
-        self.current_position = [request[0], request[1]]
+        self.current_position = [request.get_origin(), request.get_destination()]
         self.vehicle_id = new_car
 
 
