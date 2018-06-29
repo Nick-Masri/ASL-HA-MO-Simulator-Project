@@ -63,9 +63,9 @@ class Person:
         self.vehicle_id = v
 
     def update_status(self, request, new_car=None):
-        self.origin = request[0]
-        self.destination = request[1]
-        self.origin_time = request[2]
+        self.origin = request.get_origin()
+        self.destination = request.get_destination()
+        self.origin_time = request.get_origin_time()
         self.current_position = [request[0], request[1]]
         self.vehicle_id = new_car
 
