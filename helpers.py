@@ -80,7 +80,7 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 
         # Check for Errors
 
-        Overload = 50 - (current_station.get_car_list + current_station.get_en_route_list)
+        Overload = 50 - (len(current_station.get_car_list()) + len(current_station.get_en_route_list()))
 
         if Overload <= 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -Overload))
