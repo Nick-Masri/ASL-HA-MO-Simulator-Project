@@ -21,6 +21,6 @@ for time in range(len(CUST_REQUESTS)):
     driver_requests = format_instructions(time, load_instructions('driver'))
     pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
     customer_requests = CUST_REQUESTS[time]
-    check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-
+    update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+    
 

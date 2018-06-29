@@ -62,10 +62,11 @@ def assign_customers(list, cars, station_dictionary):
             print('Not enough cars for the customers')
             break
 
-def check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
+def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
+
+    errors = []
 
     for station in station_dict:
-        # NEED TO ADD Go through customer_requests to only have employees at this station
 
         # Grab information relevant to this loop and organize
         current_station = station_dict[station]
@@ -77,6 +78,15 @@ def check_every_minute(station_dict, driver_requests, pedestrian_requests, custo
         # Loop Arrivals
         arrivals(en_route_list, current_time, current_car_list, employee_list)
 
+        # Check for Errors
+
+        Overload = 50 - (current_station.get_car_list + current_station.get_en_route_list)
+
+        if Overload <= 0:
+            errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -Overload))
+
+
+
         # Assign Employees
         assign_drivers(driver_requests, current_time, current_car_list, employee_list, current_station)
         assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
@@ -84,6 +94,8 @@ def check_every_minute(station_dict, driver_requests, pedestrian_requests, custo
         # Update Customer list and Assign Them
         update_customer_list(customer_requests, current_time, customer_list)
         assign_customers(customer_list, current_car_list, station_dict)
+
+    return station_dict, errors
 
 def format_instructions(current_time, matrix):
     requests = []

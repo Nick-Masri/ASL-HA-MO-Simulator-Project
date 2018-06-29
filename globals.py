@@ -10,8 +10,7 @@ def import_travel_times(filename):
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
 # in the form {logical index: Real Station Number}
 STATION_MAPPING_INT = {int(v):int(k) for k,v in STATION_MAPPING.items()}
-for station in STATION_MAPPING_INT:
-    print(station)
+
 
 
 # Initializing the travel time matrices. They're Pandas DataFrames. Use the get method to get times.
@@ -24,6 +23,14 @@ HAMO_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_hamo.csv")
 STATION_LIST = pd.to_numeric(CAR_TRAVEL_TIMES.columns.values[1:]).tolist()
 
 
+CAR_LIST = []
+
+(id from 0 to 5*len(STATION_Mapping), (station in Station_mapping))
+
+for station in STATION_MAPPING_INT:
+
+
+    CAR_LIST.append((id ), )
 
 # Customer Requests
 # Imports them and puts them into a 3d array. Each list item in the outer list is a 5 min block
@@ -42,18 +49,3 @@ for req in raw_requests:
     CUST_REQUESTS.append(temp)
 
 
-
-
-
-
-
-
-
-####################
-# INIT CONDITIONS #
-##################
-
-
-#################
-# Instructions #
-###############
