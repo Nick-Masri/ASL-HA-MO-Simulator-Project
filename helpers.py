@@ -17,6 +17,7 @@ def arrivals(arrival_list, time, cars, employees):
             else:
                 del person
 
+
 def assign_drivers(requests, time, cars, employee, station):
     for driver_request in requests:
         try:
@@ -36,7 +37,6 @@ def assign_pedestrians(requests, time, employee, station):
         current_employee = employee.pop(0)
         current_employee.update_status(pedestrian_request)
         station[pedestrian_request[1]].append_en_route_list(current_employee)
-
 
 
 def update_customer_list(requests, time, list):
@@ -77,9 +77,9 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 
         # Check for Errors
 
-        Overload = 50 - (current_station.get_car_list + current_station.get_en_route_list)
+        overload = 50 - (len(current_station.get_car_list()) + len(current_station.get_en_route_list()))
 
-        if Overload <= 0:
+        if overload <= 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -Overload))
 
 

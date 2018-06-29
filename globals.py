@@ -6,12 +6,9 @@ def import_travel_times(filename):
     return pd.read_csv(filename)
 
 
-# Station Mapping
-STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
-# in the form {logical index: Real Station Number}
-STATION_MAPPING_INT = {int(v):int(k) for k,v in STATION_MAPPING.items()}
-
-
+###############
+# Travel Times
+###############
 
 # Initializing the travel time matrices. They're Pandas DataFrames. Use the get method to get times.
 CAR_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_car.csv")
@@ -19,18 +16,26 @@ PEDESTRIAN_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_walk.c
 BIKE_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_bike.csv")
 HAMO_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_hamo.csv")
 
-# Station List
+
+
+###############
+# Stations
+###############
+
+
+STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
+# in the form {logical index: Real Station Number}
+STATION_MAPPING_INT = {int(v):int(k) for k,v in STATION_MAPPING.items()}
+
 STATION_LIST = pd.to_numeric(CAR_TRAVEL_TIMES.columns.values[1:]).tolist()
 
 
-CAR_LIST = []
+###############
+# People
+###############
 
-# (id from 0 to 5*len(STATION_Mapping), (station in Station_mapping))
-#
-# for station in STATION_MAPPING_INT:
-#
-#
-#     CAR_LIST.append((id ), )
+EMPLOYEE_LIST = []
+
 
 # Customer Requests
 # Imports them and puts them into a 3d array. Each list item in the outer list is a 5 min block
@@ -49,3 +54,21 @@ for req in raw_requests:
     CUST_REQUESTS.append(temp)
 
 
+###############
+# Instructions
+###############
+
+DRIVER_INSTRUCTIONS = []
+PEDESTRIAN_INSTRUCTIONS = []
+
+
+
+###############
+# Cars
+###############
+
+CAR_LIST = []
+
+for station in STATION_MAPPING_INT:
+    for x in range(5):
+        CAR_LIST.append((((station*5)-x), (station)))
