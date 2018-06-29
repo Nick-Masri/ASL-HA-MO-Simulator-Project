@@ -19,28 +19,24 @@ def arrivals(arrival_list, time, cars, employees):
 
 def assign_drivers(requests, time, cars, employee, station):
     for driver_request in requests:
-        if driver_request[2] == time:
-            try:
-                current_car = cars.pop(0)
+        try:
+            current_car = cars.pop(0)
 
-                current_employee = employee.pop(0)
-                current_employee.update_status(driver_request, current_car)
-                station[driver_request[1]].append_en_route_list(current_employee)
-            except IndexError:
-                # Save the Employee instructions
-                print('Not enough cars for the employees')
-                break
-        else:
+            current_employee = employee.pop(0)
+            current_employee.update_status(driver_request, current_car)
+            station[driver_request[1]].append_en_route_list(current_employee)
+        except IndexError:
+            # Save the Employee instructions
+            print('Not enough cars for the employees')
             break
+
 
 def assign_pedestrians(requests, time, employee, station):
     for pedestrian_request in requests:
-        if pedestrian_request[2] == time:
-            current_employee = employee.pop(0)
-            current_employee.update_status(pedestrian_request)
-            station[pedestrian_request[1]].append_en_route_list(current_employee)
-        else:
-            break
+        current_employee = employee.pop(0)
+        current_employee.update_status(pedestrian_request)
+        station[pedestrian_request[1]].append_en_route_list(current_employee)
+
 
 
 def update_customer_list(requests, time, list):
@@ -130,6 +126,8 @@ def get_travel_time(time_graph, origin, destination):
     :return: Travel Time in seconds
     """
     # I wonder if this could be more efficient. Maybe sort the time graph?
+    # currently in seconds, probably needs to be changed to seconds
+
     origin = STATION_MAPPING_INT[origin]
     destination = STATION_MAPPING_INT[destination]
     return time_graph.loc[time_graph['station_id'] == origin, str(destination)].values[0]
