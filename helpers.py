@@ -48,15 +48,18 @@ def update_customer_list(requests, time, list):
 
 
 def assign_customers(customer_list, cars, station_dictionary):
-    for customer in customer_list:
-        try:
-            current_car = cars.pop(0)
-            current_customer = customer_list.pop(0)
-            current_customer.update_status(customer, current_car)
-            station_dictionary[customer.get_destination()].get_en_route_list().append(current_customer)
-        except IndexError:
-            print('Not enough cars for the customers')
-            break
+    if len(customer_list) > 0:
+        for customer in customer_list:
+            try:
+                current_car = cars.pop(0)
+                current_customer = customer_list.pop(0)
+                current_customer.update_status(customer, current_car)
+                station_dictionary[customer.get_destination()].get_en_route_list().append(current_customer)
+            except IndexError:
+                print('No car current_customer: {}'.format(customer.get_origin()))
+                print(cars)
+                print(customer_list)
+                break
 
 
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):

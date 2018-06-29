@@ -63,12 +63,3 @@ PEDESTRIAN_INSTRUCTIONS = []
 
 
 
-###############
-# Cars
-###############
-
-CAR_LIST = []
-
-for station in STATION_MAPPING_INT:
-    for x in range(5):
-        CAR_LIST.append((((station*5)-x), (station)))
