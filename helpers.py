@@ -67,6 +67,8 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 
     for station in station_dict:
 
+        # For future efficiency check to see if there are any requests before doing all this work.
+
         # Grab information relevant to this loop and organize
         current_station = station_dict[station]
         current_car_list = current_station.get_car_list()
