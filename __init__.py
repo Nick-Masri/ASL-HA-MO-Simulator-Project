@@ -5,7 +5,7 @@ from helpers import *
 station_dict = {}
 
 
-for station in range(1, len(GRAPH_VAR)+1):
+for station in STATION_MAPPING_INT:
     temp1 = []
     temp2 = []
     for cars in CAR_LIST:
@@ -17,9 +17,10 @@ for station in range(1, len(GRAPH_VAR)+1):
     station_dict[station] = Station(station, temp1, temp2)
 
 # Full loop of 24 hours of checks
-for time in range(1440):
-    if (time % 5) == 0 or (time == 0):
-        driver_requests = format_instructions(time, load_instructions('driver'))
-        pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
-        customer_requests = format_instructions(time, load_instructions('customer'))
+for time in range(len(CUST_REQUESTS)):
+    driver_requests = format_instructions(time, load_instructions('driver'))
+    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
+    customer_requests = CUST_REQUESTS[time]
     check_every_minute(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+
+
