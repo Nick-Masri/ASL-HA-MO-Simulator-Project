@@ -42,13 +42,13 @@ def assign_pedestrians(requests, time, employee, station):
         else:
             break
 
+
 def update_customer_list(requests, time, list):
     for customer_request in requests:
-        if customer_request[2] == time:
-            customer = Person(customer_request[0], customer_request[1], customer_request[0])
-            list.append(customer)
-        else:
-                break
+        # if customer_request[2] == time:  <-- I don't think we need this anymore.
+        customer = Person(customer_request[0], customer_request[1], time)
+        list.append(customer)
+
 
 def assign_customers(list, cars, station_dictionary):
     for customer in list:
@@ -61,6 +61,7 @@ def assign_customers(list, cars, station_dictionary):
         except IndexError:
             print('Not enough cars for the customers')
             break
+
 
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
 
@@ -92,8 +93,8 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
 
         # Update Customer list and Assign Them
-        update_customer_list(customer_requests, current_time, customer_list)
-        assign_customers(customer_list, current_car_list, station_dict)
+        update_customer_list(customer_requests, current_time, customer_list)  # add to station cust waiting list
+        assign_customers(customer_list, current_car_list, station_dict)  # assigns customers to cars if available
 
     return station_dict, errors
 

@@ -16,11 +16,16 @@ for station in STATION_MAPPING_INT:
             temp2.append(emps[0])
     station_dict[station] = Station(station, temp1, temp2)
 
+state = []
 # Full loop of 24 hours of checks
 for time in range(len(CUST_REQUESTS)):
     driver_requests = format_instructions(time, load_instructions('driver'))
     pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
     customer_requests = CUST_REQUESTS[time]
-    update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+    temp = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+    temp_station = {}
+    # for station in temp[0]:
+
+
     
 

@@ -25,12 +25,12 @@ STATION_LIST = pd.to_numeric(CAR_TRAVEL_TIMES.columns.values[1:]).tolist()
 
 CAR_LIST = []
 
-(id from 0 to 5*len(STATION_Mapping), (station in Station_mapping))
-
-for station in STATION_MAPPING_INT:
-
-
-    CAR_LIST.append((id ), )
+# (id from 0 to 5*len(STATION_Mapping), (station in Station_mapping))
+#
+# for station in STATION_MAPPING_INT:
+#
+#
+#     CAR_LIST.append((id ), )
 
 # Customer Requests
 # Imports them and puts them into a 3d array. Each list item in the outer list is a 5 min block
