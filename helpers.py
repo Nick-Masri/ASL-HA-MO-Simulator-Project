@@ -44,6 +44,8 @@ def assign_pedestrians(requests, time, employee, station):
 
 def update_customer_list(requests, time, list):
     for customer_request in requests:
+        print(customer_request)
+        print(time)
         if customer_request[2] == time:
             customer = Person(customer_request[0], customer_request[1], customer_request[0])
             list.append(customer)
