@@ -1,4 +1,4 @@
-import globals
+from globals import *
 import operator
 
 
@@ -10,7 +10,7 @@ class Person:
         if origin is None or destination is None or origin_time is None:
             self.destination_time = None
         else:
-            self.destination_time = origin_time + globals.GRAPH_VAR[origin][destination]
+            self.destination_time = origin_time + get_travel_time(CAR_TRAVEL_TIMES, origin, destination)
         self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
@@ -197,3 +197,19 @@ class Station:
         
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)
+
+
+def get_travel_time(time_graph, origin, destination):
+    """
+    little function for finding the value in a travel time graph
+    :param time_graph: The padas Data Frame made for travel times
+    :param origin: Where the car is traveling from
+    :param destination: Where the car is going
+    :return: Travel Time in seconds
+    """
+    # I wonder if this could be more efficient. Maybe sort the time graph?
+    # currently in seconds, probably needs to be changed to seconds
+
+    origin = STATION_MAPPING_INT[origin]
+    destination = STATION_MAPPING_INT[destination]
+    return time_graph.loc[time_graph['station_id'] == origin, str(destination)].values[0]
