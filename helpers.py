@@ -2,12 +2,10 @@ from classes import *
 from globals import *
 
 
-def arrivals(station, arrival_list, time, cars, employees):
-    for person in arrival_list:
+def arrivals(arrival_list, time, cars, employees):
+    while len(arrival_list) > 0:
+        person = arrival_list[0]
         if person.get_destination_time() == time:
-            station[person.get_destination()].remove_en_route_list(person)
-
-
             arrival_list.remove(person)
             current_vehicle_id = person.get_vehicle_id()
 
@@ -19,6 +17,8 @@ def arrivals(station, arrival_list, time, cars, employees):
                 employees.append(person)
             else:
                 del person
+        else:
+            break
 
 
 def assign_drivers(requests, time, cars, employee, station):
@@ -44,26 +44,27 @@ def assign_pedestrians(requests, time, employee, station):
         break
 
 
-def update_customer_list(requests, time, cust_list):
-    for customer_request in requests:
-        # if customer_request[2] == time:  <-- I don't think we need this anymore.
-        customer = Person(customer_request[0], customer_request[1], time)
-        cust_list.append(customer)
+def update_customer_list(requests, time, cust_list, station):
+    if len(requests) > 0 :
+        for customer_request in requests:
+            if customer_request[0] == station:
+                customer = Person(customer_request[0], customer_request[1], time)
+                cust_list.append(customer)
 
 
 def assign_customers(customer_list, cars, station_dictionary):
-    if len(customer_list) > 0:
-        for customer in customer_list:
-            try:
-                current_car = cars.pop(0)
-                current_customer = customer_list.pop(0)
-                current_customer.update_status(customer, current_car)
-                station_dictionary[customer.get_destination()].get_en_route_list().append(current_customer)
-            except IndexError:
-                print('No car for customer {}'.format(customer.get_origin()))
-                print(cars)
-                print(customer_list)
-                break
+    while len(customer_list) > 0:
+        customer = customer_list[0]
+        try:
+            current_car = cars.pop(0)
+            current_customer = customer_list.pop(0)
+            current_customer.update_status(customer, current_car)
+            station_dictionary[customer.get_destination()].get_en_route_list().append(current_customer)
+        except IndexError:
+            print('No car for customer {}'.format(customer.get_origin()))
+            print(cars)
+            print(customer_list)
+            break
 
 
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
@@ -84,18 +85,18 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         arrivals(en_route_list, current_time, current_car_list, employee_list)
 
         # Check for Errors
-
         overload = 50 - (len(current_station.get_car_list()) + len(current_station.get_en_route_list()))
 
         if overload < 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
 
         # Assign Employees
-        assign_drivers(driver_requests, current_time, current_car_list, employee_list, current_station)
-        assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
+        # assign_drivers(driver_requests, current_time, current_car_list, employee_list, current_station)
+        # assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
 
         # Update Customer list and Assign Them
-        update_customer_list(customer_requests, current_time, customer_list)  # add to station cust waiting list
+
+        update_customer_list(customer_requests, current_time, customer_list, current_station)  # add to station cust waiting list
         assign_customers(customer_list, current_car_list, station_dict)  # assigns customers to cars if available
 
     return station_dict, errors

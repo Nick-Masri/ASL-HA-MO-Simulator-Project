@@ -16,23 +16,17 @@ for station in STATION_MAPPING_INT:
             emp_list.append(emps[0])
     station_dict[station] = Station(station, car_list, emp_list)
 
-#
-# print(station_dict)
-# for station in station_dict:
-#     print(station_dict[station].get_car_list())
-# Full loop of 24 hours of checks
-#
-# for time in range(len(CUST_REQUESTS)):
-#     print("Time: {}".format(time))
-#
-#     driver_requests = format_instructions(time, load_instructions('driver'))
-#     pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
-#     customer_requests = CUST_REQUESTS[time]
-#     update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-#
-#     for station in station_dict:
-#         print('There are {0} cars at station {1}'.format(len(station_dict[station].get_car_list()), station))
-#
-#
-#
-#
+for time in range(len(CUST_REQUESTS)):
+    print("Time: {}".format(time))
+
+    driver_requests = format_instructions(time, load_instructions('driver'))
+    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
+    customer_requests = CUST_REQUESTS[time]
+    update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+
+    for station in station_dict:
+        print('There are {0} cars at station {1}'.format(len(station_dict[station].get_car_list()), station))
+
+
+
+
