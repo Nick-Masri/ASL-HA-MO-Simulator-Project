@@ -194,7 +194,10 @@ class Station:
 
     def append_en_route_list(self, employee):
         self.en_route_list.append(employee)
-        
+
+    def remove_en_route_list(self, employee):
+        self.en_route_list.remove(employee)
+
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)
 

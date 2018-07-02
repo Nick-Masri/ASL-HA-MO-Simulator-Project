@@ -2,9 +2,11 @@ from classes import *
 from globals import *
 
 
-def arrivals(arrival_list, time, cars, employees):
+def arrivals(station, arrival_list, time, cars, employees):
     for person in arrival_list:
         if person.get_destination_time() == time:
+            station[person.get_destination()].remove_en_route_list(person)
+
 
             arrival_list.remove(person)
             current_vehicle_id = person.get_vehicle_id()
