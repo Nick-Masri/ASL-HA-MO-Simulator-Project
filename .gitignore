@@ -13,3 +13,4 @@ lib64
 .idea
 data/*
 __pycache__
+output.txt

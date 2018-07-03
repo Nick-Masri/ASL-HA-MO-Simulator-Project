@@ -3,8 +3,8 @@ from globals import *
 
 
 def arrivals(arrival_list, time, cars, employees):
-    print(len(arrival_list))
-    print(arrival_list)
+    # print(len(arrival_list))
+    # print(arrival_list)
     while len(arrival_list) > 0:
         person = arrival_list[0]
 
