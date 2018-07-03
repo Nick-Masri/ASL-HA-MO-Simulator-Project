@@ -65,7 +65,7 @@ def assign_customers(customer_list, cars, station_dictionary):
         customer = customer_list[0]
         try:
             print('***************************')
-            print(customer_list)
+            # print(customer_list)
             current_car = cars.pop(0)
             current_customer = customer_list.pop(0)
             current_customer.update_status(customer, current_car)
