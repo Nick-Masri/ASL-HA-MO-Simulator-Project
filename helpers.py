@@ -61,21 +61,24 @@ def update_customer_list(requests, time, cust_list, station, station_obj):
 
 
 
-def assign_customers(customer_list, cars, station_dictionary):
+def assign_customers(customer_list, cars, station_dictionary, station):
     while len(customer_list) > 0:
         customer = customer_list[0]
-        try:
-            print('***************************')
-            # print(customer_list)
-            current_car = cars.pop(0)
-            current_customer = customer_list.pop(0)
-            current_customer.update_status(customer, current_car)
-            print('person destination: {}'.format(customer.get_destination()))
-            station_dictionary[customer.get_destination()].append_en_route_list(current_customer)
-        except IndexError:
-            print('No car for customer {}'.format(customer.get_origin()))
-            print(cars)
-            print(customer_list)
+        if customer.get_origin() == station:
+            try:
+                print('***************************')
+                # print(customer_list)
+                current_car = cars.pop(0)
+                current_customer = customer_list.pop(0)
+                current_customer.update_status(customer, current_car)
+                print('person destination: {}'.format(customer.get_destination()))
+                station_dictionary[customer.get_destination()].append_en_route_list(current_customer)
+            except IndexError:
+                print('No car for customer {}'.format(customer.get_origin()))
+                print(cars)
+                print(customer_list)
+                break
+        else:
             break
 
 
@@ -110,7 +113,7 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 
         update_customer_list(customer_requests, current_time, customer_list, station, current_station)  # add to station cust waiting list
 
-        assign_customers(customer_list, current_car_list, station_dict)  # assigns customers to cars if available
+        assign_customers(customer_list, current_car_list, station_dict, station)  # assigns customers to cars if available
 
     return station_dict, errors
 

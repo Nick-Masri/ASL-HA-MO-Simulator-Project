@@ -38,8 +38,11 @@ output_file = open('output.txt', 'w')
 for item in output:
   output_file.write("%s\n" % item)
 
+output_file.close()
 
 request_file = open('request_file.txt', 'w')
 
 for x in CUST_REQUESTS:
     request_file.write('{}\n'.format(x))
+
+request_file.close()
