@@ -211,8 +211,14 @@ def get_travel_time(time_graph, origin, destination):
 
     origin = STATION_MAPPING_INT[origin]
     destination = STATION_MAPPING_INT[destination]
-    travel_time = time_graph.loc[time_graph['station_id'] == origin, str(destination)].values[0]
-    travel_time = int(round(travel_time/60))
+    if origin == destination:
+        travel_time = 5
+    else:
+        travel_time = time_graph.loc[time_graph['station_id'] == origin, str(destination)].values[0]
+        print(travel_time)
+
+        travel_time = int(round(travel_time/60))
+        print(travel_time)
     return travel_time
 
 

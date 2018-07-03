@@ -2,26 +2,28 @@ from classes import *
 from globals import *
 
 
-def arrivals(arrival_list, time, cars, employees):
+def arrivals(arrival_list, time, cars, employees, station):
     # print(len(arrival_list))
     # print(arrival_list)
     while len(arrival_list) > 0:
         person = arrival_list[0]
 
         if person.get_destination_time() == time and time != 0: # there is an error at time = 0
+            if person.get_destination() == station:
+                print('##########################')
+                arrival_list.remove(person)
+                current_vehicle_id = person.get_vehicle_id()
 
-            print('##########################')
-            arrival_list.remove(person)
-            current_vehicle_id = person.get_vehicle_id()
+                if current_vehicle_id is not None:
+                    cars.append(current_vehicle_id)
 
-            if current_vehicle_id is not None:
-                cars.append(current_vehicle_id)
-
-            if isinstance(person, Employee):
-                person.reset()
-                employees.append(person)
+                if isinstance(person, Employee):
+                    person.reset()
+                    employees.append(person)
+                else:
+                    del person
             else:
-                del person
+                break
         else:
             break
 
@@ -90,10 +92,10 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         current_car_list = current_station.get_car_list()
         employee_list = current_station.get_employee_list()
         customer_list = current_station.get_waiting_customers(True)
-        en_route_list = current_station.get_en_route_list(True)
+        en_route_list = current_station.get_en_route_list()
 
         # Loop Arrivals
-        arrivals(en_route_list, current_time, current_car_list, employee_list)
+        arrivals(en_route_list, current_time, current_car_list, employee_list, station)
 
         # Check for Errors
         overload = 50 - (len(current_station.get_car_list()) + len(current_station.get_en_route_list()))

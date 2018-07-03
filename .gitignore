@@ -14,3 +14,4 @@ lib64
 data/*
 __pycache__
 output.txt
+request_file.txt
