@@ -141,12 +141,12 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, car_list=[], employee_list=[], waiting_customer=[], en_route_list=[], request_list=[]):
+    def __init__(self, station_id, car_list=[], employee_list=[], waiting_customer=[], request_list=[]):
         self.station_id = station_id
         self.car_list = car_list
         self.employee_list = employee_list
         self.waiting_customers = waiting_customer
-        self.en_route_list = en_route_list
+        self.en_route_list = []
         self.request_list = request_list
 
     # Get Methods
