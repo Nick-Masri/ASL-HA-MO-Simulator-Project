@@ -215,10 +215,7 @@ def get_travel_time(time_graph, origin, destination):
         travel_time = 5
     else:
         travel_time = time_graph.loc[time_graph['station_id'] == origin, str(destination)].values[0]
-        print(travel_time)
-
         travel_time = int(round(travel_time/60))
-        print(travel_time)
     return travel_time
 
 

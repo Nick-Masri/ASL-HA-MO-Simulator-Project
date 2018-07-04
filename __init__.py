@@ -25,13 +25,17 @@ for time in range(len(CUST_REQUESTS)):
     driver_requests = format_instructions(time, load_instructions('driver'))
     pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
     customer_requests = CUST_REQUESTS[time]
-    update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+
+    errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
 
     for station in station_dict:
         output.append('\tStation: {}'.format(station))
         output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
         output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+
+    output.append('Errors: {}'.format(errors))
+
 
 output_file = open('output.txt', 'w')
 
@@ -46,5 +50,3 @@ for x in CUST_REQUESTS:
     request_file.write('{}\n'.format(x))
 
 request_file.close()
-
-print(STATION_MAPPING_INT)

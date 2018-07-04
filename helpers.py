@@ -3,13 +3,10 @@ from globals import *
 
 
 def arrivals(arrival_list, time, cars, employees, station):
-    print(len(arrival_list))
-    # print(arrival_list)
     while len(arrival_list) > 0:
         person = arrival_list[0]
         if person.get_destination_time() == time: # there is an error at time = 0
             if person.get_destination() == station:
-                print('##########################')
                 arrival_list.remove(person)
                 current_vehicle_id = person.get_vehicle_id()
 
@@ -56,21 +53,16 @@ def update_customer_list(requests, time, cust_list):
 
 
 
-def assign_customers(customer_list, cars, station_dictionary):
+def assign_customers(customer_list, cars, station_dictionary, errors):
     while len(customer_list) > 0:
         customer = customer_list[0]
         try:
-            print('***************************')
-            # print(customer_list)
             current_car = cars.pop(0)
             current_customer = customer_list.pop(0)
             current_customer.update_status(customer, current_car)
-            print('person destination: {}'.format(customer.get_destination()))
             station_dictionary[customer.get_destination()].append_en_route_list(current_customer)
         except IndexError:
-            print('No car for customer {}'.format(customer.get_origin()))
-            print(cars)
-            print(customer_list)
+            errors.append('No car for customer at Station Number {}'.format(customer.get_origin()))
             break
 
 
@@ -106,8 +98,8 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         if len(customer_requests) > 0:
             if customer_requests[0][0] == station:
                 update_customer_list(customer_requests, current_time, customer_list)  # add to station cust waiting list
-                assign_customers(customer_list, current_car_list, station_dict)  # assigns customers to cars if available
-    return station_dict, errors
+                assign_customers(customer_list, current_car_list, station_dict, errors)  # assigns customers to cars if available
+    return errors
 
 
 # Not currently in use
