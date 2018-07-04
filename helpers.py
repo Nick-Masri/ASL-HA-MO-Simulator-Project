@@ -3,11 +3,11 @@ from globals import *
 
 
 def arrivals(arrival_list, time, cars, employees, station):
-    # print(len(arrival_list))
+    print(len(arrival_list))
     # print(arrival_list)
     while len(arrival_list) > 0:
         person = arrival_list[0]
-        if person.get_destination_time() == time and time != 0: # there is an error at time = 0
+        if person.get_destination_time() == time: # there is an error at time = 0
             if person.get_destination() == station:
                 print('##########################')
                 arrival_list.remove(person)
@@ -50,36 +50,29 @@ def assign_pedestrians(requests, time, employee, station):
         break
 
 
-def update_customer_list(requests, time, cust_list, station, station_obj):
-    if len(requests) > 0 :
-        for customer_request in requests:
-            if customer_request[0] == station:
-                print('---------------------------')
-                customer = Person(customer_request[0], customer_request[1], time)
-                # station_obj.append_customer_list(customer)
-                cust_list.append(customer)
+def update_customer_list(requests, time, cust_list):
+    customer = Person(requests[0][0], requests[0][1], time)
+    cust_list.append(customer)
 
 
 
-def assign_customers(customer_list, cars, station_dictionary, station):
+def assign_customers(customer_list, cars, station_dictionary):
     while len(customer_list) > 0:
         customer = customer_list[0]
-        if customer.get_origin() == station:
-            try:
-                print('***************************')
-                # print(customer_list)
-                current_car = cars.pop(0)
-                current_customer = customer_list.pop(0)
-                current_customer.update_status(customer, current_car)
-                print('person destination: {}'.format(customer.get_destination()))
-                station_dictionary[customer.get_destination()].append_en_route_list(current_customer)
-            except IndexError:
-                print('No car for customer {}'.format(customer.get_origin()))
-                print(cars)
-                print(customer_list)
-                break
-        else:
+        try:
+            print('***************************')
+            # print(customer_list)
+            current_car = cars.pop(0)
+            current_customer = customer_list.pop(0)
+            current_customer.update_status(customer, current_car)
+            print('person destination: {}'.format(customer.get_destination()))
+            station_dictionary[customer.get_destination()].append_en_route_list(current_customer)
+        except IndexError:
+            print('No car for customer {}'.format(customer.get_origin()))
+            print(cars)
+            print(customer_list)
             break
+
 
 
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
@@ -110,11 +103,10 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         # assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
 
         # Update Customer list and Assign Them
-
-        update_customer_list(customer_requests, current_time, customer_list, station, current_station)  # add to station cust waiting list
-
-        assign_customers(customer_list, current_car_list, station_dict, station)  # assigns customers to cars if available
-
+        if len(customer_requests) > 0:
+            if customer_requests[0][0] == station:
+                update_customer_list(customer_requests, current_time, customer_list)  # add to station cust waiting list
+                assign_customers(customer_list, current_car_list, station_dict)  # assigns customers to cars if available
     return station_dict, errors
 
 

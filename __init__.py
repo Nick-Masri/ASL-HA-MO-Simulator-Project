@@ -46,3 +46,5 @@ for x in CUST_REQUESTS:
     request_file.write('{}\n'.format(x))
 
 request_file.close()
+
+print(STATION_MAPPING_INT)
