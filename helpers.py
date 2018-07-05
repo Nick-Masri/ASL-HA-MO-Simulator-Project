@@ -48,7 +48,7 @@ def assign_pedestrians(requests, time, employee, station):
 
 
 def update_customer_list(requests, time, cust_list):
-    customer = Person(requests[0][0], requests[0][1], time)
+    customer = Person(requests[0], requests[1], time)
     cust_list.append(customer)
 
 
@@ -94,9 +94,10 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         # assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
 
         # Update Customer list and Assign Them
-        if len(customer_requests) > 0:
-            if customer_requests[0][0] == station:
-                update_customer_list(customer_requests, current_time, customer_list)  # add to station cust waiting list
+        for customer_request in customer_requests:
+            if customer_request[0] == station:
+                print(customer_request)
+                update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
                 assign_customers(customer_list, current_car_list, station_dict, errors)  # assigns customers to cars if available
     return errors
 
