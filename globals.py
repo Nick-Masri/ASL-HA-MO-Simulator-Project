@@ -46,19 +46,30 @@ np.set_printoptions(threshold=np.inf)
 
 
 CUST_REQUESTS = []
+count = 0
 for req in raw_requests:
-    request_block = np.nonzero(req)
-    # print(req[request_block[0][0], request_block[1][0]])
+    request_indices = np.nonzero(req)
+    # print(req[request_indices[0][0], request_indices[1][0]])
+    # print(request_indices)
     temp = []
-    if len(request_block[0]) > 0:
-        # add for loop to append number of requests
-        # print(request_block)
-        for num in range(len(request_block[0])-1):
-            temp.append((request_block[0][num], request_block[1][num]))
+    num_of_requests = len(request_indices[0])  # Number of (o, d) NOT the number of requests per (o, d)
+
+    if num_of_requests > 0:
+        # print(request_indices)
+        for request in range(num_of_requests):
+            origin = request_indices[0][request]
+            destination = request_indices[1][request]
+            for num in range(int(req[origin][destination])):  # Loop for number of custs going from (o, d)
+                temp.append((origin, destination))
+                count += 1
     CUST_REQUESTS.append(temp)
 
-for t in CUST_REQUESTS:
-    print(t)
+# after_count = 0
+# for t in CUST_REQUESTS:
+#     after_count += len(t)
+#
+# print('Count {}'.format(count))
+# print('after count {}'.format(after_count))
 
 ###############
 # Instructions
