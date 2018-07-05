@@ -6,8 +6,6 @@ def arrivals(arrival_list, time, cars, employees, station):
     i = 0
     while len(arrival_list) > 0:
         person = arrival_list[0]
-        print(person.get_destination_time())
-        print(time)
         if person.get_destination_time() == time: # there is an error at time = 0
 
             arrival_list.remove(person)
