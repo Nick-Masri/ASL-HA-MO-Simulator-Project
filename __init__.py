@@ -34,6 +34,13 @@ for time in range(len(CUST_REQUESTS)):
         output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
 
+
+    # station = 5
+    # output.append('\tStation: {}'.format(station))
+    # output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
+    # output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
+    # output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+
     output.append('Errors: {}'.format(errors))
 
 
