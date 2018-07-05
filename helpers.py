@@ -24,27 +24,26 @@ def arrivals(arrival_list, time, cars, employees, station):
             break
 
 
-def assign_drivers(requests, time, cars, employee, station):
-    for driver_request in requests:
-        # try:
-        #     current_car = cars.pop(0)
-        #
-        #     current_employee = employee.pop(0)
-        #     current_employee.update_status(driver_request, current_car)
-        #     station[driver_request[1]].append_en_route_list(current_employee)
-        # except IndexError:
-        #     # Save the Employee instructions
-        #     print('Not enough cars for the employees')
-        #     break
-        break
+def assign_drivers(cars, employee_list, station_dictionary, errors):
+    while len(employee_list) > 0:
+        driver = employee_list[0]
+        try:
+            current_car = cars.pop(0)
+            current_customer = employee_list.pop(0)
+            current_customer.update_status(driver, current_car)
+            station_dictionary[driver.get_destination()].append_en_route_list(current_customer)
+        except IndexError:
+            errors.append('No car for customer at Station Number {}'.format(driver.get_origin()))
+            break
 
 
-def assign_pedestrians(requests, time, employee, station):
-    for pedestrian_request in requests:
-    #     current_employee = employee.pop(0)
-    #     current_employee.update_status(pedestrian_request)
-    #     station[pedestrian_request[1]].append_en_route_list(current_employee)
-        break
+def assign_pedestrians(employee_list, station_dictionary):
+    while len(employee_list) > 0:
+        # pedestrian = employee_list[0]
+        current_ped = employee_list.pop(0)
+        # current_ped.update_status(pedestrian)
+        station_dictionary[current_ped.get_destination()].append_en_route_list(current_ped)
+
 
 
 def update_customer_list(requests, time, cust_list):
