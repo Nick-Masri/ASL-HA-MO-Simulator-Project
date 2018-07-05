@@ -89,8 +89,8 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
 
         # Assign Employees
-        # assign_drivers(driver_requests, current_time, current_car_list, employee_list, current_station)
-        # assign_pedestrians(pedestrian_requests, current_time, employee_list, current_station)
+        #assign_drivers(employee_list)
+        #assign_pedestrians(employee_list, station_dict)
 
         # Update Customer list and Assign Them
         for customer_request in customer_requests:
