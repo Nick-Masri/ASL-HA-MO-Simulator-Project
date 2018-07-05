@@ -54,16 +54,16 @@ def update_customer_list(requests, time, cust_list):
 
 
 def assign_customers(customer_list, cars, station_dictionary, errors):
-
-    customer = customer_list[0]
-    try:
-        current_car = cars.pop(0)
-        current_customer = customer_list.pop(0)
-        current_customer.update_status(customer, current_car)
-        station_dictionary[customer.get_destination()].append_en_route_list(current_customer)
-    except IndexError:
-        errors.append('No car for customer at Station Number {}'.format(customer.get_origin()))
-
+    while len(customer_list) > 0:
+        customer = customer_list[0]
+        try:
+            current_car = cars.pop(0)
+            current_customer = customer_list.pop(0)
+            current_customer.update_status(customer, current_car)
+            station_dictionary[customer.get_destination()].append_en_route_list(current_customer)
+        except IndexError:
+            errors.append('No car for customer at Station Number {}'.format(customer.get_origin()))
+            break
 
 
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
@@ -98,7 +98,7 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
             if customer_request[0] == station:
                 # print(customer_request)
                 update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
-                assign_customers(customer_list, current_car_list, station_dict, errors)  # assigns customers to cars if available
+        assign_customers(customer_list, current_car_list, station_dict, errors)  # assigns customers to cars if available
     return errors
 
 
