@@ -219,3 +219,8 @@ def get_travel_time(time_graph, origin, destination):
     return travel_time
 
 
+station_5 = [req for req in CUST_REQUESTS if len(req) > 0]
+station_5 = [[req, get_travel_time(CAR_TRAVEL_TIMES, req[0][0], req[0][1])] for req in station_5 if req[0][1] == 5]
+
+# for req in station_5:
+#     print(req)

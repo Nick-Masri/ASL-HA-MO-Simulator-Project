@@ -42,17 +42,23 @@ EMPLOYEE_LIST = []
 # Within the five minute blocks there are tuples that list every set of requests (origin, desitnation)
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
+np.set_printoptions(threshold=np.inf)
 
 
 CUST_REQUESTS = []
 for req in raw_requests:
     request_block = np.nonzero(req)
+    # print(req[request_block[0][0], request_block[1][0]])
     temp = []
     if len(request_block[0]) > 0:
-        for num in range(len(request_block)-1):
+        # add for loop to append number of requests
+        # print(request_block)
+        for num in range(len(request_block[0])-1):
             temp.append((request_block[0][num], request_block[1][num]))
     CUST_REQUESTS.append(temp)
 
+for t in CUST_REQUESTS:
+    print(t)
 
 ###############
 # Instructions
@@ -60,6 +66,7 @@ for req in raw_requests:
 
 DRIVER_INSTRUCTIONS = []
 PEDESTRIAN_INSTRUCTIONS = []
+
 
 
 
