@@ -67,9 +67,8 @@ def assign_customers(customer_list, cars, station_dictionary, errors):
 
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
     errors = []
-
     for station in station_dict:
-
+        # print(station_dict[station].get_id())
         # For future efficiency check to see if there are any requests before doing all this work.
 
         # Grab information relevant to this loop and organize
@@ -94,6 +93,7 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 
         # Update Customer list and Assign Them
         for customer_request in customer_requests:
+            # print(customer_request)
             if customer_request[0] == station:
                 # print(customer_request)
                 update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
