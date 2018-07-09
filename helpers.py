@@ -6,20 +6,16 @@ def arrivals(arrival_list, time, cars, employees, station):
     while len(arrival_list) > 0:
         person = arrival_list[0]
         if person.get_destination_time() == time: # there is an error at time = 0
-
             arrival_list.remove(person)
             station.get_en_route_list().remove(person)
             current_vehicle_id = person.get_vehicle_id()
-
             if current_vehicle_id is not None:
                 cars.append(current_vehicle_id)
-
             if isinstance(person, Employee):
                 person.reset()
                 employees.append(person)
             else:
                 del person
-
         else:
             break
 
@@ -104,7 +100,6 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 # Not currently in use
 def format_instructions(current_time, matrix):
     requests = []
-
     try:
         for timestamp in matrix[current_time]:
             for row in timestamp:
@@ -113,7 +108,6 @@ def format_instructions(current_time, matrix):
                         requests.append([timestamp.index(row), row.index(number), current_time])
     except IndexError:
         print("No Requests")
-
     return requests
 
 

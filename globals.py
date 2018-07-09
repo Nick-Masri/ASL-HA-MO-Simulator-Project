@@ -53,7 +53,6 @@ for req in raw_requests:
     # print(request_indices)
     temp = []
     num_of_requests = len(request_indices[0])  # Number of (o, d) NOT the number of requests per (o, d)
-
     if num_of_requests > 0:
         # print(request_indices)
         for request in range(num_of_requests):
