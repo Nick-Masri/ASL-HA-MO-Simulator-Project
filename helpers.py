@@ -124,5 +124,3 @@ def load_instructions(selector):
         return PEDESTRIAN_INSTRUCTIONS
     if selector == 'customer':
         return CUSTOMER_INSTRUCTIONS
-
-

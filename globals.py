@@ -77,8 +77,3 @@ for req in raw_requests:
 
 DRIVER_INSTRUCTIONS = []
 PEDESTRIAN_INSTRUCTIONS = []
-
-
-
-
-
