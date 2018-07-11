@@ -1,11 +1,7 @@
 #!/usr/bin/python
 from helpers import *
-<<<<<<< HEAD
 from datetime import datetime, timedelta
-from numpy import genfromtxt
-=======
 import numpy as np
->>>>>>> origin
 
 # Setup Vars
 output = []
@@ -67,6 +63,9 @@ for time in range(len(CUST_REQUESTS)):
 
     
     output.append('Errors: {}'.format(errors))
+
+
+print(State)
 
 output_file = open('output.txt', 'w')
 
