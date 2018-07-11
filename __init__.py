@@ -1,11 +1,20 @@
 #!/usr/bin/python
 from helpers import *
+<<<<<<< HEAD
 from datetime import datetime, timedelta
 from numpy import genfromtxt
+=======
+import numpy as np
+>>>>>>> origin
 
 # Setup Vars
 output = []
 station_dict = {}
+
+# Controller Inputs
+
+# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
+FLAGS = {'debugFlag': False, 'glpkFlag': False}
 
 car_count = 1
 for station in STATION_MAPPING_INT:
@@ -23,6 +32,9 @@ for time in range(len(CUST_REQUESTS)):
     print("Time: {}".format(time))
     output.append("\nTime: {}".format(time))
     output.append('------------------------------------------------------')
+    
+    iVehicles = []
+    iDrivers = []
 
     driver_requests = format_instructions(time, load_instructions('driver'))
     pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
@@ -35,14 +47,25 @@ for time in range(len(CUST_REQUESTS)):
         output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
         output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
-
+        
+        # STATE lists
+        iVehicles.append(len(station_dict[station].get_car_list()))
+        iDrivers.append(len(station_dict[station].get_employee_list()))
 
     # station = 5
     # output.append('\tStation: {}'.format(station))
     # output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
     # output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
     # output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+    
+    State = {
+            'idleVehicles': np.array(iVehicles), 
+            'idleDrivers': np.array(iDrivers), 
+            'privateVehicles': 0
+            }
+    
 
+    
     output.append('Errors: {}'.format(errors))
 
 output_file = open('output.txt', 'w')
@@ -84,7 +107,6 @@ RoadNetwork['roadGraph'] = neighbor_list
 ######################################
 # Creating Parameters Dictionary
 ######################################
-
 
 dt = 5 # minutes
 timestepsize = timedelta(0, 60*dt) # in seconds
