@@ -7,7 +7,9 @@ import numpy as np
 output = []
 station_dict = {}
 
-# Controller Inputs
+######################################
+# Creating Flags Dictionary        
+######################################
 
 # FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
 FLAGS = {'debugFlag': False, 'glpkFlag': False}
@@ -44,7 +46,9 @@ for time in range(len(CUST_REQUESTS)):
         output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
         
-        # STATE lists
+        ######################################
+        # Creating State Dictionary
+        ######################################
         iVehicles.append(len(station_dict[station].get_car_list()))
         iDrivers.append(len(station_dict[station].get_employee_list()))
 
