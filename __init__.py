@@ -1,9 +1,15 @@
 #!/usr/bin/python
 from helpers import *
+import numpy as np
 
 # Setup Vars
 output = []
 station_dict = {}
+
+# Controller Inputs
+
+# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
+FLAGS = {'debugFlag': False, 'glpkFlag': False}
 
 car_count = 1
 for station in STATION_MAPPING_INT:
@@ -17,7 +23,7 @@ for station in STATION_MAPPING_INT:
             emp_list.append(emps[0])
     station_dict[station] = Station(station, car_list, emp_list)
 
-for time in range(len(CUST_REQUEST)):
+for time in range(len(CUST_REQUESTS)):
     print("Time: {}".format(time))
     output.append("\nTime: {}".format(time))
     output.append('------------------------------------------------------')
@@ -36,6 +42,8 @@ for time in range(len(CUST_REQUEST)):
         output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
         output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+        
+        # STATE lists
         iVehicles.append(len(station_dict[station].get_car_list()))
         iDrivers.append(len(station_dict[station].get_employee_list()))
 
@@ -45,7 +53,12 @@ for time in range(len(CUST_REQUEST)):
     # output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
     # output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
     
-    STATE = {'idleVehicles': iVehicles, 'idleDrivers': iDrivers, 'privateVehicles': 0}
+    STATE = {
+            'idleVehicles': np.array(iVehicles), 
+            'idleDrivers': np.array(iDrivers), 
+            'privateVehicles': 0
+            }
+    
     print(STATE)
     
     output.append('Errors: {}'.format(errors))
