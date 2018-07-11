@@ -5,6 +5,14 @@ import numpy as np
 def import_travel_times(filename):
     return pd.read_csv(filename)
 
+def format_travel_times(filename, station_mapping, station_mapping_int):
+    graph = import_travel_times(filename)
+    fix_row_numbers(graph, station_mapping_int)
+    graph.set_index('station_id', inplace=True)
+    fix_header(graph, station_mapping)
+    columns = sorted(graph.columns)
+    return graph[columns].values
+
 def fix_header(graph, station_mapping):
     columns = graph.columns.to_series()
     temp = []
@@ -17,7 +25,6 @@ def fix_header(graph, station_mapping):
             col_to_drop.append(col)
 
     graph.columns = temp
-    print(graph.columns)
     graph.drop(columns=col_to_drop, inplace=True)
 
 def fix_row_numbers(graph, station_mapping):
@@ -40,27 +47,27 @@ print(STATION_MAPPING_INT)
 ###############
 
 # Initializing the travel time matrices. They're Pandas DataFrames. Use the get method to get times.
-CAR_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_car.csv")
-fix_row_numbers(CAR_TRAVEL_TIMES, STATION_MAPPING_INT)
-CAR_TRAVEL_TIMES.set_index('station_id', inplace=True)
-fix_header(CAR_TRAVEL_TIMES, STATION_MAPPING)
-columns = sorted(CAR_TRAVEL_TIMES.columns)
-
-CAR_TRAVEL_TIMES = CAR_TRAVEL_TIMES[columns]
-print(CAR_TRAVEL_TIMES.head(5))
-print(CAR_TRAVEL_TIMES.values)
-print(CAR_TRAVEL_TIMES.values[0][2])
-
-PEDESTRIAN_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_walk.csv")
-BIKE_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_bike.csv")
-HAMO_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_hamo.csv")
-
-
+# CAR_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_car.csv")
+# fix_row_numbers(CAR_TRAVEL_TIMES, STATION_MAPPING_INT)
+# CAR_TRAVEL_TIMES.set_index('station_id', inplace=True)
+# fix_header(CAR_TRAVEL_TIMES, STATION_MAPPING)
+# columns = sorted(CAR_TRAVEL_TIMES.columns)
+#
+# CAR_TRAVEL_TIMES = CAR_TRAVEL_TIMES[columns]
+# print(CAR_TRAVEL_TIMES.head(5))
+# print(CAR_TRAVEL_TIMES.values)
+# print(CAR_TRAVEL_TIMES.values[0][2])
+CAR_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
+PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
+BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
+HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
 
 
-STATION_LIST = pd.to_numeric(CAR_TRAVEL_TIMES.columns.values[1:]).tolist()
-
+# CAR_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_car.csv")
+#
+# STATION_LIST = pd.to_numeric(CAR_TRAVEL_TIMES.columns.values[1:]).tolist()
+# print(STATION_LIST)
 
 ###############
 # People
