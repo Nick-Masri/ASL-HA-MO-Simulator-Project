@@ -118,3 +118,11 @@ def load_instructions(selector):
         return PEDESTRIAN_INSTRUCTIONS
     if selector == 'customer':
         return CUSTOMER_INSTRUCTIONS
+
+
+def demand_forecast_parser(time, demand_forecast):
+    temp = demand_forecast[time:time+11]
+    time = time + 11
+    temp.append(demand_forecast[time: time+12])
+
+    return temp

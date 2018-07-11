@@ -2,6 +2,11 @@ import pandas as pd
 import numpy as np
 
 
+
+#######################
+# Travel Times helper functions ~ MC
+#######################
+
 def import_travel_times(filename):
     return pd.read_csv(filename)
 
@@ -33,17 +38,17 @@ def fix_row_numbers(graph, station_mapping):
 
 
 ###############
-# Stations
+# Stations ~ MC
 ###############
 
 
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
 # in the form {logical index: Real Station Number}
 STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
-print(STATION_MAPPING_INT)
+
 
 ###############
-# Travel Times
+# Travel Times ~ MC
 ###############
 
 # Initializing the travel time matrices. They're Numpy arrays. Use the get method  in classes.py to get times.
@@ -52,8 +57,6 @@ CAR_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_car.csv", STA
 PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
 HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
-print(HAMO_TRAVEL_TIMES[0][0])
-
 
 
 ###############
@@ -62,8 +65,9 @@ print(HAMO_TRAVEL_TIMES[0][0])
 
 EMPLOYEE_LIST = []
 
-
-# Customer Requests
+###########################
+# Customer Requests ~ MC
+############################
 # Imports them and puts them into a 3d array. Each list item in the outer list is a 5 min block
 # Within the five minute blocks there are tuples that list every set of requests (origin, desitnation)
 
@@ -89,12 +93,7 @@ for req in raw_requests:
                 count += 1
     CUST_REQUESTS.append(temp)
 
-# after_count = 0
-# for t in CUST_REQUESTS:
-#     after_count += len(t)
-#
-# print('Count {}'.format(count))
-# print('after count {}'.format(after_count))
+
 
 ###############
 # Instructions
@@ -102,3 +101,12 @@ for req in raw_requests:
 
 DRIVER_INSTRUCTIONS = []
 PEDESTRIAN_INSTRUCTIONS = []
+
+###############
+# Forecast Demand Mean
+###############
+
+mean_demand = np.load('./data/mean_demand_weekday_5min.npy')
+DEMAND_FORECAST = np.sum(mean_demand, axis=1)
+print(DEMAND_FORECAST.shape)
+
