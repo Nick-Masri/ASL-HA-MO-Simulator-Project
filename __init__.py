@@ -7,12 +7,10 @@ import numpy as np
 output = []
 station_dict = {}
 
-######################################
-# Creating Flags Dictionary        
-######################################
 
-# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
-FLAGS = {'debugFlag': False, 'glpkFlag': False}
+######################################
+# Initializing Environment ~ MC
+######################################
 
 car_count = 1
 for station in STATION_MAPPING_INT:
@@ -25,6 +23,12 @@ for station in STATION_MAPPING_INT:
         if emps[1] == station:
             emp_list.append(emps[0])
     station_dict[station] = Station(station, car_list, emp_list)
+
+
+
+######################################
+# Main Loop ~ NM
+######################################
 
 for time in range(len(CUST_REQUESTS)):
     print("Time: {}".format(time))
@@ -41,23 +45,30 @@ for time in range(len(CUST_REQUESTS)):
     errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
 
     for station in station_dict:
+
+        vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
+
+        if time % 12 == 0:
+            for i in range(time, time+12):
+                for person in station_dict[station].get_en_route_list(True):
+                    if person.get_destination_time() == i:
+                        vehicleArrivals[station][i-time] += 1
+
+
+
         output.append('\tStation: {}'.format(station))
         output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
         output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
-        
-        ######################################
-        # Creating State Dictionary
-        ######################################
+
         iVehicles.append(len(station_dict[station].get_car_list()))
         iDrivers.append(len(station_dict[station].get_employee_list()))
 
-    # station = 5
-    # output.append('\tStation: {}'.format(station))
-    # output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
-    # output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
-    # output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
-    
+    output.append('{}'.format(vehicleArrivals))
+    ######################################
+    # Creating State Dictionary ~ JS
+    ######################################
+
     State = {
             'idleVehicles': np.array(iVehicles), 
             'idleDrivers': np.array(iDrivers), 
@@ -68,8 +79,9 @@ for time in range(len(CUST_REQUESTS)):
     
     output.append('Errors: {}'.format(errors))
 
-
-print(State)
+######################################
+# Writing to Output File ~ NM
+######################################
 
 output_file = open('output.txt', 'w')
 
@@ -78,15 +90,8 @@ for item in output:
 
 output_file.close()
 
-request_file = open('request_file.txt', 'w')
-
-for x in CUST_REQUESTS:
-    request_file.write('{}\n'.format(x))
-
-request_file.close()
-
 ######################################
-# Creating Road Network Dictionary
+# Creating Road Network Dictionary ~ NM
 ######################################
 
 neighbor_list = []
@@ -106,9 +111,8 @@ RoadNetwork['roadGraph'] = neighbor_list
 # RoadNetwork['eTravelTimes'] = np.array('travel_times_matrix_car.csv')
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 
-
 ######################################
-# Creating Parameters Dictionary
+# Creating Parameters Dictionary ~ NM
 ######################################
 
 dt = 5 # minutes
@@ -125,3 +129,19 @@ Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
 Parameters['lostDemandCost'] =  c_d
 Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
+
+
+
+######################################
+# Creating Flags Dictionary ~ JS
+######################################
+
+# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
+FLAGS = {'debugFlag': False, 'glpkFlag': False}
+
+
+
+
+######################################
+# Creating Forecast Dictionary ~ NM/JS/MC
+######################################
