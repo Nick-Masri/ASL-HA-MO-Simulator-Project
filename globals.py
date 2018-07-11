@@ -48,8 +48,8 @@ columns = sorted(CAR_TRAVEL_TIMES.columns)
 
 CAR_TRAVEL_TIMES = CAR_TRAVEL_TIMES[columns]
 print(CAR_TRAVEL_TIMES.head(5))
-print(CAR_TRAVEL_TIMES[0][3])
 print(CAR_TRAVEL_TIMES.values)
+print(CAR_TRAVEL_TIMES.values[0][2])
 
 PEDESTRIAN_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_walk.csv")
 BIKE_TRAVEL_TIMES = import_travel_times("./data/travel_times_matrix_bike.csv")
