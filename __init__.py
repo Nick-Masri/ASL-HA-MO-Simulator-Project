@@ -6,7 +6,8 @@ output = []
 station_dict = {}
 
 car_count = 1
-for station in STATION_MAPPING_INT:
+for station in range(len(STATION_MAPPING_INT)):
+    print(station)
     car_list = []
     emp_list = []
     for car in range(5):
@@ -16,6 +17,8 @@ for station in STATION_MAPPING_INT:
         if emps[1] == station:
             emp_list.append(emps[0])
     station_dict[station] = Station(station, car_list, emp_list)
+
+print(station_dict)
 
 for time in range(len(CUST_REQUESTS)):
     print("Time: {}".format(time))

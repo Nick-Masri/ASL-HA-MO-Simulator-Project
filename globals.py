@@ -61,6 +61,7 @@ CAR_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_car.csv", STA
 PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
 HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
+print(HAMO_TRAVEL_TIMES[0][0])
 
 
 
