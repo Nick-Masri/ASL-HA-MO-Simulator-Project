@@ -25,71 +25,6 @@ for station in STATION_MAPPING_INT:
     station_dict[station] = Station(station, car_list, emp_list)
 
 
-
-######################################
-# Main Loop ~ NM
-######################################
-
-for time in range(len(CUST_REQUESTS)):
-    print("Time: {}".format(time))
-    output.append("\nTime: {}".format(time))
-    output.append('------------------------------------------------------')
-    
-    iVehicles = []
-    iDrivers = []
-
-    driver_requests = format_instructions(time, load_instructions('driver'))
-    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
-    customer_requests = CUST_REQUESTS[time]
-
-    errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-
-    for station in station_dict:
-
-        vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
-
-        if time % 12 == 0:
-            for i in range(time, time+12):
-                for person in station_dict[station].get_en_route_list(True):
-                    if person.get_destination_time() == i:
-                        vehicleArrivals[station][i-time] += 1
-
-
-
-        output.append('\tStation: {}'.format(station))
-        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
-        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
-        output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
-
-        iVehicles.append(len(station_dict[station].get_car_list()))
-        iDrivers.append(len(station_dict[station].get_employee_list()))
-
-    output.append('{}'.format(vehicleArrivals))
-    ######################################
-    # Creating State Dictionary ~ JS
-    ######################################
-
-    State = {
-            'idleVehicles': np.array(iVehicles), 
-            'idleDrivers': np.array(iDrivers), 
-            'privateVehicles': 0
-            }
-    
-
-    
-    output.append('Errors: {}'.format(errors))
-
-######################################
-# Writing to Output File ~ NM
-######################################
-
-output_file = open('output.txt', 'w')
-
-for item in output:
-  output_file.write("%s\n" % item)
-
-output_file.close()
-
 ######################################
 # Creating Road Network Dictionary ~ NM
 ######################################
@@ -107,7 +42,7 @@ RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
 # RoadNetwork['travelTimes'] = np.array('travel_times_matrix_hamo.csv')
 # RoadNetwork['driverTravelTimes'] =  np.array('travel_times_matrix_walk.csv')
-# RoadNetwork['pvTravelTimes'] = np.array('travel_times_matrix_car.csv')
+# RoadNetwork['pvTravelTimes'] = np.load('travel_times_matrix_car.npy')
 # RoadNetwork['eTravelTimes'] = np.array('travel_times_matrix_car.csv')
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 
@@ -130,8 +65,6 @@ Parameters['pvRebalancingCost'] = c_r
 Parameters['lostDemandCost'] =  c_d
 Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
 
-
-
 ######################################
 # Creating Flags Dictionary ~ JS
 ######################################
@@ -139,9 +72,83 @@ Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
 # FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
 FLAGS = {'debugFlag': False, 'glpkFlag': False}
 
+######################################
+# Main Loop ~ NM
+######################################
+
+for time in range(len(CUST_REQUESTS)):
+    print("Time: {}".format(time))
+    output.append("\nTime: {}".format(time))
+    output.append('------------------------------------------------------')
+    
+    iVehicles = []
+    iDrivers = []
+
+    vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
+
+    driver_requests = format_instructions(time, load_instructions('driver'))
+    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
+    customer_requests = CUST_REQUESTS[time]
+
+    errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+
+    for station in station_dict:
+
+        ######################################
+        # Setting Up Vehicle Arrivals ~ NM
+        ######################################
+        if time % 12 == 0:
+            pass
 
 
+        output.append('\tStation: {}'.format(station))
+        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
+        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
+        output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+
+        ######################################
+        # Setting Up
+        ######################################
+        if time % 12 == 0:
+            iVehicles.append(len(station_dict[station].get_car_list()))
+            iDrivers.append(len(station_dict[station].get_employee_list()))
+
+    if time % 12 == 0:
+        for person in station_dict[station].get_en_route_list(True):
+            for i in range(time, time + 12):
+                if person.get_vehicle_id() != None:
+                    if person.get_destination_time() == i:
+                        vehicleArrivals[station][i - time] += 1
+                        break
+                else:
+                    break
+
+        output.append(vehicleArrivals)
+        Forecast = {
+            'demand' : '~~~~~~~~', # ~ MC
+            'vehicleArrivals': np.array(vehicleArrivals), # ~ NM
+            'driverArrivals' : '~~~~~~~~'
+        }
+
+        ######################################
+        # Creating State Dictionary ~ JS
+        ######################################
+
+        State = {
+            'idleVehicles': np.array(iVehicles),
+            'idleDrivers': np.array(iDrivers),
+            'privateVehicles': 0
+        }
+
+    output.append('Errors: {}'.format(errors))
 
 ######################################
-# Creating Forecast Dictionary ~ NM/JS/MC
+# Writing to Output File ~ NM
 ######################################
+
+output_file = open('output.txt', 'w')
+
+for item in output:
+  output_file.write("%s\n" % item)
+
+output_file.close()
