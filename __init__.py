@@ -1,5 +1,7 @@
 #!/usr/bin/python
 from helpers import *
+from datetime import datetime, timedelta
+from numpy import genfromtxt
 
 # Setup Vars
 output = []
@@ -43,7 +45,6 @@ for time in range(len(CUST_REQUESTS)):
 
     output.append('Errors: {}'.format(errors))
 
-
 output_file = open('output.txt', 'w')
 
 for item in output:
@@ -57,3 +58,45 @@ for x in CUST_REQUESTS:
     request_file.write('{}\n'.format(x))
 
 request_file.close()
+
+######################################
+# Creating Road Network Dictionary
+######################################
+
+neighbor_list = []
+
+for station in STATION_MAPPING_INT:
+    neighboring_stations = []
+    for i in range(len(STATION_MAPPING_INT)):
+        if i != station:
+            neighboring_stations.append(i)
+    neighbor_list.append(neighboring_stations)
+
+RoadNetwork = {}
+RoadNetwork['roadGraph'] = neighbor_list
+# RoadNetwork['travelTimes'] = np.array('travel_times_matrix_hamo.csv')
+# RoadNetwork['driverTravelTimes'] =  np.array('travel_times_matrix_walk.csv')
+# RoadNetwork['pvTravelTimes'] = np.array('travel_times_matrix_car.csv')
+# RoadNetwork['eTravelTimes'] = np.array('travel_times_matrix_car.csv')
+# RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
+
+
+######################################
+# Creating Parameters Dictionary
+######################################
+
+
+dt = 5 # minutes
+timestepsize = timedelta(0, 60*dt) # in seconds
+horizon = timedelta(0, 12*60*dt) # in seconds
+thor = int(horizon.seconds / timestepsize.seconds)
+c_d = 10000.
+c_r = (1. / thor) * 0.0001 * 24. * c_d
+
+Parameters = {}
+Parameters['pvCap'] = 4.
+Parameters['driverRebalancingCost'] = c_r
+Parameters['vehicleRebalancingCost'] = c_r
+Parameters['pvRebalancingCost'] = c_r
+Parameters['lostDemandCost'] =  c_d
+Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
