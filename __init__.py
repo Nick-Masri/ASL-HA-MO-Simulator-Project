@@ -129,7 +129,7 @@ for time in range(len(CUST_REQUESTS)):
                     break
 
     ######################################
-    # Creating Forecast Dictionary ~ NM
+    # Creating Forecast Dictionary ~ NM/MC
     ######################################
 
     Forecast = {

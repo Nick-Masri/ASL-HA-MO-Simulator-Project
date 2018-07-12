@@ -1,6 +1,9 @@
 from classes import *
 from globals import *
 
+######################################
+# Creating Functions For Update ~ NM
+######################################
 
 def arrivals(arrival_list, time, cars, employees, station):
     while len(arrival_list) > 0:
@@ -27,18 +30,16 @@ def assign_drivers(cars, employee_list, station_dictionary, errors):
             current_car = cars.pop(0)
             current_customer = employee_list.pop(0)
             current_customer.update_status(driver, current_car)
-            station_dictionary[driver.get_destination()].append_en_route_list(current_customer)
+            station_dictionary[driver.destination].append_en_route_list(current_customer)
         except IndexError:
-            errors.append('No car for customer at Station Number {}'.format(driver.get_origin()))
+            errors.append('No car for customer at Station Number {}'.format(driver.origin))
             break
 
 
 def assign_pedestrians(employee_list, station_dictionary):
     while len(employee_list) > 0:
-        # pedestrian = employee_list[0]
         current_ped = employee_list.pop(0)
-        # current_ped.update_status(pedestrian)
-        station_dictionary[current_ped.get_destination()].append_en_route_list(current_ped)
+        station_dictionary[current_ped.destination].append_en_route_list(current_ped)
 
 
 
@@ -61,6 +62,11 @@ def assign_customers(customer_list, cars, station_dictionary, errors):
             break
 
 
+
+######################################
+# Update Loop ~ NM
+######################################
+
 def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
     errors = []
     for station in station_dict:
@@ -82,21 +88,18 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
         if overload < 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
 
-        # Assign Employees
-        #assign_drivers(employee_list)
-        #assign_pedestrians(employee_list, station_dict)
-
         # Update Customer list and Assign Them
         for customer_request in customer_requests:
-            # print(customer_request)
             if customer_request[0] == station:
-                # print(customer_request)
                 update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
         assign_customers(customer_list, current_car_list, station_dict, errors)  # assigns customers to cars if available
     return errors
 
 
-# Not currently in use
+
+######################################
+# Format and Load Instructions ~ NM
+######################################
 def format_instructions(current_time, matrix):
     requests = []
     try:
@@ -119,6 +122,11 @@ def load_instructions(selector):
         return CUSTOMER_INSTRUCTIONS
 
 
+
+
+######################################
+# Demand Forecast ~ MC
+######################################
 def demand_forecast_parser(time, demand_forecast):
     '''
 
