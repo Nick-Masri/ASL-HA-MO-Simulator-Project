@@ -7,12 +7,10 @@ import numpy as np
 output = []
 station_dict = {}
 
-######################################
-# Creating Flags Dictionary
-######################################
 
-# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
-FLAGS = {'debugFlag': False, 'glpkFlag': False}
+######################################
+# Initializing Environment ~ MC
+######################################
 
 car_count = 1
 for station in range(len(STATION_MAPPING_INT)):
@@ -27,67 +25,9 @@ for station in range(len(STATION_MAPPING_INT)):
             emp_list.append(emps[0])
     station_dict[station] = Station(station, car_list, emp_list)
 
-for time in range(len(CUST_REQUESTS)):
-    print("Time: {}".format(time))
-    output.append("\nTime: {}".format(time))
-    output.append('------------------------------------------------------')
-
-    iVehicles = []
-    iDrivers = []
-
-    driver_requests = format_instructions(time, load_instructions('driver'))
-    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
-    customer_requests = CUST_REQUESTS[time]
-
-    errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-
-    for station in station_dict:
-        output.append('\tStation: {}'.format(station))
-        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
-        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
-        output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
-
-        ######################################
-        # Creating State Dictionary
-        ######################################
-        iVehicles.append(len(station_dict[station].get_car_list()))
-        iDrivers.append(len(station_dict[station].get_employee_list()))
-
-    # station = 5
-    # output.append('\tStation: {}'.format(station))
-    # output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
-    # output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
-    # output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
-
-    State = {
-            'idleVehicles': np.array(iVehicles),
-            'idleDrivers': np.array(iDrivers),
-            'privateVehicles': 0
-            }
-
-
-
-    output.append('Errors: {}'.format(errors))
-
-
-print(State)
-
-output_file = open('output.txt', 'w')
-
-for item in output:
-  output_file.write("%s\n" % item)
-
-output_file.close()
-
-request_file = open('request_file.txt', 'w')
-
-for x in CUST_REQUESTS:
-    request_file.write('{}\n'.format(x))
-
-request_file.close()
 
 ######################################
-# Creating Road Network Dictionary
+# Creating Road Network Dictionary ~ NM
 ######################################
 
 neighbor_list = []
@@ -103,13 +43,12 @@ RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
 # RoadNetwork['travelTimes'] = np.array('travel_times_matrix_hamo.csv')
 # RoadNetwork['driverTravelTimes'] =  np.array('travel_times_matrix_walk.csv')
-# RoadNetwork['pvTravelTimes'] = np.array('travel_times_matrix_car.csv')
+# RoadNetwork['pvTravelTimes'] = np.load('travel_times_matrix_car.npy')
 # RoadNetwork['eTravelTimes'] = np.array('travel_times_matrix_car.csv')
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 
-
 ######################################
-# Creating Parameters Dictionary
+# Creating Parameters Dictionary ~ NM
 ######################################
 
 dt = 5 # minutes
@@ -126,3 +65,98 @@ Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
 Parameters['lostDemandCost'] =  c_d
 Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
+
+######################################
+# Creating Flags Dictionary ~ JS
+######################################
+
+# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex}
+FLAGS = {'debugFlag': False, 'glpkFlag': False}
+
+######################################
+# Main Loop ~ NM
+######################################
+
+for time in range(len(CUST_REQUESTS)):
+    print("Time: {}".format(time))
+    output.append("\nTime: {}".format(time))
+    output.append('------------------------------------------------------')
+    
+    iVehicles = []
+    iDrivers = []
+
+    vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
+    driverArrivals = np.zeros(shape=(len(station_dict), 12))
+
+    driver_requests = format_instructions(time, load_instructions('driver'))
+    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
+    customer_requests = CUST_REQUESTS[time]
+
+    errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+
+    for station in station_dict:
+
+        ######################################
+        # Writing to Output Files ~ NM
+        ######################################
+
+        output.append('\tStation: {}'.format(station))
+        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
+        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
+        output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+
+        ############################################
+        # Setting Up Idle Vehicles and Drivers ~ JS
+        ############################################
+
+        iVehicles.append(len(station_dict[station].get_car_list()))
+        iDrivers.append(len(station_dict[station].get_employee_list()))
+
+        ########################################
+        # Updating Vehicle/Driver Arrivals ~ NM
+        ########################################
+
+        for person in station_dict[station].get_en_route_list(True):
+            for i in range(time, time + 12):
+                if person.get_vehicle_id() != None:
+                    if person.get_destination_time() == i:
+                        if isinstance(person, Employee):
+                            driverArrivals[station][i-time] += 1
+
+                        vehicleArrivals[station][i - time] += 1
+                        break
+                else:
+                    break
+
+    ######################################
+    # Creating Forecast Dictionary ~ NM
+    ######################################
+
+    Forecast = {
+        'demand' : '~~~~~~~~', # ~ MC
+        'vehicleArrivals': np.array(vehicleArrivals), # ~ NM
+        'driverArrivals' : np.array(driverArrivals), # ~ NM
+    }
+
+    ######################################
+    # Creating State Dictionary ~ JS
+    ######################################
+
+    State = {
+        'idleVehicles': np.array(iVehicles),
+        'idleDrivers': np.array(iDrivers),
+        'privateVehicles': 0
+    }
+
+    output.append('Errors: {}'.format(errors))
+
+######################################
+# Writing to Output File ~ NM
+######################################
+
+output_file = open('output.txt', 'w')
+
+for item in output:
+  output_file.write("%s\n" % item)
+
+output_file.close()
