@@ -1,6 +1,10 @@
 from classes import *
 from globals import *
 
+######################################
+# Instantiating Error Arrays ~ JS
+######################################
+
 noCarErrors = np.zeros(shape=(2880, 58))
 noParkErrors = np.zeros(shape=(2880, 58))
 

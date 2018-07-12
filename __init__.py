@@ -148,8 +148,15 @@ for time in range(len(CUST_REQUESTS)):
 
     output.append('Errors: {}'.format(errors))
 
-# print(noParkErrors)
-# print(noCarErrors)
+######################################
+# Tracking Errors / Summing Errors ~ JS
+######################################
+
+sumStationNoParkErrors = np.sum(noParkErrors, axis = 0) # no parking errors per station total
+sumStationNoCarErrors = np.sum(noCarErrors, axis = 0) # no car available errors per station total
+
+sumTimeNoParkErrors = np.sum(noParkErrors, axis = 1) # no parking errors per time total
+sumTimeNoCarErrors = np.sum(noCarErrors, axis = 1) # no car available errors per time total
 
 ######################################
 # Writing to Output File ~ NM
