@@ -1,6 +1,9 @@
 from globals import *
 import operator
 
+######################################
+# Creating Inheritance and Methods ~JS
+######################################
 
 class Person:
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
@@ -15,7 +18,7 @@ class Person:
         self.vehicle_id = vehicle_id
 
     # comparison methods
-    def __eq__(self, other):
+    def __eq__(self, other): # ~ MC
         """Override the default Equals behavior"""
         return (self.origin == other.get_origin()
                 and self.destination == other.get_destination()
@@ -76,7 +79,6 @@ class Employee(Person):
         self.employee_id = employee_id
 
     # comparison methods
-    def __eq__(self, other):
         """Override the default Equals behavior"""
         return (self.origin == other.get_origin()
                 and self.destination == other.get_destination()
@@ -109,26 +111,27 @@ class Employee(Person):
         return self.employee_id
 
     # Mutator Methods
-    def change_origin(self, o):
-        self.origin = o
-
-    def change_destination(self, d):
-        self.destination = d
-
-    def change_origin_time(self, ot):
-        self.origin_time = ot
-
-    def change_destination_time(self, dt):
-        self.destination_time = dt
-
-    def change_current_position(self, cp):
-        self.current_position = cp
-
-    def change_vehicle_id(self, v):
-        self.vehicle_id = v
-
-    def change_employee_id(self, e):
-        self.employee_id = e
+    
+    # def change_origin(self, o):
+    #     self.origin = o
+    #
+    # def change_destination(self, d):
+    #     self.destination = d
+    #
+    # def change_origin_time(self, ot):
+    #     self.origin_time = ot
+    #
+    # def change_destination_time(self, dt):
+    #     self.destination_time = dt
+    #
+    # def change_current_position(self, cp):
+    #     self.current_position = cp
+    #
+    # def change_vehicle_id(self, v):
+    #     self.vehicle_id = v
+    #
+    # def change_employee_id(self, e):
+    #     self.employee_id = e
 
     # Unique Methods
     def reset(self):
@@ -175,21 +178,22 @@ class Station:
         return self.request_list
 
     # Mutator Methods
-    def change_car_list(self, c):
-        self.car_list = c
-
-    def change_employee_list(self, el):
-        self.employee_list = el
-
-    def change_waiting_customers(self, cr):
-        self.waiting_customers = cr
-
-    def change_en_route_list(self, er):
-        self.en_route_list = er
-
-    def change_request_list(self, rl):
-        self.request_list = rl
-
+    
+    # def change_car_list(self, c):
+    #     self.car_list = c
+    #
+    # def change_employee_list(self, el):
+    #     self.employee_list = el
+    #
+    # def change_waiting_customers(self, cr):
+    #     self.waiting_customers = cr
+    #
+    # def change_en_route_list(self, er):
+    #     self.en_route_list = er
+    #
+    # def change_request_list(self, rl):
+    #     self.request_list = rl
+    
     # Unique Methods
 
     def append_en_route_list(self, employee):
@@ -198,6 +202,9 @@ class Station:
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)
 
+######################################
+# Travel Time Assignments ~ MC
+######################################
 
 def get_travel_time(time_graph, origin, destination):
     """
