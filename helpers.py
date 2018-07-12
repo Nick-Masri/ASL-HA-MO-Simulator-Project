@@ -122,8 +122,6 @@ def load_instructions(selector):
         return CUSTOMER_INSTRUCTIONS
 
 
-
-
 ######################################
 # Demand Forecast ~ MC
 ######################################
