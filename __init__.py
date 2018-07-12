@@ -14,7 +14,6 @@ station_dict = {}
 
 car_count = 1
 for station in range(len(STATION_MAPPING_INT)):
-    print(station)
     car_list = []
     emp_list = []
     for car in range(5):
@@ -133,7 +132,7 @@ for time in range(len(CUST_REQUESTS)):
     ######################################
 
     Forecast = {
-        'demand' : '~~~~~~~~', # ~ MC
+        'demand' : demand_forecast_parser(time), # ~ MC
         'vehicleArrivals': np.array(vehicleArrivals), # ~ NM
         'driverArrivals' : np.array(driverArrivals), # ~ NM
     }

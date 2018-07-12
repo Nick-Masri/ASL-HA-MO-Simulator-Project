@@ -125,17 +125,18 @@ def load_instructions(selector):
 ######################################
 # Demand Forecast ~ MC
 ######################################
-def demand_forecast_parser(time, demand_forecast):
+def demand_forecast_parser(time):
     '''
 
     :param time: current time block
     :param demand_forecast: matrix with the mean times mod 288 to handle multiple days
     :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
     '''
-    first_11_time_blocks = demand_forecast[time:time+11]
+    time = time % 288
+    first_11_time_blocks = DEMAND_FORECAST[time:time+11]
 
     time = time + 11
-    next_12_timeblocks = np.sum(demand_forecast[time: time+12], axis=0)
+    next_12_timeblocks = np.sum(DEMAND_FORECAST[time: time+12], axis=0)
     parsed_demand = np.vstack((first_11_time_blocks, next_12_timeblocks))
 
     return parsed_demand
