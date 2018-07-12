@@ -132,8 +132,8 @@ for time in range(len(CUST_REQUESTS)):
 
     Forecast = {
         'demand' : demand_forecast_parser(time), # ~ MC
-        'vehicleArrivals': np.array(vehicleArrivals), # ~ NM
-        'driverArrivals' : np.array(driverArrivals), # ~ NM
+        'vehicleArrivals': vehicleArrivals, # ~ NM
+        'driverArrivals' : driverArrivals, # ~ NM
     }
 
     ######################################
