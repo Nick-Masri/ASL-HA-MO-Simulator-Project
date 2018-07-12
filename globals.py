@@ -108,5 +108,5 @@ PEDESTRIAN_INSTRUCTIONS = []
 
 mean_demand = np.load('./data/mean_demand_weekday_5min.npy')
 DEMAND_FORECAST = np.sum(mean_demand, axis=1)
-print(DEMAND_FORECAST.shape)
+
 
