@@ -91,7 +91,7 @@ for time in range(len(CUST_REQUESTS)):
     customer_requests = CUST_REQUESTS[time]
 
     errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-    print(errors)
+    # print(errors)
     for station in station_dict:
 
         ######################################
