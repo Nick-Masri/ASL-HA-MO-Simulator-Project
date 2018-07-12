@@ -7,7 +7,6 @@ import numpy as np
 output = []
 station_dict = {}
 
-
 ######################################
 # Initializing Environment ~ MC
 ######################################
@@ -86,13 +85,13 @@ for time in range(len(CUST_REQUESTS)):
 
     vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
     driverArrivals = np.zeros(shape=(len(station_dict), 12))
-
+    
     driver_requests = format_instructions(time, load_instructions('driver'))
     pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
     customer_requests = CUST_REQUESTS[time]
 
     errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-
+    print(errors)
     for station in station_dict:
 
         ######################################
@@ -148,6 +147,9 @@ for time in range(len(CUST_REQUESTS)):
     }
 
     output.append('Errors: {}'.format(errors))
+
+# print(noParkErrors)
+# print(noCarErrors)
 
 ######################################
 # Writing to Output File ~ NM
