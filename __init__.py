@@ -101,16 +101,16 @@ for time in range(len(CUST_REQUESTS)):
         ######################################
 
         output.append('\tStation: {}'.format(station))
-        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
-        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
+        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
+        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].car_list)))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
 
         ############################################
         # Setting Up Idle Vehicles and Drivers ~ JS
         ############################################
 
-        iVehicles.append(len(station_dict[station].get_car_list()))
-        iDrivers.append(len(station_dict[station].get_employee_list()))
+        iVehicles.append(len(station_dict[station].car_list))
+        iDrivers.append(len(station_dict[station].employee_list))
 
         ########################################
         # Updating Vehicle/Driver Arrivals ~ NM
@@ -118,8 +118,8 @@ for time in range(len(CUST_REQUESTS)):
 
         for person in station_dict[station].get_en_route_list(True):
             for i in range(time, time + 12):
-                if person.get_vehicle_id() != None:
-                    if person.get_destination_time() == i:
+                if person.vehicle_id != None:
+                    if person.destination_time == i:
                         if isinstance(person, Employee):
                             driverArrivals[station][i-time] += 1
 
