@@ -85,6 +85,7 @@ for time in range(len(CUST_REQUESTS)):
     iDrivers = []
 
     vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
+    driverArrivals = np.zeros(shape=(len(station_dict), 12))
 
     driver_requests = format_instructions(time, load_instructions('driver'))
     pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
@@ -95,50 +96,56 @@ for time in range(len(CUST_REQUESTS)):
     for station in station_dict:
 
         ######################################
-        # Setting Up Vehicle Arrivals ~ NM
+        # Writing to Output Files ~ NM
         ######################################
-        if time % 12 == 0:
-            pass
-
 
         output.append('\tStation: {}'.format(station))
         output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].get_car_list())))
         output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].get_car_list())))
         output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
 
-        ######################################
-        # Setting Up
-        ######################################
-        if time % 12 == 0:
-            iVehicles.append(len(station_dict[station].get_car_list()))
-            iDrivers.append(len(station_dict[station].get_employee_list()))
+        ############################################
+        # Setting Up Idle Vehicles and Drivers ~ JS
+        ############################################
 
-    if time % 12 == 0:
+        iVehicles.append(len(station_dict[station].get_car_list()))
+        iDrivers.append(len(station_dict[station].get_employee_list()))
+
+        ########################################
+        # Updating Vehicle/Driver Arrivals ~ NM
+        ########################################
+
         for person in station_dict[station].get_en_route_list(True):
             for i in range(time, time + 12):
                 if person.get_vehicle_id() != None:
                     if person.get_destination_time() == i:
+                        if isinstance(person, Employee):
+                            driverArrivals[station][i-time] += 1
+
                         vehicleArrivals[station][i - time] += 1
                         break
                 else:
                     break
 
-        output.append(vehicleArrivals)
-        Forecast = {
-            'demand' : '~~~~~~~~', # ~ MC
-            'vehicleArrivals': np.array(vehicleArrivals), # ~ NM
-            'driverArrivals' : '~~~~~~~~'
-        }
+    ######################################
+    # Creating Forecast Dictionary ~ NM
+    ######################################
 
-        ######################################
-        # Creating State Dictionary ~ JS
-        ######################################
+    Forecast = {
+        'demand' : '~~~~~~~~', # ~ MC
+        'vehicleArrivals': np.array(vehicleArrivals), # ~ NM
+        'driverArrivals' : np.array(driverArrivals), # ~ NM
+    }
 
-        State = {
-            'idleVehicles': np.array(iVehicles),
-            'idleDrivers': np.array(iDrivers),
-            'privateVehicles': 0
-        }
+    ######################################
+    # Creating State Dictionary ~ JS
+    ######################################
+
+    State = {
+        'idleVehicles': np.array(iVehicles),
+        'idleDrivers': np.array(iDrivers),
+        'privateVehicles': 0
+    }
 
     output.append('Errors: {}'.format(errors))
 
