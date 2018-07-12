@@ -69,7 +69,7 @@ Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
 # Creating Flags Dictionary ~ JS
 ######################################
 
-# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex }
+# FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex}
 FLAGS = {'debugFlag': False, 'glpkFlag': False}
 
 ######################################
