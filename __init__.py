@@ -149,7 +149,7 @@ for time in range(len(CUST_REQUESTS)):
     State = {
         'idleVehicles': np.array(iVehicles),
         'idleDrivers': np.array(iDrivers),
-        'privateVehicles': 0
+        'privateVehicles': np.zeros((58,1))
     }
 
     controller = MoDController(RoadNetwork)

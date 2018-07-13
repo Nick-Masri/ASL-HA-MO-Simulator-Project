@@ -13,9 +13,12 @@ def import_travel_times(filename):
 def format_travel_times(filename, station_mapping, station_mapping_int):
     graph = import_travel_times(filename)
     fix_row_numbers(graph, station_mapping_int)
+    # Remove rows that aren't in the station_mapping
+    graph = graph[graph['station_id'].isin(station_mapping_int.keys())]
     graph.set_index('station_id', inplace=True)
     fix_header(graph, station_mapping)
     columns = sorted(graph.columns)
+
     return graph[columns].values
 
 def fix_header(graph, station_mapping):
@@ -43,8 +46,9 @@ def fix_row_numbers(graph, station_mapping):
 
 
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
-# in the form {logical index: Real Station Number}
+# in the form {Real Station Number: Logical Index}
 STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
+
 
 
 ###############
@@ -54,6 +58,7 @@ STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
 # Initializing the travel time matrices. They're Numpy arrays. Use the get method  in classes.py to get times.
 
 CAR_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
+print(CAR_TRAVEL_TIMES)
 PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
 HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
