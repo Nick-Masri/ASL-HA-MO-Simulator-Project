@@ -153,10 +153,12 @@ for time in range(len(CUST_REQUESTS)):
 ######################################
 
 sumStationNoParkErrors = np.sum(noParkErrors, axis = 0) # no parking errors per station total
-sumStationNoCarErrors = np.sum(noCarErrors, axis = 0) # no car available errors per station total
+sumStationNoCarErrors = np.sum(noCarCustErrors, axis = 0) # no car available for customers errors per station total
+sumStationNoCarErrors = np.sum(noCarEmpErrors, axis = 0) # no car available for employees errors per station total
 
 sumTimeNoParkErrors = np.sum(noParkErrors, axis = 1) # no parking errors per time total
-sumTimeNoCarErrors = np.sum(noCarErrors, axis = 1) # no car available errors per time total
+sumTimeNoCarErrors = np.sum(noCarCustErrors, axis = 1) # no car available for customers errors per time total
+sumTimeNoCarErrors = np.sum(noCarEmpErrors, axis = 1) # no car available for employees errors per time total
 
 ######################################
 # Writing to Output File ~ NM
