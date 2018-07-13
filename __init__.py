@@ -13,15 +13,15 @@ station_dict = {}
 ######################################
 
 car_count = 1
-for station in range(len(STATION_MAPPING_INT)):
+for station in STATION_MAPPING_INT.values():
+    employees = EMPLOYEE_LIST[station]
     car_list = []
     emp_list = []
     for car in range(5):
         car_list.append(car_count)
         car_count += 1
-    for emps in EMPLOYEE_LIST:
-        if emps[1] == station:
-            emp_list.append(emps[0])
+    for emps in employees:
+       emp_list.append(emps)
     station_dict[station] = Station(station, car_list, emp_list)
 
 
@@ -76,7 +76,13 @@ FLAGS = {'debugFlag': False, 'glpkFlag': False}
 # Main Loop ~ NM
 ######################################
 
-for time in range(len(CUST_REQUESTS)):
+
+raw_requests = np.load('./data/10_days/hamo10days.npy')
+cust_requests = format_instructions(raw_requests)
+driver_requests = None
+pedestrian_requests = None
+
+for time in range(len(cust_requests)):
     print("Time: {}".format(time))
     output.append("\nTime: {}".format(time))
     output.append('------------------------------------------------------')
@@ -87,11 +93,9 @@ for time in range(len(CUST_REQUESTS)):
     vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
     driverArrivals = np.zeros(shape=(len(station_dict), 12))
 
-    driver_requests = format_instructions(time, load_instructions('driver'))
-    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
-    customer_requests = CUST_REQUESTS[time]
+    customer_requests = cust_requests[time]
 
-    errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
+    errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
 
     for station in station_dict:
 
@@ -148,6 +152,9 @@ for time in range(len(CUST_REQUESTS)):
     }
 
     output.append('Errors: {}'.format(errors))
+
+    #driver_requests = format_instructions(output_requests)
+    #customer_requests = format_instructions(output_requests)
 
 ######################################
 # Writing to Output File ~ NM

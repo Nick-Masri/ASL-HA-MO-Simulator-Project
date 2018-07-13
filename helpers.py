@@ -67,7 +67,7 @@ def assign_customers(customer_list, cars, station_dictionary, errors):
 # Update Loop ~ NM
 ######################################
 
-def update(station_dict, driver_requests, pedestrian_requests, customer_requests, current_time):
+def update(station_dict, customer_requests, current_time, driver_requests=None, pedestrian_requests=None):
     errors = []
     for station in station_dict:
         # For future efficiency check to see if there are any requests before doing all this work.
@@ -100,27 +100,25 @@ def update(station_dict, driver_requests, pedestrian_requests, customer_requests
 ######################################
 # Format and Load Instructions ~ NM
 ######################################
-def format_instructions(current_time, matrix):
-    requests = []
-    try:
-        for timestamp in matrix[current_time]:
-            for row in timestamp:
-                for number in row:
-                    for __ in range(number):
-                        requests.append([timestamp.index(row), row.index(number), current_time])
-    except IndexError:
-        print("No Requests")
-    return requests
-
-
-def load_instructions(selector):
-    if selector == 'driver':
-        return DRIVER_INSTRUCTIONS
-    if selector == 'pedestrian':
-        return PEDESTRIAN_INSTRUCTIONS
-    if selector == 'customer':
-        return CUSTOMER_INSTRUCTIONS
-
+def format_instructions(request):
+    var = []
+    count = 0
+    for req in request:
+        request_indices = np.nonzero(req)
+        # print(req[request_indices[0][0], request_indices[1][0]])
+        # print(request_indices)
+        temp = []
+        num_of_requests = len(request_indices[0])  # Number of (o, d) NOT the number of requests per (o, d)
+        if num_of_requests > 0:
+            # print(request_indices)
+            for request in range(num_of_requests):
+                origin = request_indices[0][request]
+                destination = request_indices[1][request]
+                for num in range(int(req[origin][destination])):  # Loop for number of custs going from (o, d)
+                    temp.append((origin, destination))
+                    count += 1
+        var.append(temp)
+    return var
 
 ######################################
 # Demand Forecast ~ MC
