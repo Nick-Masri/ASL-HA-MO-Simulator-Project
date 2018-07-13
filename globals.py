@@ -70,6 +70,7 @@ EMPLOYEE_LIST = []
 ############################
 # Imports them and puts them into a 3d array. Each list item in the outer list is a 5 min block
 # Within the five minute blocks there are tuples that list every set of requests (origin, desitnation)
+# Within the five minute blocks there are tuples that list every set of requests (origin, desitnation)
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 np.set_printoptions(threshold=np.inf)

@@ -5,8 +5,9 @@ from globals import *
 # Instantiating Error Arrays ~ JS
 ######################################
 
-noCarErrors = np.zeros(shape=(2880, 58))
+noCarCustErrors = np.zeros(shape=(2880, 58))
 noParkErrors = np.zeros(shape=(2880, 58))
+noCarEmpErrors = np.zeros(shape=(2880, 58))
 
 ######################################
 # Creating Functions For Update ~ NM
@@ -30,7 +31,7 @@ def arrivals(arrival_list, time, cars, employees, station):
             break
 
 
-def assign_drivers(cars, employee_list, station_dictionary, errors):
+def assign_drivers(cars, employee_list, station_dictionary, errors, current_time):
     while len(employee_list) > 0:
         driver = employee_list[0]
         try:
@@ -39,7 +40,8 @@ def assign_drivers(cars, employee_list, station_dictionary, errors):
             current_customer.update_status(driver, current_car)
             station_dictionary[driver.destination].append_en_route_list(current_customer)
         except IndexError:
-            errors.append('No car for customer at Station Number {}'.format(driver.origin))
+            errors.append('No car for employee at Station Number {}'.format(driver.origin))
+            noCarEmpErrors[current_time, driver.origin] += 1
             break
 
 
@@ -66,7 +68,7 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
             station_dictionary[customer.destination].append_en_route_list(current_customer)
         except IndexError:
             errors.append('No car for customer at Station Number {}'.format(customer.origin))
-            noCarErrors[current_time, customer.origin] += 1
+            noCarCustErrors[current_time, customer.origin] += 1
             break
 
 
