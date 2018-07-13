@@ -3,6 +3,8 @@ from helpers import *
 from datetime import datetime, timedelta
 import numpy as np
 
+#from controller.hamod import *
+
 # Setup Vars
 output = []
 station_dict = {}
@@ -36,7 +38,7 @@ for station in STATION_MAPPING_INT:
     for i in range(len(STATION_MAPPING_INT)):
         if i != station:
             neighboring_stations.append(i)
-    neighbor_list.append(neighboring_stations)
+    neighbor_list.append(np.array(neighboring_stations))
 
 
 car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
@@ -50,6 +52,8 @@ RoadNetwork['driverTravelTimes'] = walking_travel_times
 RoadNetwork['pvTravelTimes'] = car_travel_times
 RoadNetwork['eTravelTimes'] = car_travel_times
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
+RoadNetwork['parking'] = np.array([10 for i in range(58)])
+
 
 ######################################
 # Creating Parameters Dictionary ~ NM
@@ -75,7 +79,7 @@ Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
 ######################################
 
 # FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex}
-FLAGS = {'debugFlag': False, 'glpkFlag': False}
+Flags = {'debugFlag': False, 'glpkFlag': False}
 
 ######################################
 # Main Loop ~ NM
@@ -142,8 +146,8 @@ for time in range(len(cust_requests)):
 
     Forecast = {
         'demand' : demand_forecast_parser(time), # ~ MC
-        'vehicleArrivals': np.array(vehicleArrivals), # ~ NM
-        'driverArrivals' : np.array(driverArrivals), # ~ NM
+        'vehicleArrivals': vehicleArrivals, # ~ NM
+        'driverArrivals' : driverArrivals, # ~ NM
     }
 
     ######################################
@@ -156,7 +160,22 @@ for time in range(len(cust_requests)):
         'privateVehicles': 0
     }
 
+    # controller = MoDController(RoadNetwork)
+    # [tasks, output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
     output.append('Errors: {}'.format(errors))
+
+
+######################################
+# Tracking Errors / Summing Errors ~ JS
+######################################
+
+sumStationNoParkErrors = np.sum(noParkErrors, axis = 0) # no parking errors per station total
+sumStationNoCarCustErrors = np.sum(noCarCustErrors, axis = 0) # no car available for customers errors per station total
+sumStationNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 0) # no car available for employees errors per station total
+
+sumTimeNoParkErrors = np.sum(noParkErrors, axis = 1) # no parking errors per time total
+sumTimeNoCarCustErrors = np.sum(noCarCustErrors, axis = 1) # no car available for customers errors per time total
+sumTimeNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 1) # no car available for employees errors per time total
 
     #driver_requests = format_instructions(output_requests)
     #customer_requests = format_instructions(output_requests)
