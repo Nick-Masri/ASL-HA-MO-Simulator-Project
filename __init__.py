@@ -3,6 +3,8 @@ from helpers import *
 from datetime import datetime, timedelta
 import numpy as np
 
+from optimalmod.hamod import *
+
 # Setup Vars
 output = []
 station_dict = {}
