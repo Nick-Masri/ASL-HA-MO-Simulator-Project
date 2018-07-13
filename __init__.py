@@ -66,8 +66,9 @@ Parameters['pvCap'] = 4
 Parameters['driverRebalancingCost'] = c_r
 Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
-Parameters['lostDemandCost'] =  c_d
-Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
+Parameters['lostDemandCost'] = c_d
+Parameters['thor'] = int(horizon.seconds / timestepsize.seconds)
+
 
 ######################################
 # Creating Flags Dictionary ~ JS
