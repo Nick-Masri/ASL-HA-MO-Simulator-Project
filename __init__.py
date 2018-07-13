@@ -37,7 +37,7 @@ for station in STATION_MAPPING_INT:
     for i in range(len(STATION_MAPPING_INT)):
         if i != station:
             neighboring_stations.append(i)
-    neighbor_list.append(neighboring_stations)
+    neighbor_list.append(np.array(neighboring_stations))
 
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
@@ -148,7 +148,10 @@ for time in range(len(CUST_REQUESTS)):
         'privateVehicles': 0
     }
 
+    controller = MoDController(RoadNetwork)
+    print(controller)
     output.append('Errors: {}'.format(errors))
+    break
 
 ######################################
 # Tracking Errors / Summing Errors ~ JS
