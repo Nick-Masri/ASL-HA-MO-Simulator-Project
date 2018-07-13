@@ -3,7 +3,7 @@ from helpers import *
 from datetime import datetime, timedelta
 import numpy as np
 
-from optimalmod.hamod import *
+from controller.hamod import *
 
 # Setup Vars
 output = []
@@ -27,7 +27,7 @@ for station in range(len(STATION_MAPPING_INT)):
 
 
 ######################################
-# Creating Road Network Dictionary ~ NM
+# Creating Road Network Dictionary ~ NM and MC
 ######################################
 
 neighbor_list = []
@@ -41,11 +41,14 @@ for station in STATION_MAPPING_INT:
 
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
-# RoadNetwork['travelTimes'] = np.array('travel_times_matrix_hamo.csv')
-# RoadNetwork['driverTravelTimes'] =  np.array('travel_times_matrix_walk.csv')
-# RoadNetwork['pvTravelTimes'] = np.load('travel_times_matrix_car.npy')
-# RoadNetwork['eTravelTimes'] = np.array('travel_times_matrix_car.csv')
+RoadNetwork['travelTimes'] = HAMO_TRAVEL_TIMES
+RoadNetwork['driverTravelTimes'] = PEDESTRIAN_TRAVEL_TIMES
+RoadNetwork['pvTravelTimes'] = CAR_TRAVEL_TIMES
+RoadNetwork['cTravelTimes'] = CAR_TRAVEL_TIMES  # Assuming that customer travel time = CAR travel time
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
+RoadNetwork['parking'] = np.array([10 for i in range(58)])
+print("Number of stations: {}".format(len(RoadNetwork['parking'])))
+
 
 ######################################
 # Creating Parameters Dictionary ~ NM
@@ -71,7 +74,7 @@ Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
 ######################################
 
 # FLAGS = {'debugFlag': True is debugging, False if not, 'glpkFlag': True is using glpk, False is using cplex}
-FLAGS = {'debugFlag': False, 'glpkFlag': False}
+Flags = {'debugFlag': False, 'glpkFlag': False}
 
 ######################################
 # Main Loop ~ NM
@@ -149,7 +152,8 @@ for time in range(len(CUST_REQUESTS)):
     }
 
     controller = MoDController(RoadNetwork)
-    print(controller)
+    [tasks, output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+    print(tasks)
     output.append('Errors: {}'.format(errors))
     break
 
