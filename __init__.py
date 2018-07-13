@@ -62,7 +62,7 @@ c_d = 10000.
 c_r = (1. / thor) * 0.0001 * 24. * c_d
 
 Parameters = {}
-Parameters['pvCap'] = 4.
+Parameters['pvCap'] = 4
 Parameters['driverRebalancingCost'] = c_r
 Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
