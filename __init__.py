@@ -3,7 +3,7 @@ from helpers import *
 from datetime import datetime, timedelta
 import numpy as np
 
-#from controller.hamod import *
+from controller.hamod import *
 
 # Setup Vars
 output = []
@@ -160,8 +160,8 @@ for time in range(len(cust_requests)):
         'privateVehicles': 0
     }
 
-    # controller = MoDController(RoadNetwork)
-    # [tasks, output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+    controller = MoDController(RoadNetwork)
+    [tasks, output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
     output.append('Errors: {}'.format(errors))
 
 
