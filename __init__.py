@@ -9,7 +9,7 @@ station_dict = {}
 
 
 ######################################
-# Initializing Environment ~ MC
+# Initializing Environment ~ MC/NM
 ######################################
 
 car_count = 1
@@ -38,12 +38,17 @@ for station in STATION_MAPPING_INT:
             neighboring_stations.append(i)
     neighbor_list.append(neighboring_stations)
 
+
+car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
+walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
+hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
+
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
-# RoadNetwork['travelTimes'] = np.array('travel_times_matrix_hamo.csv')
-# RoadNetwork['driverTravelTimes'] =  np.array('travel_times_matrix_walk.csv')
-# RoadNetwork['pvTravelTimes'] = np.load('travel_times_matrix_car.npy')
-# RoadNetwork['eTravelTimes'] = np.array('travel_times_matrix_car.csv')
+RoadNetwork['travelTimes'] = hamo_travel_times
+RoadNetwork['driverTravelTimes'] = walking_travel_times
+RoadNetwork['pvTravelTimes'] = car_travel_times
+RoadNetwork['eTravelTimes'] = car_travel_times
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 
 ######################################
@@ -79,8 +84,8 @@ FLAGS = {'debugFlag': False, 'glpkFlag': False}
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
-driver_requests = None
-pedestrian_requests = None
+driver_requests = []
+pedestrian_requests = []
 
 for time in range(len(cust_requests)):
     print("Time: {}".format(time))

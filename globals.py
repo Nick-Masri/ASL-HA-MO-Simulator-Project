@@ -48,19 +48,6 @@ STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
 # in the form {logical index: Real Station Number}
 STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
 
-
-###############
-# Travel Times ~ MC
-###############
-
-# Initializing the travel time matrices. They're Numpy arrays. Use the get method  in classes.py to get times.
-
-CAR_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
-PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
-BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
-HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
-
-
 ###############
 # People ~ NM
 ###############
@@ -70,8 +57,7 @@ EMPLOYEE_LIST = []
 for i in range(len(STATION_MAPPING_INT)):
     EMPLOYEE_LIST.append([])
 
-EMPLOYEE_LIST[0] = [1,2,3,4]
-print(EMPLOYEE_LIST)
+EMPLOYEE_LIST[0] = [4]
 ###############
 # Forecast Demand Mean ~ MC
 ###############

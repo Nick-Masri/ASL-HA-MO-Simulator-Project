@@ -22,15 +22,19 @@ def arrivals(arrival_list, time, cars, employees, station):
         else:
             break
 
+def update_employee_list(requests, time, employee_list):
+    for employee in requests:
+        id = employee_list[employee]
+        employee_list[employee] = Employee(requests[0], requests[1], time, id)
 
 def assign_drivers(cars, employee_list, station_dictionary, errors):
     while len(employee_list) > 0:
         driver = employee_list[0]
         try:
             current_car = cars.pop(0)
-            current_customer = employee_list.pop(0)
-            current_customer.update_status(driver, current_car)
-            station_dictionary[driver.destination].append_en_route_list(current_customer)
+            driver = employee_list.pop(0)
+            driver.update_status(driver, current_car)
+            station_dictionary[driver.destination].append_en_route_list(driver)
         except IndexError:
             errors.append('No car for customer at Station Number {}'.format(driver.origin))
             break
@@ -38,8 +42,9 @@ def assign_drivers(cars, employee_list, station_dictionary, errors):
 
 def assign_pedestrians(employee_list, station_dictionary):
     while len(employee_list) > 0:
-        current_ped = employee_list.pop(0)
-        station_dictionary[current_ped.destination].append_en_route_list(current_ped)
+        ped = employee_list.pop(0)
+        ped.update_status(ped)
+        station_dictionary[ped.destination].append_en_route_list(ped)
 
 
 
@@ -54,9 +59,9 @@ def assign_customers(customer_list, cars, station_dictionary, errors):
         customer = customer_list[0]
         try:
             current_car = cars.pop(0)
-            current_customer = customer_list.pop(0)
-            current_customer.update_status(customer, current_car)
-            station_dictionary[customer.destination].append_en_route_list(current_customer)
+            customer = customer_list.pop(0)
+            customer.update_status(customer, current_car)
+            station_dictionary[customer.destination].append_en_route_list(customer)
         except IndexError:
             errors.append('No car for customer at Station Number {}'.format(customer.origin))
             break
@@ -67,7 +72,7 @@ def assign_customers(customer_list, cars, station_dictionary, errors):
 # Update Loop ~ NM
 ######################################
 
-def update(station_dict, customer_requests, current_time, driver_requests=None, pedestrian_requests=None):
+def update(station_dict, customer_requests, current_time, driver_requests=[], pedestrian_requests=[]):
     errors = []
     for station in station_dict:
         # For future efficiency check to see if there are any requests before doing all this work.
@@ -88,11 +93,19 @@ def update(station_dict, customer_requests, current_time, driver_requests=None, 
         if overload < 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
 
-        # Update Customer list and Assign Them
-        for customer_request in customer_requests:
-            if customer_request[0] == station:
-                update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
-        assign_customers(customer_list, current_car_list, station_dict, errors)  # assigns customers to cars if available
+        if len(customer_requests) > 0:
+            # Update Customer list and Assign Them
+            for customer_request in customer_requests:
+                if customer_request[0] == station:
+                    update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
+            assign_customers(customer_list, current_car_list, station_dict, errors)  # assigns customers to cars if available
+
+        if len(driver_requests+pedestrian_requests) > 0:
+            for req in driver_requests+pedestrian_requests:
+                if req[0] == station:
+                    update_employee_list(req, current_time, employee_list)
+            assign_drivers(current_car_list, employee_list, station_dict, errors)
+            assign_pedestrians(employee_list, station_dict)
     return errors
 
 
@@ -105,12 +118,9 @@ def format_instructions(request):
     count = 0
     for req in request:
         request_indices = np.nonzero(req)
-        # print(req[request_indices[0][0], request_indices[1][0]])
-        # print(request_indices)
         temp = []
         num_of_requests = len(request_indices[0])  # Number of (o, d) NOT the number of requests per (o, d)
         if num_of_requests > 0:
-            # print(request_indices)
             for request in range(num_of_requests):
                 origin = request_indices[0][request]
                 destination = request_indices[1][request]
