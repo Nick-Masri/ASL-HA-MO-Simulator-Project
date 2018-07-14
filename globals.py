@@ -58,7 +58,6 @@ STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
 # Initializing the travel time matrices. They're Numpy arrays. Use the get method  in classes.py to get times.
 
 CAR_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
-print(CAR_TRAVEL_TIMES)
 PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
 HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)

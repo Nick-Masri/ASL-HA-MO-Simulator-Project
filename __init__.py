@@ -31,16 +31,30 @@ for station in range(len(STATION_MAPPING_INT)):
 ######################################
 
 neighbor_list = []
+num_of_stations = len(STATION_MAPPING_INT)
 
-for station in STATION_MAPPING_INT:
-    neighboring_stations = []
-    for i in range(len(STATION_MAPPING_INT)):
-        if i != station:
-            neighboring_stations.append(i)
-    neighbor_list.append(np.array(neighboring_stations))
+# for station in STATION_MAPPING_INT:
+#     neighboring_stations = []
+#     for i in range(len(STATION_MAPPING_INT)):
+#         if i != station:
+#             neighboring_stations.append(i)
+#     print(len(neighboring_stations))
+#     neighbor_list.append(np.asarray(neighboring_stations).reshape((1,len(STATION_MAPPING_INT))))
+
+# Indexed 1 (assumes logical indices)
+for station in range(1,num_of_stations+1):
+    lst = [i for i in range(1,num_of_stations+1) if i != station]
+    print(len(lst))
+    neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations-1)))
+
+
+
+
+
 
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
+print(RoadNetwork['roadGraph'][0].shape)
 RoadNetwork['travelTimes'] = HAMO_TRAVEL_TIMES
 RoadNetwork['driverTravelTimes'] = PEDESTRIAN_TRAVEL_TIMES
 RoadNetwork['pvTravelTimes'] = CAR_TRAVEL_TIMES
