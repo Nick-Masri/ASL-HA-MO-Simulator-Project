@@ -15,3 +15,4 @@ lib64
 __pycache__
 output.txt
 request_file.txt
+./controller/*
