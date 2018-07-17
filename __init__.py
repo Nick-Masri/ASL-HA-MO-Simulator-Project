@@ -47,7 +47,7 @@ print("NEIGHBOR")
 print(len(neighbor_list[0][0]))
 
 RoadNetwork = {}
-# RoadNetwork['roadGraph'] = neighbor_list
+RoadNetwork['roadGraph'] = neighbor_list
 RoadNetwork['travelTimes'] = HAMO_TRAVEL_TIMES
 RoadNetwork['driverTravelTimes'] = PEDESTRIAN_TRAVEL_TIMES
 RoadNetwork['pvTravelTimes'] = CAR_TRAVEL_TIMES
@@ -58,7 +58,10 @@ RoadNetwork['parking'] = np.array([10 for i in range(58)])
 
 print('ROADNETWORK')
 for k, v in RoadNetwork.items():
-    print(k, v.shape)
+    try:
+        print(k, v.shape)
+    except:
+        print(k, v)
 
 
 ######################################
@@ -153,6 +156,9 @@ for time in range(len(CUST_REQUESTS)):
         'vehicleArrivals': vehicleArrivals, # ~ NM
         'driverArrivals' : driverArrivals, # ~ NM
     }
+    print("FORECAST")
+    for k, v in Forecast.items():
+        print(k, v.shape)
 
     ######################################
     # Creating State Dictionary ~ JS

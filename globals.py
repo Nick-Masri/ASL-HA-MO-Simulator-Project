@@ -62,9 +62,9 @@ STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
 # Initializing the travel time matrices. They're Numpy arrays. Use the get method  in classes.py to get times.
 
 CAR_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
-# PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
-# BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
-# HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
+PEDESTRIAN_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
+BIKE_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_bike.csv", STATION_MAPPING, STATION_MAPPING_INT)
+HAMO_TRAVEL_TIMES = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
 
 ###############
@@ -116,6 +116,19 @@ PEDESTRIAN_INSTRUCTIONS = []
 ###############
 
 mean_demand = np.load('./data/mean_demand_weekday_5min.npy')
+
 DEMAND_FORECAST = np.sum(mean_demand, axis=1)
+
+time_length = mean_demand.shape[0]
+station_length = mean_demand.shape[1]
+
+DEMAND_FORECAST_ALT = np.zeros((station_length, station_length, time_length))
+for time in range(time_length):
+    for origin in range(station_length):
+        for destination in range(station_length):
+            DEMAND_FORECAST_ALT[origin, destination, time] = mean_demand[time, origin, destination]
+
+print(DEMAND_FORECAST_ALT.shape)
+
 
 
