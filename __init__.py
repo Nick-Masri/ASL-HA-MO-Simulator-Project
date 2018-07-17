@@ -33,26 +33,18 @@ for station in range(len(STATION_MAPPING_INT)):
 neighbor_list = []
 num_of_stations = len(STATION_MAPPING_INT)
 
-# for station in STATION_MAPPING_INT:
-#     neighboring_stations = []
-#     for i in range(len(STATION_MAPPING_INT)):
-#         if i != station:
-#             neighboring_stations.append(i)
-#     print(len(neighboring_stations))
-#     neighbor_list.append(np.asarray(neighboring_stations).reshape((1,len(STATION_MAPPING_INT))))
-
 # Indexed 1 (assumes logical indices)
 for station in range(1,num_of_stations+1):
     # Excluding the current station from the list of neighbors
-    lst = [i for i in range(1,num_of_stations+1) if i != station]
-    neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations-1)))
+    # lst = [i for i in range(1,num_of_stations+1) if i != station]
+    # neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations-1)))
 
-    # lst = [i for i in range(1,num_of_stations+1)]
-    # neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations)))
+    lst = [i for i in range(1,num_of_stations+1)]
+    neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations)))
 
 
 print("NEIGHBOR")
-print(neighbor_list)
+print(len(neighbor_list[0][0]))
 
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
@@ -62,7 +54,7 @@ RoadNetwork['pvTravelTimes'] = CAR_TRAVEL_TIMES
 RoadNetwork['cTravelTimes'] = CAR_TRAVEL_TIMES  # Assuming that customer travel time = CAR travel time
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
-print("Number of stations: {}".format(len(RoadNetwork['parking'])))
+print("parking: {}".format(len(RoadNetwork['parking'])))
 
 
 ######################################
@@ -77,13 +69,14 @@ c_d = 10000.
 c_r = (1. / thor) * 0.0001 * 24. * c_d
 
 Parameters = {}
-Parameters['pvCap'] = 4
+Parameters['pvCap'] = 4.
 Parameters['driverRebalancingCost'] = c_r
 Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
 Parameters['lostDemandCost'] = c_d
-Parameters['thor'] = int(horizon.seconds / timestepsize.seconds)
-
+Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
+for k, v in Parameters.items():
+    print(k, type(v))
 
 ######################################
 # Creating Flags Dictionary ~ JS
