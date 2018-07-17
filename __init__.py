@@ -43,18 +43,19 @@ num_of_stations = len(STATION_MAPPING_INT)
 
 # Indexed 1 (assumes logical indices)
 for station in range(1,num_of_stations+1):
+    # Excluding the current station from the list of neighbors
     lst = [i for i in range(1,num_of_stations+1) if i != station]
-    print(len(lst))
-    neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations-1)))
+    neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations-1)))
+
+    # lst = [i for i in range(1,num_of_stations+1)]
+    # neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations)))
 
 
-
-
-
+print("NEIGHBOR")
+print(neighbor_list)
 
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
-print(RoadNetwork['roadGraph'][0].shape)
 RoadNetwork['travelTimes'] = HAMO_TRAVEL_TIMES
 RoadNetwork['driverTravelTimes'] = PEDESTRIAN_TRAVEL_TIMES
 RoadNetwork['pvTravelTimes'] = CAR_TRAVEL_TIMES
