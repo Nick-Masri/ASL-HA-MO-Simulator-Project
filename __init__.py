@@ -47,14 +47,18 @@ print("NEIGHBOR")
 print(len(neighbor_list[0][0]))
 
 RoadNetwork = {}
-RoadNetwork['roadGraph'] = neighbor_list
+# RoadNetwork['roadGraph'] = neighbor_list
 RoadNetwork['travelTimes'] = HAMO_TRAVEL_TIMES
 RoadNetwork['driverTravelTimes'] = PEDESTRIAN_TRAVEL_TIMES
 RoadNetwork['pvTravelTimes'] = CAR_TRAVEL_TIMES
 RoadNetwork['cTravelTimes'] = CAR_TRAVEL_TIMES  # Assuming that customer travel time = CAR travel time
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
-print("parking: {}".format(len(RoadNetwork['parking'])))
+
+
+print('ROADNETWORK')
+for k, v in RoadNetwork.items():
+    print(k, v.shape)
 
 
 ######################################
