@@ -9,25 +9,26 @@ from controller.hamod import *
 output = []
 station_dict = {}
 
+
 ######################################
-# Initializing Environment ~ MC
+# Initializing Environment ~ MC/NM
 ######################################
 
 car_count = 1
-for station in range(len(STATION_MAPPING_INT)):
+for station in STATION_MAPPING_INT.values():
+    employees = EMPLOYEE_LIST[station]
     car_list = []
     emp_list = []
     for car in range(5):
         car_list.append(car_count)
         car_count += 1
-    for emps in EMPLOYEE_LIST:
-        if emps[1] == station:
-            emp_list.append(emps[0])
+    for emps in employees:
+       emp_list.append(emps)
     station_dict[station] = Station(station, car_list, emp_list)
 
 
 ######################################
-# Creating Road Network Dictionary ~ NM and MC
+# Creating Road Network Dictionary ~ NM
 ######################################
 
 neighbor_list = []
@@ -43,12 +44,17 @@ for station in range(1,num_of_stations+1):
     neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations)))
 
 
+
+car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
+walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
+hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
+
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
-RoadNetwork['travelTimes'] = HAMO_TRAVEL_TIMES
-RoadNetwork['driverTravelTimes'] = PEDESTRIAN_TRAVEL_TIMES
-RoadNetwork['pvTravelTimes'] = CAR_TRAVEL_TIMES
-RoadNetwork['cTravelTimes'] = CAR_TRAVEL_TIMES  # Assuming that customer travel time = CAR travel time
+RoadNetwork['travelTimes'] = hamo_travel_times
+RoadNetwork['driverTravelTimes'] = walking_travel_times
+RoadNetwork['pvTravelTimes'] = car_travel_times
+RoadNetwork['eTravelTimes'] = car_travel_times
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
 
@@ -93,8 +99,14 @@ Flags = {'debugFlag': False, 'glpkFlag': False}
 ######################################
 # Main Loop ~ NM
 ######################################
-print('Length of cust requests: {}'.format(len(CUST_REQUESTS)))
-for time in range(len(CUST_REQUESTS)):
+
+
+raw_requests = np.load('./data/10_days/hamo10days.npy')
+cust_requests = format_instructions(raw_requests)
+driver_requests = []
+pedestrian_requests = []
+
+for time in range(len(cust_requests)):
     print("Time: {}".format(time))
     output.append("\nTime: {}".format(time))
     output.append('------------------------------------------------------')
@@ -104,13 +116,11 @@ for time in range(len(CUST_REQUESTS)):
 
     vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
     driverArrivals = np.zeros(shape=(len(station_dict), 12))
-    
-    driver_requests = format_instructions(time, load_instructions('driver'))
-    pedestrian_requests = format_instructions(time, load_instructions('pedestrian'))
-    customer_requests = CUST_REQUESTS[time]
 
-    errors = update(station_dict, driver_requests, pedestrian_requests, customer_requests, time)
-    # print(errors)
+    customer_requests = cust_requests[time]
+
+    errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
+
     for station in station_dict:
 
         ######################################
@@ -199,6 +209,9 @@ sumStationNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 0) # no car available f
 sumTimeNoParkErrors = np.sum(noParkErrors, axis = 1) # no parking errors per time total
 sumTimeNoCarCustErrors = np.sum(noCarCustErrors, axis = 1) # no car available for customers errors per time total
 sumTimeNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 1) # no car available for employees errors per time total
+
+    #driver_requests = format_instructions(output_requests)
+    #customer_requests = format_instructions(output_requests)
 
 ######################################
 # Writing to Output File ~ NM

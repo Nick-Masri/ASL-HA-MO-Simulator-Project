@@ -5,6 +5,9 @@ import operator
 # Creating Inheritance and Methods ~JS
 ######################################
 
+
+car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
+
 class Person:
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
         self.origin = origin
@@ -13,7 +16,7 @@ class Person:
         if origin is None or destination is None or origin_time is None:
             self.destination_time = None
         else:
-            self.destination_time = origin_time + get_travel_time(CAR_TRAVEL_TIMES, origin, destination)
+            self.destination_time = origin_time + get_travel_time(car_travel_times, origin, destination)
         self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
@@ -25,13 +28,11 @@ class Person:
 
 
 class Employee(Person):
-    def __init__(self, origin, destination, origin_time, employee_id, vehicle_id=None):
+    def __init__(self, origin, destination, origin_time, vehicle_id=None):
         Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
-        self.employee_id = employee_id
 
     # Unique Methods
     def reset(self):
-        self.current_position = self.destination
         self.origin = None
         self.destination = None
         self.origin_time = None
