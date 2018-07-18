@@ -53,12 +53,12 @@ RoadNetwork['cTravelTimes'] = CAR_TRAVEL_TIMES  # Assuming that customer travel 
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
 
 
-print('ROADNETWORK')
-for k, v in RoadNetwork.items():
-    try:
-        print(k, v.shape)
-    except:
-        print(k, v)
+# print('ROADNETWORK')
+# for k, v in RoadNetwork.items():
+#     try:
+#         print(k, v.shape)
+#     except:
+#         print(k, v)
 
 
 ######################################
@@ -79,8 +79,9 @@ Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
 Parameters['lostDemandCost'] = c_d
 Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
-for k, v in Parameters.items():
-    print(k, type(v))
+
+# for k, v in Parameters.items():
+#     print(k, type(v))
 
 ######################################
 # Creating Flags Dictionary ~ JS
@@ -154,9 +155,10 @@ for time in range(len(CUST_REQUESTS)):
         'vehicleArrivals': vehicleArrivals, # ~ NM
         'driverArrivals' : driverArrivals, # ~ NM
     }
-    print("FORECAST")
-    for k, v in Forecast.items():
-        print(k, v.shape)
+
+    # print("FORECAST")
+    # for k, v in Forecast.items():
+    #     print(k, v.shape)
 
     ######################################
     # Creating State Dictionary ~ JS
@@ -169,10 +171,15 @@ for time in range(len(CUST_REQUESTS)):
     }
 
     controller = MoDController(RoadNetwork)
-    [tasks, output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-    print(tasks)
+    [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+    for task in tasks:
+        print(task)
+
+    for c_output in controller_output:
+        print(c_output)
+
     output.append('Errors: {}'.format(errors))
-    break
+
 
 ######################################
 # Tracking Errors / Summing Errors ~ JS
