@@ -170,14 +170,20 @@ for time in range(len(CUST_REQUESTS)):
         'privateVehicles': np.zeros((58,1))
     }
 
-    controller = MoDController(RoadNetwork)
+    # create controller if it doesn't already exist
+    try:
+        controller
+    except:
+        controller = MoDController(RoadNetwork)
+
     [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
     for task in tasks:
         print(task)
 
     for c_output in controller_output:
         print(c_output)
-        print('\n\n*****************************\n\n')
+
+    print('\n\n*****************************\n\n')
 
     output.append('Errors: {}'.format(errors))
 
