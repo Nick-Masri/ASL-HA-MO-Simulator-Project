@@ -1,6 +1,6 @@
 from helpers import *
 from classes import *
-import globals
+from globals import *
 
 import pandas as pd
 

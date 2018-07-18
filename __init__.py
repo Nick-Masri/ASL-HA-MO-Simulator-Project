@@ -28,7 +28,7 @@ for station in STATION_MAPPING_INT.values():
 
 
 ######################################
-# Creating Road Network Dictionary ~ NM
+# Creating Road Network Dictionary ~ NM/MC
 ######################################
 
 neighbor_list = []
@@ -187,9 +187,11 @@ for time in range(len(cust_requests)):
         controller = MoDController(RoadNetwork)
 
     [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-    for task in tasks:
-        print(task)
+    print("Tasks: ")
+    for task in range(len(tasks)):
+        print(type(tasks[task]))
 
+    print("\n\nOutput:")
     for c_output in controller_output:
         print(c_output)
 
