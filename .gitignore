@@ -11,9 +11,9 @@ src/*.egg-info
 lib
 lib64
 .idea
-data/*
+./data/*
 __pycache__
 output.txt
 request_file.txt
-controller/*
+./controller/*
 .DS_Store
