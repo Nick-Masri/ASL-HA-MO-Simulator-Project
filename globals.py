@@ -55,12 +55,16 @@ def demand_forecast_formatter(station_length, time_length, mean_demand):
     :param mean_demand: T x N x N numpy array - the unformatted mean demand
     :return: the formatted numpy array. Now in the form N x N x T
     '''
-    demand_forecast_alt = np.zeros((station_length, station_length, time_length))
+    demand_forecast_alt = np.zeros((station_length, station_length, time_length+24))
 
     for time in range(time_length):
         for origin in range(station_length):
             for destination in range(station_length):
                 demand_forecast_alt[origin, destination, time] = mean_demand[time, origin, destination]
+
+    # Add the first 24 days to the end to allow forecasting on times 265 - 288
+    for station in range(len(demand_forecast_alt)):
+        demand_forecast_alt[station] = np.hstack((demand_forecast_alt[station, :, :288], demand_forecast_alt[station, :, :24]))
 
     return demand_forecast_alt
 
@@ -142,6 +146,7 @@ time_length = mean_demand.shape[0]
 station_length = mean_demand.shape[1]
 
 DEMAND_FORECAST_ALT = demand_forecast_formatter(station_length, time_length, mean_demand)
+print(DEMAND_FORECAST_ALT.shape)
 
 
 

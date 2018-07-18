@@ -154,7 +154,7 @@ def demand_forecast_parser(time):
 
 
 def demand_forecast_parser_alt(time):
-    time = time % 288
+    time = time % 288  # For dealing with multiple days
     first_11_timeblocks = DEMAND_FORECAST_ALT[:, :, time:time+11]
     time += 11
     next_12_timeblocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time+12], axis=2)
