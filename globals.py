@@ -125,7 +125,7 @@ for req in raw_requests:
                 count += 1
     CUST_REQUESTS.append(temp)
 
-CUST_REQUESTS = CUST_REQUESTS[:40]
+# CUST_REQUESTS = CUST_REQUESTS[:40]
 
 ###############
 # Instructions
@@ -140,13 +140,14 @@ PEDESTRIAN_INSTRUCTIONS = []
 
 mean_demand = np.load('./data/mean_demand_weekday_5min.npy')
 
-DEMAND_FORECAST = np.sum(mean_demand, axis=1)
+# This is in the format TxNxN which is not the right format for the controller
+# DEMAND_FORECAST = np.sum(mean_demand, axis=1)
 
 time_length = mean_demand.shape[0]
 station_length = mean_demand.shape[1]
 
 DEMAND_FORECAST_ALT = demand_forecast_formatter(station_length, time_length, mean_demand)
-print(DEMAND_FORECAST_ALT.shape)
+
 
 
 

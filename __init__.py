@@ -93,7 +93,7 @@ Flags = {'debugFlag': False, 'glpkFlag': False}
 ######################################
 # Main Loop ~ NM
 ######################################
-
+print('Length of cust requests: {}'.format(len(CUST_REQUESTS)))
 for time in range(len(CUST_REQUESTS)):
     print("Time: {}".format(time))
     output.append("\nTime: {}".format(time))
