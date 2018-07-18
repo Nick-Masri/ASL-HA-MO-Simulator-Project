@@ -128,7 +128,7 @@ for time in range(time_length):
         for destination in range(station_length):
             DEMAND_FORECAST_ALT[origin, destination, time] = mean_demand[time, origin, destination]
 
-print(DEMAND_FORECAST_ALT[:,:,0:12].shape)
+
 
 
 

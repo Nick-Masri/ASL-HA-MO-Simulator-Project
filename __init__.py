@@ -177,6 +177,7 @@ for time in range(len(CUST_REQUESTS)):
 
     for c_output in controller_output:
         print(c_output)
+        print('\n\n*****************************\n\n')
 
     output.append('Errors: {}'.format(errors))
 

@@ -161,14 +161,11 @@ def demand_forecast_parser_alt(time):
     parsed_demand = np.zeros((first_11_timeblocks.shape[0],
                               first_11_timeblocks.shape[1],
                               first_11_timeblocks.shape[2]+1))
-    print(first_11_timeblocks.shape)
-    print(next_12_timeblocks.shape)
+
     for station in range(first_11_timeblocks.shape[0]):
         # print(first_11_timeblocks[station].shape)
         # print(next_12_timeblocks[station].shape)
         parsed_demand[station] = np.hstack((first_11_timeblocks[station], next_12_timeblocks[station].reshape((58,1))))
 
-    print("Yipeeeeeeeeeeeee")
-    print(parsed_demand[0])
     return parsed_demand
 
