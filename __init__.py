@@ -26,6 +26,7 @@ for station in STATION_MAPPING_INT.values():
        emp_list.append(emps)
     station_dict[station] = Station(station, car_list, emp_list)
 
+print(station_dict)
 
 ######################################
 # Creating Road Network Dictionary ~ NM/MC
@@ -121,6 +122,7 @@ for time in range(len(cust_requests)):
 
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
 
+    # Logging current state
     for station in station_dict:
 
         ######################################
@@ -188,14 +190,17 @@ for time in range(len(cust_requests)):
 
     [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
     print("Tasks: ")
-    for task in range(len(tasks)):
-        print(type(tasks[task]))
+    for k,v in tasks.items():
+        print(k, v)
 
     print("\n\nOutput:")
     for c_output in controller_output:
         print(c_output)
 
     print('\n\n*****************************\n\n')
+
+    pedestrian_requests = tasks['driverRebalancingQueue']
+    vehicle_requests = tasks['vehicleRebalancingQueue']
 
     output.append('Errors: {}'.format(errors))
 

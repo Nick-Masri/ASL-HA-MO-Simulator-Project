@@ -84,7 +84,8 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
 
 def update(station_dict, customer_requests, current_time, driver_requests=[], pedestrian_requests=[]):
     errors = []
-    for station in station_dict:
+    for station in sorted(station_dict):  # now it goes through in order
+
         # For future efficiency check to see if there are any requests before doing all this work.
 
         # Grab information relevant to this loop and organize
