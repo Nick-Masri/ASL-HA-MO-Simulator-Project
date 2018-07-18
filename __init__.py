@@ -9,6 +9,9 @@ from controller.hamod import *
 output = []
 station_dict = {}
 
+total_time_full = np.zeros(shape=(58, 1))
+total_time_empty = np.zeros(shape=(58, 1))
+
 
 ######################################
 # Initializing Environment ~ MC/NM
@@ -154,6 +157,19 @@ for time in range(len(cust_requests)):
                         break
                 else:
                     break
+
+        ########################################
+        # Fraction of Time for at Capacity or Empty ~ JS
+        ########################################
+
+        num_parked_cars = len(station_dict[station].car_list)
+        num_park_spots = 50 - len(station_dict[station].car_list)
+
+        if num_parked_cars == 0:
+            total_time_empty[station] += 1
+
+        if num_parked_cars == num_park_spots:
+            total_time_full[station] += 1
 
     ######################################
     # Creating Forecast Dictionary ~ NM/MC
