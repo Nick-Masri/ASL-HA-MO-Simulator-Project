@@ -43,9 +43,6 @@ for station in range(1,num_of_stations+1):
     neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations)))
 
 
-print("NEIGHBOR")
-print(len(neighbor_list[0][0]))
-
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
 RoadNetwork['travelTimes'] = HAMO_TRAVEL_TIMES
@@ -152,7 +149,8 @@ for time in range(len(CUST_REQUESTS)):
     ######################################
 
     Forecast = {
-        'demand' : demand_forecast_parser(time), # ~ MC
+        # 'demand' : demand_forecast_parser(time), # ~ MC
+        'demand' : demand_forecast_parser_alt(time),
         'vehicleArrivals': vehicleArrivals, # ~ NM
         'driverArrivals' : driverArrivals, # ~ NM
     }

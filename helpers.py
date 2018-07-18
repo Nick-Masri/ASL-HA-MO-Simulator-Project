@@ -144,11 +144,31 @@ def demand_forecast_parser(time):
     :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
     '''
     time = time % 288
-    first_11_time_blocks = DEMAND_FORECAST[time:time+11]
+    first_11_timeblocks = DEMAND_FORECAST[time:time+11]
 
     time = time + 11
     next_12_timeblocks = np.sum(DEMAND_FORECAST[time: time+12], axis=0)
-    parsed_demand = np.vstack((first_11_time_blocks, next_12_timeblocks))
+    parsed_demand = np.vstack((first_11_timeblocks, next_12_timeblocks))
 
+    return parsed_demand
+
+
+def demand_forecast_parser_alt(time):
+    time = time % 288
+    first_11_timeblocks = DEMAND_FORECAST_ALT[:, :, time:time+11]
+    time += 11
+    next_12_timeblocks = np.sum(DEMAND_FORECAST_ALT[:,:, time: time+12], axis=2)
+    parsed_demand = np.zeros((first_11_timeblocks.shape[0],
+                              first_11_timeblocks.shape[1],
+                              first_11_timeblocks.shape[2]+1))
+    print(first_11_timeblocks.shape)
+    print(next_12_timeblocks.shape)
+    for station in range(first_11_timeblocks.shape[0]):
+        # print(first_11_timeblocks[station].shape)
+        # print(next_12_timeblocks[station].shape)
+        parsed_demand[station] = np.hstack((first_11_timeblocks[station], next_12_timeblocks[station].reshape((58,1))))
+
+    print("Yipeeeeeeeeeeeee")
+    print(parsed_demand[0])
     return parsed_demand
 
