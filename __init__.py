@@ -213,6 +213,9 @@ for time in range(len(cust_requests)):
 
     output.append('Errors: {}'.format(errors))
 
+    #driver_requests = format_instructions(output_requests)
+    #customer_requests = format_instructions(output_requests)
+
 
 ######################################
 # Tracking Errors / Summing Errors ~ JS
@@ -226,8 +229,12 @@ sumTimeNoParkErrors = np.sum(noParkErrors, axis = 1) # no parking errors per tim
 sumTimeNoCarCustErrors = np.sum(noCarCustErrors, axis = 1) # no car available for customers errors per time total
 sumTimeNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 1) # no car available for employees errors per time total
 
-    #driver_requests = format_instructions(output_requests)
-    #customer_requests = format_instructions(output_requests)
+######################################
+# Calculate Fraction of Times ~ JS
+######################################
+
+fraction_time_full = total_time_full / len(cust_requests)
+fraction_time_empty = total_time_empty / len(cust_requests)
 
 ######################################
 # Writing to Output File ~ NM
