@@ -7,8 +7,10 @@ import numpy as np
 # Travel Times helper functions ~ MC
 #######################
 
+
 def import_travel_times(filename):
     return pd.read_csv(filename)
+
 
 def format_travel_times(filename, station_mapping, station_mapping_int):
     graph = import_travel_times(filename)
@@ -25,6 +27,7 @@ def format_travel_times(filename, station_mapping, station_mapping_int):
 
     return graph[columns].values
 
+
 def fix_header(graph, station_mapping):
     columns = graph.columns.to_series()
     temp = []
@@ -39,9 +42,27 @@ def fix_header(graph, station_mapping):
     graph.columns = temp
     graph.drop(columns=col_to_drop, inplace=True)
 
+
 def fix_row_numbers(graph, station_mapping):
     graph['station_id'] = graph['station_id'].replace(station_mapping)
     graph.sort_values(by=['station_id'], inplace=True)
+
+
+def demand_forecast_formatter(station_length, time_length, mean_demand):
+    '''
+    :param station_length: int Number of stations
+    :param time_length: int Number of times we have data for
+    :param mean_demand: T x N x N numpy array - the unformatted mean demand
+    :return: the formatted numpy array. Now in the form N x N x T
+    '''
+    demand_forecast_alt = np.zeros((station_length, station_length, time_length))
+
+    for time in range(time_length):
+        for origin in range(station_length):
+            for destination in range(station_length):
+                demand_forecast_alt[origin, destination, time] = mean_demand[time, origin, destination]
+
+    return demand_forecast_alt
 
 
 ###############
@@ -88,8 +109,6 @@ CUST_REQUESTS = []
 count = 0
 for req in raw_requests:
     request_indices = np.nonzero(req)
-    # print(req[request_indices[0][0], request_indices[1][0]])
-    # print(request_indices)
     temp = []
     num_of_requests = len(request_indices[0])  # Number of (o, d) NOT the number of requests per (o, d)
     if num_of_requests > 0:
@@ -102,7 +121,7 @@ for req in raw_requests:
                 count += 1
     CUST_REQUESTS.append(temp)
 
-
+CUST_REQUESTS = CUST_REQUESTS[:40]
 
 ###############
 # Instructions
@@ -122,11 +141,10 @@ DEMAND_FORECAST = np.sum(mean_demand, axis=1)
 time_length = mean_demand.shape[0]
 station_length = mean_demand.shape[1]
 
-DEMAND_FORECAST_ALT = np.zeros((station_length, station_length, time_length))
-for time in range(time_length):
-    for origin in range(station_length):
-        for destination in range(station_length):
-            DEMAND_FORECAST_ALT[origin, destination, time] = mean_demand[time, origin, destination]
+DEMAND_FORECAST_ALT = demand_forecast_formatter(station_length, time_length, mean_demand)
+
+
+
 
 
 
