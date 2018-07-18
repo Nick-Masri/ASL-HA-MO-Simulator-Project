@@ -97,13 +97,14 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
         # Loop Arrivals
         arrivals(en_route_list, current_time, current_car_list, employee_list, current_station)
 
-        # Check for Errors
+        # Check for Errors ******** Is this assuming the capacity is 50 for each station? ***********
         overload = 50 - (len(current_station.car_list) + len(current_station.get_en_route_list()))
 
         if overload < 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
             noParkErrors[current_time, current_station] += 1
 
+        # Put customers into cars
         if len(customer_requests) > 0:
             # Update Customer list and Assign Them
             for customer_request in customer_requests:
@@ -111,6 +112,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
                     update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
 
+        # Send out the rebalancers
         if len(driver_requests+pedestrian_requests) > 0:
             for req in driver_requests+pedestrian_requests:
                 if req[0] == station:
@@ -122,7 +124,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
 
 
 ######################################
-# Format and Load Instructions ~ NM
+# Format and Load Instructions ~ NM / MC
 ######################################
 def format_instructions(request):
     var = []
