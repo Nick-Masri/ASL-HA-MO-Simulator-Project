@@ -54,7 +54,7 @@ RoadNetwork['roadGraph'] = neighbor_list
 RoadNetwork['travelTimes'] = hamo_travel_times
 RoadNetwork['driverTravelTimes'] = walking_travel_times
 RoadNetwork['pvTravelTimes'] = car_travel_times
-RoadNetwork['eTravelTimes'] = car_travel_times
+RoadNetwork['cTravelTimes'] = car_travel_times
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
 
