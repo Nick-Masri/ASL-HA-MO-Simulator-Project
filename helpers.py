@@ -5,13 +5,14 @@ from globals import *
 # Instantiating Error Arrays ~ JS
 ######################################
 
-noCarCustErrors = np.zeros(shape=(2880, 58))
-noParkErrors = np.zeros(shape=(2880, 58))
-noCarEmpErrors = np.zeros(shape=(2880, 58))
+no_car_cust_errors = np.zeros(shape=(2880, 58))
+no_park_errors = np.zeros(shape=(2880, 58))
+no_car_emp_errors = np.zeros(shape=(2880, 58))
 
 ######################################
 # Creating Functions For Update ~ NM
 ######################################
+
 
 def arrivals(arrival_list, time, cars, employees, station):
     while len(arrival_list) > 0:
@@ -30,10 +31,12 @@ def arrivals(arrival_list, time, cars, employees, station):
         else:
             break
 
+
 def update_employee_list(requests, time, employee_list):
     for employee in requests:
         id = employee_list[employee]
         employee_list[employee] = Employee(requests[0], requests[1], time, id)
+
 
 def assign_drivers(cars, employee_list, station_dictionary, errors, current_time):
     while len(employee_list) > 0:
@@ -45,7 +48,7 @@ def assign_drivers(cars, employee_list, station_dictionary, errors, current_time
             station_dictionary[driver.destination].append_en_route_list(driver)
         except IndexError:
             errors.append('No car for employee at Station Number {}'.format(driver.origin))
-            noCarEmpErrors[current_time, driver.origin] += 1
+            no_car_emp_errors[current_time, driver.origin] += 1
             break
 
 
@@ -56,11 +59,9 @@ def assign_pedestrians(employee_list, station_dictionary):
         station_dictionary[ped.destination].append_en_route_list(ped)
 
 
-
 def update_customer_list(requests, time, cust_list):
     customer = Person(requests[0], requests[1], time)
     cust_list.append(customer)
-
 
 
 def assign_customers(customer_list, cars, station_dictionary, errors, current_time):
@@ -73,14 +74,14 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
             station_dictionary[customer.destination].append_en_route_list(customer)
         except IndexError:
             errors.append('No car for customer at Station Number {}'.format(customer.origin))
-            noCarCustErrors[current_time, customer.origin] += 1
+            no_car_cust_errors[current_time, customer.origin] += 1
             break
-
 
 
 ######################################
 # Update Loop ~ NM
 ######################################
+
 
 def update(station_dict, customer_requests, current_time, driver_requests=[], pedestrian_requests=[]):
     errors = []
@@ -102,7 +103,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
 
         if overload < 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
-            noParkErrors[current_time, current_station] += 1
+            no_park_errors[current_time, current_station] += 1
 
         if len(customer_requests) > 0:
             # Update Customer list and Assign Them
@@ -120,10 +121,11 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
     return errors
 
 
-
 ######################################
 # Format and Load Instructions ~ NM
 ######################################
+
+
 def format_instructions(request):
     var = []
     count = 0
@@ -141,16 +143,18 @@ def format_instructions(request):
         var.append(temp)
     return var
 
+
 ######################################
 # Demand Forecast ~ MC
 ######################################
-def demand_forecast_parser(time):
-    '''
 
+
+def demand_forecast_parser(time):
+    """
     :param time: current time block
     :param demand_forecast: matrix with the mean times mod 288 to handle multiple days
     :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
-    '''
+    """
     time = time % 288
     first_11_timeblocks = DEMAND_FORECAST[time:time+11]
 

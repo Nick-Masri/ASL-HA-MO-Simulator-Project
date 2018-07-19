@@ -8,6 +8,7 @@ import operator
 
 car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
+
 class Person:
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
         self.origin = origin
@@ -70,14 +71,16 @@ class Station:
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)
 
+
 ######################################
 # Travel Time Assignments ~ MC
 ######################################
 
+
 def get_travel_time(time_graph, origin, destination):
     """
     little function for finding the value in a travel time graph
-    :param time_graph: The padas Data Frame made for travel times
+    :param time_graph: The pandas Data Frame made for travel times
     :param origin: Where the car is traveling from
     :param destination: Where the car is going
     :return: Travel Time in minutes (rounded)

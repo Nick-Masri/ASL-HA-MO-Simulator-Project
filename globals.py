@@ -48,12 +48,12 @@ def fix_row_numbers(graph, station_mapping):
 
 
 def demand_forecast_formatter(station_length, time_length, mean_demand):
-    '''
+    """
     :param station_length: int Number of stations
     :param time_length: int Number of times we have data for
     :param mean_demand: T x N x N numpy array - the unformatted mean demand
     :return: the formatted numpy array. Now in the form N x N x T
-    '''
+    """
     demand_forecast_alt = np.zeros((station_length, station_length, time_length+24))
 
     for time in range(time_length):
@@ -76,7 +76,6 @@ def demand_forecast_formatter(station_length, time_length, mean_demand):
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
 # in the form {Real Station Number: Logical Index}
 STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
-
 
 
 ###############

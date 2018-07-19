@@ -26,7 +26,7 @@ for station in STATION_MAPPING_INT.values():
         car_list.append(car_count)
         car_count += 1
     for emps in employees:
-       emp_list.append(emps)
+        emp_list.append(emps)
     station_dict[station] = Station(station, car_list, emp_list)
 
 
@@ -148,10 +148,10 @@ for time in range(len(cust_requests)):
 
         for person in station_dict[station].get_en_route_list(True):
             for i in range(time, time + 12):
-                if person.vehicle_id != None:
+                if person.vehicle_id is not None:
                     if person.destination_time == i:
                         if isinstance(person, Employee):
-                            driverArrivals[station][i-time] += 1
+                            driverArrivals[station][i - time] += 1
 
                         vehicleArrivals[station][i - time] += 1
                         break
@@ -177,9 +177,9 @@ for time in range(len(cust_requests)):
 
     Forecast = {
         # 'demand' : demand_forecast_parser(time), # ~ MC
-        'demand' : demand_forecast_parser_alt(time),
-        'vehicleArrivals': vehicleArrivals, # ~ NM
-        'driverArrivals' : driverArrivals, # ~ NM
+        'demand': demand_forecast_parser_alt(time),
+        'vehicleArrivals': vehicleArrivals,  # ~ NM
+        'driverArrivals': driverArrivals,  # ~ NM
     }
 
     # print("FORECAST")
@@ -213,21 +213,21 @@ for time in range(len(cust_requests)):
 
     output.append('Errors: {}'.format(errors))
 
-    #driver_requests = format_instructions(output_requests)
-    #customer_requests = format_instructions(output_requests)
+    # driver_requests = format_instructions(output_requests)
+    # customer_requests = format_instructions(output_requests)
 
 
 ######################################
 # Tracking Errors / Summing Errors ~ JS
 ######################################
 
-sumStationNoParkErrors = np.sum(noParkErrors, axis = 0) # no parking errors per station total
-sumStationNoCarCustErrors = np.sum(noCarCustErrors, axis = 0) # no car available for customers errors per station total
-sumStationNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 0) # no car available for employees errors per station total
+sum_station_no_park_errors = np.sum(no_park_errors, axis=0)  # no parking errors per station total
+sum_station_no_car_cust_errors = np.sum(no_car_cust_errors, axis=0)  # no car available for customers errors per station
+sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car available for employees errors per station
 
-sumTimeNoParkErrors = np.sum(noParkErrors, axis = 1) # no parking errors per time total
-sumTimeNoCarCustErrors = np.sum(noCarCustErrors, axis = 1) # no car available for customers errors per time total
-sumTimeNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 1) # no car available for employees errors per time total
+sum_time_no_park_errors = np.sum(no_park_errors, axis=1)  # no parking errors per time total
+sum_time_no_car_cust_errors = np.sum(no_car_cust_errors, axis=1)  # no car available for customers errors per time total
+sum_time_no_car_emp_errors = np.sum(no_car_emp_errors, axis=1)  # no car available for employees errors per time total
 
 ######################################
 # Calculate Fraction of Times ~ JS
@@ -243,6 +243,6 @@ fraction_time_empty = total_time_empty / len(cust_requests)
 output_file = open('output.txt', 'w')
 
 for item in output:
-  output_file.write("%s\n" % item)
+    output_file.write("%s\n" % item)
 
 output_file.close()
