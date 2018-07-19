@@ -35,13 +35,14 @@ def update_employee_list(requests, time, employee_list):
         id = employee_list[employee]
         employee_list[employee] = Employee(requests[0], requests[1], time, id)
 
-def assign_drivers(cars, employee_list, station_dictionary, errors, current_time):
-    while len(employee_list) > 0:
-        driver = employee_list[0]
+def assign_drivers(station, driver_tasks, station_dictionary, errors, current_time):
+    for destination in driver_tasks:
+
+        driver = station.employee_list[0]
         try:
-            current_car = cars.pop(0)
-            driver = employee_list.pop(0)
-            driver.update_status(driver, current_car)
+            current_car = station.car_list.pop(0)
+            driver = station.employee_list.pop(0)
+            driver.update_status(station.station_id, destination, current_time, current_car)
             station_dictionary[driver.destination].append_en_route_list(driver)
         except IndexError:
             errors.append('No car for employee at Station Number {}'.format(driver.origin))
@@ -49,11 +50,12 @@ def assign_drivers(cars, employee_list, station_dictionary, errors, current_time
             break
 
 
-def assign_pedestrians(employee_list, station_dictionary):
-    while len(employee_list) > 0:
-        ped = employee_list.pop(0)
-        ped.update_status(ped)
+def assign_pedestrians(station, pedestrian_tasks, station_dictionary, current_time):
+    for destination in pedestrian_tasks:
+        ped = station.employee_list.pop(0)
+        ped.update_status(station.station_id, destination, current_time)
         station_dictionary[ped.destination].append_en_route_list(ped)
+
 
 
 
@@ -84,7 +86,7 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
 
 def update(station_dict, customer_requests, current_time, driver_requests=[], pedestrian_requests=[]):
     errors = []
-    for station in sorted(station_dict):  # now it goes through in order
+    for station in sorted(station_dict):  # now it goes through the stations in order
 
         # For future efficiency check to see if there are any requests before doing all this work.
 
@@ -114,12 +116,21 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
 
         # Send out the rebalancers
-        if len(driver_requests+pedestrian_requests) > 0:
-            for req in driver_requests+pedestrian_requests:
-                if req[0] == station:
-                    update_employee_list(req, current_time, employee_list)
-            assign_drivers(current_car_list, employee_list, station_dict, errors, current_time)
-            assign_pedestrians(employee_list, station_dict)
+        # requests =
+        # if len(driver_requests+pedestrian_requests) > 0:
+        #     for req in driver_requests[station]+pedestrian_requests[station]:
+        #         if req[0] = station
+        #         update_employee_list(req, current_time, employee_list)
+        #     assign_drivers(current_car_list, employee_list, station_dict, errors, current_time)
+        #     assign_pedestrians(employee_list, station_dict)
+
+        if len(driver_requests[station]+pedestrian_requests[station]) > 0:
+            # Assign drivers
+            assign_drivers(current_station, driver_requests[station], station_dict, errors, current_time)  # Update employee object and add it to destination enroute list
+            # Assign Pedestrians
+            assign_pedestrians(current_station, pedestrian_requests[station], station_dict, current_time)  # Update employee object and add it to destination enroute list (no car and time travel)
+
+
     return errors
 
 

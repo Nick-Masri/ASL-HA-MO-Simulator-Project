@@ -190,16 +190,19 @@ for time in range(len(cust_requests)):
 
     [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
     print("Tasks: ")
-    for k,v in tasks.items():
-        print(k, v)
+    # for k,v in tasks.items():
+    #     print(k, v)
+    #
+    # print("\n\nOutput:")
+    # for c_output in controller_output:
+    #     print(c_output)
 
-    print("\n\nOutput:")
-    for c_output in controller_output:
-        print(c_output)
 
     print('\n\n*****************************\n\n')
 
     pedestrian_requests = tasks['driverRebalancingQueue']
+    for request in pedestrian_requests:
+        print(request)
     vehicle_requests = tasks['vehicleRebalancingQueue']
 
     output.append('Errors: {}'.format(errors))

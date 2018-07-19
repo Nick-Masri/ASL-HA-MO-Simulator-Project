@@ -88,7 +88,7 @@ EMPLOYEE_LIST = []
 for i in range(len(STATION_MAPPING_INT)):
     EMPLOYEE_LIST.append([])
 
-EMPLOYEE_LIST[0] = [4]
+EMPLOYEE_LIST[0] = [4]  # What is this?
 ###############
 # Forecast Demand Mean ~ MC
 ###############
