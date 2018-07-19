@@ -71,7 +71,7 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
         try:
             current_car = cars.pop(0)
             customer = customer_list.pop(0)
-            customer.update_status(customer, current_car)
+            customer.assign_cust_car(current_car)
             station_dictionary[customer.destination].append_en_route_list(customer)
         except IndexError:
             errors.append('No car for customer at Station Number {}'.format(customer.origin))
@@ -115,16 +115,11 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
                     update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
 
-        # Send out the rebalancers
-        # requests =
-        # if len(driver_requests+pedestrian_requests) > 0:
-        #     for req in driver_requests[station]+pedestrian_requests[station]:
-        #         if req[0] = station
-        #         update_employee_list(req, current_time, employee_list)
-        #     assign_drivers(current_car_list, employee_list, station_dict, errors, current_time)
-        #     assign_pedestrians(employee_list, station_dict)
-
-        if len(driver_requests[station]+pedestrian_requests[station]) > 0:
+        if len(driver_requests[station]) > 0 or len(pedestrian_requests[station]) > 0:
+            print('*****************************')
+            print('# of Driver Tasks: {}'.format(len(driver_requests[station])))
+            print('# of Ped Tasks: {}'.format(len(pedestrian_requests[station])))
+            print('*****************************')
             # Assign drivers
             assign_drivers(current_station, driver_requests[station], station_dict, errors, current_time)  # Update employee object and add it to destination enroute list
             # Assign Pedestrians

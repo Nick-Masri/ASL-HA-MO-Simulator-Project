@@ -26,7 +26,14 @@ for station in STATION_MAPPING_INT.values():
        emp_list.append(emps)
     station_dict[station] = Station(station, car_list, emp_list)
 
-print(station_dict)
+# Add 4 employees to Station 0
+temp = []
+for i in range(4):
+    temp.append(Employee(None, None, None))
+
+station_dict[0].employee_list = temp
+
+
 
 ######################################
 # Creating Road Network Dictionary ~ NM/MC
@@ -104,8 +111,8 @@ Flags = {'debugFlag': False, 'glpkFlag': False}
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
-driver_requests = []
-pedestrian_requests = []
+driver_requests = [[] for i in range(len(station_dict))]
+pedestrian_requests = [[] for i in range(len(station_dict))]
 
 for time in range(len(cust_requests)):
     print("Time: {}".format(time))
@@ -189,7 +196,7 @@ for time in range(len(cust_requests)):
         controller = MoDController(RoadNetwork)
 
     [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-    print("Tasks: ")
+    # print("Tasks: ")
     # for k,v in tasks.items():
     #     print(k, v)
     #
@@ -198,11 +205,11 @@ for time in range(len(cust_requests)):
     #     print(c_output)
 
 
-    print('\n\n*****************************\n\n')
+    # print('\n\n*****************************\n\n')
 
     pedestrian_requests = tasks['driverRebalancingQueue']
-    for request in pedestrian_requests:
-        print(request)
+    # for request in pedestrian_requests:
+    #     print(request)
     vehicle_requests = tasks['vehicleRebalancingQueue']
 
     output.append('Errors: {}'.format(errors))

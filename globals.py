@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 
 
+
 #######################
 # Travel Times helper functions ~ MC
 #######################
@@ -88,7 +89,9 @@ EMPLOYEE_LIST = []
 for i in range(len(STATION_MAPPING_INT)):
     EMPLOYEE_LIST.append([])
 
-EMPLOYEE_LIST[0] = [4]  # What is this?
+
+
+# EMPLOYEE_LIST[0] = temp  # What is this?
 ###############
 # Forecast Demand Mean ~ MC
 ###############
