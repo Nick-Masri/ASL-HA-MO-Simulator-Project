@@ -113,6 +113,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             for customer_request in customer_requests:
                 if customer_request[0] == station:
                     update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
+                    print("CUST REQUEST: {}".format(customer_request))
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
 
         if len(driver_requests[station]) > 0 or len(pedestrian_requests[station]) > 0:

@@ -99,8 +99,7 @@ def get_travel_time(time_graph, origin, destination):
     # origin = STATION_MAPPING_INT[origin]
     # destination = STATION_MAPPING_INT[destination]
     if origin == destination:
-        travel_time = 5
+        travel_time = 2
     else:
         travel_time = time_graph[origin][destination]
-        travel_time = int(round(travel_time/60))
     return travel_time

@@ -22,16 +22,19 @@ for station in STATION_MAPPING_INT.values():
     for car in range(5):
         car_list.append(car_count)
         car_count += 1
-    for emps in employees:
-       emp_list.append(emps)
+    # for emps in employees:
+    #    emp_list.append(emps)
+    for i in range(4):
+        emp_list.append(Employee(None, None, None))
     station_dict[station] = Station(station, car_list, emp_list)
 
-# Add 4 employees to Station 0
-temp = []
-for i in range(4):
-    temp.append(Employee(None, None, None))
 
-station_dict[0].employee_list = temp
+# Add 4 employees to Station 0
+# temp = []
+# for i in range(20):
+#     temp.append(Employee(None, None, None))
+
+# station_dict[8].employee_list = temp
 
 
 
@@ -57,6 +60,10 @@ car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STA
 walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
+print(car_travel_times)
+print(walking_travel_times)
+print(hamo_travel_times)
+
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
 RoadNetwork['travelTimes'] = hamo_travel_times
@@ -67,12 +74,12 @@ RoadNetwork['cTravelTimes'] = car_travel_times
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
 
 
-# print('ROADNETWORK')
-# for k, v in RoadNetwork.items():
-#     try:
-#         print(k, v.shape)
-#     except:
-#         print(k, v)
+print('ROADNETWORK')
+for k, v in RoadNetwork.items():
+    try:
+        print(k, v.shape)
+    except:
+        print(k, v)
 
 
 ######################################
@@ -85,6 +92,7 @@ horizon = timedelta(0, 12*60*dt) # in seconds
 thor = int(horizon.seconds / timestepsize.seconds)
 c_d = 10000.
 c_r = (1. / thor) * 0.0001 * 24. * c_d
+c_r = .1
 
 Parameters = {}
 Parameters['pvCap'] = 4.
@@ -128,7 +136,10 @@ for time in range(70, len(cust_requests)):
     customer_requests = cust_requests[time]
 
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
-
+    for station in station_dict:
+        print('******************')
+        print((station_dict[station].car_list))
+        print('*******************')
     # Logging current state
     for station in sorted(station_dict):
 
@@ -154,13 +165,19 @@ for time in range(70, len(cust_requests)):
 
         for person in station_dict[station].get_en_route_list(True):
             for i in range(time, time + 12):
-                if person.vehicle_id != None:
-                    if person.destination_time == i:
-                        if isinstance(person, Employee):
-                            driverArrivals[station][i-time] += 1
-
+                # if person.vehicle_id != None:
+                #     if person.destination_time == i:
+                #         if isinstance(person, Employee):
+                #             driverArrivals[station][i-time] += 1
+                #
+                #         vehicleArrivals[station][i - time] += 1
+                #         break
+                if person.destination_time == i:
+                    if isinstance(person, Employee):
+                        driverArrivals[station][i - time] += 1
+                    if person.vehicle_id != None:
                         vehicleArrivals[station][i - time] += 1
-                        break
+
                 else:
                     break
 
@@ -175,9 +192,9 @@ for time in range(70, len(cust_requests)):
         'driverArrivals' : driverArrivals, # ~ NM
     }
 
-    # print("FORECAST")
-    # for k, v in Forecast.items():
-    #     print(k, v.shape)
+    print("FORECAST")
+    for k, v in Forecast.items():
+        print(k, v)
 
     ######################################
     # Creating State Dictionary ~ JS

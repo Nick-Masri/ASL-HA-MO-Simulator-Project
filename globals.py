@@ -85,7 +85,6 @@ STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
 ###############
 EMPLOYEE_LIST = []
 
-
 for i in range(len(STATION_MAPPING_INT)):
     EMPLOYEE_LIST.append([])
 
