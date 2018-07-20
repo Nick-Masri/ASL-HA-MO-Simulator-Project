@@ -9,13 +9,21 @@ from controller.hamod import *
 output = []
 station_dict = {}
 
+controller = 'naive'
+morningStart = 8
+morningEnd = 10
 
+
+eveningStart = 5
+eveningEnd = 8
 ######################################
 # Initializing Environment ~ MC/NM
 ######################################
 
 car_count = 1
 for station in STATION_MAPPING_INT.values():
+    parkingSpots = PARKING[station]
+    print(parkingSpots)
     employees = EMPLOYEE_LIST[station]
     car_list = []
     emp_list = []
@@ -24,7 +32,7 @@ for station in STATION_MAPPING_INT.values():
         car_count += 1
     for emps in employees:
        emp_list.append(emps)
-    station_dict[station] = Station(station, car_list, emp_list)
+    station_dict[station] = Station(station, parkingSpots, car_list, emp_list)
 
 
 ######################################
@@ -121,6 +129,8 @@ for time in range(len(cust_requests)):
 
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
 
+    print(time)
+
     for station in station_dict:
 
         ######################################
@@ -158,40 +168,52 @@ for time in range(len(cust_requests)):
     ######################################
     # Creating Forecast Dictionary ~ NM/MC
     ######################################
+    if controller == 'smart':
+        Forecast = {
+            # 'demand' : demand_forecast_parser(time), # ~ MC
+            'demand' : demand_forecast_parser_alt(time),
+            'vehicleArrivals': vehicleArrivals, # ~ NM
+            'driverArrivals' : driverArrivals, # ~ NM
+        }
 
-    Forecast = {
-        # 'demand' : demand_forecast_parser(time), # ~ MC
-        'demand' : demand_forecast_parser_alt(time),
-        'vehicleArrivals': vehicleArrivals, # ~ NM
-        'driverArrivals' : driverArrivals, # ~ NM
-    }
+        # print("FORECAST")
+        # for k, v in Forecast.items():
+        #     print(k, v.shape)
 
-    # print("FORECAST")
-    # for k, v in Forecast.items():
-    #     print(k, v.shape)
+        ######################################
+        # Creating State Dictionary ~ JS
+        ######################################
 
-    ######################################
-    # Creating State Dictionary ~ JS
-    ######################################
+        State = {
+            'idleVehicles': np.array(iVehicles),
+            'idleDrivers': np.array(iDrivers),
+            'privateVehicles': np.zeros((58,1))
+        }
 
-    State = {
-        'idleVehicles': np.array(iVehicles),
-        'idleDrivers': np.array(iDrivers),
-        'privateVehicles': np.zeros((58,1))
-    }
+        # create controller if it doesn't already exist
+        try:
+            controller
+        except:
+            controller = MoDController(RoadNetwork)
 
-    # create controller if it doesn't already exist
-    try:
-        controller
-    except:
-        controller = MoDController(RoadNetwork)
+        [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+        for task in tasks:
+            print(task)
 
-    [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-    for task in tasks:
-        print(task)
+        for c_output in controller_output:
+            print(c_output)
 
-    for c_output in controller_output:
-        print(c_output)
+    elif controller == 'naive':
+
+        if morningStart  <= time and time <= morningEnd:
+            morning_rebalancing(station_dict)
+            morningStart += 24
+            morningEnd += 24
+        elif eveningStart <= time and time <= eveningEnd:
+            evening_rebalancing(station_dict)
+            eveningStart += 24
+            eveningEnd += 24
+
 
     print('\n\n*****************************\n\n')
 

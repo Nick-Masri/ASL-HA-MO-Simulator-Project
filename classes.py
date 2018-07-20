@@ -41,9 +41,11 @@ class Employee(Person):
 
 
 class Station:
-    def __init__(self, station_id, car_list=[], employee_list=[]):
+    def __init__(self, station_id, parking_spots, car_list=[], employee_list=[]):
         self.station_id = station_id
         self.car_list = car_list
+        self.parking_spots = parking_spots
+        self.availble_parking = parking_spots - len(car_list)
         self.employee_list = employee_list
         self.en_route_list = []
         self.waiting_customers = []

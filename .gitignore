@@ -17,3 +17,4 @@ output.txt
 request_file.txt
 ./controller/*
 .DS_Store
+controller/*
