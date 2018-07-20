@@ -22,19 +22,19 @@ for station in STATION_MAPPING_INT.values():
     for car in range(5):
         car_list.append(car_count)
         car_count += 1
-    # for emps in employees:
-    #    emp_list.append(emps)
-    for i in range(4):
-        emp_list.append(Employee(None, None, None))
+    for emps in employees:
+       emp_list.append(emps)
+    # for i in range(4):
+    #     emp_list.append(Employee(None, None, None))
     station_dict[station] = Station(station, car_list, emp_list)
 
 
 # Add 4 employees to Station 0
-# temp = []
-# for i in range(20):
-#     temp.append(Employee(None, None, None))
+temp = []
+for i in range(20):
+    temp.append(Employee(None, None, None))
 
-# station_dict[8].employee_list = temp
+station_dict[0].employee_list = temp  # Should assign to HQ instead
 
 
 
@@ -60,9 +60,7 @@ car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STA
 walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
-print(car_travel_times)
-print(walking_travel_times)
-print(hamo_travel_times)
+
 
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
@@ -74,12 +72,12 @@ RoadNetwork['cTravelTimes'] = car_travel_times
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
 
 
-print('ROADNETWORK')
-for k, v in RoadNetwork.items():
-    try:
-        print(k, v.shape)
-    except:
-        print(k, v)
+# print('ROADNETWORK')
+# for k, v in RoadNetwork.items():
+#     try:
+#         print(k, v.shape)
+#     except:
+#         print(k, v)
 
 
 ######################################
@@ -92,7 +90,7 @@ horizon = timedelta(0, 12*60*dt) # in seconds
 thor = int(horizon.seconds / timestepsize.seconds)
 c_d = 10000.
 c_r = (1. / thor) * 0.0001 * 24. * c_d
-c_r = .1
+c_r = 1
 
 Parameters = {}
 Parameters['pvCap'] = 4.
@@ -191,10 +189,17 @@ for time in range(70, len(cust_requests)):
         'vehicleArrivals': vehicleArrivals, # ~ NM
         'driverArrivals' : driverArrivals, # ~ NM
     }
+    N=58
+    T=12
+    Tinit = int(np.ceil(T / 2))
+    lam = 1/float(N)
+    Forecast['demand'] = np.zeros((N, N, T))
+    Forecast['demand'][:, :, 0:Tinit] = np.random.poisson(lam, (N, N, Tinit))
+    Forecast['demand'] = np.random.poisson(lam, (N, N, T))
 
-    print("FORECAST")
-    for k, v in Forecast.items():
-        print(k, v)
+    # print("FORECAST")
+    # for k, v in Forecast.items():
+    #     print(k, v)
 
     ######################################
     # Creating State Dictionary ~ JS
@@ -208,7 +213,7 @@ for time in range(70, len(cust_requests)):
 
     print("idle drivers")
     print(State['idleDrivers'])
-    print(State['idleDrivers'].shape)
+
 
     # create controller if it doesn't already exist
     try:

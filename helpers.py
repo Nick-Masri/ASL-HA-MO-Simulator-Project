@@ -117,10 +117,10 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
 
         if len(driver_requests[station]) > 0 or len(pedestrian_requests[station]) > 0:
-            print('*****************************')
-            print('# of Driver Tasks: {}'.format(len(driver_requests[station])))
-            print('# of Ped Tasks: {}'.format(len(pedestrian_requests[station])))
-            print('*****************************')
+            # print('*****************************')
+            # print('# of Driver Tasks: {}'.format(len(driver_requests[station])))
+            # print('# of Ped Tasks: {}'.format(len(pedestrian_requests[station])))
+            # print('*****************************')
             # Assign drivers
             assign_drivers(current_station, driver_requests[station], station_dict, errors, current_time)  # Update employee object and add it to destination enroute list
             # Assign Pedestrians
