@@ -25,7 +25,7 @@ def format_travel_times(filename, station_mapping, station_mapping_int):
     # Get a sorted list of columns so we can return the matrix sorted
     columns = sorted(graph.columns)
 
-    return graph[columns].values
+    return np.ceil(graph[columns].values/300).astype(int)
 
 
 def fix_header(graph, station_mapping):
@@ -105,7 +105,6 @@ time_length = mean_demand.shape[0]
 station_length = mean_demand.shape[1]
 
 DEMAND_FORECAST_ALT = demand_forecast_formatter(station_length, time_length, mean_demand)
-
 
 
 
