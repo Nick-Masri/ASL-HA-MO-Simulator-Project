@@ -114,7 +114,7 @@ cust_requests = format_instructions(raw_requests)
 driver_requests = [[] for i in range(len(station_dict))]
 pedestrian_requests = [[] for i in range(len(station_dict))]
 
-for time in range(len(cust_requests)):
+for time in range(70, len(cust_requests)):
     print("Time: {}".format(time))
     output.append("\nTime: {}".format(time))
     output.append('------------------------------------------------------')
@@ -130,7 +130,7 @@ for time in range(len(cust_requests)):
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
 
     # Logging current state
-    for station in station_dict:
+    for station in sorted(station_dict):
 
         ######################################
         # Writing to Output Files ~ NM
@@ -189,6 +189,10 @@ for time in range(len(cust_requests)):
         'privateVehicles': np.zeros((58,1))
     }
 
+    print("idle drivers")
+    print(State['idleDrivers'])
+    print(State['idleDrivers'].shape)
+
     # create controller if it doesn't already exist
     try:
         controller
@@ -211,6 +215,8 @@ for time in range(len(cust_requests)):
     # for request in pedestrian_requests:
     #     print(request)
     vehicle_requests = tasks['vehicleRebalancingQueue']
+    print(pedestrian_requests)
+    print(vehicle_requests)
 
     output.append('Errors: {}'.format(errors))
 
