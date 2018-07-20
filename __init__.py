@@ -114,8 +114,8 @@ for time in range(len(cust_requests)):
     output.append("\nTime: {}".format(time))
     output.append('------------------------------------------------------')
     
-    iVehicles = np.zeros([58, 1])
-    iDrivers = np.zeros([58, 1])
+    iVehicles = []
+    iDrivers = []
 
     vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
     driverArrivals = np.zeros(shape=(len(station_dict), 12))
@@ -139,8 +139,8 @@ for time in range(len(cust_requests)):
         # Setting Up Idle Vehicles and Drivers ~ JS
         ############################################
 
-        iVehicles[station] = len(station_dict[station].car_list)
-        iDrivers[station] = len(station_dict[station].employee_list)
+        iVehicles.append(len(station_dict[station].car_list))
+        iDrivers.append(len(station_dict[station].employee_list))
 
         ########################################
         # Updating Vehicle/Driver Arrivals ~ NM
