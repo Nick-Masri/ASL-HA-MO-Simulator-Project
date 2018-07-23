@@ -286,9 +286,7 @@ fraction_time_empty = total_time_empty / len(cust_requests)
 
 text_file_output_file = open('text_file_output.txt', 'w')
 
-
 for item in text_file_output:
     text_file_output_file.write("%s\n" % item)
-
 
 text_file_output_file.close()

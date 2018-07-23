@@ -12,7 +12,6 @@ walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv"
 hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
 
-
 class Person:
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
         self.origin = origin
