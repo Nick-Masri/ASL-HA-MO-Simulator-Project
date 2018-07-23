@@ -1,17 +1,21 @@
 from classes import *
 from globals import *
 
+
 ######################################
 # Instantiating Error Arrays ~ JS
 ######################################
 
-noCarCustErrors = np.zeros(shape=(2880, 58))
-noParkErrors = np.zeros(shape=(2880, 58))
-noCarEmpErrors = np.zeros(shape=(2880, 58))
+
+no_car_cust_errors = np.zeros(shape=(2880, 58))
+no_park_errors = np.zeros(shape=(2880, 58))
+no_car_emp_errors = np.zeros(shape=(2880, 58))
+
 
 ######################################
 # Creating Functions For Update ~ NM
 ######################################
+
 
 def arrivals(arrival_list, time, cars, employees, station):
     while len(arrival_list) > 0:
@@ -30,10 +34,12 @@ def arrivals(arrival_list, time, cars, employees, station):
         else:
             break
 
+
 def update_employee_list(requests, time, employee_list):
     for employee in requests:
         id = employee_list[employee]
         employee_list[employee] = Employee(requests[0], requests[1], time, id)
+
 
 def assign_drivers(station, driver_tasks, station_dictionary, errors, current_time):
     for destination in driver_tasks:
@@ -46,7 +52,7 @@ def assign_drivers(station, driver_tasks, station_dictionary, errors, current_ti
             station_dictionary[driver.destination].append_en_route_list(driver)
         except IndexError:
             errors.append('No car for employee at Station Number {}'.format(driver.origin))
-            noCarEmpErrors[current_time, driver.origin] += 1
+            no_car_emp_errors[current_time, driver.origin] += 1
             break
 
 
@@ -57,12 +63,9 @@ def assign_pedestrians(station, pedestrian_tasks, station_dictionary, current_ti
         station_dictionary[ped.destination].append_en_route_list(ped)
 
 
-
-
 def update_customer_list(requests, time, cust_list):
     customer = Person(requests[0], requests[1], time)
     cust_list.append(customer)
-
 
 
 def assign_customers(customer_list, cars, station_dictionary, errors, current_time):
@@ -75,14 +78,14 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
             station_dictionary[customer.destination].append_en_route_list(customer)
         except IndexError:
             errors.append('No car for customer at Station Number {}'.format(customer.origin))
-            noCarCustErrors[current_time, customer.origin] += 1
+            no_car_cust_errors[current_time, customer.origin] += 1
             break
-
 
 
 ######################################
 # Update Loop ~ NM
 ######################################
+
 
 def update(station_dict, customer_requests, current_time, driver_requests=[], pedestrian_requests=[]):
     errors = []
@@ -104,8 +107,8 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
         overload = 50 - (len(current_station.car_list) + len(current_station.get_en_route_list()))
 
         if overload < 0:
-            errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
-            noParkErrors[current_time, current_station] += 1
+            errors.append("Station {0} will have {1} more cars than it can allow".format(current_station, -overload))
+            no_park_errors[current_time, current_station] += 1
 
         # Put customers into cars
         if len(customer_requests) > 0:
@@ -126,14 +129,14 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             # Assign Pedestrians
             assign_pedestrians(current_station, pedestrian_requests[station], station_dict, current_time)  # Update employee object and add it to destination enroute list (no car and time travel)
 
-
     return errors
-
 
 
 ######################################
 # Format and Load Instructions ~ NM / MC
 ######################################
+
+
 def format_instructions(request):
     var = []
     count = 0
@@ -151,37 +154,40 @@ def format_instructions(request):
         var.append(temp)
     return var
 
+
 ######################################
 # Demand Forecast ~ MC
 ######################################
-def demand_forecast_parser(time):
-    '''
 
+
+def demand_forecast_parser(time):
+    """
     :param time: current time block
     :param demand_forecast: matrix with the mean times mod 288 to handle multiple days
     :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
-    '''
+    """
+
     time = time % 288
-    first_11_timeblocks = DEMAND_FORECAST[time:time+11]
+    first_11_time_blocks = DEMAND_FORECAST[time:time+11]
 
     time = time + 11
-    next_12_timeblocks = np.sum(DEMAND_FORECAST[time: time+12], axis=0)
-    parsed_demand = np.vstack((first_11_timeblocks, next_12_timeblocks))
+    next_12_time_blocks = np.sum(DEMAND_FORECAST[time: time+12], axis=0)
+    parsed_demand = np.vstack((first_11_time_blocks, next_12_time_blocks))
 
     return parsed_demand
 
 
 def demand_forecast_parser_alt(time):
     time = time % 288  # For dealing with multiple days
-    first_11_timeblocks = DEMAND_FORECAST_ALT[:, :, time:time+11]
+    first_11_time_blocks = DEMAND_FORECAST_ALT[:, :, time:time+11]
     time += 11
-    next_12_timeblocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time+12], axis=2)
-    parsed_demand = np.zeros((first_11_timeblocks.shape[0],
-                              first_11_timeblocks.shape[1],
-                              first_11_timeblocks.shape[2]+1))
+    next_12_time_blocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time+12], axis=2)
+    parsed_demand = np.zeros((first_11_time_blocks.shape[0],
+                              first_11_time_blocks.shape[1],
+                              first_11_time_blocks.shape[2]+1))
 
-    for station in range(first_11_timeblocks.shape[0]):
-        parsed_demand[station] = np.hstack((first_11_timeblocks[station], next_12_timeblocks[station].reshape((58,1))))
+    for station in range(first_11_time_blocks.shape[0]):
+        parsed_demand[station] = np.hstack((first_11_time_blocks[station], next_12_time_blocks[station].reshape((58,1))))
 
     return parsed_demand
 

@@ -6,7 +6,7 @@ import numpy as np
 from controller.hamod import *
 
 # Setup Vars
-output = []
+text_file_output = []
 station_dict = {}
 
 
@@ -30,12 +30,11 @@ for station in STATION_MAPPING_INT.values():
 
 
 # Add 4 employees to Station 0
-temp = []
+emp_temp = []
 for i in range(20):
-    temp.append(Employee(None, None, None))
+    emp_temp.append(Employee(None, None, None))
 
-station_dict[0].employee_list = temp  # Should assign to HQ instead
-
+station_dict[0].employee_list = emp_temp  # Should assign to HQ instead
 
 
 ######################################
@@ -46,20 +45,18 @@ neighbor_list = []
 num_of_stations = len(STATION_MAPPING_INT)
 
 # Indexed 1 (assumes logical indices)
-for station in range(1,num_of_stations+1):
+for station in range(1, num_of_stations + 1):
     # Excluding the current station from the list of neighbors
     # lst = [i for i in range(1,num_of_stations+1) if i != station]
     # neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations-1)))
 
-    lst = [i for i in range(1,num_of_stations+1)]
-    neighbor_list.append(np.asarray(lst).reshape((1,num_of_stations)))
-
+    lst = [i for i in range(1, num_of_stations + 1)]
+    neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations)))
 
 
 car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
 walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
-
 
 
 RoadNetwork = {}
@@ -84,13 +81,14 @@ RoadNetwork['parking'] = np.array([10 for i in range(58)])
 # Creating Parameters Dictionary ~ NM
 ######################################
 
-dt = 5 # minutes
-timestepsize = timedelta(0, 60*dt) # in seconds
-horizon = timedelta(0, 12*60*dt) # in seconds
-thor = int(horizon.seconds / timestepsize.seconds)
+dt = 5  # minutes
+time_step_size = timedelta(0, 60 * dt)  # in seconds
+horizon = timedelta(0, 12 * 60 * dt)  # in seconds
+time_horizon = int(horizon.seconds / time_step_size.seconds)
 c_d = 10000.
-c_r = (1. / thor) * 0.0001 * 24. * c_d
-c_r = 1
+c_r = (1. / time_horizon) * 0.0001 * 24. * c_d
+# c_r = 1
+
 
 Parameters = {}
 Parameters['pvCap'] = 4.
@@ -98,10 +96,12 @@ Parameters['driverRebalancingCost'] = c_r
 Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
 Parameters['lostDemandCost'] = c_d
-Parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
+Parameters['thor'] = float(time_horizon)
+
 
 # for k, v in Parameters.items():
 #     print(k, type(v))
+
 
 ######################################
 # Creating Flags Dictionary ~ JS
@@ -122,40 +122,40 @@ pedestrian_requests = [[] for i in range(len(station_dict))]
 
 for time in range(70, len(cust_requests)):
     print("Time: {}".format(time))
-    output.append("\nTime: {}".format(time))
-    output.append('------------------------------------------------------')
+    text_file_output.append("\nTime: {}".format(time))
+    text_file_output.append('------------------------------------------------------')
     
-    iVehicles = []
-    iDrivers = []
+    idle_vehicles = []
+    idle_drivers = []
 
-    vehicleArrivals = np.zeros(shape=(len(station_dict), 12))
-    driverArrivals = np.zeros(shape=(len(station_dict), 12))
+    vehicle_arrivals = np.zeros(shape=(len(station_dict), 12))
+    driver_arrivals = np.zeros(shape=(len(station_dict), 12))
 
     customer_requests = cust_requests[time]
 
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
     for station in station_dict:
         print('******************')
-        print((station_dict[station].car_list))
+        print(station_dict[station].car_list)
         print('*******************')
     # Logging current state
     for station in sorted(station_dict):
 
         ######################################
-        # Writing to Output Files ~ NM
+        # Writing to text_file_output Files ~ NM
         ######################################
 
-        output.append('\tStation: {}'.format(station))
-        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
-        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].car_list)))
-        output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+        text_file_output.append('\tStation: {}'.format(station))
+        text_file_output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
+        text_file_output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].car_list)))
+        text_file_output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
 
         ############################################
         # Setting Up Idle Vehicles and Drivers ~ JS
         ############################################
 
-        iVehicles.append(len(station_dict[station].car_list))
-        iDrivers.append(len(station_dict[station].employee_list))
+        idle_vehicles.append(len(station_dict[station].car_list))
+        idle_drivers.append(len(station_dict[station].employee_list))
 
         ########################################
         # Updating Vehicle/Driver Arrivals ~ NM
@@ -166,15 +166,15 @@ for time in range(70, len(cust_requests)):
                 # if person.vehicle_id != None:
                 #     if person.destination_time == i:
                 #         if isinstance(person, Employee):
-                #             driverArrivals[station][i-time] += 1
+                #             driver_arrivals[station][i-time] += 1
                 #
-                #         vehicleArrivals[station][i - time] += 1
+                #         vehicle_arrivals[station][i - time] += 1
                 #         break
                 if person.destination_time == i:
                     if isinstance(person, Employee):
-                        driverArrivals[station][i - time] += 1
-                    if person.vehicle_id != None:
-                        vehicleArrivals[station][i - time] += 1
+                        driver_arrivals[station][i - time] += 1
+                    if person.vehicle_id is not None:
+                        vehicle_arrivals[station][i - time] += 1
 
                 else:
                     break
@@ -186,15 +186,15 @@ for time in range(70, len(cust_requests)):
     Forecast = {
         # 'demand' : demand_forecast_parser(time), # ~ MC
         'demand' : demand_forecast_parser_alt(time),
-        'vehicleArrivals': vehicleArrivals, # ~ NM
-        'driverArrivals' : driverArrivals, # ~ NM
+        'vehicle_arrivals': vehicle_arrivals, # ~ NM
+        'driver_arrivals' : driver_arrivals, # ~ NM
     }
-    N=58
-    T=12
-    Tinit = int(np.ceil(T / 2))
+    N = 58
+    T = 12
+    T_init = int(np.ceil(T / 2))
     lam = 1/float(N)
     Forecast['demand'] = np.zeros((N, N, T))
-    Forecast['demand'][:, :, 0:Tinit] = np.random.poisson(lam, (N, N, Tinit))
+    Forecast['demand'][:, :, 0:T_init] = np.random.poisson(lam, (N, N, T_init))
     Forecast['demand'] = np.random.poisson(lam, (N, N, T))
 
     # print("FORECAST")
@@ -206,30 +206,30 @@ for time in range(70, len(cust_requests)):
     ######################################
 
     State = {
-        'idleVehicles': np.array(iVehicles),
-        'idleDrivers': np.array(iDrivers),
+        'idleVehicles': np.array(idle_vehicles),
+        'idleDrivers': np.array(idle_drivers),
         'privateVehicles': np.zeros((58,1))
     }
 
     print("idle drivers")
     print(State['idleDrivers'])
 
-
     # create controller if it doesn't already exist
+
     try:
         controller
     except:
         controller = MoDController(RoadNetwork)
 
-    [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+    [tasks, controller_text_file_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+
     # print("Tasks: ")
     # for k,v in tasks.items():
     #     print(k, v)
     #
-    # print("\n\nOutput:")
-    # for c_output in controller_output:
-    #     print(c_output)
-
+    # print("\n\ntext_file_output:")
+    # for c_text_file_output in controller_text_file_output:
+    #     print(c_text_file_output)
 
     # print('\n\n*****************************\n\n')
 
@@ -237,34 +237,34 @@ for time in range(70, len(cust_requests)):
     # for request in pedestrian_requests:
     #     print(request)
     vehicle_requests = tasks['vehicleRebalancingQueue']
-    print(pedestrian_requests)
-    print(vehicle_requests)
+    # print(pedestrian_requests)
+    # print(vehicle_requests)
 
-    output.append('Errors: {}'.format(errors))
+    text_file_output.append('Errors: {}'.format(errors))
 
+    # driver_requests = format_instructions(text_file_output_requests)
+    # customer_requests = format_instructions(text_file_output_requests)
 
 ######################################
 # Tracking Errors / Summing Errors ~ JS
 ######################################
 
-sumStationNoParkErrors = np.sum(noParkErrors, axis = 0) # no parking errors per station total
-sumStationNoCarCustErrors = np.sum(noCarCustErrors, axis = 0) # no car available for customers errors per station total
-sumStationNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 0) # no car available for employees errors per station total
+sum_station_no_park_errors = np.sum(no_park_errors, axis=0)  # no parking errors per station total
+sum_station_no_car_cust_errors = np.sum(no_car_cust_errors, axis=0)  # no car available for customers errors per station total
+sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car available for employees errors per station total
 
-sumTimeNoParkErrors = np.sum(noParkErrors, axis = 1) # no parking errors per time total
-sumTimeNoCarCustErrors = np.sum(noCarCustErrors, axis = 1) # no car available for customers errors per time total
-sumTimeNoCarEmpErrors = np.sum(noCarEmpErrors, axis = 1) # no car available for employees errors per time total
+sum_time_no_park_errors = np.sum(no_park_errors, axis=1)  # no parking errors per time total
+sum_time_no_car_cust_errors = np.sum(no_car_cust_errors, axis=1)  # no car available for customers errors per time total
+sum_time_no_car_emp_errors = np.sum(no_car_emp_errors, axis=1)  # no car available for employees errors per time total
 
-    #driver_requests = format_instructions(output_requests)
-    #customer_requests = format_instructions(output_requests)
 
 ######################################
-# Writing to Output File ~ NM
+# Writing to text_file_output File ~ NM
 ######################################
 
-output_file = open('output.txt', 'w')
+text_file_output_file = open('text_file_output.txt', 'w')
 
-for item in output:
-  output_file.write("%s\n" % item)
+for item in text_file_output:
+    text_file_output_file.write("%s\n" % item)
 
-output_file.close()
+text_file_output_file.close()

@@ -1,10 +1,10 @@
 from globals import *
 import operator
 
+
 ######################################
 # Creating Inheritance and Methods ~JS
 ######################################
-
 
 
 car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
@@ -29,7 +29,6 @@ class Person:
         self.vehicle_id = new_car
 
 
-
 class Employee(Person):
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
         Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
@@ -51,6 +50,7 @@ class Employee(Person):
             self.destination_time = origin_time + get_travel_time(hamo_travel_times, origin, destination)
         else:
             self.destination_time = origin_time + get_travel_time(walking_travel_times, origin, destination)
+
 
 class Station:
     def __init__(self, station_id, car_list=[], employee_list=[]):
@@ -75,21 +75,22 @@ class Station:
             return self.en_route_list
     
     # Unique Methods
-
     def append_en_route_list(self, employee):
         self.en_route_list.append(employee)
 
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)
 
+
 ######################################
 # Travel Time Assignments ~ MC
 ######################################
 
+
 def get_travel_time(time_graph, origin, destination):
     """
     little function for finding the value in a travel time graph
-    :param time_graph: The padas Data Frame made for travel times
+    :param time_graph: The pandas Data Frame made for travel times
     :param origin: Where the car is traveling from
     :param destination: Where the car is going
     :return: Travel Time in minutes (rounded)
@@ -98,6 +99,7 @@ def get_travel_time(time_graph, origin, destination):
 
     # origin = STATION_MAPPING_INT[origin]
     # destination = STATION_MAPPING_INT[destination]
+
     if origin == destination:
         travel_time = 2
     else:
