@@ -105,4 +105,3 @@ def get_travel_time(time_graph, origin, destination):
         travel_time = 2
     else:
         travel_time = time_graph[origin][destination]
-        
