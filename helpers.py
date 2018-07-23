@@ -115,19 +115,27 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             # Update Customer list and Assign Them
             for customer_request in customer_requests:
                 if customer_request[0] == station:
-                    update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
-                    print("CUST REQUEST: {}".format(customer_request))
-            assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
+                    # add to station cust waiting list
+                    update_customer_list(customer_request, current_time, customer_list)
+
+                    print("CUSTOMER REQUEST: {}".format(customer_request))
+
+            # assigns customers to cars if available
+            assign_customers(customer_list, current_car_list, station_dict, errors, current_time)
 
         if len(driver_requests[station]) > 0 or len(pedestrian_requests[station]) > 0:
             # print('*****************************')
             # print('# of Driver Tasks: {}'.format(len(driver_requests[station])))
             # print('# of Ped Tasks: {}'.format(len(pedestrian_requests[station])))
             # print('*****************************')
+
             # Assign drivers
-            assign_drivers(current_station, driver_requests[station], station_dict, errors, current_time)  # Update employee object and add it to destination enroute list
+            # Update employee object and add it to destination enroute list
+            assign_drivers(current_station, driver_requests[station], station_dict, errors, current_time)
+
             # Assign Pedestrians
-            assign_pedestrians(current_station, pedestrian_requests[station], station_dict, current_time)  # Update employee object and add it to destination enroute list (no car and time travel)
+            # Update employee object and add it to destination enroute list (no car and time travel)
+            assign_pedestrians(current_station, pedestrian_requests[station], station_dict, current_time)
 
     return errors
 
@@ -152,6 +160,7 @@ def format_instructions(request):
                     temp.append((origin, destination))
                     count += 1
         var.append(temp)
+
     return var
 
 

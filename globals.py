@@ -72,15 +72,15 @@ def demand_forecast_formatter(station_length, time_length, mean_demand):
 # Stations ~ MC
 ###############
 
-
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
 # in the form {Real Station Number: Logical Index}
-STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
+STATION_MAPPING_INT = {int(k): v for k, v in STATION_MAPPING.items()}
 
 
 ###############
 # People ~ NM
 ###############
+
 EMPLOYEE_LIST = []
 
 for i in range(len(STATION_MAPPING_INT)):
@@ -88,6 +88,8 @@ for i in range(len(STATION_MAPPING_INT)):
 
 
 # EMPLOYEE_LIST[0] = temp  # What is this?
+
+
 ###############
 # Forecast Demand Mean ~ MC
 ###############

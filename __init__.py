@@ -23,7 +23,7 @@ for station in STATION_MAPPING_INT.values():
         car_list.append(car_count)
         car_count += 1
     for emps in employees:
-       emp_list.append(emps)
+        emp_list.append(emps)
     # for i in range(4):
     #     emp_list.append(Employee(None, None, None))
     station_dict[station] = Station(station, car_list, emp_list)
@@ -186,9 +186,10 @@ for time in range(70, len(cust_requests)):
     Forecast = {
         # 'demand' : demand_forecast_parser(time), # ~ MC
         'demand': demand_forecast_parser_alt(time),
-        'vehicle_arrivals': vehicle_arrivals, # ~ NM
-        'driver_arrivals': driver_arrivals, # ~ NM
+        'vehicle_arrivals': vehicle_arrivals,  # ~ NM
+        'driver_arrivals': driver_arrivals,  # ~ NM
     }
+    
     N = 58  # number of stations
     T = 12  # time step horizon
     T_init = int(np.ceil(T / 2))
