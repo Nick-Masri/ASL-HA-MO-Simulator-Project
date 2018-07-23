@@ -5,7 +5,7 @@ import numpy as np
 
 from controller.hamod import *
 
-# Setup Vars
+# Setup Variables
 text_file_output = []
 station_dict = {}
 
@@ -149,7 +149,7 @@ for time in range(70, len(cust_requests)):
         text_file_output.append('\tStation: {}'.format(station))
         text_file_output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
         text_file_output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].car_list)))
-        text_file_output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+        text_file_output.append('\t\tNum People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
 
         ############################################
         # Setting Up Idle Vehicles and Drivers ~ JS
@@ -164,10 +164,10 @@ for time in range(70, len(cust_requests)):
 
         for person in station_dict[station].get_en_route_list(True):
             for i in range(time, time + 12):
-                # if person.vehicle_id != None:
+                # if person.vehicle_id is not None:
                 #     if person.destination_time == i:
                 #         if isinstance(person, Employee):
-                #             driver_arrivals[station][i-time] += 1
+                #             driver_arrivals[station][i - time] += 1
                 #
                 #         vehicle_arrivals[station][i - time] += 1
                 #         break
@@ -198,7 +198,7 @@ for time in range(70, len(cust_requests)):
 
     Forecast = {
         # 'demand' : demand_forecast_parser(time), # ~ MC
-        'demand': demand_forecast_parser_alt(time),
+        'demand': demand_forecast_parser_alt(time),  # ~ MC
         'vehicle_arrivals': vehicle_arrivals,  # ~ NM
         'driver_arrivals': driver_arrivals,  # ~ NM
     }
@@ -271,6 +271,7 @@ sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car avai
 sum_time_no_park_errors = np.sum(no_park_errors, axis=1)  # no parking errors per time total
 sum_time_no_car_cust_errors = np.sum(no_car_cust_errors, axis=1)  # no car available for customers errors per time total
 sum_time_no_car_emp_errors = np.sum(no_car_emp_errors, axis=1)  # no car available for employees errors per time total
+
 
 ######################################
 # Calculate Fraction of Times ~ JS
