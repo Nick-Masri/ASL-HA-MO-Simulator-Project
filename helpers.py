@@ -202,10 +202,10 @@ def morning_rebalancing(dict):
                         break
 
     for i in buffer + extra:
-        if dict[home[0]].available_parking + dict[home[1]] == 0:
+        if dict[home[0]].available_parking + dict[home[1]].available_parking == 0:
             break
         station = dict[i]
-        if dict[home[0]].available_parking > dict(home[1]).available_parking:
+        if dict[home[0]].available_parking > dict[home[1]].available_parking:
             dest = dict[home[1]]
         else:
             dest = dict[home[0]]
@@ -240,7 +240,7 @@ def evening_rebalancing(dict):
 
     for i in home:
         station = dict[i]
-        if dict(home[0]).available_parking > dict(home[1]).available_parking:
+        if dict[home[0]].available_parking > dict[home[1]].available_parking:
             dest = dict[home[1]]
         else:
             dest = dict[home[0]]

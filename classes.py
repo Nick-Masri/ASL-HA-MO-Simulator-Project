@@ -45,7 +45,7 @@ class Station:
         self.station_id = station_id
         self.car_list = car_list
         self.parking_spots = parking_spots
-        self.availble_parking = parking_spots - len(car_list)
+        self.available_parking = parking_spots - len(car_list)
         self.employee_list = employee_list
         self.en_route_list = []
         self.waiting_customers = []

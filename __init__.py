@@ -10,12 +10,12 @@ output = []
 station_dict = {}
 
 controller = 'naive'
-morningStart = 8
-morningEnd = 10
+morningStart = 96  # 8am
+morningEnd = 120  # 10am
 
 
-eveningStart = 5
-eveningEnd = 8
+eveningStart = 204  # 5pm
+eveningEnd = 240  # 8pm
 ######################################
 # Initializing Environment ~ MC/NM
 ######################################
@@ -23,11 +23,10 @@ eveningEnd = 8
 car_count = 1
 for station in STATION_MAPPING_INT.values():
     parkingSpots = PARKING[station]
-    print(parkingSpots)
     employees = EMPLOYEE_LIST[station]
     car_list = []
     emp_list = []
-    for car in range(5):
+    for car in range(2):
         car_list.append(car_count)
         car_count += 1
     for emps in employees:
@@ -129,18 +128,18 @@ for time in range(len(cust_requests)):
 
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
 
-    print(time)
-
     for station in station_dict:
 
         ######################################
         # Writing to Output Files ~ NM
         ######################################
 
-        output.append('\tStation: {}'.format(station))
-        output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
-        output.append('\t\tAvailable Parking: {}'.format(50 - len(station_dict[station].car_list)))
-        output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
+        print(station)
+        if station in (22,55, 38, 41, 37, 43):
+            output.append('\tStation: {}'.format(station))
+            output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
+            output.append('\t\tAvailable Parking: {}'.format(station_dict[station].available_parking))
+            output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
 
         ############################################
         # Setting Up Idle Vehicles and Drivers ~ JS
@@ -207,15 +206,13 @@ for time in range(len(cust_requests)):
 
         if morningStart  <= time and time <= morningEnd:
             morning_rebalancing(station_dict)
-            morningStart += 24
-            morningEnd += 24
+            morningStart += 288
+            morningEnd += 288
         elif eveningStart <= time and time <= eveningEnd:
             evening_rebalancing(station_dict)
-            eveningStart += 24
-            eveningEnd += 24
+            eveningStart += 288
+            eveningEnd += 288
 
-
-    print('\n\n*****************************\n\n')
 
     output.append('Errors: {}'.format(errors))
 
