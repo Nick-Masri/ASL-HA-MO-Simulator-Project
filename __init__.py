@@ -189,7 +189,7 @@ for time in range(70, len(cust_requests)):
         'vehicle_arrivals': vehicle_arrivals,  # ~ NM
         'driver_arrivals': driver_arrivals,  # ~ NM
     }
-    
+
     N = 58  # number of stations
     T = 12  # time step horizon
     T_init = int(np.ceil(T / 2))
@@ -209,7 +209,7 @@ for time in range(70, len(cust_requests)):
     State = {
         'idleVehicles': np.array(idle_vehicles),
         'idleDrivers': np.array(idle_drivers),
-        'privateVehicles': np.zeros((58,1))
+        'privateVehicles': np.zeros((58, 1))
     }
 
     # print("idle drivers")

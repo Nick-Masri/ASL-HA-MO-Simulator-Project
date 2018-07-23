@@ -24,7 +24,7 @@ def format_travel_times(filename, station_mapping, station_mapping_int):
     # Get a sorted list of columns so we can return the matrix sorted
     columns = sorted(graph.columns)
 
-    return np.ceil(graph[columns].values/300).astype(int)
+    return np.ceil(graph[columns].values / 300).astype(int)
 
 
 def fix_header(graph, station_mapping):
