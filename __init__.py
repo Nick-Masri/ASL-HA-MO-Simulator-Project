@@ -189,8 +189,8 @@ for time in range(70, len(cust_requests)):
         'vehicle_arrivals': vehicle_arrivals, # ~ NM
         'driver_arrivals' : driver_arrivals, # ~ NM
     }
-    N = 58
-    T = 12
+    N = 58  # number of stations
+    T = 12  # time step horizon
     T_init = int(np.ceil(T / 2))
     lam = 1/float(N)
     Forecast['demand'] = np.zeros((N, N, T))
