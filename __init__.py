@@ -211,8 +211,8 @@ for time in range(70, len(cust_requests)):
         'privateVehicles': np.zeros((58,1))
     }
 
-    print("idle drivers")
-    print(State['idleDrivers'])
+    # print("idle drivers")
+    # print(State['idleDrivers'])
 
     # Create controller if it doesn't already exist
     try:
