@@ -199,14 +199,14 @@ for time in range(70, len(cust_requests)):
     Forecast = {
         # 'demand' : demand_forecast_parser(time), # ~ MC
         'demand': demand_forecast_parser_alt(time),  # ~ MC
-        'vehicle_arrivals': vehicle_arrivals,  # ~ NM
-        'driver_arrivals': driver_arrivals,  # ~ NM
+        'vehicleArrivals': vehicle_arrivals,  # ~ NM
+        'driverArrivals': driver_arrivals,  # ~ NM
     }
 
     N = 58  # number of stations
     T = 12  # time step horizon
     T_init = int(np.ceil(T / 2))
-    lam = 1/float(N)
+    lam = 1 / float(N)
     Forecast['demand'] = np.zeros((N, N, T))
     Forecast['demand'][:, :, 0:T_init] = np.random.poisson(lam, (N, N, T_init))
     Forecast['demand'] = np.random.poisson(lam, (N, N, T))
