@@ -185,9 +185,9 @@ for time in range(70, len(cust_requests)):
 
     Forecast = {
         # 'demand' : demand_forecast_parser(time), # ~ MC
-        'demand' : demand_forecast_parser_alt(time),
+        'demand': demand_forecast_parser_alt(time),
         'vehicle_arrivals': vehicle_arrivals, # ~ NM
-        'driver_arrivals' : driver_arrivals, # ~ NM
+        'driver_arrivals': driver_arrivals, # ~ NM
     }
     N = 58  # number of stations
     T = 12  # time step horizon
