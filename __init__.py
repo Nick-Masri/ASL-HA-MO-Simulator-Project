@@ -47,8 +47,8 @@ num_of_stations = len(STATION_MAPPING_INT)
 # Indexed 1 (assumes logical indices)
 for station in range(1, num_of_stations + 1):
     # Excluding the current station from the list of neighbors
-    # lst = [i for i in range(1,num_of_stations+1) if i != station]
-    # neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations-1)))
+    # lst = [i for i in range(1, num_of_stations + 1) if i != station]
+    # neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations - 1)))
 
     lst = [i for i in range(1, num_of_stations + 1)]
     neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations)))
@@ -214,8 +214,7 @@ for time in range(70, len(cust_requests)):
     print("idle drivers")
     print(State['idleDrivers'])
 
-    # create controller if it doesn't already exist
-
+    # Create controller if it doesn't already exist
     try:
         controller
     except:
@@ -230,8 +229,6 @@ for time in range(70, len(cust_requests)):
     # print("\n\ntext_file_output:")
     # for c_text_file_output in controller_text_file_output:
     #     print(c_text_file_output)
-
-    # print('\n\n*****************************\n\n')
 
     pedestrian_requests = tasks['driverRebalancingQueue']
     # for request in pedestrian_requests:
