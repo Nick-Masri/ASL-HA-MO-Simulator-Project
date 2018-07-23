@@ -1,12 +1,16 @@
 from globals import *
 import operator
 
+
 ######################################
 # Creating Inheritance and Methods ~JS
 ######################################
 
 
 car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
+walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
+hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
+
 
 
 class Person:
@@ -21,10 +25,8 @@ class Person:
         self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
-    def update_status(self, request, new_car=None):
-        self.origin = request.origin
-        self.destination = request.destination
-        self.origin_time = request.origin_time
+    def assign_cust_car(self, new_car=None):
+
         self.vehicle_id = new_car
 
 
@@ -39,6 +41,16 @@ class Employee(Person):
         self.origin_time = None
         self.destination_time = None
         self.vehicle_id = None
+
+    def update_status(self, origin, destination, origin_time, new_car=None):
+        self.origin = origin
+        self.destination = destination
+        self.origin_time = origin_time
+        self.vehicle_id = new_car
+        if new_car is not None:
+            self.destination_time = origin_time + get_travel_time(hamo_travel_times, origin, destination)
+        else:
+            self.destination_time = origin_time + get_travel_time(walking_travel_times, origin, destination)
 
 
 class Station:
@@ -64,7 +76,6 @@ class Station:
             return self.en_route_list
     
     # Unique Methods
-
     def append_en_route_list(self, employee):
         self.en_route_list.append(employee)
 
@@ -89,9 +100,9 @@ def get_travel_time(time_graph, origin, destination):
 
     # origin = STATION_MAPPING_INT[origin]
     # destination = STATION_MAPPING_INT[destination]
+
     if origin == destination:
-        travel_time = 5
+        travel_time = 2
     else:
         travel_time = time_graph[origin][destination]
-        travel_time = int(round(travel_time/60))
-    return travel_time
+        

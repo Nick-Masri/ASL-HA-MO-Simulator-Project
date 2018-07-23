@@ -24,7 +24,7 @@ def format_travel_times(filename, station_mapping, station_mapping_int):
     # Get a sorted list of columns so we can return the matrix sorted
     columns = sorted(graph.columns)
 
-    return graph[columns].values
+    return np.ceil(graph[columns].values / 300).astype(int)
 
 
 def fix_header(graph, station_mapping):
@@ -72,22 +72,23 @@ def demand_forecast_formatter(station_length, time_length, mean_demand):
 # Stations ~ MC
 ###############
 
-
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
 # in the form {Real Station Number: Logical Index}
-STATION_MAPPING_INT = {int(k):v for k,v in STATION_MAPPING.items()}
-
+STATION_MAPPING_INT = {int(k): v for k, v in STATION_MAPPING.items()}
 
 ###############
 # People ~ NM
 ###############
-EMPLOYEE_LIST = []
 
+EMPLOYEE_LIST = []
 
 for i in range(len(STATION_MAPPING_INT)):
     EMPLOYEE_LIST.append([])
 
-EMPLOYEE_LIST[0] = [4]
+
+# EMPLOYEE_LIST[0] = temp  # What is this?
+
+
 ###############
 # Forecast Demand Mean ~ MC
 ###############
@@ -101,7 +102,6 @@ time_length = mean_demand.shape[0]
 station_length = mean_demand.shape[1]
 
 DEMAND_FORECAST_ALT = demand_forecast_formatter(station_length, time_length, mean_demand)
-
 
 
 
