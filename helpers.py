@@ -88,9 +88,9 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
 
 def update(station_dict, customer_requests, current_time, driver_requests=[], pedestrian_requests=[]):
     errors = []
-    for station in sorted(station_dict):  # now it goes through the stations in order
+    for station in sorted(station_dict):  # Goes through the stations in order
 
-        # For future efficiency check to see if there are any requests before doing all this work.
+        # For future efficiency check to see if there are any requests before doing all this work
 
         # Grab information relevant to this loop and organize
         current_station = station_dict[station]
@@ -102,7 +102,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
         # Loop Arrivals
         arrivals(en_route_list, current_time, current_car_list, employee_list, current_station)
 
-        # Check for Errors ******** Is this assuming the capacity is 50 for each station? ***********
+        # Check for Errors ******** This is assuming the capacity is 50 for each station ***********
         overload = 50 - (len(current_station.car_list) + len(current_station.get_en_route_list()))
 
         if overload < 0:
@@ -174,10 +174,10 @@ def demand_forecast_parser(time):
     :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
     """
     time = time % 288
-    first_11_time_blocks = DEMAND_FORECAST[time:time+11]
+    first_11_time_blocks = DEMAND_FORECAST[time:time + 11]
 
     time = time + 11
-    next_12_time_blocks = np.sum(DEMAND_FORECAST[time: time+12], axis=0)
+    next_12_time_blocks = np.sum(DEMAND_FORECAST[time: time + 12], axis=0)
     parsed_demand = np.vstack((first_11_time_blocks, next_12_time_blocks))
 
     return parsed_demand
@@ -185,15 +185,15 @@ def demand_forecast_parser(time):
 
 def demand_forecast_parser_alt(time):
     time = time % 288  # For dealing with multiple days
-    first_11_time_blocks = DEMAND_FORECAST_ALT[:, :, time:time+11]
+    first_11_time_blocks = DEMAND_FORECAST_ALT[:, :, time:time + 11]
     time += 11
-    next_12_time_blocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time+12], axis=2)
+    next_12_time_blocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time + 12], axis=2)
     parsed_demand = np.zeros((first_11_time_blocks.shape[0],
                               first_11_time_blocks.shape[1],
-                              first_11_time_blocks.shape[2]+1))
+                              first_11_time_blocks.shape[2] + 1))
 
     for station in range(first_11_time_blocks.shape[0]):
-        parsed_demand[station] = np.hstack((first_11_time_blocks[station], next_12_time_blocks[station].reshape((58,1))))
+        parsed_demand[station] = np.hstack((first_11_time_blocks[station], next_12_time_blocks[station].reshape((58, 1))))
 
     return parsed_demand
 
