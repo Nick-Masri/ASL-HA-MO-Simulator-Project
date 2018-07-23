@@ -30,17 +30,24 @@ def arrivals(arrival_list, time, cars, employees, station):
         else:
             break
 
-def update_employee_list(requests, time, employee_list):
+def update_employee_list(requests, time, station):
     for employee in requests:
-        id = employee_list[employee]
-        employee_list[employee] = Employee(requests[0], requests[1], time, id)
+        if employee:
+            print(employee)
+            print(station)
+            print(station.employee_list)
+            id = station.employee_list[employee]
+            print(id)
+            station.employee_list[employee] = Employee(requests[0], requests[1], time, id)
 
 def assign_drivers(cars, employee_list, station_dictionary, errors, current_time):
     while len(employee_list) > 0:
+        print(employee_list)
         driver = employee_list[0]
         try:
             current_car = cars.pop(0)
             driver = employee_list.pop(0)
+            print(driver)
             driver.update_status(driver, current_car)
             station_dictionary[driver.destination].append_en_route_list(driver)
         except IndexError:
@@ -93,16 +100,17 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
         employee_list = current_station.employee_list
         customer_list = current_station.get_waiting_customers(True)
         en_route_list = current_station.get_en_route_list(True)
+        real_requests = False
 
         # Loop Arrivals
         arrivals(en_route_list, current_time, current_car_list, employee_list, current_station)
 
         # Check for Errors
-        overload = 50 - (len(current_station.car_list) + len(current_station.get_en_route_list()))
+        overload = current_station.available_parking - len(current_station.get_en_route_list())
 
         if overload < 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
-            noParkErrors[current_time, current_station] += 1
+            noParkErrors[current_time][station] += 1
 
         if len(customer_requests) > 0:
             # Update Customer list and Assign Them
@@ -111,10 +119,11 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
                     update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
 
-        if len(driver_requests+pedestrian_requests) > 0:
-            for req in driver_requests+pedestrian_requests:
-                if req[0] == station:
-                    update_employee_list(req, current_time, employee_list)
+
+
+        update_employee_list(driver_requests, current_time, current_station)
+        update_employee_list(pedestrian_requests, current_time, current_station)
+        if real_requests:
             assign_drivers(current_car_list, employee_list, station_dict, errors, current_time)
             assign_pedestrians(employee_list, station_dict)
     return errors
@@ -192,12 +201,12 @@ def morning_rebalancing(dict):
             if len(station.car_list) > 0:
                 for dest in buffer:
                     if dict[dest].available_parking > 0:
-                        driver_task[i] = dest
+                        driver_task[i] = [dest]
                         break
                 else:
                     for dest in extra:
                         if dict[dest].parking_spots > 0:
-                            driver_task[i] = dest
+                            driver_task[i] = [dest]
                     else:
                         break
 
@@ -212,7 +221,7 @@ def morning_rebalancing(dict):
 
         for emp in station.employee_list:
             pedestrian_task[i] = dest
-
+    print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task
 
 def evening_rebalancing(dict):
@@ -249,5 +258,5 @@ def evening_rebalancing(dict):
             pedestrian_task[i] = dest
 
 
-
+    print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task

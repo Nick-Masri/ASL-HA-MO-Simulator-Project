@@ -134,7 +134,6 @@ for time in range(len(cust_requests)):
         # Writing to Output Files ~ NM
         ######################################
 
-        print(station)
         if station in (22,55, 38, 41, 37, 43):
             output.append('\tStation: {}'.format(station))
             output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
@@ -202,16 +201,22 @@ for time in range(len(cust_requests)):
         for c_output in controller_output:
             print(c_output)
 
+    ######################################
+    # Creating Naive Controller ~ NM
+    ######################################
+
     elif controller == 'naive':
 
         if morningStart  <= time and time <= morningEnd:
-            morning_rebalancing(station_dict)
-            morningStart += 288
-            morningEnd += 288
+            driver_requests, customer_requests = morning_rebalancing(station_dict)
+            if time == morningEnd:
+                morningStart += 288
+                morningEnd += 288
         elif eveningStart <= time and time <= eveningEnd:
-            evening_rebalancing(station_dict)
-            eveningStart += 288
-            eveningEnd += 288
+            driver_requests, customer_requests = evening_rebalancing(station_dict)
+            if time == eveningEnd:
+                eveningStart += 288
+                eveningEnd += 288
 
 
     output.append('Errors: {}'.format(errors))
