@@ -138,7 +138,7 @@ for time in range(70, len(cust_requests)):
     for station in station_dict:
         print('******************')
         print(station_dict[station].car_list)
-        print('*******************')
+        print('******************')
     # Logging current state
     for station in sorted(station_dict):
 
@@ -264,7 +264,6 @@ for time in range(70, len(cust_requests)):
 ######################################
 
 sum_station_no_park_errors = np.sum(no_park_errors, axis=0)  # no parking errors per station total
-
 sum_station_no_car_cust_errors = np.sum(no_car_cust_errors, axis=0)  # no car available for customers errors per station
 sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car available for employees errors per station
 
