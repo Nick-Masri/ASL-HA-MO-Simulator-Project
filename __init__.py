@@ -247,8 +247,8 @@ for time in range(70, len(cust_requests)):
 ######################################
 
 sum_station_no_park_errors = np.sum(no_park_errors, axis=0)  # no parking errors per station total
-sum_station_no_car_cust_errors = np.sum(no_car_cust_errors, axis=0)  # no car available for customers errors per station total
-sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car available for employees errors per station total
+sum_station_no_car_cust_errors = np.sum(no_car_cust_errors, axis=0)  # no car available for custs errs per station total
+sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car available for emps errs per station total
 
 sum_time_no_park_errors = np.sum(no_park_errors, axis=1)  # no parking errors per time total
 sum_time_no_car_cust_errors = np.sum(no_car_cust_errors, axis=1)  # no car available for customers errors per time total
