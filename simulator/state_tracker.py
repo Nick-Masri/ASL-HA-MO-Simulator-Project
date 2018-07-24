@@ -1,8 +1,3 @@
-######################################
-# Creating Inheritance and Methods ~JS
-######################################
-
-
 class Person:
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
         self.origin = origin
