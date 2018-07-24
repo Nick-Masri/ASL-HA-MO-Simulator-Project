@@ -107,7 +107,6 @@ DEMAND_FORECAST_ALT = demand_forecast_formatter(station_length, time_length, mea
 
 
 
-
 ###############
 # Parking ~ NM
 ###############

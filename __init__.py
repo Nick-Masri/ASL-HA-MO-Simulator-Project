@@ -17,21 +17,22 @@ morningEnd = 10
 
 eveningStart = 5
 eveningEnd = 8
+
 ######################################
-# Initializing Environment ~ MC/NM
+# Initializing Stations ~ MC/NM
 ######################################
 cars_per_station = 5
 # Dict of intial employee positions in the form {Station: number of employees
-employees_at_stations = {0: 4}
-station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
-for station in station_dict:
-    print(station_dict[station].employee_list)
+employees_at_stations = {2: 2, 5: 2}
 
-print("*****************")
-print("*****************")
-print("*****************")
-print("*****************")
-print("*****************")
+station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
+
+print("EMPLOYEE LIST")
+print("**************")
+for station in station_dict:
+    if len(station_dict[station].employee_list) > 0:
+        print("Station: {}, Num of employees: {}"
+              .format(station, len(station_dict[station].employee_list)))
 ######################################
 # Creating Road Network Dictionary ~ NM/MC
 ######################################
@@ -45,7 +46,7 @@ for station in range(1, num_of_stations + 1):
     # lst = [i for i in range(1, num_of_stations + 1) if i != station]
     # neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations - 1)))
 
-    # Stations that share an edge with
+    # Stations that share an edge with all other stations
     lst = [i for i in range(1, num_of_stations + 1)]
     neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations)))
 
@@ -122,6 +123,7 @@ for time in range(70, len(cust_requests)):
     text_file_output.append('------------------------------------------------------')
     
     idle_vehicles = []
+    idle_vehicles = []
     idle_drivers = []
 
     vehicle_arrivals = np.zeros(shape=(len(station_dict), 12))
@@ -130,10 +132,10 @@ for time in range(70, len(cust_requests)):
     customer_requests = cust_requests[time]
 
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
-    for station in station_dict:
-        print('******************')
-        print(station_dict[station].car_list)
-        print('*******************')
+    # for station in station_dict:
+    #     print('******************')
+    #     print(station_dict[station].car_list)
+    #     print('*******************')
     # Logging current state
     for station in sorted(station_dict):
 
@@ -209,7 +211,7 @@ for time in range(70, len(cust_requests)):
         except:
             controller = MoDController(RoadNetwork)
 
-        # Other Fake State for testing.
+        # Other Fake State data for testing.
         # Parameters = np.load("./parameters.npy").item()
         # State = np.load("./state.npy").item()
         # Forecast = np.load("./forecast.npy").item()
