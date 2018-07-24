@@ -1,47 +1,28 @@
 #!/usr/bin/python
 from helpers import *
-from init_helpers import *
-from datetime import datetime, timedelta
-import numpy as np
-
 from controller.hamod import *
+from datetime import datetime, timedelta
+from setup_vars import *
 
-# Setup Variables
-text_file_output = []
-station_dict = {}
-
-total_time_full = np.zeros(shape=(58, 1))
-total_time_empty = np.zeros(shape=(58, 1))
-
-controller_type = 'smart'
-morningStart = 8
-morningEnd = 10
+import init_helpers
+import main
+import naive_controller
 
 
-eveningStart = 5
-eveningEnd = 8
 
 ######################################
-# Initializing Stations ~ MC/NM
+# Instantiating Error Arrays ~ JS
 ######################################
-cars_per_station = 5
-# Dict of intial employee positions in the form {Station: number of employees
-employees_at_stations = {2: 2, 5: 2}
+no_car_cust_errors = np.zeros(shape=(2880, 58))
+no_park_errors = np.zeros(shape=(2880, 58))
+no_car_emp_errors = np.zeros(shape=(2880, 58))
 
-station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
-
-print("EMPLOYEE LIST")
-print("**************")
-for station in station_dict:
-    if len(station_dict[station].employee_list) > 0:
-        print("Station: {}, Num of employees: {}"
-              .format(station, len(station_dict[station].employee_list)))
 ######################################
 # Creating Road Network Dictionary ~ NM/MC
 ######################################
 
 neighbor_list = []
-num_of_stations = len(STATION_MAPPING_INT)
+num_of_stations = len(station_mapping_int)
 
 # Indexed 1 (assumes logical indices)
 for station in range(1, num_of_stations + 1):
@@ -54,27 +35,14 @@ for station in range(1, num_of_stations + 1):
     neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations)))
 
 
-car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
-walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
-hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
-
-
 RoadNetwork = {}
 RoadNetwork['roadGraph'] = neighbor_list
 RoadNetwork['travelTimes'] = hamo_travel_times
 RoadNetwork['driverTravelTimes'] = walking_travel_times
 RoadNetwork['pvTravelTimes'] = car_travel_times
 RoadNetwork['cTravelTimes'] = car_travel_times
-# RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
-RoadNetwork['parking'] = np.array([10 for i in range(58)])
+RoadNetwork['parking'] = np.array([10 for i in range(58)]) # Need to update from actual parking
 
-
-# print('ROADNETWORK')
-# for k, v in RoadNetwork.items():
-#     try:
-#         print(k, v.shape)
-#     except:
-#         print(k, v)
 
 
 ######################################

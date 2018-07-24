@@ -1,6 +1,6 @@
 from helpers import update
 from classes import *
-from globals import CAR_TRAVEL_TIMES
+from setup_vars import CAR_TRAVEL_TIMES
 
 def station_test(origin, destination, cust_requests=[]):
     travel_time = get_travel_time(CAR_TRAVEL_TIMES, origin, destination)

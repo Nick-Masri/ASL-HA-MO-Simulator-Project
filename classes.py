@@ -1,15 +1,6 @@
-from globals import *
-import operator
-
-
 ######################################
 # Creating Inheritance and Methods ~JS
 ######################################
-
-
-car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STATION_MAPPING, STATION_MAPPING_INT)
-walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
-hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
 
 class Person:
@@ -64,6 +55,7 @@ class Station:
         self.request_list = []
 
     # Get Methods
+
     def get_waiting_customers(self, is_sorted=False):  # sorted by origin_time, least to greatest
         if is_sorted:
             return sorted(self.waiting_customers, key=operator.attrgetter('origin_time'))
@@ -90,21 +82,8 @@ class Station:
 
 
 def get_travel_time(time_graph, origin, destination):
-    """
-    little function for finding the value in a travel time graph
-    :param time_graph: The pandas Data Frame made for travel times
-    :param origin: Where the car is traveling from
-    :param destination: Where the car is going
-    :return: Travel Time in minutes (rounded)
-    """
-    # I wonder if this could be more efficient. Maybe sort the time graph?
-
-    # origin = STATION_MAPPING_INT[origin]
-    # destination = STATION_MAPPING_INT[destination]
-
     if origin == destination:
         travel_time = 2
     else:
         travel_time = time_graph[origin][destination]
-
     return travel_time

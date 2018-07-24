@@ -1,6 +1,6 @@
 from helpers import *
 from classes import *
-from globals import *
+from setup_vars import *
 
 import numpy as np
 import pandas as pd
