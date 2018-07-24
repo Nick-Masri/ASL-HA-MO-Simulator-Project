@@ -30,23 +30,16 @@ def arrivals(arrival_list, time, cars, employees, station):
         else:
             break
 
-def update_employee_list(requests, time, station):
-    for employee in requests:
-        if employee:
-            print(employee)
-            print(station)
-            print(station.employee_list)
-            id = station.employee_list[employee]
-            print(id)
-
 
 def assign_drivers(request, cars, employee_list, station_dictionary, errors, current_time):
+    print('Driving {}'.format(request))
     driver = employee_list[0]
     try:
         driver = employee_list.pop(0)
         driver = Employee(request[0], request[1], request[2])
         current_car = cars.pop(0)
         driver.update_status(driver, current_car)
+        print(driver.destination_time)
         station_dictionary[driver.destination].append_en_route_list(driver)
     except IndexError:
         errors.append('No car for employee at Station Number {}'.format(driver.origin))
@@ -54,8 +47,10 @@ def assign_drivers(request, cars, employee_list, station_dictionary, errors, cur
 
 
 def assign_pedestrians(request, employee_list, station_dictionary):
+    print('Walking {}'.format(request))
     ped = employee_list.pop(0)
     ped = Employee(request[0], request[1], request[2])
+    print(ped.destination_time)
     station_dictionary[ped.destination].append_en_route_list(ped)
 
 
@@ -105,7 +100,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
         overload = current_station.available_parking - len(current_station.get_en_route_list())
 
         if overload < 0:
-            errors.append("Station {0}  will have {1} more cars than it can allow".format(current_station, -overload))
+            errors.append("Station {0}  will have {1} more cars than it can allow".format(station, -overload))
             noParkErrors[current_time][station] += 1
 
         if len(customer_requests) > 0:
@@ -215,23 +210,22 @@ def morning_rebalancing(dict):
             break
         station = dict[i]
         if dict[home[0]].available_parking > dict[home[1]].available_parking:
-            dest = dict[home[1]]
+            dest = home[1]
         else:
-            dest = dict[home[0]]
+            dest = home[0]
 
         for emp in station.employee_list:
-            pedestrian_task[i] = dest
-    print(driver_task, pedestrian_task)
+            pedestrian_task[i] = [dest]
+    #print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task
 
 
 def evening_rebalancing(dict):
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]
-    home = (22, 55)
-    buffer = (38, 41)
-    extra = (37, 43)
-    for i in buffer+extra:
+    home = (38, 41, 37, 43)
+    buffer = (22, 55)
+    for i in home:
         station = dict[i]
         for emp in station.employee_list:
             if len(station.car_list) > 0:
@@ -239,23 +233,17 @@ def evening_rebalancing(dict):
                     if dict[dest].available_parking > 0:
                         driver_task[i] = [dest]
                         break
-                else:
-                    for dest in extra:
-                        if dict[dest].parking_spots > 0:
-                            driver_task[i] = [dest]
-                    else:
-                        break
             else:
                 break
 
-    for i in home:
+    for i in buffer:
         station = dict[i]
         if dict[home[0]].available_parking > dict[home[1]].available_parking:
-            dest = dict[home[1]]
+            dest = home[1]
         else:
-            dest = dict[home[0]]
+            dest = home[0]
 
         for emp in station.employee_list:
-            pedestrian_task[i] = dest
-    print(driver_task, pedestrian_task)
+            pedestrian_task[i] = [dest]
+    #print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task

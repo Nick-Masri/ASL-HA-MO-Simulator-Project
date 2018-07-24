@@ -222,12 +222,12 @@ for time in range(len(cust_requests)):
     elif controller == 'naive':
 
         if morningStart  <= time and time <= morningEnd:
-            driver_requests, customer_requests = morning_rebalancing(station_dict)
+            driver_requests, pedestrian_requests = morning_rebalancing(station_dict)
             if time == morningEnd:
                 morningStart += 288
                 morningEnd += 288
         elif eveningStart <= time and time <= eveningEnd:
-            driver_requests, customer_requests = evening_rebalancing(station_dict)
+            driver_requests, pedestrian_requests = evening_rebalancing(station_dict)
             if time == eveningEnd:
                 eveningStart += 288
                 eveningEnd += 288
