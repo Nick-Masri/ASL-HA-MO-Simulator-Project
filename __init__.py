@@ -50,6 +50,7 @@ for station in range(1, num_of_stations + 1):
     # lst = [i for i in range(1, num_of_stations + 1) if i != station]
     # neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations - 1)))
 
+    # Stations that share an edge with
     lst = [i for i in range(1, num_of_stations + 1)]
     neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations)))
 
@@ -87,7 +88,7 @@ horizon = timedelta(0, 12 * 60 * dt)  # in seconds
 time_horizon = int(horizon.seconds / time_step_size.seconds)
 c_d = 10000.
 c_r = (1. / time_horizon) * 0.0001 * 24. * c_d
-# c_r = 1
+c_r = .01
 
 
 Parameters = {}
@@ -190,13 +191,13 @@ for time in range(70, len(cust_requests)):
         'driverArrivals': driver_arrivals,  # ~ NM
     }
 
-    N = 58  # number of stations
-    T = 12  # time step horizon
-    T_init = int(np.ceil(T / 2))
-    lam = 1/float(N)
-    Forecast['demand'] = np.zeros((N, N, T))
-    Forecast['demand'][:, :, 0:T_init] = np.random.poisson(lam, (N, N, T_init))
-    Forecast['demand'] = np.random.poisson(lam, (N, N, T))
+    # N = 58  # number of stations
+    # T = 12  # time step horizon
+    # T_init = int(np.ceil(T / 2))
+    # lam = 1/float(N)
+    # Forecast['demand'] = np.zeros((N, N, T))
+    # Forecast['demand'][:, :, 0:T_init] = np.random.poisson(lam, (N, N, T_init))
+    # Forecast['demand'] = np.random.poisson(lam, (N, N, T))
 
     # print("FORECAST")
     # for k, v in Forecast.items():
@@ -216,10 +217,18 @@ for time in range(70, len(cust_requests)):
     # print(State['idleDrivers'])
 
     # Create controller if it doesn't already exist
+    RoadNetwork = np.load("./roadNetwork.npy").item()
+
     try:
         controller
     except:
         controller = MoDController(RoadNetwork)
+
+
+    Parameters = np.load("./parameters.npy").item()
+    State = np.load("./state.npy").item()
+    Forecast = np.load("./forecast.npy").item()
+    Flags = np.load("./flags.npy").item()
 
     [tasks, controller_text_file_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
 
@@ -235,11 +244,11 @@ for time in range(70, len(cust_requests)):
     # for request in pedestrian_requests:
     #     print(request)
     vehicle_requests = tasks['vehicleRebalancingQueue']
-    # print(pedestrian_requests)
-    # print(vehicle_requests)
+    print(pedestrian_requests)
+    print(vehicle_requests)
 
     text_file_output.append('Errors: {}'.format(errors))
-
+    break
     # driver_requests = format_instructions(text_file_output_requests)
     # customer_requests = format_instructions(text_file_output_requests)
 
