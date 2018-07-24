@@ -9,13 +9,21 @@ from controller.hamod import *
 text_file_output = []
 station_dict = {}
 
+controller = 'naive'
+morningStart = 8
+morningEnd = 10
 
+
+eveningStart = 5
+eveningEnd = 8
 ######################################
 # Initializing Environment ~ MC/NM
 ######################################
 
 car_count = 1
 for station in STATION_MAPPING_INT.values():
+    parkingSpots = PARKING[station]
+    print(parkingSpots)
     employees = EMPLOYEE_LIST[station]
     car_list = []
     emp_list = []
@@ -23,10 +31,8 @@ for station in STATION_MAPPING_INT.values():
         car_list.append(car_count)
         car_count += 1
     for emps in employees:
-        emp_list.append(emps)
-    # for i in range(4):
-    #     emp_list.append(Employee(None, None, None))
-    station_dict[station] = Station(station, car_list, emp_list)
+       emp_list.append(emps)
+    station_dict[station] = Station(station, parkingSpots, car_list, emp_list)
 
 
 # Add 4 employees to Station 0
@@ -183,63 +189,61 @@ for time in range(70, len(cust_requests)):
     ######################################
     # Creating Forecast Dictionary ~ NM/MC
     ######################################
+    if controller == 'smart':
+        Forecast = {
+            # 'demand' : demand_forecast_parser(time), # ~ MC
+            'demand' : demand_forecast_parser_alt(time),
+            'vehicleArrivals': vehicleArrivals, # ~ NM
+            'driverArrivals' : driverArrivals, # ~ NM
+        }
 
-    Forecast = {
-        # 'demand' : demand_forecast_parser(time), # ~ MC
-        'demand': demand_forecast_parser_alt(time),
-        'vehicleArrivals': vehicle_arrivals,  # ~ NM
-        'driverArrivals': driver_arrivals,  # ~ NM
-    }
+        # print("FORECAST")
+        # for k, v in Forecast.items():
+        #     print(k, v.shape)
 
-    # N = 58  # number of stations
-    # T = 12  # time step horizon
-    # T_init = int(np.ceil(T / 2))
-    # lam = 1/float(N)
-    # Forecast['demand'] = np.zeros((N, N, T))
-    # Forecast['demand'][:, :, 0:T_init] = np.random.poisson(lam, (N, N, T_init))
-    # Forecast['demand'] = np.random.poisson(lam, (N, N, T))
+        ######################################
+        # Creating State Dictionary ~ JS
+        ######################################
 
-    # print("FORECAST")
-    # for k, v in Forecast.items():
-    #     print(k, v)
+        State = {
+            'idleVehicles': np.array(iVehicles),
+            'idleDrivers': np.array(iDrivers),
+            'privateVehicles': np.zeros((58,1))
+        }
+        RoadNetwork = np.load("./roadNetwork.npy").item()
+        # create controller if it doesn't already exist
+        try:
+            controller
+        except:
+            controller = MoDController(RoadNetwork)
 
-    ######################################
-    # Creating State Dictionary ~ JS
-    ######################################
+        [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+        for task in tasks:
+            print(task)
 
-    State = {
-        'idleVehicles': np.array(idle_vehicles),
-        'idleDrivers': np.array(idle_drivers),
-        'privateVehicles': np.zeros((58, 1))
-    }
+        for c_output in controller_output:
+            print(c_output)
 
-    # print("idle drivers")
-    # print(State['idleDrivers'])
+    elif controller == 'naive':
 
-    # Create controller if it doesn't already exist
-    RoadNetwork = np.load("./roadNetwork.npy").item()
+        if morningStart  <= time and time <= morningEnd:
+            morning_rebalancing(station_dict)
+            morningStart += 24
+            morningEnd += 24
+        elif eveningStart <= time and time <= eveningEnd:
+            evening_rebalancing(station_dict)
+            eveningStart += 24
+            eveningEnd += 24
 
-    try:
-        controller
-    except:
-        controller = MoDController(RoadNetwork)
 
+    print('\n\n*****************************\n\n')
+
+    output.append('Errors: {}'.format(errors))
 
     Parameters = np.load("./parameters.npy").item()
     State = np.load("./state.npy").item()
     Forecast = np.load("./forecast.npy").item()
     Flags = np.load("./flags.npy").item()
-
-    [tasks, controller_text_file_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-
-    # print("Tasks: ")
-    # for k,v in tasks.items():
-    #     print(k, v)
-    #
-    # print("\n\ntext_file_output:")
-    # for c_text_file_output in controller_text_file_output:
-    #     print(c_text_file_output)
-
     pedestrian_requests = tasks['driverRebalancingQueue']
     # for request in pedestrian_requests:
     #     print(request)
