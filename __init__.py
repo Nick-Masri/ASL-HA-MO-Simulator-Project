@@ -210,12 +210,21 @@ for time in range(70, len(cust_requests)):
             'idleDrivers': np.array(idle_drivers),
             'privateVehicles': np.zeros((58,1))
         }
-        RoadNetwork = np.load("./roadNetwork.npy").item()
+
+        # Fake data RoadNetwork
+        # RoadNetwork = np.load("./roadNetwork.npy").item()
+
         # create controller if it doesn't already exist
         try:
             controller
         except:
             controller = MoDController(RoadNetwork)
+
+        # Other Fake State for testing.
+        # Parameters = np.load("./parameters.npy").item()
+        # State = np.load("./state.npy").item()
+        # Forecast = np.load("./forecast.npy").item()
+        # Flags = np.load("./flags.npy").item()
 
         [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
         # for task in tasks:
@@ -240,10 +249,7 @@ for time in range(70, len(cust_requests)):
 
     text_file_output.append('Errors: {}'.format(errors))
 
-    Parameters = np.load("./parameters.npy").item()
-    State = np.load("./state.npy").item()
-    Forecast = np.load("./forecast.npy").item()
-    Flags = np.load("./flags.npy").item()
+
 
     pedestrian_requests = tasks['driverRebalancingQueue']
     # for request in pedestrian_requests:
@@ -253,7 +259,7 @@ for time in range(70, len(cust_requests)):
     print(vehicle_requests)
 
     text_file_output.append('Errors: {}'.format(errors))
-    break
+
     # driver_requests = format_instructions(text_file_output_requests)
     # customer_requests = format_instructions(text_file_output_requests)
 
