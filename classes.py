@@ -28,7 +28,7 @@ class Person:
 
 
 class Employee(Person):
-    def __init__(self, origin, destination, origin_time, vehicle_id=None):
+    def __init__(self, origin, destination=None, origin_time=None, vehicle_id=None):
         Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
 
     # Unique Methods

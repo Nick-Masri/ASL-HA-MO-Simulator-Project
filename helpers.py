@@ -38,29 +38,25 @@ def update_employee_list(requests, time, station):
             print(station.employee_list)
             id = station.employee_list[employee]
             print(id)
-            station.employee_list[employee] = Employee(requests[0], requests[1], time, id)
-
-def assign_drivers(cars, employee_list, station_dictionary, errors, current_time):
-    while len(employee_list) > 0:
-        print(employee_list)
-        driver = employee_list[0]
-        try:
-            current_car = cars.pop(0)
-            driver = employee_list.pop(0)
-            print(driver)
-            driver.update_status(driver, current_car)
-            station_dictionary[driver.destination].append_en_route_list(driver)
-        except IndexError:
-            errors.append('No car for employee at Station Number {}'.format(driver.origin))
-            noCarEmpErrors[current_time, driver.origin] += 1
-            break
 
 
-def assign_pedestrians(employee_list, station_dictionary):
-    while len(employee_list) > 0:
-        ped = employee_list.pop(0)
-        ped.update_status(ped)
-        station_dictionary[ped.destination].append_en_route_list(ped)
+def assign_drivers(request, cars, employee_list, station_dictionary, errors, current_time):
+    driver = employee_list[0]
+    try:
+        driver = employee_list.pop(0)
+        driver = Employee(request[0], request[1], request[2])
+        current_car = cars.pop(0)
+        driver.update_status(driver, current_car)
+        station_dictionary[driver.destination].append_en_route_list(driver)
+    except IndexError:
+        errors.append('No car for employee at Station Number {}'.format(driver.origin))
+        noCarEmpErrors[current_time, driver.origin] += 1
+
+
+def assign_pedestrians(request, employee_list, station_dictionary):
+    ped = employee_list.pop(0)
+    ped = Employee(request[0], request[1], request[2])
+    station_dictionary[ped.destination].append_en_route_list(ped)
 
 
 
@@ -119,15 +115,19 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
                     update_customer_list(customer_request, current_time, customer_list)  # add to station cust waiting list
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)  # assigns customers to cars if available
 
+        for origin, pedestrian_request in enumerate(pedestrian_requests):
+            if pedestrian_request != []:
+                if origin == station:
+                    request = (origin, pedestrian_request[0], current_time)
+                    assign_pedestrians(request, employee_list, station_dict)
 
+        for origin, driver_request in enumerate(driver_requests):
+            if driver_request != []:
+                if origin == station:
+                    request = (origin, driver_request[0], current_time)
+                    assign_drivers(request, current_car_list, employee_list, station_dict, errors, current_time)
 
-        update_employee_list(driver_requests, current_time, current_station)
-        update_employee_list(pedestrian_requests, current_time, current_station)
-        if real_requests:
-            assign_drivers(current_car_list, employee_list, station_dict, errors, current_time)
-            assign_pedestrians(employee_list, station_dict)
     return errors
-
 
 
 ######################################
@@ -149,6 +149,7 @@ def format_instructions(request):
                     count += 1
         var.append(temp)
     return var
+
 
 ######################################
 # Demand Forecast ~ MC
@@ -185,10 +186,9 @@ def demand_forecast_parser_alt(time):
     return parsed_demand
 
 
-
-
-
-
+######################################
+# Naive Controller ~ NM
+######################################
 def morning_rebalancing(dict):
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]
@@ -224,6 +224,7 @@ def morning_rebalancing(dict):
     print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task
 
+
 def evening_rebalancing(dict):
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]
@@ -236,12 +237,12 @@ def evening_rebalancing(dict):
             if len(station.car_list) > 0:
                 for dest in buffer:
                     if dict[dest].available_parking > 0:
-                        driver_task[i] = dest
+                        driver_task[i] = [dest]
                         break
                 else:
                     for dest in extra:
                         if dict[dest].parking_spots > 0:
-                            driver_task[i] = dest
+                            driver_task[i] = [dest]
                     else:
                         break
             else:
@@ -256,7 +257,5 @@ def evening_rebalancing(dict):
 
         for emp in station.employee_list:
             pedestrian_task[i] = dest
-
-
     print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task

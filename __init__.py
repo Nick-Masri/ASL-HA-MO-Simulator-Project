@@ -16,6 +16,20 @@ morningEnd = 120  # 10am
 
 eveningStart = 204  # 5pm
 eveningEnd = 240  # 8pm
+
+
+###############
+# People ~ NM
+###############
+employee_list = []
+
+
+for i in range(len(STATION_MAPPING_INT)):
+    employee_list.append([])
+
+employee_list[22] = [Employee(22)]
+employee_list[55] = [Employee(55)]
+
 ######################################
 # Initializing Environment ~ MC/NM
 ######################################
@@ -23,7 +37,7 @@ eveningEnd = 240  # 8pm
 car_count = 1
 for station in STATION_MAPPING_INT.values():
     parkingSpots = PARKING[station]
-    employees = EMPLOYEE_LIST[station]
+    employees = employee_list[station]
     car_list = []
     emp_list = []
     for car in range(2):
@@ -63,7 +77,7 @@ RoadNetwork['driverTravelTimes'] = walking_travel_times
 RoadNetwork['pvTravelTimes'] = car_travel_times
 RoadNetwork['cTravelTimes'] = car_travel_times
 # RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
-RoadNetwork['parking'] = np.array([10 for i in range(58)])
+RoadNetwork['parking'] = np.array([10 for i in range(58)]) # Need to update with current parkign
 
 
 # print('ROADNETWORK')
