@@ -193,8 +193,8 @@ for time in range(70, len(cust_requests)):
         Forecast = {
             # 'demand' : demand_forecast_parser(time), # ~ MC
             'demand' : demand_forecast_parser_alt(time),
-            'vehicleArrivals': vehicleArrivals, # ~ NM
-            'driverArrivals' : driverArrivals, # ~ NM
+            'vehicleArrivals': vehicle_arrivals, # ~ NM
+            'driverArrivals' : driver_arrivals, # ~ NM
         }
 
         # print("FORECAST")
