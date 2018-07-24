@@ -9,7 +9,7 @@ from controller.hamod import *
 text_file_output = []
 station_dict = {}
 
-controller = 'naive'
+controller_type = 'smart'
 morningStart = 8
 morningEnd = 10
 
@@ -189,7 +189,7 @@ for time in range(70, len(cust_requests)):
     ######################################
     # Creating Forecast Dictionary ~ NM/MC
     ######################################
-    if controller == 'smart':
+    if controller_type == 'smart':
         Forecast = {
             # 'demand' : demand_forecast_parser(time), # ~ MC
             'demand' : demand_forecast_parser_alt(time),
@@ -206,8 +206,8 @@ for time in range(70, len(cust_requests)):
         ######################################
 
         State = {
-            'idleVehicles': np.array(iVehicles),
-            'idleDrivers': np.array(iDrivers),
+            'idleVehicles': np.array(idle_vehicles),
+            'idleDrivers': np.array(idle_drivers),
             'privateVehicles': np.zeros((58,1))
         }
         RoadNetwork = np.load("./roadNetwork.npy").item()
@@ -218,13 +218,13 @@ for time in range(70, len(cust_requests)):
             controller = MoDController(RoadNetwork)
 
         [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-        for task in tasks:
-            print(task)
+        # for task in tasks:
+        #     print(task)
+        #
+        # for c_output in controller_output:
+        #     print(c_output)
 
-        for c_output in controller_output:
-            print(c_output)
-
-    elif controller == 'naive':
+    elif controller_type == 'naive':
 
         if morningStart  <= time and time <= morningEnd:
             morning_rebalancing(station_dict)
@@ -238,12 +238,13 @@ for time in range(70, len(cust_requests)):
 
     print('\n\n*****************************\n\n')
 
-    output.append('Errors: {}'.format(errors))
+    text_file_output.append('Errors: {}'.format(errors))
 
     Parameters = np.load("./parameters.npy").item()
     State = np.load("./state.npy").item()
     Forecast = np.load("./forecast.npy").item()
     Flags = np.load("./flags.npy").item()
+
     pedestrian_requests = tasks['driverRebalancingQueue']
     # for request in pedestrian_requests:
     #     print(request)
