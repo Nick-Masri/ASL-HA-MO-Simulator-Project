@@ -97,7 +97,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
         arrivals(en_route_list, current_time, current_car_list, employee_list, current_station)
 
         # Check for Errors
-        overload = current_station.available_parking - len(current_station.get_en_route_list())
+        overload = current_station.calc_parking() - len(current_station.get_en_route_list())
 
         if overload < 0:
             errors.append("Station {0}  will have {1} more cars than it can allow".format(station, -overload))
@@ -195,7 +195,7 @@ def morning_rebalancing(dict):
         for emp in station.employee_list:
             if len(station.car_list) > 0:
                 for dest in buffer:
-                    if dict[dest].available_parking > 0:
+                    if dict[dest].calc_parking() > 0:
                         driver_task[i] = [dest]
                         break
                 else:
@@ -206,10 +206,10 @@ def morning_rebalancing(dict):
                         break
 
     for i in buffer + extra:
-        if dict[home[0]].available_parking + dict[home[1]].available_parking == 0:
+        if dict[home[0]].calc_parking() + dict[home[1]].calc_parking() == 0:
             break
         station = dict[i]
-        if dict[home[0]].available_parking > dict[home[1]].available_parking:
+        if dict[home[0]].calc_parking() > dict[home[1]].calc_parking():
             dest = home[1]
         else:
             dest = home[0]
@@ -230,7 +230,7 @@ def evening_rebalancing(dict):
         for emp in station.employee_list:
             if len(station.car_list) > 0:
                 for dest in buffer:
-                    if dict[dest].available_parking > 0:
+                    if dict[dest].calc_parking() > 0:
                         driver_task[i] = [dest]
                         break
             else:
@@ -238,7 +238,7 @@ def evening_rebalancing(dict):
 
     for i in buffer:
         station = dict[i]
-        if dict[home[0]].available_parking > dict[home[1]].available_parking:
+        if dict[home[0]].calc_parking() > dict[home[1]].calc_parking():
             dest = home[1]
         else:
             dest = home[0]

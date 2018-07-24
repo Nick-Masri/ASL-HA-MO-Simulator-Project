@@ -151,7 +151,7 @@ for time in range(len(cust_requests)):
         if station in (22,55, 38, 41, 37, 43):
             output.append('\tStation: {}'.format(station))
             output.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_dict[station].car_list)))
-            output.append('\t\tAvailable Parking: {}'.format(station_dict[station].available_parking))
+            output.append('\t\tAvailable Parking: {}'.format(station_dict[station].calc_parking()))
             output.append('\t\tNumber of People En_Route: {}'.format(len(station_dict[station].get_en_route_list())))
 
         ############################################

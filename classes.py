@@ -45,12 +45,13 @@ class Station:
         self.station_id = station_id
         self.car_list = car_list
         self.parking_spots = parking_spots
-        self.available_parking = parking_spots - len(car_list)
         self.employee_list = employee_list
         self.en_route_list = []
         self.waiting_customers = []
         self.request_list = []
 
+    def calc_parking(self):
+        return self.parking_spots - len(self.car_list)
     # Get Methods
     def get_waiting_customers(self, is_sorted=False):  # sorted by origin_time, least to greatest
         if is_sorted:
