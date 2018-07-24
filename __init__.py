@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from helpers import *
+from init_helpers import *
 from datetime import datetime, timedelta
 import numpy as np
 
@@ -19,30 +20,18 @@ eveningEnd = 8
 ######################################
 # Initializing Environment ~ MC/NM
 ######################################
+cars_per_station = 5
+# Dict of intial employee positions in the form {Station: number of employees
+employees_at_stations = {0: 4}
+station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
+for station in station_dict:
+    print(station_dict[station].employee_list)
 
-car_count = 1
-for station in STATION_MAPPING_INT.values():
-    parkingSpots = PARKING[station]
-    print(parkingSpots)
-    employees = EMPLOYEE_LIST[station]
-    car_list = []
-    emp_list = []
-    for car in range(5):
-        car_list.append(car_count)
-        car_count += 1
-    for emps in employees:
-       emp_list.append(emps)
-    station_dict[station] = Station(station, parkingSpots, car_list, emp_list)
-
-
-# Add 4 employees to Station 0
-emp_temp = []
-for i in range(20):
-    emp_temp.append(Employee(None, None, None))
-
-station_dict[0].employee_list = emp_temp  # Should assign to HQ instead
-
-
+print("*****************")
+print("*****************")
+print("*****************")
+print("*****************")
+print("*****************")
 ######################################
 # Creating Road Network Dictionary ~ NM/MC
 ######################################

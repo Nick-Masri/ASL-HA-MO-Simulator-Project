@@ -71,10 +71,11 @@ def demand_forecast_formatter(station_length, time_length, mean_demand):
 ###############
 # Stations ~ MC
 ###############
-
+# INITIAL IMPORTS
 STATION_MAPPING = np.asscalar(np.load('./data/10_days/station_mapping.npy'))
 # in the form {Real Station Number: Logical Index}
 STATION_MAPPING_INT = {int(k): v for k, v in STATION_MAPPING.items()}
+
 
 
 ###############
