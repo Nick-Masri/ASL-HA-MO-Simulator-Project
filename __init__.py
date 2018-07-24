@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from helpers import *
+from init_helpers import *
 from datetime import datetime, timedelta
 import numpy as np
 
@@ -12,32 +13,29 @@ station_dict = {}
 total_time_full = np.zeros(shape=(58, 1))
 total_time_empty = np.zeros(shape=(58, 1))
 
+controller_type = 'smart'
+morningStart = 8
+morningEnd = 10
+
+
+eveningStart = 5
+eveningEnd = 8
 
 ######################################
-# Initializing Environment ~ MC/NM
+# Initializing Stations ~ MC/NM
 ######################################
+cars_per_station = 5
+# Dict of intial employee positions in the form {Station: number of employees
+employees_at_stations = {2: 2, 5: 2}
 
-car_count = 1
-for station in STATION_MAPPING_INT.values():
-    employees = EMPLOYEE_LIST[station]
-    car_list = []
-    emp_list = []
-    for car in range(5):
-        car_list.append(car_count)
-        car_count += 1
-    for emps in employees:
-        emp_list.append(emps)
-    station_dict[station] = Station(station, car_list, emp_list)
+station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
 
-
-# Add 4 employees to Station 0
-emp_temp = []
-for i in range(20):
-    emp_temp.append(Employee(None, None, None))
-
-station_dict[0].employee_list = emp_temp  # Should assign to HQ instead
-
-
+print("EMPLOYEE LIST")
+print("**************")
+for station in station_dict:
+    if len(station_dict[station].employee_list) > 0:
+        print("Station: {}, Num of employees: {}"
+              .format(station, len(station_dict[station].employee_list)))
 ######################################
 # Creating Road Network Dictionary ~ NM/MC
 ######################################
@@ -51,6 +49,7 @@ for station in range(1, num_of_stations + 1):
     # lst = [i for i in range(1, num_of_stations + 1) if i != station]
     # neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations - 1)))
 
+    # Stations that share an edge with all other stations
     lst = [i for i in range(1, num_of_stations + 1)]
     neighbor_list.append(np.asarray(lst).reshape((1, num_of_stations)))
 
@@ -135,10 +134,10 @@ for time in range(70, len(cust_requests)):
     customer_requests = cust_requests[time]
 
     errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
-    for station in station_dict:
-        print('******************')
-        print(station_dict[station].car_list)
-        print('******************')
+    # for station in station_dict:
+    #     print('******************')
+    #     print(station_dict[station].car_list)
+    #     print('*******************')
     # Logging current state
     for station in sorted(station_dict):
 
@@ -195,63 +194,74 @@ for time in range(70, len(cust_requests)):
     ######################################
     # Creating Forecast Dictionary ~ NM/MC
     ######################################
+    if controller_type == 'smart':
+        Forecast = {
+            # 'demand' : demand_forecast_parser(time), # ~ MC
+            'demand' : demand_forecast_parser_alt(time),
+            'vehicleArrivals': vehicle_arrivals, # ~ NM
+            'driverArrivals' : driver_arrivals, # ~ NM
+        }
 
-    Forecast = {
-        # 'demand' : demand_forecast_parser(time), # ~ MC
-        'demand': demand_forecast_parser_alt(time),  # ~ MC
-        'vehicleArrivals': vehicle_arrivals,  # ~ NM
-        'driverArrivals': driver_arrivals,  # ~ NM
-    }
+        # print("FORECAST")
+        # for k, v in Forecast.items():
+        #     print(k, v.shape)
 
-    N = 58  # number of stations
-    T = 12  # time step horizon
-    T_init = int(np.ceil(T / 2))
-    lam = 1 / float(N)
-    Forecast['demand'] = np.zeros((N, N, T))
-    Forecast['demand'][:, :, 0:T_init] = np.random.poisson(lam, (N, N, T_init))
-    Forecast['demand'] = np.random.poisson(lam, (N, N, T))
+        ######################################
+        # Creating State Dictionary ~ JS
+        ######################################
 
-    # print("FORECAST")
-    # for k, v in Forecast.items():
-    #     print(k, v)
+        State = {
+            'idleVehicles': np.array(idle_vehicles),
+            'idleDrivers': np.array(idle_drivers),
+            'privateVehicles': np.zeros((58,1))
+        }
 
-    ######################################
-    # Creating State Dictionary ~ JS
-    ######################################
+        # Fake data RoadNetwork
+        # RoadNetwork = np.load("./roadNetwork.npy").item()
 
-    State = {
-        'idleVehicles': np.array(idle_vehicles),
-        'idleDrivers': np.array(idle_drivers),
-        'privateVehicles': np.zeros((58, 1))
-    }
-    # print(State['idleVehicles'])
-    # print(State['idleDrivers'])
+        # create controller if it doesn't already exist
+        try:
+            controller
+        except:
+            controller = MoDController(RoadNetwork)
 
-    # print("idle drivers")
-    # print(State['idleDrivers'])
+        # Other Fake State data for testing.
+        # Parameters = np.load("./parameters.npy").item()
+        # State = np.load("./state.npy").item()
+        # Forecast = np.load("./forecast.npy").item()
+        # Flags = np.load("./flags.npy").item()
 
-    # Create controller if it doesn't already exist
-    try:
-        controller
-    except:
-        controller = MoDController(RoadNetwork)
+        [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+        # for task in tasks:
+        #     print(task)
+        #
+        # for c_output in controller_output:
+        #     print(c_output)
 
-    [tasks, controller_text_file_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+    elif controller_type == 'naive':
 
-    # print("Tasks: ")
-    # for k,v in tasks.items():
-    #     print(k, v)
-    #
-    # print("\n\ntext_file_output:")
-    # for c_text_file_output in controller_text_file_output:
-    #     print(c_text_file_output)
+        if morningStart  <= time and time <= morningEnd:
+            morning_rebalancing(station_dict)
+            morningStart += 24
+            morningEnd += 24
+        elif eveningStart <= time and time <= eveningEnd:
+            evening_rebalancing(station_dict)
+            eveningStart += 24
+            eveningEnd += 24
+
+
+    print('\n\n*****************************\n\n')
+
+    text_file_output.append('Errors: {}'.format(errors))
+
+
 
     pedestrian_requests = tasks['driverRebalancingQueue']
     # for request in pedestrian_requests:
     #     print(request)
     vehicle_requests = tasks['vehicleRebalancingQueue']
-    # print(pedestrian_requests)
-    # print(vehicle_requests)
+    print(pedestrian_requests)
+    print(vehicle_requests)
 
     text_file_output.append('Errors: {}'.format(errors))
 
@@ -270,14 +280,6 @@ sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car avai
 sum_time_no_park_errors = np.sum(no_park_errors, axis=1)  # no parking errors per time total
 sum_time_no_car_cust_errors = np.sum(no_car_cust_errors, axis=1)  # no car available for customers errors per time total
 sum_time_no_car_emp_errors = np.sum(no_car_emp_errors, axis=1)  # no car available for employees errors per time total
-
-
-######################################
-# Calculate Fraction of Times ~ JS
-######################################
-
-fraction_time_full = total_time_full / len(cust_requests)
-fraction_time_empty = total_time_empty / len(cust_requests)
 
 
 ######################################
