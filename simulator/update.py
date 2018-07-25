@@ -25,16 +25,14 @@ class Update:
 
             if self.controller == "naive" or self.controller == "n":
                 driver_requests, pedestrian_requests = self.naive()
-                print(driver_requests)
-                print(pedestrian_requests)
             else:
-                self.smart()
+                driver_requests, pedestrian_requests = self.smart()
 
             # Loop Arrivals
             self.arrivals(station)
 
             # Check for Errors
-            overload = station.available_parking - (len(station.car_list) + len(station.get_en_route_list(True)))
+            overload = station.calc_parking() - len(station.get_en_route_list(True))
 
             if overload < 0:
                 self.errors.append(
@@ -123,7 +121,7 @@ class Update:
                 break
 
     def smart(self):
-        pass
+        return [], []
         #pedestrian_requests = tasks['driverRebalancingQueue']
         #vehicle_requests = tasks['vehicleRebalancingQueue']
         # idle_vehicles = []
@@ -221,8 +219,6 @@ class Update:
         morningStart, morningEnd = simulator.parameters.morningStart, simulator.parameters.morningEnd
         eveningStart, eveningEnd = simulator.parameters.eveningStart, simulator.parameters.eveningEnd
         if morningStart <= self.time and self.time <= morningEnd:
-            print('#######################')
-            print(self.station_dict)
             driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict)
             morningStart += 24
             morningEnd += 24

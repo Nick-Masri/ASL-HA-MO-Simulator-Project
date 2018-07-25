@@ -8,7 +8,7 @@ def output(time, station_dict):
         station = station_dict[station_index]
         text.append('\tStation: {}'.format(station_index))
         text.append('\t\tNumber of Idle Vehicles: {}'.format(len(station.car_list)))
-        text.append('\t\tAvailable Parking: {}'.format(station.available_parking))
+        text.append('\t\tAvailable Parking: {}'.format(station.calc_parking()))
         text.append(
             '\t\tNum People En_Route: {}'.format(len(station.get_en_route_list())))
 

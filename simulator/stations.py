@@ -6,13 +6,10 @@ class Station:
         self.station_id = station_id
         self.car_list = car_list
         self.parking_spots = parking_spots
-        self.available_parking = parking_spots - len(car_list)
         self.employee_list = employee_list
         self.en_route_list = []
         self.waiting_customers = []
         self.request_list = []
-
-    # Get Methods
 
     def get_waiting_customers(self, is_sorted=False):  # sorted by origin_time, least to greatest
         if is_sorted:
@@ -26,11 +23,12 @@ class Station:
         else:
             return self.en_route_list
 
-    # Unique Methods
     def append_en_route_list(self, employee):
         self.en_route_list.append(employee)
 
     def append_waiting_customers(self, customer):
         self.waiting_customers.append(customer)
 
+    def calc_parking(self):
+        return self.parking_spots - len(self.car_list)
 
