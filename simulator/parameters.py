@@ -33,9 +33,9 @@ customer_data = "./data/10_days/hamo10days.npy"
 ####################################
 
 # Time
-morningStart = 8
-morningEnd = 10
+morningStart = 96  # 8am
+morningEnd = 120  # 10am
 
-eveningStart = 5
-eveningEnd = 8
 
+eveningStart = 204  # 5pm
+eveningEnd = 240  # 8pm
