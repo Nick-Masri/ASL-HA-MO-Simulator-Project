@@ -2,6 +2,10 @@ from simulator.people import Employee
 from simulator.stations import Station
 
 
+##############################
+# Station Initializer ~ MC/NM
+##############################
+
 def station_initializer(station_mapping_int, parking, employees_at_stations, cars_per_station):
     station_dict = {}
     car_count = 1

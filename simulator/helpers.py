@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
 
-######################################
-# Station Init ~ MC
-######################################
-
 
 ######################################
 # Format and Load Instructions ~ NM / MC
@@ -59,26 +55,6 @@ def demand_forecast_parser(time, demand_forecast, time_step):
     parsed_demand = np.vstack((first_11_time_blocks, next_12_time_blocks))
 
     return parsed_demand
-
-
-# def demand_forecast_parser_alt(time):
-#     time = time % 288  # For dealing with multiple days
-#     first_11_time_blocks = DEMAND_FORECAST_ALT[:, :, time:time + 11]
-#     time += 11
-#     next_12_time_blocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time + 12], axis=2)
-#     parsed_demand = np.zeros((first_11_time_blocks.shape[0],
-#                               first_11_time_blocks.shape[1],
-#                               first_11_time_blocks.shape[2] + 1))
-#
-#     for station in range(first_11_time_blocks.shape[0]):
-#         parsed_demand[station] = np.hstack((first_11_time_blocks[station], next_12_time_blocks[station].reshape((58, 1))))
-#
-#     return parsed_demand
-#
-
-########################
-# Travel Times helper functions ~ MC
-#######################
 
 
 def demand_forecast_formatter(station_length, time_length, mean_demand):

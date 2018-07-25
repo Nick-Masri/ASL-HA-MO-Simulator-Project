@@ -1,6 +1,10 @@
 from simulator.formatting import car_travel_times, walking_travel_times, hamo_travel_times
 
 
+##############################
+# People Classes ~ JS
+##############################
+
 class Person:
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
         self.origin = origin
@@ -26,6 +30,13 @@ class Person:
 class Employee(Person):
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
         Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
+
+    def reset(self):
+        self.origin = None
+        self.destination = None
+        self.origin_time = None
+        self.destination_time = None
+        self.vehicle_id = None
 
 def get_travel_time(time_graph, origin, destination):
     if origin == destination:

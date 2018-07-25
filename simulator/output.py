@@ -1,3 +1,7 @@
+##############################
+# Output Functions ~ NM
+##############################
+
 def output(time, station_dict):
     text = []
     text.append("\nTime: {}".format(time))

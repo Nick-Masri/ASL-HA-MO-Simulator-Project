@@ -5,6 +5,9 @@ from simulator.setup import station_initializer
 import math
 import simulator.formatting as var
 
+###################
+# Run Setup ~ NM
+##################
 
 def run(controller):
 
