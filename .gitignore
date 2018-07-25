@@ -11,10 +11,8 @@ src/*.egg-info
 lib
 lib64
 .idea
-./data/*
 __pycache__
 output.txt
-request_file.txt
-./controller/*
 .DS_Store
-controller/*
+data/*
+controllers/smart-controller/*

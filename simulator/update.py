@@ -52,7 +52,6 @@ class Update:
 
             if len(self.driver_requests[station]) > 0 or len(self.pedestrian_requests[station]) > 0:
 
-
                 # Assign drivers
                 self.assign_drivers(self.station, self.driver_requests[station], self.station_dict, self.errors, self.time)
 
@@ -118,10 +117,21 @@ class Update:
                 self.no_car_cust_errors[time, customer.origin] += 1
                 break
 
-
     def smart(self):
         pass
-        #     ############################################
+
+        pedestrian_requests = tasks['driverRebalancingQueue']
+        vehicle_requests = tasks['vehicleRebalancingQueue']
+        # idle_vehicles = []
+        # idle_drivers = []
+        #
+        # vehicle_arrivals = np.zeros(shape=(len(station_dict), 12))
+        # driver_arrivals = np.zeros(shape=(len(station_dict), 12))
+
+        #
+        # total_time_empty = np.zeros(shape=(58, 1))
+        # total_time_full = np.zeros(shape=(58, 1))
+        # #     ############################################
         #     # Setting Up Idle Vehicles and Drivers ~ JS
         #     ############################################
         #
@@ -202,3 +212,14 @@ class Update:
         #     #
         #     # for c_output in controller_output:
         #     #     print(c_output)
+
+    def Naive(self):
+        pass
+        # if morningStart <= time and time <= morningEnd:
+        #     morning_rebalancing(station_dict)
+        #     morningStart += 24
+        #     morningEnd += 24
+        # elif eveningStart <= time and time <= eveningEnd:
+        #     evening_rebalancing(station_dict)
+        #     eveningStart += 24
+        #     eveningEnd += 24
