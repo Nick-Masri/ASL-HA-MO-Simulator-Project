@@ -18,15 +18,14 @@ class Update:
         self.pedestrian_requests = [[] for i in range(len(station_dict))]
         self.controller = controller
         self.errors = []
-
     def loop(self):
         for station_index in sorted(self.station_dict):
             station = self.station_dict[station_index]
-
-            if self.controller == "naive" or self.controller == "n":
-                driver_requests, pedestrian_requests = self.naive()
-            else:
-                driver_requests, pedestrian_requests = self.smart()
+            if station_index == 0:
+                if self.controller == "naive" or self.controller == "n":
+                    driver_requests, pedestrian_requests = self.naive()
+                else:
+                    driver_requests, pedestrian_requests = self.smart()
 
             # Loop Arrivals
             self.arrivals(station)
@@ -61,6 +60,17 @@ class Update:
                 self.assign_pedestrians(station, pedestrian_requests)
 
 
+            for origin, pedestrian_request in enumerate(pedestrian_requests):
+                if pedestrian_request != []:
+                    if origin == station:
+                        request = (origin, pedestrian_request[0], self.time)
+                        self.assign_pedestrians(request, station, self.station_dict)
+
+            for origin, driver_request in enumerate(driver_requests):
+                if driver_request != []:
+                    if origin == station:
+                        request = (origin, driver_request[0], self.time)
+                        self.assign_drivers(request, station, self.station_dict, self.errors)
 
         text = output(self.time, self.station_dict)
 
@@ -83,25 +93,25 @@ class Update:
             else:
                 break
 
-    def assign_drivers(self, station, driver_requests):
-        for destination in driver_requests:
-            driver = station.employee_list[0]
-            try:
-                current_car = station.car_list.pop(0)
-                driver = station.employee_list.pop(0)
-                driver.update_status(station.station_id, destination, self.time, current_car)
-                self.station_dict[driver.destination].append_en_route_list(driver)
-            except IndexError:
-                self.errors.append('No car for employee at Station Number {}'.format(driver.origin))
-                #self.no_car_emp_errors[self.time, driver.origin] += 1
-                break
+    def assign_drivers(self, request, station, station_dictionary, errors):
+        print('Driving {}'.format(request))
+        driver = station.employee_list[0]
+        try:
+            driver = station.employee_list.pop(0)
+            driver = simulator.people.Employee(request[0], request[1], request[2])
+            current_car = station.car_list.pop(0)
+            driver.update_status(driver, current_car)
+            print(driver.destination_time)
+            station_dictionary[driver.destination].append_en_route_list(driver)
+        except IndexError:
+            errors.append('No car for employee at Station Number {}'.format(driver.origin))
 
-    def assign_pedestrians(self, station, pedestrian_requests):
-        station_dict = self.station_dict
-        for destination in pedestrian_requests:
-            ped = station.employee_list.pop(0)
-            ped.update_status(station.station_id, destination, self.time)
-            station_dict[ped.destination].append_en_route_list(ped)
+    def assign_pedestrians(request, station, station_dictionary):
+        print('Walking {}'.format(request))
+        ped = station.employee_list.pop(0)
+        ped = simulator.people.Employee(request[0], request[1], request[2])
+        print(ped.destination_time)
+        station_dictionary[ped.destination].append_en_route_list(ped)
 
     def update_customer_list(self, station, request):
         customer = self.state_tracker.Person(request[0], request[1], self.time)
@@ -216,16 +226,21 @@ class Update:
         #     #     print(c_output)
 
     def naive(self):
-        morningStart, morningEnd = simulator.parameters.morningStart, simulator.parameters.morningEnd
-        eveningStart, eveningEnd = simulator.parameters.eveningStart, simulator.parameters.eveningEnd
+        morningStart = simulator.parameters.morningStart
+        morningEnd = simulator.parameters.morningEnd
+        eveningStart = simulator.parameters.eveningStart
+        eveningEnd = simulator.parameters.eveningEnd
+
         if morningStart <= self.time and self.time <= morningEnd:
             driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict)
-            morningStart += 24
-            morningEnd += 24
+            if self.time == morningEnd:
+                simulator.parameters.morningStart += 24
+                simulator.parameters.morningEnd += 24
         elif eveningStart <= self.time and self.time <= eveningEnd:
             driver_requests, pedestrian_requests = evening_rebalancing(self.station_dict)
-            eveningStart += 24
-            eveningEnd += 24
+            if self.time == eveningStart:
+                simulator.parameters.eveningStart += 24
+                simulator.parameters.eveningEnd += 24
         else:
             driver_requests, pedestrian_requests = [], []
 

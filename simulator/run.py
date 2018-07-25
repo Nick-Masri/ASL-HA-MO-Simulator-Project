@@ -12,9 +12,11 @@ def run(controller):
                                        var.employees_at_stations, var.cars_per_station)
     text = []
     for time in range(2880):
-        x = time / 28.79
-        if time % 100 == 0 or time == 2879:
-            print("{}%".format(math.ceil(x)))
+        # x = time / 28.79
+        # if time % 100 == 0 or time == 2879:
+        #     print("{}%".format(math.ceil(x)))
+
+        print('Time: {}'.format(time))
 
         customer_requests = var.cust_requests[time]
 

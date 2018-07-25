@@ -30,7 +30,7 @@ def morning_rebalancing(dict):
 
         for emp in station.employee_list:
             pedestrian_task[i] = [dest]
-    print(driver_task, pedestrian_task)
+    # print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task
 
 
@@ -59,5 +59,5 @@ def evening_rebalancing(dict):
 
         for emp in station.employee_list:
             pedestrian_task[i] = [dest]
-    print(driver_task, pedestrian_task)
+    # print(driver_task, pedestrian_task)
     return driver_task, pedestrian_task
