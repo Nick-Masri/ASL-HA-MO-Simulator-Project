@@ -1,41 +1,37 @@
-import simulator.state_tracker
+# from simulator.state_tracker import Station, Employee, Person
 import simulator.parameters
+from simulator.output import output
 import numpy as np
 
+import simulator.people
 
 class Update:
 
-    def __init__(self, time, station_dict,customer_requests, driver_requests, pedestrian_requests):
+    def __init__(self, controller, time, station_dict, customer_requests):
         self.time = time
         self.station_dict = station_dict
         self.customer_requests = customer_requests
-        self.driver_requests = driver_requests
-        self.pedestrian_requests = pedestrian_requests
-
+        # self.driver_requests = driver_requests
+        # self.pedestrian_requests = pedestrian_requests
+        self.driver_requests = [[] for i in range(len(station_dict))]
+        self.pedestrian_requests = [[] for i in range(len(station_dict))]
+        self.controller = controller
         self.errors = []
-        self.no_car_cust_errors = np.zeros(shape=(2880, 58))
-        self.no_park_errors = np.zeros(shape=(2880, 58))
-        self.no_car_emp_errors = np.zeros(shape=(2880, 58))
-        self.state_tracker = simulator.state_tracker
 
     def loop(self):
-        for station in sorted(self.station_dict):
-            self.station = self.station_dict[station]
-            self.employee_list = station.employee_list
-            self.car_list = station.car_list
-            self.customer_list = station.get_waiting_customers(True)
-            self.en_route_list = station.get_en_route_list(True)
+        for station_index in sorted(self.station_dict):
+            station = self.station_dict[station_index]
 
             # Loop Arrivals
-            self.arrivals(self.en_route_list, self.time, self.car_list, self.employee_list, self.station)
+            self.arrivals(station)
 
-            # Check for Errors ******** This is assuming the capacity is 50 for each station ***********
-            overload = station.available_parking - (len(self.car_list) + len(self.en_route_list))
+            # Check for Errors
+            overload = station.available_parking - (len(station.car_list) + len(station.get_en_route_list(True)))
 
             if overload < 0:
                 self.errors.append(
-                    "Station {0} will have {1} more cars than it can allow".format(self.station, -overload))
-                self.no_park_errors[self.time][self.station] += 1
+                    "Station {0} will have {1} more cars than it can allow".format(station, -overload))
+                #self.no_park_errors[self.time][station] += 1
 
             # Put customers into cars
             if len(self.customer_requests) > 0:
@@ -43,85 +39,88 @@ class Update:
                 for customer_request in self.customer_requests:
                     if customer_request[0] == station:
                         # add to station cust waiting list
-                        self.update_customer_list(customer_request, self.time, self.customer_list)
+                        self.update_customer_list(station, customer_request)
 
                         print("CUSTOMER REQUEST: {}".format(customer_request))
 
                 # assigns customers to cars if available
-                self.assign_customers(self.customer_list, self.current_car_list, self.station_dict, self.errors, self.time)
+                self.assign_customers(station)
 
-            if len(self.driver_requests[station]) > 0 or len(self.pedestrian_requests[station]) > 0:
+            if len(self.driver_requests[station_index]) > 0 or len(self.pedestrian_requests[station_index]) > 0:
 
                 # Assign drivers
-                self.assign_drivers(self.station, self.driver_requests[station], self.station_dict, self.errors, self.time)
+                self.assign_drivers(station, self.driver_requests)
 
                 # Assign Pedestrians
-                self.assign_pedestrians(self.station, self.pedestrian_requests[station], self.station_dict, self.time)
+                self.assign_pedestrians(station, self.pedestrian_requests)
 
-        return self.errors
+            if self.controller == "Naive" or self.controller == "N":
+                self.naive()
+            else:
+                self.smart()
 
-    def arrivals(self):
-        while len(self.en_route_list) > 0:
-            person = self.en_route_list[0]
+        text = output(self.time, self.station_dict)
+
+        return text
+
+    def arrivals(self, station):
+        while len(station.en_route_list) > 0:
+            person = station.en_route_list[0]
             if person.destination_time == self.time: # there is an error at time = 0
-                self.en_route_list.remove(person)
-                self.station.get_en_route_list().remove(person)
+                station.en_route_list.remove(person)
+                station.get_en_route_list().remove(person)
                 current_vehicle_id = person.vehicle_id
                 if current_vehicle_id is not None:
-                    self.car_list.append(current_vehicle_id)
+                    station.car_list.append(current_vehicle_id)
                 if isinstance(person, self.state_tracker.Employee):
                     person.reset()
-                    self.employee_list.append(person)
+                    station.employee_list.append(person)
                 else:
                     del person
             else:
                 break
 
-    def assign_drivers(self):
-        for destination in self.driver_requests:
-
-            driver = self.station.employee_list[0]
+    def assign_drivers(self, station, driver_requests):
+        for destination in driver_requests:
+            driver = station.employee_list[0]
             try:
-                current_car = self.station.car_list.pop(0)
-                driver = self.station.employee_list.pop(0)
-                driver.update_status(self.station.station_id, destination, self.time, current_car)
+                current_car = station.car_list.pop(0)
+                driver = station.employee_list.pop(0)
+                driver.update_status(station.station_id, destination, self.time, current_car)
                 self.station_dict[driver.destination].append_en_route_list(driver)
             except IndexError:
                 self.errors.append('No car for employee at Station Number {}'.format(driver.origin))
-                self.no_car_emp_errors[self.time, driver.origin] += 1
+                #self.no_car_emp_errors[self.time, driver.origin] += 1
                 break
 
-    def assign_pedestrians(self):
-        station = self.station
+    def assign_pedestrians(self, station, pedestrian_requests):
         station_dict = self.station_dict
-
-        for destination in self.pedestrian_requests:
+        for destination in pedestrian_requests:
             ped = station.employee_list.pop(0)
             ped.update_status(station.station_id, destination, self.time)
             station_dict[ped.destination].append_en_route_list(ped)
 
-    def update_customer_list(self, requests, time, cust_list):
-        customer = self.state_tracker.Person(requests[0], requests[1], time)
-        cust_list.append(customer)
+    def update_customer_list(self, station, request):
+        customer = self.state_tracker.Person(request[0], request[1], self.time)
+        station.customer_list.append(customer)
 
-    def assign_customers(self, customer_list, cars, station_dictionary, errors, time):
-        while len(customer_list) > 0:
-            customer = customer_list[0]
+    def assign_customers(self, station):
+        while len(station.waiting_customers) > 0:
+            customer = station.waiting_customers[0]
             try:
-                current_car = cars.pop(0)
-                customer = customer_list.pop(0)
-                customer.assign_cust_car(current_car)
-                station_dictionary[customer.destination].append_en_route_list(customer)
+                current_car = station.car_list.pop(0)
+                customer = station.waiting_customers.pop(0)
+                customer.assign_car(current_car)
+                self.station_dict[customer.destination].append_en_route_list(customer)
             except IndexError:
-                errors.append('No car for customer at Station Number {}'.format(customer.origin))
-                self.no_car_cust_errors[time, customer.origin] += 1
+                self.errors.append('No car for customer at Station Number {}'.format(customer.origin))
+                #self.no_car_cust_errors[self.time, customer.origin] += 1
                 break
 
     def smart(self):
         pass
-
-        pedestrian_requests = tasks['driverRebalancingQueue']
-        vehicle_requests = tasks['vehicleRebalancingQueue']
+        #pedestrian_requests = tasks['driverRebalancingQueue']
+        #vehicle_requests = tasks['vehicleRebalancingQueue']
         # idle_vehicles = []
         # idle_drivers = []
         #
@@ -213,7 +212,7 @@ class Update:
         #     # for c_output in controller_output:
         #     #     print(c_output)
 
-    def Naive(self):
+    def naive(self):
         pass
         # if morningStart <= time and time <= morningEnd:
         #     morning_rebalancing(station_dict)
@@ -223,3 +222,21 @@ class Update:
         #     evening_rebalancing(station_dict)
         #     eveningStart += 24
         #     eveningEnd += 24
+
+    def Errors(self):
+        pass
+    # ######################################
+    # # Tracking Errors / Summing Errors ~ JS
+    # ######################################
+    #
+    # sum_station_no_park_errors = np.sum(no_park_errors, axis=0)  # no parking errors per station total
+    # sum_station_no_car_cust_errors = np.sum(no_car_cust_errors, axis=0)  # no car available for customers errors per station
+    # sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car available for employees errors per station
+    #
+    # sum_time_no_park_errors = np.sum(no_park_errors, axis=1)  # no parking errors per time total
+    # sum_time_no_car_cust_errors = np.sum(no_car_cust_errors, axis=1)  # no car available for customers errors per time total
+    # sum_time_no_car_emp_errors = np.sum(no_car_emp_errors, axis=1)  # no car available for employees errors per time total
+
+    #        self.no_car_cust_errors = np.zeros(shape=(2880, 58))
+    # self.no_park_errors = np.zeros(shape=(2880, 58))
+    #self.no_car_emp_errors = np.zeros(shape=(2880, 58))

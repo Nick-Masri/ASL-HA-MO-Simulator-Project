@@ -4,7 +4,7 @@
 
 # in the form {Real Station Number: Logical Index}
 
-cars_per_station = 5
+cars_per_station = 1
 # Dict of intial employee positions in the form {Station: number of employees
 
 employees_at_stations = {22:1, 55:1}

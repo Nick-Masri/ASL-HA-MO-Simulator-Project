@@ -18,8 +18,6 @@ employees_at_stations = simulator.parameters.employees_at_stations
 cars_per_station = simulator.parameters.cars_per_station
 
 
-station_dict = simulator.helpers.station_initializer(station_mapping_int, parking, employees_at_stations, cars_per_station)
-
 format_travel_times = simulator.helpers.format_travel_times
 
 
