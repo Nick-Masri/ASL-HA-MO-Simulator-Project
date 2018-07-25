@@ -117,3 +117,88 @@ class Update:
                 errors.append('No car for customer at Station Number {}'.format(customer.origin))
                 self.no_car_cust_errors[time, customer.origin] += 1
                 break
+
+
+    def smart(self):
+        pass
+        #     ############################################
+        #     # Setting Up Idle Vehicles and Drivers ~ JS
+        #     ############################################
+        #
+        #     idle_vehicles.append(len(station_dict[station].car_list))
+        #     idle_drivers.append(len(station_dict[station].employee_list))
+        #
+        #     ########################################
+        #     # Updating Vehicle/Driver Arrivals ~ NM
+        #     ########################################
+        #
+        #     for person in station_dict[station].get_en_route_list(True):
+        #         for i in range(time, time + 12):
+        #             if person.destination_time == i:
+        #                 if isinstance(person, Employee):
+        #                     driver_arrivals[station][i - time] += 1
+        #                 if person.vehicle_id is not None:
+        #                     vehicle_arrivals[station][i - time] += 1
+        #             else:
+        #                 break
+        #
+        #     ########################################
+        #     # Fraction of Time for at Capacity or Empty ~ JS
+        #     ########################################
+        #
+        #     num_parked_cars = len(station_dict[station].car_list)
+        #     num_park_spots = 50 - len(station_dict[station].car_list)
+        #
+        #     if num_parked_cars == 0:
+        #         total_time_empty[station] += 1
+        #
+        #     if num_parked_cars == num_park_spots:
+        #         total_time_full[station] += 1
+        #
+        #     ######################################
+        #     # Creating Forecast Dictionary ~ NM/MC
+        #     ######################################
+        #
+        # if controller_type == 'smart':
+        #     Forecast = {
+        #         # 'demand' : demand_forecast_parser(time), # ~ MC
+        #         'demand': demand_forecast_parser_alt(time),
+        #         'vehicleArrivals': vehicle_arrivals,  # ~ NM
+        #         'driverArrivals': driver_arrivals,  # ~ NM
+        #     }
+        #
+        #     # print("FORECAST")
+        #     # for k, v in Forecast.items():
+        #     #     print(k, v.shape)
+        #
+        #     ######################################
+        #     # Creating State Dictionary ~ JS
+        #     ######################################
+        #
+        #     State = {
+        #         'idleVehicles': np.array(idle_vehicles),
+        #         'idleDrivers': np.array(idle_drivers),
+        #         'privateVehicles': np.zeros((58, 1))
+        #     }
+        #
+        #     # Fake data RoadNetwork
+        #     # RoadNetwork = np.load("./roadNetwork.npy").item()
+        #
+        #     # create controller if it doesn't already exist
+        #     try:
+        #         controller
+        #     except:
+        #         controller = MoDController(RoadNetwork)
+        #
+        #     # Other Fake State data for testing.
+        #     # Parameters = np.load("./parameters.npy").item()
+        #     # State = np.load("./state.npy").item()
+        #     # Forecast = np.load("./forecast.npy").item()
+        #     # Flags = np.load("./flags.npy").item()
+        #
+        #     [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+        #     # for task in tasks:
+        #     #     print(task)
+        #     #
+        #     # for c_output in controller_output:
+        #     #     print(c_output)
