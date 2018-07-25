@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from helpers import *
 from init_helpers import *
+
 from datetime import datetime, timedelta
 import numpy as np
 
@@ -24,18 +25,21 @@ eveningEnd = 8
 ######################################
 # Initializing Stations ~ MC/NM
 ######################################
-cars_per_station = 5
+cars_per_station = 0
 # Dict of intial employee positions in the form {Station: number of employees
 employees_at_stations = {2: 2, 5: 2}
+# employees_at_stations = {}
+PARKING = {}
 
+for i in range(58):
+    PARKING[i] = 8
 station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
 
 print("EMPLOYEE LIST")
 print("**************")
 for station in station_dict:
-    if len(station_dict[station].employee_list) > 0:
-        print("Station: {}, Num of employees: {}"
-              .format(station, len(station_dict[station].employee_list)))
+    print("Station: {}, Parking: {}, Cars: {}"
+          .format(station, station_dict[station].parking_spots, len(station_dict[station].car_list)))
 ######################################
 # Creating Road Network Dictionary ~ NM/MC
 ######################################
@@ -65,7 +69,6 @@ RoadNetwork['travelTimes'] = hamo_travel_times
 RoadNetwork['driverTravelTimes'] = walking_travel_times
 RoadNetwork['pvTravelTimes'] = car_travel_times
 RoadNetwork['cTravelTimes'] = car_travel_times
-# RoadNetwork['parking'] = np.array('file_from_matt_tsao.csv')
 RoadNetwork['parking'] = np.array([10 for i in range(58)])
 
 
@@ -87,11 +90,13 @@ horizon = timedelta(0, 12 * 60 * dt)  # in seconds
 time_horizon = int(horizon.seconds / time_step_size.seconds)
 c_d = 10000.
 c_r = (1. / time_horizon) * 0.0001 * 24. * c_d
-# c_r = 1
 
 
 Parameters = {}
 Parameters['pvCap'] = 4.
+# Parameters['pvCap'] = 0
+
+# Parameters['pvLocation'] = 0
 Parameters['driverRebalancingCost'] = c_r
 Parameters['vehicleRebalancingCost'] = c_r
 Parameters['pvRebalancingCost'] = c_r
@@ -197,6 +202,7 @@ for time in range(70, len(cust_requests)):
     if controller_type == 'smart':
         Forecast = {
             # 'demand' : demand_forecast_parser(time), # ~ MC
+            # 'demand' : np.ceil(demand_forecast_parser_alt(time)),
             'demand' : demand_forecast_parser_alt(time),
             'vehicleArrivals': vehicle_arrivals, # ~ NM
             'driverArrivals' : driver_arrivals, # ~ NM
@@ -213,7 +219,8 @@ for time in range(70, len(cust_requests)):
         State = {
             'idleVehicles': np.array(idle_vehicles),
             'idleDrivers': np.array(idle_drivers),
-            'privateVehicles': np.zeros((58,1))
+            'privateVehicles': np.zeros((58,1)),
+            'pvLocation': 0
         }
 
         # Fake data RoadNetwork
@@ -230,7 +237,10 @@ for time in range(70, len(cust_requests)):
         # State = np.load("./state.npy").item()
         # Forecast = np.load("./forecast.npy").item()
         # Flags = np.load("./flags.npy").item()
-
+        # np.save(os.path.join("./state/", str(time) + "roadNetwork.npy"), RoadNetwork)
+        # np.save(os.path.join("./state/", str(time) + "parameters.npy"), Parameters)
+        # np.save(os.path.join("./state/", str(time) + "state.npy"), State)
+        # np.save(os.path.join("./state/", str(time) + "forecast.npy"), Forecast)
         [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
         # for task in tasks:
         #     print(task)
@@ -251,6 +261,11 @@ for time in range(70, len(cust_requests)):
 
 
     print('\n\n*****************************\n\n')
+    print("Controller")
+
+    for k,v in controller_output.items():
+        if k != "cplex_out":
+            print(k, v)
 
     text_file_output.append('Errors: {}'.format(errors))
 

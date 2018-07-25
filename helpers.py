@@ -57,6 +57,7 @@ def assign_drivers(station, driver_tasks, station_dictionary, errors, current_ti
 
 def assign_pedestrians(station, pedestrian_tasks, station_dictionary, current_time):
     for destination in pedestrian_tasks:
+        print("Destination: {}".format(destination))
         ped = station.employee_list.pop(0)
         ped.update_status(station.station_id, destination, current_time)
         station_dictionary[ped.destination].append_en_route_list(ped)
@@ -122,19 +123,19 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             # assigns customers to cars if available
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)
 
-        if len(driver_requests[station]) > 0 or len(pedestrian_requests[station]) > 0:
-            # print('*****************************')
-            # print('# of Driver Tasks: {}'.format(len(driver_requests[station])))
-            # print('# of Ped Tasks: {}'.format(len(pedestrian_requests[station])))
-            # print('*****************************')
+
+        # tasks are in the form [[desination, desination]] hence the [0] in he reference
+        if len(driver_requests[station]) > 0:
+            # requests are in the
 
             # Assign drivers
             # Update employee object and add it to destination enroute list
-            assign_drivers(current_station, driver_requests[station], station_dict, errors, current_time)
-
+            assign_drivers(current_station, np.array(driver_requests[station]).astype(int)[0], station_dict, errors, current_time)
+        if len(pedestrian_requests[station]) > 0:
             # Assign Pedestrians
             # Update employee object and add it to destination enroute list (no car and time travel)
-            assign_pedestrians(current_station, pedestrian_requests[station], station_dict, current_time)
+            print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
+            assign_pedestrians(current_station, np.array(pedestrian_requests[station]).astype(int)[0], station_dict, current_time)
 
     return errors
 
