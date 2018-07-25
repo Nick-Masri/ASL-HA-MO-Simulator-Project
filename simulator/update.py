@@ -21,11 +21,11 @@ class Update:
     def loop(self):
         for station_index in sorted(self.station_dict):
             station = self.station_dict[station_index]
-            if station_index == 0:
-                if self.controller == "naive" or self.controller == "n":
-                    driver_requests, pedestrian_requests = self.naive()
-                else:
-                    driver_requests, pedestrian_requests = self.smart()
+
+            if self.controller == "naive" or self.controller == "n":
+                driver_requests, pedestrian_requests = self.naive()
+            else:
+                driver_requests, pedestrian_requests = self.smart()
 
             # Loop Arrivals
             self.arrivals(station)
@@ -59,16 +59,17 @@ class Update:
                 # Assign Pedestrians
                 self.assign_pedestrians(station, pedestrian_requests)
 
-
+            # print(pedestrian_requests)
+            # print(driver_requests)
             for origin, pedestrian_request in enumerate(pedestrian_requests):
                 if pedestrian_request != []:
-                    if origin == station:
+                    if origin == station_index:
                         request = (origin, pedestrian_request[0], self.time)
                         self.assign_pedestrians(request, station, self.station_dict)
 
             for origin, driver_request in enumerate(driver_requests):
                 if driver_request != []:
-                    if origin == station:
+                    if origin == station_index:
                         request = (origin, driver_request[0], self.time)
                         self.assign_drivers(request, station, self.station_dict, self.errors)
 
@@ -234,13 +235,13 @@ class Update:
         if morningStart <= self.time and self.time <= morningEnd:
             driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict)
             if self.time == morningEnd:
-                simulator.parameters.morningStart += 24
-                simulator.parameters.morningEnd += 24
+                simulator.parameters.morningStart += 288
+                simulator.parameters.morningEnd += 288
         elif eveningStart <= self.time and self.time <= eveningEnd:
             driver_requests, pedestrian_requests = evening_rebalancing(self.station_dict)
-            if self.time == eveningStart:
-                simulator.parameters.eveningStart += 24
-                simulator.parameters.eveningEnd += 24
+            if self.time == eveningEnd:
+                simulator.parameters.eveningStart += 288
+                simulator.parameters.eveningEnd += 288
         else:
             driver_requests, pedestrian_requests = [], []
 
