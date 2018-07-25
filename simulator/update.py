@@ -4,7 +4,8 @@ from simulator.output import output
 from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
 
 import simulator.parameters
-import simulator.people
+from simulator.people import Employee, Person
+
 
 class Update:
 
@@ -79,14 +80,13 @@ class Update:
 
     def arrivals(self, station):
         while len(station.en_route_list) > 0:
-            person = station.en_route_list[0]
-            if person.destination_time == self.time: # there is an error at time = 0
-                station.en_route_list.remove(person)
+            person = station.get_en_route_list(True)[0]
+            if person.destination_time == self.time:
                 station.get_en_route_list().remove(person)
                 current_vehicle_id = person.vehicle_id
                 if current_vehicle_id is not None:
                     station.car_list.append(current_vehicle_id)
-                if isinstance(person, self.state_tracker.Employee):
+                if isinstance(person, Employee):
                     person.reset()
                     station.employee_list.append(person)
                 else:
