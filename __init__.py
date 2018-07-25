@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 import numpy as np
 
 from controller.hamod import *
+from backend.controller import Controller
 
 # Setup Variables
 text_file_output = []
@@ -25,15 +26,14 @@ eveningEnd = 8
 ######################################
 # Initializing Stations ~ MC/NM
 ######################################
-cars_per_station = 0
+
 # Dict of intial employee positions in the form {Station: number of employees
 employees_at_stations = {2: 2, 5: 2}
-# employees_at_stations = {}
-PARKING = {}
 
-for i in range(58):
-    PARKING[i] = 8
-station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
+
+CARS = [0 for i in range(58)]
+# CARS[10] = 1
+station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, CARS)
 
 print("EMPLOYEE LIST")
 print("**************")
@@ -62,51 +62,87 @@ car_travel_times = format_travel_times("./data/travel_times_matrix_car.csv", STA
 walking_travel_times = format_travel_times("./data/travel_times_matrix_walk.csv", STATION_MAPPING, STATION_MAPPING_INT)
 hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", STATION_MAPPING, STATION_MAPPING_INT)
 
+dt = 5 # minutes
+timestepsize = timedelta(0, 60*dt) # in seconds
+horizon = timedelta(0, 12*60*dt) # in seconds
+thor = int(horizon.seconds / timestepsize.seconds)
 
-RoadNetwork = {}
-RoadNetwork['roadGraph'] = neighbor_list
-RoadNetwork['travelTimes'] = hamo_travel_times
-RoadNetwork['driverTravelTimes'] = walking_travel_times
-RoadNetwork['pvTravelTimes'] = car_travel_times
-RoadNetwork['cTravelTimes'] = car_travel_times
-RoadNetwork['parking'] = np.array([10 for i in range(58)])
+# Get info about stations from the station csv
+stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
+station_ids = stations.index.tolist()
+n_stations = len(station_ids)
+
+c_d = 10000.
+c_r = (1. / thor) * 0.0001 * 24. * c_d
+control_parameters = {}
+control_parameters['pvCap'] = 4.
+control_parameters['driverRebalancingCost'] = c_r
+control_parameters['vehicleRebalancingCost'] = c_r
+control_parameters['pvRebalancingCost'] = c_r
+control_parameters['lostDemandCost'] =  c_d
+control_parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
 
 
-# print('ROADNETWORK')
-# for k, v in RoadNetwork.items():
-#     try:
-#         print(k, v.shape)
-#     except:
-#         print(k, v)
+modes = ['walk','hamo','car','bike']
+def parse_ttimes(mode):
+    tt = pd.read_csv(
+            'data/travel_times_matrix_'+mode+'.csv', index_col=0
+        ).dropna(axis=0, how='all').dropna(axis=1, how='all')
+    tt.columns = [int(c) for c in tt.columns]
+    tt.iloc[:,:] = np.ceil(tt.values.astype(np.float64) / float(timestepsize.seconds))
+    # reorder to match the index
+    tt = tt.loc[stations.index][stations.index]
+    np.fill_diagonal(tt.values, 1)
+    return tt
+travel_times = {
+    mode: parse_ttimes(mode) for mode in modes
+}
 
+print("****************")
+print("****************")
+print("****************")
+print(travel_times['walk'])
+
+road_network = {
+    "roadGraph": neighbor_list,
+    "travelTimes": travel_times['hamo'].values,
+    "driverTravelTimes": travel_times['walk'].values,
+    "pvTravelTimes": travel_times['car'].values,
+    "cTravelTimes": travel_times['car'].values,
+    "parking": stations['parking_spots'].values
+}
 
 ######################################
 # Creating Parameters Dictionary ~ NM
 ######################################
 
-dt = 5  # minutes
-time_step_size = timedelta(0, 60 * dt)  # in seconds
-horizon = timedelta(0, 12 * 60 * dt)  # in seconds
-time_horizon = int(horizon.seconds / time_step_size.seconds)
-c_d = 10000.
-c_r = (1. / time_horizon) * 0.0001 * 24. * c_d
 
 
-Parameters = {}
-Parameters['pvCap'] = 4.
-# Parameters['pvCap'] = 0
 
-# Parameters['pvLocation'] = 0
-Parameters['driverRebalancingCost'] = c_r
-Parameters['vehicleRebalancingCost'] = c_r
-Parameters['pvRebalancingCost'] = c_r
-Parameters['lostDemandCost'] = c_d
-Parameters['thor'] = float(time_horizon)
+control_settings = {
+    "RoadNetwork": road_network,
+    "timestep_size": timestepsize,
+    "station_ids": station_ids,
+    "travel_times": travel_times,
+    "horizon": horizon,
+    "params": control_parameters,
+    "stations": stations,
+    "thor": int(horizon.seconds / timestepsize.seconds),
+    "timezone_name": 'Asia/Tokoyo'
+}
+
+forecast_settings = {
+    "day_forecast_path":'data/mean_demand_weekday_5min.npy',
+    "timestepsize":timestepsize,
+    "horizon":2 * int(horizon.seconds / timestepsize.seconds),
+    "id_to_idx_path":"data/10_days/station_mapping.npy"
+}
 
 
 # for k, v in Parameters.items():
 #     print(k, type(v))
 
+controller = Controller(forecast_settings, control_settings)
 
 ######################################
 # Creating Flags Dictionary ~ JS
@@ -122,6 +158,7 @@ Flags = {'debugFlag': False, 'glpkFlag': False}
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
+driver_requests = [[] for i in range(len(station_dict))]
 driver_requests = [[] for i in range(len(station_dict))]
 pedestrian_requests = [[] for i in range(len(station_dict))]
 
@@ -202,8 +239,8 @@ for time in range(70, len(cust_requests)):
     if controller_type == 'smart':
         Forecast = {
             # 'demand' : demand_forecast_parser(time), # ~ MC
-            # 'demand' : np.ceil(demand_forecast_parser_alt(time)),
-            'demand' : demand_forecast_parser_alt(time),
+            'demand' : np.ceil(demand_forecast_parser_alt(time)),
+            # 'demand' : demand_forecast_parser_alt(time),
             'vehicleArrivals': vehicle_arrivals, # ~ NM
             'driverArrivals' : driver_arrivals, # ~ NM
         }
@@ -227,10 +264,10 @@ for time in range(70, len(cust_requests)):
         # RoadNetwork = np.load("./roadNetwork.npy").item()
 
         # create controller if it doesn't already exist
-        try:
-            controller
-        except:
-            controller = MoDController(RoadNetwork)
+        # try:
+        #     controller
+        # except:
+        #     controller = MoDController(RoadNetwork)
 
         # Other Fake State data for testing.
         # Parameters = np.load("./parameters.npy").item()
@@ -241,7 +278,10 @@ for time in range(70, len(cust_requests)):
         # np.save(os.path.join("./state/", str(time) + "parameters.npy"), Parameters)
         # np.save(os.path.join("./state/", str(time) + "state.npy"), State)
         # np.save(os.path.join("./state/", str(time) + "forecast.npy"), Forecast)
-        [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+        controller.forecast_demand(time)
+        controller.update_state_arrivals(Forecast, State)
+
+        tasks = controller.compute_rebalancing()
         # for task in tasks:
         #     print(task)
         #
@@ -263,12 +303,12 @@ for time in range(70, len(cust_requests)):
     print('\n\n*****************************\n\n')
     print("Controller")
 
-    for k,v in controller_output.items():
-        if k != "cplex_out":
-            print(k, v)
+    # for k,v in controller_output.items():
+    #     if k != "cplex_out":
+    #         print(k, v)
 
     text_file_output.append('Errors: {}'.format(errors))
-
+    print(tasks)
 
 
     pedestrian_requests = tasks['driverRebalancingQueue']

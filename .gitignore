@@ -18,3 +18,4 @@ request_file.txt
 ./controller/*
 .DS_Store
 controller/*
+./hamo-contoller/*

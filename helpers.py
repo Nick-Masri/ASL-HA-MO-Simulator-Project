@@ -130,12 +130,12 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
 
             # Assign drivers
             # Update employee object and add it to destination enroute list
-            assign_drivers(current_station, np.array(driver_requests[station]).astype(int)[0], station_dict, errors, current_time)
+            assign_drivers(current_station, np.array(driver_requests[station]).astype(int)[0]-1, station_dict, errors, current_time)
         if len(pedestrian_requests[station]) > 0:
             # Assign Pedestrians
             # Update employee object and add it to destination enroute list (no car and time travel)
             print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
-            assign_pedestrians(current_station, np.array(pedestrian_requests[station]).astype(int)[0], station_dict, current_time)
+            assign_pedestrians(current_station, np.array(pedestrian_requests[station]).astype(int)[0]-1, station_dict, current_time)
 
     return errors
 
