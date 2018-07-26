@@ -56,6 +56,7 @@ def assign_drivers(station, driver_tasks, station_dictionary, errors, current_ti
 
 
 def assign_pedestrians(station, pedestrian_tasks, station_dictionary, current_time):
+    print(pedestrian_tasks)
     for destination in pedestrian_tasks:
         print("Destination: {}".format(destination))
         ped = station.employee_list.pop(0)
@@ -124,12 +125,19 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)
 
 
-        # tasks are in the form [[desination, desination]] hence the [0] in he reference
+        # If there's only one task at the station it's not in a list. This will make sure everything is the same format.
+        # REFACTOR?
+        if type(driver_requests[station]) == float:
+            driver_requests[station] = [[driver_requests[station]]]
+        if type(pedestrian_requests[station]) == float:
+            pedestrian_requests[station] = [[pedestrian_requests[station]]]
+
         if len(driver_requests[station]) > 0:
             # requests are in the
 
             # Assign drivers
             # Update employee object and add it to destination enroute list
+            print("Station: {}, Driver request: {}".format(station, driver_requests[station]))
             assign_drivers(current_station, np.array(driver_requests[station]).astype(int)[0]-1, station_dict, errors, current_time)
         if len(pedestrian_requests[station]) > 0:
             # Assign Pedestrians

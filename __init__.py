@@ -3,6 +3,7 @@ from helpers import *
 from init_helpers import *
 
 from datetime import datetime, timedelta
+import time
 import numpy as np
 
 from controller.hamod import *
@@ -30,12 +31,13 @@ eveningEnd = 8
 # Dict of intial employee positions in the form {Station: number of employees
 employees_at_stations = {2: 2, 5: 2}
 
-
 CARS = [0 for i in range(58)]
-# CARS[10] = 1
+CARS[10] = 1
 station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, CARS)
 
-print("EMPLOYEE LIST")
+
+
+print("Parking")
 print("**************")
 for station in station_dict:
     print("Station: {}, Parking: {}, Cars: {}"
@@ -162,9 +164,9 @@ driver_requests = [[] for i in range(len(station_dict))]
 driver_requests = [[] for i in range(len(station_dict))]
 pedestrian_requests = [[] for i in range(len(station_dict))]
 
-for time in range(70, len(cust_requests)):
-    print("Time: {}".format(time))
-    text_file_output.append("\nTime: {}".format(time))
+for curr_time in range(60, len(cust_requests)):
+    print("Time: {}".format(curr_time))
+    text_file_output.append("\nTime: {}".format(curr_time))
     text_file_output.append('------------------------------------------------------')
     
     idle_vehicles = []
@@ -173,9 +175,9 @@ for time in range(70, len(cust_requests)):
     vehicle_arrivals = np.zeros(shape=(len(station_dict), 12))
     driver_arrivals = np.zeros(shape=(len(station_dict), 12))
 
-    customer_requests = cust_requests[time]
+    customer_requests = cust_requests[curr_time]
 
-    errors = update(station_dict, customer_requests, time, driver_requests, pedestrian_requests)
+    errors = update(station_dict, customer_requests, curr_time, driver_requests, pedestrian_requests)
     # for station in station_dict:
     #     print('******************')
     #     print(station_dict[station].car_list)
@@ -204,7 +206,7 @@ for time in range(70, len(cust_requests)):
         ########################################
 
         for person in station_dict[station].get_en_route_list(True):
-            for i in range(time, time + 12):
+            for i in range(curr_time, curr_time + 12):
                 # if person.vehicle_id is not None:
                 #     if person.destination_time == i:
                 #         if isinstance(person, Employee):
@@ -214,9 +216,9 @@ for time in range(70, len(cust_requests)):
                 #         break
                 if person.destination_time == i:
                     if isinstance(person, Employee):
-                        driver_arrivals[station][i - time] += 1
+                        driver_arrivals[station][i - curr_time] += 1
                     if person.vehicle_id is not None:
-                        vehicle_arrivals[station][i - time] += 1
+                        vehicle_arrivals[station][i - curr_time] += 1
                 else:
                     break
 
@@ -239,7 +241,7 @@ for time in range(70, len(cust_requests)):
     if controller_type == 'smart':
         Forecast = {
             # 'demand' : demand_forecast_parser(time), # ~ MC
-            'demand' : np.ceil(demand_forecast_parser_alt(time)),
+            'demand' : np.ceil(demand_forecast_parser_alt(curr_time)),
             # 'demand' : demand_forecast_parser_alt(time),
             'vehicleArrivals': vehicle_arrivals, # ~ NM
             'driverArrivals' : driver_arrivals, # ~ NM
@@ -269,55 +271,44 @@ for time in range(70, len(cust_requests)):
         # except:
         #     controller = MoDController(RoadNetwork)
 
-        # Other Fake State data for testing.
-        # Parameters = np.load("./parameters.npy").item()
-        # State = np.load("./state.npy").item()
-        # Forecast = np.load("./forecast.npy").item()
-        # Flags = np.load("./flags.npy").item()
-        # np.save(os.path.join("./state/", str(time) + "roadNetwork.npy"), RoadNetwork)
-        # np.save(os.path.join("./state/", str(time) + "parameters.npy"), Parameters)
-        # np.save(os.path.join("./state/", str(time) + "state.npy"), State)
-        # np.save(os.path.join("./state/", str(time) + "forecast.npy"), Forecast)
-        controller.forecast_demand(time)
+
+        controller.forecast_demand(curr_time)
         controller.update_state_arrivals(Forecast, State)
 
-        tasks = controller.compute_rebalancing()
-        # for task in tasks:
-        #     print(task)
-        #
-        # for c_output in controller_output:
-        #     print(c_output)
+        [tasks, paths] = controller.compute_rebalancing()
+
+
+        print("******************")
+        print("******************")
+        print("******************")
+        for k, v in tasks.items():
+            print(k, v)
+
+        for path in paths:
+            print(path)
+
 
     elif controller_type == 'naive':
 
-        if morningStart  <= time and time <= morningEnd:
+        if morningStart  <= curr_time and curr_time <= morningEnd:
             morning_rebalancing(station_dict)
             morningStart += 24
             morningEnd += 24
-        elif eveningStart <= time and time <= eveningEnd:
+        elif eveningStart <= curr_time and curr_time <= eveningEnd:
             evening_rebalancing(station_dict)
             eveningStart += 24
             eveningEnd += 24
 
 
-    print('\n\n*****************************\n\n')
-    print("Controller")
 
-    # for k,v in controller_output.items():
-    #     if k != "cplex_out":
-    #         print(k, v)
 
     text_file_output.append('Errors: {}'.format(errors))
-    print(tasks)
+
 
 
     pedestrian_requests = tasks['driverRebalancingQueue']
-    # for request in pedestrian_requests:
-    #     print(request)
-    vehicle_requests = tasks['vehicleRebalancingQueue']
-    print(pedestrian_requests)
-    print(vehicle_requests)
 
+    vehicle_requests = tasks['vehicleRebalancingQueue']
     text_file_output.append('Errors: {}'.format(errors))
 
     # driver_requests = format_instructions(text_file_output_requests)
