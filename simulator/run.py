@@ -6,12 +6,12 @@ from simulator.measurement import Measurement
 import math
 import simulator.formatting as var
 
+
 ###################
 # Run Setup ~ NM
 ##################
 
 def run(controller):
-
     station_dict = station_initializer(var.station_mapping_int, var.parking,
                                        var.employees_at_stations, var.cars_per_station)
 
