@@ -10,15 +10,14 @@ import pandas as pd
 station_mapping = np.asscalar(np.load(simulator.parameters.station_data))
 station_mapping_int = {int(k): v for k, v in station_mapping.items()}
 
-parking_csv = pd.read_csv(simulator.parameters.parking_data).iloc[:, simulator.parameters.parking_columns]
-locations = parking_csv.values
+state = pd.read_csv(simulator.parameters.parking_data)
+simulator.helpers.fix_row_numbers(state, station_mapping_int)
+# print(state[['station_id', 'parking_spots', 'idle_vehicles']])
 
-parking = {}
-for item in locations:
-    parking[station_mapping_int[item[0]]] = item[1]
+parking = state['parking_spots'].values
+cars_per_station = state['idle_vehicles'].values
 
 employees_at_stations = simulator.parameters.employees_at_stations
-cars_per_station = simulator.parameters.cars_per_station
 
 format_travel_times = simulator.helpers.format_travel_times
 

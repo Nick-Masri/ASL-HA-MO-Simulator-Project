@@ -17,7 +17,6 @@ station_dict = {}
 ####################################
 station_data = "./data/10_days/station_mapping.npy"
 parking_data = "data/stations_state.csv"
-parking_columns = [3,9]
 mean_data = "./data/mean_demand_weekday_5min.npy"
 car_data = "./data/travel_times_matrix_car.csv"
 walking_data = "./data/travel_times_matrix_walk.csv"

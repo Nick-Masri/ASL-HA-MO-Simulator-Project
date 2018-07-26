@@ -13,7 +13,7 @@ def station_initializer(station_mapping_int, parking, employees_at_stations, car
         parkingSpots = parking[station]
         # Assign cars to the station.
         car_list = []
-        for car in range(cars_per_station):
+        for car in range(cars_per_station[station]):
             car_list.append(car_count)
             car_count += 1
         # Set up employee list
