@@ -21,11 +21,11 @@ class Measurement:
     def record(self, file):
         errors = open(file, 'w')
         for i in range(58):
-            errors.write("Station {}:\n".format(i))
+            errors.write("\n\nStation {}:\n".format(i))
             for x in range(2880):
                 if self.park_errors[x][i] != 0:
-                    errors.write("At time {0}, there were {1} cars that did not get parking".format(x, self.park_errors[x][i]))
-            errors.write("This station was full for {} minutes\n".format(self.time_full[i]*5))
-            errors.write("This station was empty for {} minutes\n".format(self.time_empty[i]*5))
+                    errors.write("At time {0}, there were {1} cars that did not get parking\n".format(x, int(self.park_errors[x][i])))
+            errors.write("This station was full for {} timesteps\n".format(int(self.time_full[i][0])))
+            errors.write("This station was empty for {} timesteps\n".format(int(self.time_empty[i][0])))
 
         errors.close()

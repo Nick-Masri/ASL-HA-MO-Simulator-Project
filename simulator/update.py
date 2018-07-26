@@ -14,7 +14,7 @@ from simulator.people import Employee, Person
 
 class Update:
 
-    def __init__(self, controller, time, station_dict, customer_requests):
+    def __init__(self, tool, controller, time, station_dict, customer_requests):
         self.time = time
         self.station_dict = station_dict
         self.customer_requests = customer_requests
@@ -24,7 +24,7 @@ class Update:
         self.pedestrian_requests = [[] for i in range(len(station_dict))]
         self.controller = controller
         self.errors = []
-
+        self.tool = tool
     def loop(self):
         for station_index in sorted(self.station_dict):
             station = self.station_dict[station_index]
@@ -36,7 +36,7 @@ class Update:
 
             # Loop Arrivals
             self.arrivals(station)
-            Measurement().measure(self.time, station, station_index)
+            self.tool.measure(self.time, station, station_index)
 
             # Put customers into cars
             if len(self.customer_requests) > 0:
