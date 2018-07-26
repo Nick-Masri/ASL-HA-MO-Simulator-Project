@@ -29,7 +29,7 @@ def run(controller):
         time_stamp = Update(tool, controller, time, station_dict, customer_requests).loop()
         text.append(time_stamp)
 
-    write("output.txt", text)
-    print("\n\nOutput.txt created")
-    tool.record("errors.txt")
-    print("\nErrors.txt created")
+    write("files/output.txt", text)
+    print("\n\nfiles/output.txt created")
+    tool.record("files/errors.txt")
+    print("\nfiles/errors.txt created")
