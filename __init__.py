@@ -25,7 +25,8 @@ eveningEnd = 8
 ######################################
 # Initializing Stations ~ MC/NM
 ######################################
-cars_per_station = 0
+CARS = [0 for i in range(58)]
+CARS[10] = 1
 # Dict of intial employee positions in the form {Station: number of employees
 employees_at_stations = {2: 2, 5: 2}
 # employees_at_stations = {}
@@ -33,7 +34,7 @@ PARKING = {}
 
 for i in range(58):
     PARKING[i] = 8
-station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, cars_per_station)
+station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, CARS)
 
 print("EMPLOYEE LIST")
 print("**************")
