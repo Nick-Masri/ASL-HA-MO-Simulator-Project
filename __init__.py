@@ -126,7 +126,7 @@ cust_requests = format_instructions(raw_requests)
 driver_requests = [[] for i in range(len(station_dict))]
 pedestrian_requests = [[] for i in range(len(station_dict))]
 
-for time in range(70, len(cust_requests)):
+for time in range(60, len(cust_requests)):
     print("Time: {}".format(time))
     text_file_output.append("\nTime: {}".format(time))
     text_file_output.append('------------------------------------------------------')
