@@ -1,6 +1,7 @@
 from simulator.update import Update
 from simulator.output import write
 from simulator.setup import station_initializer
+from simulator.measurement import Measurement
 
 import math
 import simulator.formatting as var
@@ -13,6 +14,8 @@ def run(controller):
 
     station_dict = station_initializer(var.station_mapping_int, var.parking,
                                        var.employees_at_stations, var.cars_per_station)
+
+    Measurement()
     text = []
     for time in range(2880):
         # x = time / 28.79
@@ -28,3 +31,4 @@ def run(controller):
 
     write("output.txt", text)
     print("\n\nOutput.txt created")
+    Measurement().record("errors.txt")

@@ -1,6 +1,7 @@
 # from simulator.state_tracker import Station, Employee, Person
 
 from simulator.output import output
+from simulator.measurement import Measurement
 from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
 
 import simulator.parameters
@@ -9,6 +10,7 @@ from simulator.people import Employee, Person
 #########################
 # Update Function ~ NM
 #########################
+
 
 class Update:
 
@@ -22,6 +24,7 @@ class Update:
         self.pedestrian_requests = [[] for i in range(len(station_dict))]
         self.controller = controller
         self.errors = []
+
     def loop(self):
         for station_index in sorted(self.station_dict):
             station = self.station_dict[station_index]
@@ -33,14 +36,7 @@ class Update:
 
             # Loop Arrivals
             self.arrivals(station)
-
-            # Check for Errors
-            overload = station.calc_parking() - len(station.get_en_route_list(True))
-
-            if overload < 0:
-                self.errors.append(
-                    "Station {0} will have {1} more cars than it can allow".format(station, -overload))
-                #self.no_park_errors[self.time][station] += 1
+            Measurement().measure(self.time, station, station_index)
 
             # Put customers into cars
             if len(self.customer_requests) > 0:
@@ -105,7 +101,6 @@ class Update:
             driver = simulator.people.Employee(request[0], request[1], request[2])
             current_car = station.car_list.pop(0)
             driver.update_status(driver, current_car)
-            print(driver.destination_time)
             station_dictionary[driver.destination].append_en_route_list(driver)
         except IndexError:
             errors.append('No car for employee at Station Number {}'.format(driver.origin))
@@ -114,7 +109,6 @@ class Update:
         # print('Walking {}'.format(request))
         ped = station.employee_list.pop(0)
         ped = simulator.people.Employee(request[0], request[1], request[2])
-        print(ped.destination_time)
         station_dictionary[ped.destination].append_en_route_list(ped)
 
     def update_customer_list(self, station, request):
@@ -172,14 +166,8 @@ class Update:
         #     # Fraction of Time for at Capacity or Empty ~ JS
         #     ########################################
         #
-        #     num_parked_cars = len(station_dict[station].car_list)
-        #     num_park_spots = 50 - len(station_dict[station].car_list)
-        #
-        #     if num_parked_cars == 0:
-        #         total_time_empty[station] += 1
-        #
-        #     if num_parked_cars == num_park_spots:
-        #         total_time_full[station] += 1
+        #       total_time_empty = np.zeros(58,1)
+        #       total_time_full = np.zeros(58,1)
         #
         #     ######################################
         #     # Creating Forecast Dictionary ~ NM/MC

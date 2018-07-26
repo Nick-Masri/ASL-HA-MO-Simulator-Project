@@ -5,7 +5,7 @@
 # in the form {Real Station Number: Logical Index}
 
 cars_per_station = 1
-# Dict of intial employee positions in the form {Station: number of employees
+# Dict of initial employee positions in the form {Station: number of employees
 
 employees_at_stations = {22:1, 55:1}
 text_file_output = []
