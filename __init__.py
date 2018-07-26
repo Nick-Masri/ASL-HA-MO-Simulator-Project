@@ -31,8 +31,8 @@ eveningEnd = 8
 # Dict of intial employee positions in the form {Station: number of employees
 employees_at_stations = {2: 2, 5: 2}
 
-CARS = [0 for i in range(58)]
-CARS[10] = 1
+# CARS = [0 for i in range(58)]
+# CARS[10] = 1
 station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, CARS)
 
 
