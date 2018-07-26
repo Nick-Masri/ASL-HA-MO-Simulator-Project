@@ -112,18 +112,9 @@ DEMAND_FORECAST_ALT = demand_forecast_formatter(station_length, time_length, mea
 ###############
 
 state = pd.read_csv('data/stations_state.csv')
+fix_row_numbers(state, STATION_MAPPING_INT)
+# print(state[['station_id', 'parking_spots', 'idle_vehicles']])
 
-I = [3, 9]
-
-data2 = state.iloc[:, I]
-locations = data2.values
-#print(locations)
-
-print(sorted(STATION_MAPPING_INT))
-PARKING  = {}
-for item in locations:
-
-    PARKING[STATION_MAPPING_INT[item[0]]] = item[1]
-
-print('***********************\n\n {}'.format(PARKING))
+PARKING = state['parking_spots'].values
+CARS = state['idle_vehicles'].values
 
