@@ -1,14 +1,14 @@
 from classes import *
 
 
-def station_initializer(station_mapping_int, parking, employees_at_stations, cars):
+def station_initializer(station_mapping, parking, employees_at_stations, cars):
     station_dict = {}
     car_count = 1
-    for station in station_mapping_int.values():
+    for station in station_mapping.keys():
         parkingSpots = parking[station]
         # Assign cars to the station.
         car_list = []
-        for car in range(cars[station]):
+        for car in range(cars[station_mapping[station]]):
             car_list.append(car_count)
             car_count += 1
         # Set up employee list

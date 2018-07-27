@@ -127,23 +127,23 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
 
         # If there's only one task at the station it's not in a list. This will make sure everything is the same format.
         # REFACTOR?
-        if type(driver_requests[station]) == float:
-            driver_requests[station] = [[driver_requests[station]]]
-        if type(pedestrian_requests[station]) == float:
-            pedestrian_requests[station] = [[pedestrian_requests[station]]]
-
-        if len(driver_requests[station]) > 0:
-            # requests are in the
-
-            # Assign drivers
-            # Update employee object and add it to destination enroute list
-            print("Station: {}, Driver request: {}".format(station, driver_requests[station]))
-            assign_drivers(current_station, np.array(driver_requests[station]).astype(int)[0]-1, station_dict, errors, current_time)
-        if len(pedestrian_requests[station]) > 0:
-            # Assign Pedestrians
-            # Update employee object and add it to destination enroute list (no car and time travel)
-            print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
-            assign_pedestrians(current_station, np.array(pedestrian_requests[station]).astype(int)[0]-1, station_dict, current_time)
+        # if type(driver_requests[station]) == float:
+        #     driver_requests[station] = [[driver_requests[station]]]
+        # if type(pedestrian_requests[station]) == float:
+        #     pedestrian_requests[station] = [[pedestrian_requests[station]]]
+        #
+        # if len(driver_requests[station]) > 0:
+        #     # requests are in the
+        #
+        #     # Assign drivers
+        #     # Update employee object and add it to destination enroute list
+        #     print("Station: {}, Driver request: {}".format(station, driver_requests[station]))
+        #     assign_drivers(current_station, np.array(driver_requests[station]).astype(int)[0]-1, station_dict, errors, current_time)
+        # if len(pedestrian_requests[station]) > 0:
+        #     # Assign Pedestrians
+        #     # Update employee object and add it to destination enroute list (no car and time travel)
+        #     print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
+        #     assign_pedestrians(current_station, np.array(pedestrian_requests[station]).astype(int)[0]-1, station_dict, current_time)
 
     return errors
 

@@ -24,6 +24,11 @@ morningEnd = 10
 eveningStart = 5
 eveningEnd = 8
 
+# Get info about stations from the station csv
+stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
+station_ids = stations.index.tolist()
+n_stations = len(station_ids)
+
 ######################################
 # Initializing Stations ~ MC/NM
 ######################################
@@ -33,7 +38,7 @@ employees_at_stations = {2: 2, 5: 2}
 
 # CARS = [0 for i in range(58)]
 # CARS[10] = 1
-station_dict = station_initializer(STATION_MAPPING_INT, PARKING, employees_at_stations, CARS)
+station_dict = station_initializer(STATION_MAPPING_INT, stations['parking_spots'], employees_at_stations, CARS)
 
 
 
@@ -69,10 +74,7 @@ timestepsize = timedelta(0, 60*dt) # in seconds
 horizon = timedelta(0, 12*60*dt) # in seconds
 thor = int(horizon.seconds / timestepsize.seconds)
 
-# Get info about stations from the station csv
-stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
-station_ids = stations.index.tolist()
-n_stations = len(station_ids)
+
 
 c_d = 10000.
 c_r = (1. / thor) * 0.0001 * 24. * c_d
@@ -144,7 +146,7 @@ forecast_settings = {
 # for k, v in Parameters.items():
 #     print(k, type(v))
 
-controller = Controller(forecast_settings, control_settings)
+# controller = Controller(forecast_settings, control_settings)
 
 ######################################
 # Creating Flags Dictionary ~ JS
@@ -183,8 +185,8 @@ for curr_time in range(60, len(cust_requests)):
     #     print(station_dict[station].car_list)
     #     print('*******************')
     # Logging current state
-    for station in sorted(station_dict):
-
+    for station in station_dict:
+        print(station_dict[station].station_id)
         ######################################
         # Writing to text_file_output Files ~ NM
         ######################################
@@ -313,7 +315,7 @@ for curr_time in range(60, len(cust_requests)):
 
     # driver_requests = format_instructions(text_file_output_requests)
     # customer_requests = format_instructions(text_file_output_requests)
-
+    break
 
 ######################################
 # Tracking Errors / Summing Errors ~ JS
