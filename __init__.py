@@ -139,7 +139,7 @@ forecast_settings = {
     "day_forecast_path":'data/mean_demand_weekday_5min.npy',
     "timestepsize":timestepsize,
     "horizon":2 * int(horizon.seconds / timestepsize.seconds),
-    "id_to_idx_path":"data/10_days/station_mapping.npy"
+    "id_to_idx_path": "data/10_days/station_mapping.npy"  #QUESTION - how is this used? Maybe in the predict method of the NaiveForecaster Class?
 }
 
 
