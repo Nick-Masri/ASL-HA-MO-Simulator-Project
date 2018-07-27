@@ -130,93 +130,47 @@ class Update:
 
     def smart(self):
         return [], []
-        #pedestrian_requests = tasks['driverRebalancingQueue']
-        #vehicle_requests = tasks['vehicleRebalancingQueue']
-        # idle_vehicles = []
-        # idle_drivers = []
-        #
-        # vehicle_arrivals = np.zeros(shape=(len(station_dict), 12))
-        # driver_arrivals = np.zeros(shape=(len(station_dict), 12))
+        pedestrian_requests = tasks['driverRebalancingQueue']
+        vehicle_requests = tasks['vehicleRebalancingQueue']
+        idle_vehicles = []
+        idle_drivers = []
 
-        #
-        # total_time_empty = np.zeros(shape=(58, 1))
-        # total_time_full = np.zeros(shape=(58, 1))
-        # #     ############################################
-        #     # Setting Up Idle Vehicles and Drivers ~ JS
-        #     ############################################
-        #
-        #     idle_vehicles.append(len(station_dict[station].car_list))
-        #     idle_drivers.append(len(station_dict[station].employee_list))
-        #
-        #     ########################################
-        #     # Updating Vehicle/Driver Arrivals ~ NM
-        #     ########################################
-        #
-        #     for person in station_dict[station].get_en_route_list(True):
-        #         for i in range(time, time + 12):
-        #             if person.destination_time == i:
-        #                 if isinstance(person, Employee):
-        #                     driver_arrivals[station][i - time] += 1
-        #                 if person.vehicle_id is not None:
-        #                     vehicle_arrivals[station][i - time] += 1
-        #             else:
-        #                 break
-        #
-        #     ########################################
-        #     # Fraction of Time for at Capacity or Empty ~ JS
-        #     ########################################
-        #
-        #       total_time_empty = np.zeros(58,1)
-        #       total_time_full = np.zeros(58,1)
-        #
-        #     ######################################
-        #     # Creating Forecast Dictionary ~ NM/MC
-        #     ######################################
-        #
-        # if controller_type == 'smart':
-        #     Forecast = {
-        #         # 'demand' : demand_forecast_parser(time), # ~ MC
-        #         'demand': demand_forecast_parser_alt(time),
-        #         'vehicleArrivals': vehicle_arrivals,  # ~ NM
-        #         'driverArrivals': driver_arrivals,  # ~ NM
-        #     }
-        #
-        #     # print("FORECAST")
-        #     # for k, v in Forecast.items():
-        #     #     print(k, v.shape)
-        #
-        #     ######################################
-        #     # Creating State Dictionary ~ JS
-        #     ######################################
-        #
-        #     State = {
-        #         'idleVehicles': np.array(idle_vehicles),
-        #         'idleDrivers': np.array(idle_drivers),
-        #         'privateVehicles': np.zeros((58, 1))
-        #     }
-        #
-        #     # Fake data RoadNetwork
-        #     # RoadNetwork = np.load("./roadNetwork.npy").item()
-        #
-        #     # create controller if it doesn't already exist
-        #     try:
-        #         controller
-        #     except:
-        #         controller = MoDController(RoadNetwork)
-        #
-        #     # Other Fake State data for testing.
-        #     # Parameters = np.load("./parameters.npy").item()
-        #     # State = np.load("./state.npy").item()
-        #     # Forecast = np.load("./forecast.npy").item()
-        #     # Flags = np.load("./flags.npy").item()
-        #
-        #     [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-        #     # for task in tasks:
-        #     #     print(task)
-        #     #
-        #     # for c_output in controller_output:
-        #     #     print(c_output)
+        vehicle_arrivals = np.zeros(shape=(len(station_dict), 12))
+        driver_arrivals = np.zeros(shape=(len(station_dict), 12))
 
+        idle_vehicles.append(len(station_dict[station].car_list))
+        idle_drivers.append(len(station_dict[station].employee_list))
+
+
+        for person in station_dict[station].get_en_route_list(True):
+            for i in range(time, time + 12):
+                if person.destination_time == i:
+                    if isinstance(person, Employee):
+                        driver_arrivals[station][i - time] += 1
+                    if person.vehicle_id is not None:
+                        vehicle_arrivals[station][i - time] += 1
+                else:
+                    break
+
+        Forecast = {
+            'demand': demand_forecast_parser_alt(time),
+            'vehicleArrivals': vehicle_arrivals,  # ~ NM
+            'driverArrivals': driver_arrivals,  # ~ NM
+        }
+
+        State = {
+            'idleVehicles': np.array(idle_vehicles),
+            'idleDrivers': np.array(idle_drivers),
+            'privateVehicles': np.zeros((58, 1))
+        }
+
+        try:
+            controller
+        except:
+            controller = MoDController(RoadNetwork)
+
+        [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
+        return tasks, controller
     def naive(self):
         morningStart = simulator.parameters.morningStart
         morningEnd = simulator.parameters.morningEnd
@@ -237,21 +191,3 @@ class Update:
             driver_requests, pedestrian_requests = [], []
 
         return driver_requests, pedestrian_requests
-
-    def Errors(self):
-        pass
-    # ######################################
-    # # Tracking Errors / Summing Errors ~ JS
-    # ######################################
-    #
-    # sum_station_no_park_errors = np.sum(no_park_errors, axis=0)  # no parking errors per station total
-    # sum_station_no_car_cust_errors = np.sum(no_car_cust_errors, axis=0)  # no car available for customers errors per station
-    # sum_station_no_car_emp_errors = np.sum(no_car_emp_errors, axis=0)  # no car available for employees errors per station
-    #
-    # sum_time_no_park_errors = np.sum(no_park_errors, axis=1)  # no parking errors per time total
-    # sum_time_no_car_cust_errors = np.sum(no_car_cust_errors, axis=1)  # no car available for customers errors per time total
-    # sum_time_no_car_emp_errors = np.sum(no_car_emp_errors, axis=1)  # no car available for employees errors per time total
-
-    #        self.no_car_cust_errors = np.zeros(shape=(2880, 58))
-    # self.no_park_errors = np.zeros(shape=(2880, 58))
-    #self.no_car_emp_errors = np.zeros(shape=(2880, 58))
