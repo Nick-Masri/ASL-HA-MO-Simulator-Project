@@ -1,6 +1,9 @@
 from classes import *
 from globals import *
 
+import numpy as np
+
+station_mapping = np.load('data/10_days/station_mapping.npy').item()  # ADDED
 
 ######################################
 # Instantiating Error Arrays ~ JS
@@ -65,6 +68,7 @@ def assign_pedestrians(station, pedestrian_tasks, station_dictionary, current_ti
 
 
 def update_customer_list(requests, time, cust_list):
+    print(requests)
     customer = Person(requests[0], requests[1], time)
     cust_list.append(customer)
 
@@ -77,10 +81,21 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
             customer = customer_list.pop(0)
             customer.assign_cust_car(current_car)
             station_dictionary[customer.destination].append_en_route_list(customer)
+            print("Customer put in car")
         except IndexError:
             errors.append('No car for customer at Station Number {}'.format(customer.origin))
-            no_car_cust_errors[current_time, customer.origin] += 1
+            print("No car for customer")
+            # no_car_cust_errors[current_time, customer.origin] += 1
+            no_car_cust_errors[current_time, station_mapping[customer.origin]] += 1  # ADDED
+
             break
+
+def convert_cust_req_to_real_stations(tasks, station_map):
+    temp = []
+    inverted_station_map = {v:k for k, v in station_map.items()}
+    for task in tasks:
+        temp.append([inverted_station_map[task[0]], inverted_station_map[task[1]]])
+    return temp
 
 
 ######################################
@@ -88,10 +103,11 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
 ######################################
 
 
-def update(station_dict, customer_requests, current_time, driver_requests=[], pedestrian_requests=[]):
+def update(station_dict, customer_requests, current_time, station_map, driver_requests=[], pedestrian_requests=[]):
     errors = []
-    for station in sorted(station_dict):  # Goes through the stations in order
-
+    # if we're using real station numbers
+    customer_requests = convert_cust_req_to_real_stations(customer_requests, station_map)
+    for station in station_dict:  # Goes through the stations in order
         # For future efficiency check to see if there are any requests before doing all this work
 
         # Grab information relevant to this loop and organize
@@ -100,6 +116,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
         employee_list = current_station.employee_list
         customer_list = current_station.get_waiting_customers(True)
         en_route_list = current_station.get_en_route_list(True)
+        logical_station = station_map[station]
 
         # Loop Arrivals
         arrivals(en_route_list, current_time, current_car_list, employee_list, current_station)
@@ -116,7 +133,7 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             # Update Customer list and Assign Them
             for customer_request in customer_requests:
                 if customer_request[0] == station:
-                    # add to station cust waiting list
+                # add to station cust waiting list - THIS IS USING REAL INDICES FOR NOW!
                     update_customer_list(customer_request, current_time, customer_list)
 
                     print("CUSTOMER REQUEST: {}".format(customer_request))
@@ -124,26 +141,27 @@ def update(station_dict, customer_requests, current_time, driver_requests=[], pe
             # assigns customers to cars if available
             assign_customers(customer_list, current_car_list, station_dict, errors, current_time)
 
-
+        # TODO - I wasn't assigning any of the tasks!!!
         # If there's only one task at the station it's not in a list. This will make sure everything is the same format.
         # REFACTOR?
-        # if type(driver_requests[station]) == float:
-        #     driver_requests[station] = [[driver_requests[station]]]
-        # if type(pedestrian_requests[station]) == float:
-        #     pedestrian_requests[station] = [[pedestrian_requests[station]]]
-        #
-        # if len(driver_requests[station]) > 0:
-        #     # requests are in the
-        #
-        #     # Assign drivers
-        #     # Update employee object and add it to destination enroute list
-        #     print("Station: {}, Driver request: {}".format(station, driver_requests[station]))
-        #     assign_drivers(current_station, np.array(driver_requests[station]).astype(int)[0]-1, station_dict, errors, current_time)
-        # if len(pedestrian_requests[station]) > 0:
-        #     # Assign Pedestrians
-        #     # Update employee object and add it to destination enroute list (no car and time travel)
-        #     print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
-        #     assign_pedestrians(current_station, np.array(pedestrian_requests[station]).astype(int)[0]-1, station_dict, current_time)
+
+        if type(driver_requests[logical_station]) == float:
+            driver_requests[logical_station] = [[driver_requests[logical_station]]]
+        if type(pedestrian_requests[logical_station]) == float:
+            pedestrian_requests[logical_station] = [[pedestrian_requests[station]]]
+
+        if len(driver_requests[logical_station]) > 0:
+            # requests are in the
+
+            # Assign drivers
+            # Update employee object and add it to destination enroute list
+            print("Station: {}, Driver request: {}".format(station, driver_requests[logical_station]))
+            assign_drivers(current_station, np.array(driver_requests[logical_station]).astype(int)[0]-1, station_dict, errors, current_time)
+        if len(pedestrian_requests[logical_station]) > 0:
+            # Assign Pedestrians
+            # Update employee object and add it to destination enroute list (no car and time travel)
+            print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
+            assign_pedestrians(current_station, np.array(pedestrian_requests[logical_station]).astype(int)[0]-1, station_dict, current_time)
 
     return errors
 
