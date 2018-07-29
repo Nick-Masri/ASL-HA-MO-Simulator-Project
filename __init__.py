@@ -25,8 +25,8 @@ eveningEnd = 8
 ######################################
 # Initializing Stations ~ MC/NM
 ######################################
-CARS = [0 for i in range(58)]
-CARS[10] = 1
+# CARS = [0 for i in range(58)]
+# CARS[10] = 1
 # Dict of intial employee positions in the form {Station: number of employees
 employees_at_stations = {2: 2, 5: 2}
 # employees_at_stations = {}
@@ -177,12 +177,13 @@ for time in range(60, len(cust_requests)):
                 #         vehicle_arrivals[station][i - time] += 1
                 #         break
                 if person.destination_time == i:
+                    print("Destinatiion time = i")
                     if isinstance(person, Employee):
                         driver_arrivals[station][i - time] += 1
                     if person.vehicle_id is not None:
                         vehicle_arrivals[station][i - time] += 1
-                else:
-                    break
+                # else:
+                #     break
 
         ########################################
         # Fraction of Time for at Capacity or Empty ~ JS
@@ -197,6 +198,8 @@ for time in range(60, len(cust_requests)):
         if num_parked_cars == num_park_spots:
             total_time_full[station] += 1
 
+    print("Vehicle arrivals: {}".format(vehicle_arrivals.sum()))
+    print("Driver arrivals: {}".format(driver_arrivals.sum()))
     ######################################
     # Creating Forecast Dictionary ~ NM/MC
     ######################################
