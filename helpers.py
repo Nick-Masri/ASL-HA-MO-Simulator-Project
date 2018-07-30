@@ -103,22 +103,22 @@ def convert_cust_req_to_real_stations(tasks, station_map):
 ######################################
 
 
-def update(station_dict, customer_requests, current_time, station_map, driver_requests=[], pedestrian_requests=[]):
+def update(station_dict, customer_requests, current_time, station_map, stations, driver_requests=[], pedestrian_requests=[]):
     errors = []
-    # if we're using real station numbers
+    # if we're using real station numbers this converts the cust requests into "real" format
     customer_requests = convert_cust_req_to_real_stations(customer_requests, station_map)
-    for station in station_dict:  # Goes through the stations in order
+    for logical_station, station in enumerate(stations.index):  # Goes through the stations in order
         # For future efficiency check to see if there are any requests before doing all this work
-
+        station = str(station)
         # Grab information relevant to this loop and organize
         current_station = station_dict[station]
         current_car_list = current_station.car_list
         employee_list = current_station.employee_list
         customer_list = current_station.get_waiting_customers(True)
         en_route_list = current_station.get_en_route_list(True)
-        logical_station = station_map[station]
 
-        # Loop Arrivals
+
+        # Loop Arrivals - Need to check
         arrivals(en_route_list, current_time, current_car_list, employee_list, current_station)
 
         # Check for Errors ******** This is assuming the capacity is 50 for each station ***********

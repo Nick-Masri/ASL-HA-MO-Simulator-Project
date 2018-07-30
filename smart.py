@@ -19,6 +19,7 @@ class SmartController:
         self.driver_arrivals = None
         self.idle_vehicles = None
         self.idle_drivers = None
+        self.private_vehicles = np.zeros((58, 1))
 
     def update_arrivals_and_idle(self, curr_time):
         self.vehicle_arrivals = np.zeros(shape=(self.n_stations, 12))
@@ -27,9 +28,10 @@ class SmartController:
         idle_vehicles = []
         idle_drivers = []
 
-        count = 0  # Station in the same order as the stations
-        for station in self.station_dict:
+        count = 0  # go through in the same order as the stations index
+        for station in self.stations.index:
             # Update the driver and vehicle arrivals
+            station = str(station)
             for person in self.station_dict[station].get_en_route_list(True):
                 # print("Inside Person list Station: {}, person.destination_time = {}, curr_time: {}".format(station, person.destination_time, curr_time))
                 for i in range(curr_time, curr_time + 12):
@@ -93,6 +95,22 @@ class SmartController:
             self.station_dict[str(station)] = Station(station, parkingSpots, car_list, emp_list)
 
 
+    def update_contoller(self,):
+        forecast = {
+            'vehicleArrivals': self.vehicle_arrivals,
+            'driverArrivals': self.driver_arrivals
+        }
+
+        state = {
+            'idleVehicles': self.idle_vehicles,
+            'idleDrivers': self.idle_drivers,
+            'privateVehicles': self.private_vehicles
+        }
+        print("Total Arrivals: {}".format(self.vehicle_arrivals.sum() + self.driver_arrivals.sum()))
+        print("Total Idle: {}".format(self.idle_vehicles.sum() + self.idle_drivers.sum()))
+
+
+        self.controller.update_state_arrivals(forecast, state)
 
     def run(self):
         # Get info about stations from the station csv
@@ -105,9 +123,9 @@ class SmartController:
         for k,v in self.station_dict.items():
             print("Station: {}, Number of cars: {}".format(k, v.car_list))
         # Control Settings
-        dt = 5 # minutes
-        timestepsize = timedelta(0, 60*dt) # in seconds
-        horizon = timedelta(0, 12*60*dt) # in seconds
+        dt = 5 #         minutes
+        timestepsize = timedelta(0, 60 * dt)  # in seconds
+        horizon = timedelta(0, 12 * 60 * dt)  # in seconds
         thor = int(horizon.seconds / timestepsize.seconds)
 
         c_d = 10000.
@@ -117,7 +135,7 @@ class SmartController:
         control_parameters['driverRebalancingCost'] = c_r
         control_parameters['vehicleRebalancingCost'] = c_r
         control_parameters['pvRebalancingCost'] = c_r
-        control_parameters['lostDemandCost'] =  c_d
+        control_parameters['lostDemandCost'] = c_d
         control_parameters['thor'] = float(int(horizon.seconds / timestepsize.seconds))
 
         modes = ['walk','hamo','car','bike']
