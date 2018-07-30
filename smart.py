@@ -80,19 +80,19 @@ class SmartController:
         # if idx_type == 'logical':  # TODO - FIX ME
         #     station_mapping = self.station_mapping.values
         for station in self.stations.index:  # TODO - Use the station.index or station_map here? - use idx_type to decide
-            parkingSpots = self.stations['parking_spots'].get(int(station))
+            parkingSpots = self.stations['parking_spots'].get(station)
             # Assign cars to the station.
             car_list = []
-            for car in range(self.stations['idle_vehicles'].get(int(station))):
+            for car in range(self.stations['idle_vehicles'].get(station)):
                 car_list.append(car_count)
                 car_count += 1
             # Set up employee list
             emp_list = []
-            if str(station) in employees_at_stations.keys():
-                for emp in range(employees_at_stations[str(station)]):
+            if station in employees_at_stations.keys():
+                for emp in range(employees_at_stations[station]):
                     emp_list.append(Employee(None, None, None))
             # Create the station
-            self.station_dict[str(station)] = Station(station, parkingSpots, car_list, emp_list)
+            self.station_dict[station] = Station(station, parkingSpots, car_list, emp_list)
 
 
     def update_contoller(self,):
@@ -118,7 +118,7 @@ class SmartController:
         self.n_stations = len(station_ids)
 
         # Create the station objects and dictionary - TODO
-        employees_at_stations = {'22': 2, '55': 2}  # TODO - decide if I'm using Real or logical station indices
+        employees_at_stations = {22: 2, 55: 2}  # TODO - decide if I'm using Real or logical station indices
         self.station_initializer(employees_at_stations, 'real')
         for k,v in self.station_dict.items():
             print("Station: {}, Number of cars: {}".format(k, v.car_list))

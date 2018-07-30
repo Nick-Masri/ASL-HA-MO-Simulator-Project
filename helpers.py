@@ -66,7 +66,7 @@ def assign_drivers(station, driver_tasks, station_dictionary, errors, current_ti
             current_car = station.car_list.pop(0)
             driver = station.employee_list.pop(0)
             driver.update_status(station.station_id, destination, current_time, current_car)
-            station_dictionary[driver.destination].append_en_route_list(driver)
+            station_dictionary[str(driver.destination)].append_en_route_list(driver)
         except IndexError:
             errors.append('No car for employee at Station Number {}'.format(driver.origin))
             no_car_emp_errors[current_time, driver.origin] += 1
@@ -79,7 +79,7 @@ def assign_pedestrians(station, pedestrian_tasks, station_dictionary, current_ti
         print("Destination: {}".format(destination))
         ped = station.employee_list.pop(0)
         ped.update_status(station.station_id, destination, current_time)
-        station_dictionary[ped.destination].append_en_route_list(ped)
+        station_dictionary[str(ped.destination)].append_en_route_list(ped)
 
 
 def update_customer_list(requests, time, cust_list):

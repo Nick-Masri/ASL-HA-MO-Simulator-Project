@@ -2,12 +2,13 @@ from helpers import update, format_instructions
 from smart import SmartController
 import numpy as np
 
+import matlab
+
 smart = SmartController()
 smart.run()
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
-driver_requests = [[] for i in range(smart.n_stations)]
 driver_requests = [[] for i in range(smart.n_stations)]
 pedestrian_requests = [[] for i in range(smart.n_stations)]
 
@@ -21,8 +22,21 @@ for curr_time in range(70, len(cust_requests)):
     [tasks, output] = smart.controller.compute_rebalancing()
     print("Driver: {}".format(tasks['driverRebalancingQueue']))
     print("Vehicle: {}".format(tasks['vehicleRebalancingQueue']))
-    print(output)
-    # print(output)
+    # for k, v in output.items():
+    #     print(k, v)
+
+    # driver_requests = tasks['vehicleRebalancingQueue']
+    driver_requests = [matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), 14.0, matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([])]
+    pedestrian_requests = tasks['driverRebalancingQueue']
+
+    for task in driver_requests:
+        if task != matlab.double([]):
+            print(task)
+
+    for task in pedestrian_requests:
+        if task != matlab.double([]):
+            print(task)
+
 
 for k, v in smart.station_dict.items():
     print("Station: {}, Num of cars: {}, Enroute_List: {}".format(k, len(v.car_list), len(v.en_route_list)))
