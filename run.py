@@ -19,7 +19,7 @@ for curr_time in range(70, len(cust_requests)):
     smart.update_contoller()
     smart.controller.forecast_demand(curr_time)
     [tasks, output] = smart.controller.compute_rebalancing()
-    print("Driver: {}".format(tasks['vehicleRebalancingQueue']))
+    print("Driver: {}".format(tasks['driverRebalancingQueue']))
     print("Vehicle: {}".format(tasks['vehicleRebalancingQueue']))
     print(output)
     # print(output)

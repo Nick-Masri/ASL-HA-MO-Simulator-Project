@@ -32,7 +32,7 @@ class SmartController:
         for station in self.stations.index:
             # Update the driver and vehicle arrivals
             station = str(station)
-            for person in self.station_dict[station].get_en_route_list(True):
+            for person in self.station_dict[station].get_en_route_list(True):  # todo - This probably doesn't need to loop like this
                 # print("Inside Person list Station: {}, person.destination_time = {}, curr_time: {}".format(station, person.destination_time, curr_time))
                 for i in range(curr_time, curr_time + 12):
                     # print("i: {}, destination_time: {}".format(curr_time, person.destination_time))

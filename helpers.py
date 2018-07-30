@@ -19,23 +19,38 @@ no_car_emp_errors = np.zeros(shape=(2880, 58))
 ######################################
 
 
-def arrivals(arrival_list, time, cars, employees, station):
-    while len(arrival_list) > 0:
-        person = arrival_list[0]
-        if person.destination_time == time: # there is an error at time = 0
-            arrival_list.remove(person)
+# def arrivals(arrival_list, time, cars, employees, station):
+#     while len(arrival_list) > 0:
+#         person = arrival_list[0]
+#         if person.destination_time == time: # there is an error at time = 0
+#             arrival_list.remove(person)
+#             station.get_en_route_list().remove(person)
+#             current_vehicle_id = person.vehicle_id
+#             if current_vehicle_id is not None:
+#                 cars.append(current_vehicle_id)
+#             if isinstance(person, Employee):
+#                 person.reset()
+#                 employees.append(person)
+#             else:
+#                 del person
+#         else:
+#             break
+
+def arrivals(station, time):
+    while len(station.en_route_list) > 0:
+        person = station.get_en_route_list(True)[0]
+        if person.destination_time == time:
             station.get_en_route_list().remove(person)
             current_vehicle_id = person.vehicle_id
             if current_vehicle_id is not None:
-                cars.append(current_vehicle_id)
+                station.car_list.append(current_vehicle_id)
             if isinstance(person, Employee):
                 person.reset()
-                employees.append(person)
+                station.employee_list.append(person)
             else:
                 del person
         else:
             break
-
 
 def update_employee_list(requests, time, employee_list):
     for employee in requests:
@@ -119,7 +134,7 @@ def update(station_dict, customer_requests, current_time, station_map, stations,
 
 
         # Loop Arrivals - Need to check
-        arrivals(en_route_list, current_time, current_car_list, employee_list, current_station)
+        arrivals(current_station, current_time)
 
         # Check for Errors ******** This is assuming the capacity is 50 for each station ***********
         overload = 50 - (len(current_station.car_list) + len(current_station.get_en_route_list()))
