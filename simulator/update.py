@@ -25,6 +25,7 @@ class Update:
         self.controller = controller
         self.errors = []
         self.tool = tool
+
     def loop(self):
         for station_index in sorted(self.station_dict):
             station = self.station_dict[station_index]
@@ -149,8 +150,6 @@ class Update:
                         driver_arrivals[station][i - time] += 1
                     if person.vehicle_id is not None:
                         vehicle_arrivals[station][i - time] += 1
-                else:
-                    break
 
         Forecast = {
             'demand': demand_forecast_parser_alt(time),
