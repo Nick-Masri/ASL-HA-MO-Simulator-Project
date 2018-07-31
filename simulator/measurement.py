@@ -29,7 +29,7 @@ class Measurement:
         for day in range(10):
             errors.write("\n\nDay: {}\n".format(day+1))
             std_full = np.std(self.time_full[:][day], dtype=np.float64)
-            std_empty = np.std(self.time_full[:][day], dtype=np.float64)
+            std_empty = np.std(self.time_empty[:][day], dtype=np.float64)
             errors.write("Standard Deviation Full: {}\n".format(std_full))
             errors.write("Standard Deviation Empty: {}\n".format(std_empty))
             for i in range(58):

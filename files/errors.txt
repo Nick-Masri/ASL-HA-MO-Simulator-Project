@@ -1,7 +1,9 @@
 
 
 Day: 1
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -294,7 +296,9 @@ Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
 
 
 Day: 2
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -587,7 +591,9 @@ Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
 
 
 Day: 3
-Standard Deviation Full: 2.1908902300206643Standard Deviation Empty: 2.1908902300206643
+Standard Deviation Full: 2.1908902300206643
+Standard Deviation Empty: 2.1908902300206643
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -880,7 +886,9 @@ Standard Deviation Full: 2.1908902300206643Standard Deviation Empty: 2.190890230
 
 
 Day: 4
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -1173,7 +1181,9 @@ Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
 
 
 Day: 5
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -1466,7 +1476,9 @@ Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
 
 
 Day: 6
-Standard Deviation Full: 58.000344826561154Standard Deviation Empty: 58.000344826561154
+Standard Deviation Full: 58.000344826561154
+Standard Deviation Empty: 58.000344826561154
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -1759,7 +1771,9 @@ Standard Deviation Full: 58.000344826561154Standard Deviation Empty: 58.00034482
 
 
 Day: 7
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -2052,7 +2066,9 @@ Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
 
 
 Day: 8
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -2345,7 +2361,9 @@ Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
 
 
 Day: 9
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
@@ -2638,7 +2656,9 @@ Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
 
 
 Day: 10
-Standard Deviation Full: 0.0Standard Deviation Empty: 0.0
+Standard Deviation Full: 0.0
+Standard Deviation Empty: 0.0
+
 
 	Station 0:
 		This station was full 100.0 % of the time
