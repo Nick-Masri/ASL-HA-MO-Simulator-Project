@@ -26,6 +26,14 @@ class Station:
         else:
             return self.en_route_list
 
+    def get_en_route_drivers(self):
+        en_route_drivers = 0
+        for person in self.en_route_list:
+            if person.vehicle_id is not None:
+                en_route_drivers+=1
+
+        return en_route_drivers
+
     def append_en_route_list(self, employee):
         self.en_route_list.append(employee)
 

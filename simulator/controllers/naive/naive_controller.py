@@ -13,18 +13,18 @@ def morning_rebalancing(dict):
         for emp in station.employee_list:
             if len(station.car_list) > 0:
                 for dest in buffer:
-                    if dict[dest].calc_parking() > 0:
+                    if dict[dest].calc_parking() > 1:
                         driver_task[i] = [dest]
                         break
                 else:
                     for dest in extra:
-                        if dict[dest].parking_spots > 0:
+                        if dict[dest].calc_parking() > 1:
                             driver_task[i] = [dest]
                     else:
                         break
 
     for i in buffer + extra:
-        if dict[home[0]].calc_parking() + dict[home[1]].calc_parking() == 0:
+        if dict[home[0]].calc_parking() == 0 and dict[home[1]].calc_parking() == 0:
             break
         station = dict[i]
         if dict[home[0]].calc_parking() > dict[home[1]].calc_parking():
@@ -56,11 +56,18 @@ def evening_rebalancing(dict):
 
     for i in buffer:
         station = dict[i]
-        if dict[home[0]].calc_parking() > dict[home[1]].calc_parking():
-            dest = home[1]
+        if len(dict[home[0]].car_list) > 0 and len(dict[home[1]].car_list) > 0:
+            if len(dict[home[0]].car_list) > len(dict[home[1]].car_list):
+                dest = home[1]
+            else:
+                dest = home[0]
+        elif len(dict[home[2]].car_list) > 0 and  len(dict[home[3]].car_list) > 0:
+            if len(dict[home[2]].car_list) > len(dict[home[3]].car_list):
+                dest = home[3]
+            else:
+                dest = home[2]
         else:
-            dest = home[0]
-
+            break
         for emp in station.employee_list:
             pedestrian_task[i] = [dest]
     # print(driver_task, pedestrian_task)

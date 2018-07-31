@@ -95,7 +95,7 @@ class Update:
                 break
 
     def assign_drivers(self, request, station, station_dictionary, errors):
-        # print('Driving {}'.format(request))
+        print('Driving {}'.format(request))
         driver = station.employee_list[0]
         try:
             driver = station.employee_list.pop(0)
@@ -107,7 +107,7 @@ class Update:
             errors.append('No car for employee at Station Number {}'.format(driver.origin))
 
     def assign_pedestrians(self, request, station, station_dictionary):
-        # print('Walking {}'.format(request))
+        print('Walking {}'.format(request))
         ped = station.employee_list.pop(0)
         ped = simulator.people.Employee(request[0], request[1], request[2])
         station_dictionary[ped.destination].append_en_route_list(ped)

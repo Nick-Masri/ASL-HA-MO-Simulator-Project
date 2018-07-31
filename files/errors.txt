@@ -11,8 +11,8 @@ This station was empty for 0 timesteps
 
 
 Station 2:
-This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was full for 1000 timesteps
+This station was empty for 1595 timesteps
 
 
 Station 3:
@@ -26,8 +26,8 @@ This station was empty for 0 timesteps
 
 
 Station 5:
-This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was full for 2604 timesteps
+This station was empty for 97 timesteps
 
 
 Station 6:
@@ -51,12 +51,12 @@ This station was empty for 0 timesteps
 
 
 Station 10:
-This station was full for 2880 timesteps
+This station was full for 109 timesteps
 This station was empty for 0 timesteps
 
 
 Station 11:
-This station was full for 2880 timesteps
+This station was full for 1690 timesteps
 This station was empty for 0 timesteps
 
 
@@ -136,7 +136,7 @@ This station was empty for 0 timesteps
 
 
 Station 27:
-This station was full for 0 timesteps
+This station was full for 2661 timesteps
 This station was empty for 0 timesteps
 
 
@@ -191,32 +191,32 @@ This station was empty for 0 timesteps
 
 
 Station 38:
-This station was full for 2663 timesteps
-This station was empty for 0 timesteps
+This station was full for 0 timesteps
+This station was empty for 2880 timesteps
 
 
 Station 39:
 This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was empty for 2880 timesteps
 
 
 Station 40:
 This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was empty for 2880 timesteps
 
 
 Station 41:
-This station was full for 2666 timesteps
+This station was full for 0 timesteps
 This station was empty for 0 timesteps
 
 
 Station 42:
 This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was empty for 2880 timesteps
 
 
 Station 43:
-This station was full for 102 timesteps
+This station was full for 2880 timesteps
 This station was empty for 0 timesteps
 
 
@@ -237,7 +237,7 @@ This station was empty for 0 timesteps
 
 Station 47:
 This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was empty for 2880 timesteps
 
 
 Station 48:
@@ -247,7 +247,7 @@ This station was empty for 0 timesteps
 
 Station 49:
 This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was empty for 2880 timesteps
 
 
 Station 50:
@@ -272,11 +272,11 @@ This station was empty for 0 timesteps
 
 Station 54:
 This station was full for 0 timesteps
-This station was empty for 0 timesteps
+This station was empty for 2880 timesteps
 
 
 Station 55:
-This station was full for 216 timesteps
+This station was full for 2880 timesteps
 This station was empty for 0 timesteps
 
 
