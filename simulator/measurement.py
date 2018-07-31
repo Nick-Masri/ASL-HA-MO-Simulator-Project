@@ -23,12 +23,15 @@ class Measurement:
 
     def record(self, file):
         errors = open(file, 'w')
+        avg_time_full = np.mean(self.time_full / 2.88)
+        avg_time_empty = np.mean(self.time_empty / 2.88)
+
         for day in range(10):
             errors.write("\n\nDay: {}\n".format(day+1))
-            avg_time_full = np.mean(self.time_full/2.88)
-            avg_time_empty = np.mean(self.time_empty/2.88)
-            errors.write("Average Time Full: {}\n".format(avg_time_full))
-            errors.write("Average Time Empty: {}\n".format(avg_time_empty))
+            std_full = np.std(self.time_full[:][day], dtype=np.float64)
+            std_empty = np.std(self.time_full[:][day], dtype=np.float64)
+            errors.write("Standard Deviation Full: {}\n".format(std_full))
+            errors.write("Standard Deviation Empty: {}\n".format(std_empty))
             for i in range(58):
                 errors.write("\n\n\tStation {}:\n".format(i))
                 for x in range((day+1)*288):
@@ -38,5 +41,8 @@ class Measurement:
                 errors.write("\t\tThis station was full {} % of the time\n".format(self.time_full[i][day]/2.88))
                 errors.write("\t\tThis station was empty {} % of the time\n".format(self.time_empty[i][day]/2.88))
 
+
+        errors.write("Average Time Full: {}%\n".format(avg_time_full))
+        errors.write("Average Time Empty: {}%\n".format(avg_time_empty))
 
         errors.close()
