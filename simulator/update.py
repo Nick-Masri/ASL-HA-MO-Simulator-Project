@@ -43,11 +43,9 @@ class Update:
             if len(self.customer_requests) > 0:
                 # Update Customer list and Assign Them
                 for customer_request in self.customer_requests:
-                    if customer_request[0] == station:
+                    if customer_request[0] == station_index:
                         # add to station cust waiting list
                         self.update_customer_list(station, customer_request)
-
-                        print("CUSTOMER REQUEST: {}".format(customer_request))
 
                 # assigns customers to cars if available
                 self.assign_customers(station)
@@ -60,19 +58,17 @@ class Update:
                 # Assign Pedestrians
                 self.assign_pedestrians(station, pedestrian_requests)
 
-            # print(pedestrian_requests)
-            # print(driver_requests)
             for origin, pedestrian_request in enumerate(pedestrian_requests):
                 if pedestrian_request != []:
                     if origin == station_index:
                         request = (origin, pedestrian_request[0], self.time)
-                        self.assign_pedestrians(request, station, self.station_dict)
+                        self.assign_pedestrians(request, station)
 
             for origin, driver_request in enumerate(driver_requests):
                 if driver_request != []:
                     if origin == station_index:
                         request = (origin, driver_request[0], self.time)
-                        self.assign_drivers(request, station, self.station_dict, self.errors)
+                        self.assign_drivers(request, station)
 
         text = output(self.time, self.station_dict)
 
@@ -94,27 +90,27 @@ class Update:
             else:
                 break
 
-    def assign_drivers(self, request, station, station_dictionary, errors):
-        print('Driving {}'.format(request))
+    def assign_drivers(self, request, station):
+        # print('Driving {}'.format(request))
         driver = station.employee_list[0]
         try:
             driver = station.employee_list.pop(0)
             driver = simulator.people.Employee(request[0], request[1], request[2])
             current_car = station.car_list.pop(0)
             driver.update_status(driver, current_car)
-            station_dictionary[driver.destination].append_en_route_list(driver)
+            self.station_dict[driver.destination].append_en_route_list(driver)
         except IndexError:
-            errors.append('No car for employee at Station Number {}'.format(driver.origin))
+            self.errors.append('No car for employee at Station Number {}'.format(driver.origin))
 
-    def assign_pedestrians(self, request, station, station_dictionary):
-        print('Walking {}'.format(request))
+    def assign_pedestrians(self, request, station):
+        # print('Walking {}'.format(request))
         ped = station.employee_list.pop(0)
         ped = simulator.people.Employee(request[0], request[1], request[2])
-        station_dictionary[ped.destination].append_en_route_list(ped)
+        self.station_dict[ped.destination].append_en_route_list(ped)
 
     def update_customer_list(self, station, request):
-        customer = self.state_tracker.Person(request[0], request[1], self.time)
-        station.customer_list.append(customer)
+        customer = Person(request[0], request[1], self.time)
+        station.waiting_customers.append(customer)
 
     def assign_customers(self, station):
         while len(station.waiting_customers) > 0:
@@ -122,7 +118,7 @@ class Update:
             try:
                 current_car = station.car_list.pop(0)
                 customer = station.waiting_customers.pop(0)
-                customer.assign_car(current_car)
+                customer.vehicle_id = current_car
                 self.station_dict[customer.destination].append_en_route_list(customer)
             except IndexError:
                 self.errors.append('No car for customer at Station Number {}'.format(customer.origin))
