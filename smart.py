@@ -10,7 +10,8 @@ from backend.controller import Controller
 class SmartController:
     def __init__(self):
         self.stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
-        self.station_mapping = np.load('data/10_days/station_mapping.npy').item()
+        # self.station_mapping = np.load('data/10_days/station_mapping.npy').item()
+        self.station_ids = self.stations.index.tolist()
         self.n_stations = None
         self.station_dict = None
         self.controller = None
@@ -20,6 +21,9 @@ class SmartController:
         self.idle_vehicles = None
         self.idle_drivers = None
         self.private_vehicles = np.zeros((58, 1))
+
+        station_map = np.load('data/10_days/station_mapping.npy').item()
+        self.station_mapping = {int(k): v for k, v in station_map.items()}
 
     def update_arrivals_and_idle(self, curr_time):
         self.vehicle_arrivals = np.zeros(shape=(self.n_stations, 12))
@@ -78,7 +82,7 @@ class SmartController:
         car_count = 1
         # if idx_type == 'logical':  # TODO - FIX ME
         #     station_mapping = self.station_mapping.values
-        for station in self.stations.index:  # TODO - Use the station.index or station_map here? - use idx_type to decide
+        for logical_station, station in enumerate(self.stations.index):  # TODO - Use the station.index or station_map here? - use idx_type to decide
             parkingSpots = self.stations['parking_spots'].get(station)
             # Assign cars to the station.
             car_list = []
@@ -91,7 +95,7 @@ class SmartController:
                 for emp in range(employees_at_stations[station]):
                     emp_list.append(Employee(None, None, None))
             # Create the station
-            self.station_dict[station] = Station(station, parkingSpots, car_list, emp_list)
+            self.station_dict[station] = Station(logical_station, parkingSpots, car_list, emp_list)
 
 
     def update_contoller(self,):

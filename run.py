@@ -1,4 +1,4 @@
-from helpers import update, format_instructions
+from helpers import format_instructions, Update
 from smart import SmartController
 import numpy as np
 
@@ -6,16 +6,19 @@ import matlab
 
 smart = SmartController()
 smart.run()
+print(smart.station_ids)
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
 driver_requests = [[] for i in range(smart.n_stations)]
 pedestrian_requests = [[] for i in range(smart.n_stations)]
 
+update = Update(smart.station_mapping, smart.station_ids)
+
 for curr_time in range(70, len(cust_requests)):
     print("Time: {}".format(curr_time))
 
-    errors = update(smart.station_dict, cust_requests[curr_time], curr_time, smart.station_mapping, smart.stations, driver_requests, pedestrian_requests)
+    errors = update.run(smart.station_dict, cust_requests[curr_time], curr_time,  smart.stations, driver_requests, pedestrian_requests)
     smart.update_arrivals_and_idle(curr_time)
     smart.update_contoller()
     smart.controller.forecast_demand(curr_time)
@@ -31,11 +34,11 @@ for curr_time in range(70, len(cust_requests)):
 
     for task in driver_requests:
         if task != matlab.double([]):
-            print("Driver tasks:".format(task))
+            print("Driver tasks: {}".format(task))
 
     for task in pedestrian_requests:
         if task != matlab.double([]):
-            print("Ped tasks:".format(task))
+            print("Ped tasks: {}".format(task))
 
 
 for k, v in smart.station_dict.items():

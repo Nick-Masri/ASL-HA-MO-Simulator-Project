@@ -3,8 +3,7 @@ from globals import *
 
 import numpy as np
 
-station_mapping = np.load('data/10_days/station_mapping.npy').item() # ADDED
-station_mapping = {int(k): v for k, v in station_mapping.items()}
+
 
 ######################################
 # Instantiating Error Arrays ~ JS
@@ -19,161 +18,178 @@ no_car_emp_errors = np.zeros(shape=(2880, 58))
 # Creating Functions For Update ~ NM
 ######################################
 
-def arrivals(station, time):
-    while len(station.en_route_list) > 0:
-        person = station.get_en_route_list(True)[0]
-        if person.destination_time == time:
-            station.get_en_route_list().remove(person)
-            current_vehicle_id = person.vehicle_id
-            if current_vehicle_id is not None:
-                station.car_list.append(current_vehicle_id)
-            if isinstance(person, Employee):
-                person.reset()
-                station.employee_list.append(person)
-            else:
-                del person
-        else:
-            break
-
-def update_employee_list(requests, time, employee_list):
-    for employee in requests:
-        id = employee_list[employee]
-        employee_list[employee] = Employee(requests[0], requests[1], time, id)
 
 
-def assign_drivers(station, driver_tasks, station_dictionary, errors, current_time):
-    for destination in driver_tasks:
-        driver = station.employee_list[0]
-        try:
-            current_car = station.car_list.pop(0)
-            driver = station.employee_list.pop(0)
-            driver.update_status(station.station_id, destination, current_time, current_car)
-            station_dictionary[driver.destination].append_en_route_list(driver)
-        except IndexError:
-            errors.append('No car for employee at Station Number {}'.format(driver.origin))
-            no_car_emp_errors[current_time, driver.origin] += 1
-            break
 
 
-def assign_pedestrians(station, pedestrian_tasks, station_dictionary, current_time):
-    print(pedestrian_tasks)
-    for destination in pedestrian_tasks:
-        print("Destination: {}".format(destination))
-        ped = station.employee_list.pop(0)
-        ped.update_status(station.station_id, destination, current_time)
-        station_dictionary[ped.destination].append_en_route_list(ped)
 
 
-def update_customer_list(requests, time, cust_list):
-    print(requests)
-    customer = Person(requests[0], requests[1], time)
-    cust_list.append(customer)
 
 
-def assign_customers(customer_list, cars, station_dictionary, errors, current_time):
-    while len(customer_list) > 0:
-        customer = customer_list[0]
-        try:
-            current_car = cars.pop(0)
-            customer = customer_list.pop(0)
-            customer.assign_cust_car(current_car)
-            station_dictionary[customer.destination].append_en_route_list(customer)
-            print("Customer put in car")
-        except IndexError:
-            errors.append('No car for customer at Station Number {}'.format(customer.origin))
-            print("No car for customer")
-            # no_car_cust_errors[current_time, customer.origin] += 1
-            no_car_cust_errors[current_time, station_mapping[customer.origin]] += 1  # ADDED
 
-            break
 
-def convert_cust_req_to_real_stations(tasks, inverted_station_map):
-    temp = []
-    for task in tasks:
-        temp.append([inverted_station_map[task[0]], inverted_station_map[task[1]]])
-    return temp
 
+
+
+
+
+
+
+
+def convert_real_to_logical(station):
+    return station_mapping[station]
 
 
 ######################################
 # Update Loop ~ NM
 ######################################
+class Update:
+    def __init__(self, station_mapping, station_ids):
+        self.station_mapping = station_mapping
+        self.inverted_station_map = {v: k for k, v in station_mapping.items()}
+        self.current_time = None
+        self.station_ids = station_ids
 
+    def convert_cust_req_to_real_stations(self, tasks):
+        temp = []
+        for task in tasks:
+            temp.append([self.inverted_station_map[task[0]], self.inverted_station_map[task[1]]])
+        return temp
 
-def update(station_dict, customer_requests, current_time, station_map, stations, driver_requests=[], pedestrian_requests=[]):
-    errors = []
-    inverted_station_map = {v: k for k, v in station_map.items()}
-    # if we're using real station numbers this converts the cust requests into "real" format
-    customer_requests = convert_cust_req_to_real_stations(customer_requests, inverted_station_map)
-    stations_index = stations.index.tolist()
-    for logical_station, station in enumerate(stations_index):  # Goes through the stations in order
-        # For future efficiency check to see if there are any requests before doing all this work
-        # Grab information relevant to this loop and organize
-        current_station = station_dict[station]
-        current_car_list = current_station.car_list
-        employee_list = current_station.employee_list
-        customer_list = current_station.get_waiting_customers(True)
-        en_route_list = current_station.get_en_route_list(True)
+    def update_customer_list(self, requests, time, cust_list):
+        customer = Person(requests[0], requests[1], time)
+        cust_list.append(customer)
 
+    def assign_customers(self, station, station_dictionary, errors):
+        while len(station.waiting_customers) > 0:
+            customer = station.waiting_customers[0]
+            try:
+                current_car = station.car_list.pop(0)
+                customer = station.waiting_customers.pop(0)
+                customer.assign_cust_car(current_car)
+                station_dictionary[customer.destination].append_en_route_list(customer)
+                print("Customer put in car")
+            except IndexError:
+                errors.append('No car for customer at Station Number {}'.format(customer.origin))
+                print("No car for customer")
+                # no_car_cust_errors[current_time, customer.origin] += 1
+                no_car_cust_errors[self.current_time, station.station_id] += 1  # ADDED
+                break
+            print("length of customer_list: {}".format(len(station.waiting_customers)))
 
-        # Loop Arrivals - Need to check
-        arrivals(current_station, current_time)
+    def assign_pedestrians(self, station, pedestrian_tasks, station_dictionary):
+        for destination in pedestrian_tasks:
+            print("Destination: {}".format(destination))
+            ped = station.employee_list.pop(0)
+            ped.update_status(station.station_id, destination, self.current_time)
+            station_dictionary[ped.destination].append_en_route_list(ped)
 
-        # Check for Errors ******** This is assuming the capacity is 50 for each station ***********
-        overload = 50 - (len(current_station.car_list) + len(current_station.get_en_route_list()))
+    def assign_drivers(self, station, driver_tasks, station_dictionary, errors):
+        for destination in driver_tasks:
+            driver = station.employee_list[0]
+            try:
+                current_car = station.car_list.pop(0)
+                driver = station.employee_list.pop(0)
+                driver.update_status(station.station_id, destination, self.current_time, current_car)
+                station_dictionary[driver.destination].append_en_route_list(driver)
+            except IndexError:
+                errors.append('No car for employee at Station Number {}'.format(driver.origin))
+                no_car_emp_errors[self.current_time, station.station_id] += 1
+                break
 
-        if overload < 0:
-            errors.append("Station {0} will have {1} more cars than it can allow".format(current_station, -overload))
-            no_park_errors[current_time, current_station] += 1
+    def update_employee_list(self, requests, employee_list):
+        for employee in requests:
+            emp_id = employee_list[employee]
+            employee_list[employee] = Employee(requests[0], requests[1], self.current_time, emp_id)
 
-        # Put customers into cars
-        if len(customer_requests) > 0:
-            # Update Customer list and Assign Them
-            for customer_request in customer_requests:
-                if customer_request[0] == station:
-                # add to station cust waiting list - THIS IS USING REAL INDICES FOR NOW!
-                    update_customer_list(customer_request, current_time, customer_list)
+    def arrivals(self, station):
+        while len(station.en_route_list) > 0:
+            person = station.get_en_route_list(True)[0]
+            if person.destination_time == self.current_time:
+                station.get_en_route_list().remove(person)
+                current_vehicle_id = person.vehicle_id
+                if current_vehicle_id is not None:
+                    station.car_list.append(current_vehicle_id)
+                if isinstance(person, Employee):
+                    person.reset()
+                    station.employee_list.append(person)
+                else:
+                    del person
+            else:
+                break
 
-                    print("CUSTOMER REQUEST: {}".format(customer_request))
+    def run(self, station_dict, customer_requests, current_time, stations, driver_requests=[], pedestrian_requests=[]):
+        self.current_time = current_time
+        errors = []
 
-            # assigns customers to cars if available
-            assign_customers(customer_list, current_car_list, station_dict, errors, current_time)
+        # if we're using real station numbers this converts the cust requests into "real" format
+        customer_requests = self.convert_cust_req_to_real_stations(customer_requests)
 
-        # TODO - I wasn't assigning any of the tasks!!!
-        # If there's only one task at the station it's not in a list. This will make sure everything is the same format.
-        # REFACTOR?
+        for logical_station, station in enumerate(self.station_ids):  # Goes through the stations in order
+            # For future efficiency check to see if there are any requests before doing all this work
+            # Grab information relevant to this loop and organize
+            current_station = station_dict[station]
 
-        if type(driver_requests[logical_station]) == float:
-            driver_requests[logical_station] = [[driver_requests[logical_station]]]
-        if type(pedestrian_requests[logical_station]) == float:
-            pedestrian_requests[logical_station] = [[pedestrian_requests[station]]]
+            # Loop Arrivals - Need to check
+            self.arrivals(current_station)
 
-        if len(driver_requests[logical_station]) > 0:
-            # requests are in the
+            # Check for Errors ******** This is assuming the capacity is 50 for each station ***********
+            overload = 50 - (len(current_station.car_list) + len(current_station.get_en_route_list()))
 
-            # Assign drivers
-            # Update employee object and add it to destination enroute list
-            print("Station: {}, Driver request: {}".format(station, driver_requests[logical_station]))
-            # Make destinations of tasks 0 indexed
-            temp_tasks = np.array(driver_requests[logical_station]).astype(int)[0]-1
-            # Make them "real" indexed
-            tasks = []
-            for task in temp_tasks:
-                tasks.append(stations_index[task])
-            assign_drivers(current_station, tasks, station_dict, errors, current_time)
-        if len(pedestrian_requests[logical_station]) > 0:
-            # Assign Pedestrians
-            # Update employee object and add it to destination enroute list (no car and time travel)
-            print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
-            # Make destinations of tasks 0 indexed
-            temp_tasks = np.array(driver_requests[logical_station]).astype(int)[0] - 1
-            # Make them "real" indexed
-            tasks = []
-            for task in temp_tasks:
-                tasks.append(stations_index[task])
-            assign_pedestrians(current_station, np.array(pedestrian_requests[logical_station]).astype(int)[0]-1, station_dict, current_time)
+            if overload < 0:
+                errors.append("Station {0} will have {1} more cars than it can allow".format(current_station, -overload))
+                no_park_errors[current_time, current_station] += 1
 
-    return errors
+            # Put customers into cars
+            if len(customer_requests) > 0:
+                # Update Customer list and Assign Them
+                for customer_request in customer_requests:
+                    if customer_request[0] == station:
+                        self.update_customer_list(customer_request,
+                                                  current_time,
+                                                  current_station.waiting_customers)
+
+                        print("CUSTOMER REQUEST: {}".format(customer_request))
+                        print("Station: {}, Car Count: {}".format(station, len(current_station.car_list)))
+
+                # assigns customers to cars if available
+                self.assign_customers(current_station, station_dict, errors)
+
+            # TODO - I wasn't assigning any of the tasks!!!
+            # If there's only one task at the station it's not in a list. This will make sure everything is the same format.
+            # REFACTOR?
+
+            if type(driver_requests[logical_station]) == float:
+                driver_requests[logical_station] = [[driver_requests[logical_station]]]
+            if type(pedestrian_requests[logical_station]) == float:
+                pedestrian_requests[logical_station] = [[pedestrian_requests[station]]]
+
+            if len(driver_requests[logical_station]) > 0:
+                # requests are in the
+
+                # Assign drivers
+                # Update employee object and add it to destination enroute list
+                print("Station: {}, Driver request: {}".format(station, driver_requests[logical_station]))
+                # Make destinations of tasks 0 indexed
+                temp_tasks = np.array(driver_requests[logical_station]).astype(int)[0]-1
+                # Make them "real" indexed
+                tasks = []
+                for task in temp_tasks:
+                    tasks.append(self.station_ids[task])
+                self.assign_drivers(current_station, tasks, station_dict, errors)
+            if len(pedestrian_requests[logical_station]) > 0:
+                # Assign Pedestrians
+                # Update employee object and add it to destination enroute list (no car and time travel)
+                print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
+                # Make destinations of tasks 0 indexed
+                temp_tasks = np.array(driver_requests[logical_station]).astype(int)[0] - 1
+                # Make them "real" indexed
+                tasks = []
+                for task in temp_tasks:
+                    tasks.append(self.station_ids[task])
+                self.assign_pedestrians(current_station, tasks, station_dict)
+
+        return errors
 
 ######################################
 # Format and Load Instructions ~ NM / MC
