@@ -43,7 +43,6 @@ def update_employee_list(requests, time, employee_list):
 
 def assign_drivers(station, driver_tasks, station_dictionary, errors, current_time):
     for destination in driver_tasks:
-
         driver = station.employee_list[0]
         try:
             current_car = station.car_list.pop(0)
@@ -88,12 +87,12 @@ def assign_customers(customer_list, cars, station_dictionary, errors, current_ti
 
             break
 
-def convert_cust_req_to_real_stations(tasks, station_map):
+def convert_cust_req_to_real_stations(tasks, inverted_station_map):
     temp = []
-    inverted_station_map = {v:k for k, v in station_map.items()}
     for task in tasks:
         temp.append([inverted_station_map[task[0]], inverted_station_map[task[1]]])
     return temp
+
 
 
 ######################################
@@ -103,9 +102,11 @@ def convert_cust_req_to_real_stations(tasks, station_map):
 
 def update(station_dict, customer_requests, current_time, station_map, stations, driver_requests=[], pedestrian_requests=[]):
     errors = []
+    inverted_station_map = {v: k for k, v in station_map.items()}
     # if we're using real station numbers this converts the cust requests into "real" format
-    customer_requests = convert_cust_req_to_real_stations(customer_requests, station_map)
-    for logical_station, station in enumerate(stations.index):  # Goes through the stations in order
+    customer_requests = convert_cust_req_to_real_stations(customer_requests, inverted_station_map)
+    stations_index = stations.index.tolist()
+    for logical_station, station in enumerate(stations_index):  # Goes through the stations in order
         # For future efficiency check to see if there are any requests before doing all this work
         # Grab information relevant to this loop and organize
         current_station = station_dict[station]
@@ -153,11 +154,23 @@ def update(station_dict, customer_requests, current_time, station_map, stations,
             # Assign drivers
             # Update employee object and add it to destination enroute list
             print("Station: {}, Driver request: {}".format(station, driver_requests[logical_station]))
-            assign_drivers(current_station, np.array(driver_requests[logical_station]).astype(int)[0]-1, station_dict, errors, current_time)
+            # Make destinations of tasks 0 indexed
+            temp_tasks = np.array(driver_requests[logical_station]).astype(int)[0]-1
+            # Make them "real" indexed
+            tasks = []
+            for task in temp_tasks:
+                tasks.append(stations_index[task])
+            assign_drivers(current_station, tasks, station_dict, errors, current_time)
         if len(pedestrian_requests[logical_station]) > 0:
             # Assign Pedestrians
             # Update employee object and add it to destination enroute list (no car and time travel)
             print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
+            # Make destinations of tasks 0 indexed
+            temp_tasks = np.array(driver_requests[logical_station]).astype(int)[0] - 1
+            # Make them "real" indexed
+            tasks = []
+            for task in temp_tasks:
+                tasks.append(stations_index[task])
             assign_pedestrians(current_station, np.array(pedestrian_requests[logical_station]).astype(int)[0]-1, station_dict, current_time)
 
     return errors

@@ -31,11 +31,11 @@ for curr_time in range(70, len(cust_requests)):
 
     for task in driver_requests:
         if task != matlab.double([]):
-            print(task)
+            print("Driver tasks:".format(task))
 
     for task in pedestrian_requests:
         if task != matlab.double([]):
-            print(task)
+            print("Ped tasks:".format(task))
 
 
 for k, v in smart.station_dict.items():
