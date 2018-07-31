@@ -7,7 +7,7 @@
 cars_per_station = 1
 # Dict of initial employee positions in the form {Station: number of employees
 
-employees_at_stations = {22:1, 55:1}
+employees_at_stations = {2:1, 5:1}
 text_file_output = []
 station_dict = {}
 

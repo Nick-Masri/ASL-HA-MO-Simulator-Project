@@ -9,14 +9,15 @@ class Measurement:
 
     def measure(self, time, station, station_index):
         calc = len(station.get_en_route_list()) - station.calc_parking()
-        if calc > 0:
-            self.park_errors[time][station_index] = calc
+        if station.calc_parking() != 0:
+            if calc > 0:
+                self.park_errors[time][station_index] = calc
 
-        if station.calc_parking() == 0:
-            self.time_empty[station_index] += 1
+            if station.calc_parking() == 0:
+                self.time_empty[station_index] += 1
 
-        if station.calc_parking() == station.parking_spots:
-            self.time_full[station_index] += 1
+            if station.calc_parking() == station.parking_spots:
+                self.time_full[station_index] += 1
 
     def record(self, file):
         errors = open(file, 'w')

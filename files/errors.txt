@@ -27,7 +27,7 @@ This station was empty for 0 timesteps
 
 Station 5:
 This station was full for 0 timesteps
-This station was empty for 2880 timesteps
+This station was empty for 0 timesteps
 
 
 Station 6:
@@ -81,8 +81,8 @@ This station was empty for 0 timesteps
 
 
 Station 16:
-This station was full for 2880 timesteps
-This station was empty for 2880 timesteps
+This station was full for 0 timesteps
+This station was empty for 0 timesteps
 
 
 Station 17:
@@ -112,7 +112,7 @@ This station was empty for 0 timesteps
 
 Station 22:
 This station was full for 0 timesteps
-This station was empty for 2667 timesteps
+This station was empty for 0 timesteps
 
 
 Station 23:
@@ -191,33 +191,28 @@ This station was empty for 0 timesteps
 
 
 Station 38:
-At time 205, there were 1 cars that did not get parking
-At time 206, there were 2 cars that did not get parking
-At time 207, there were 1 cars that did not get parking
 This station was full for 2663 timesteps
-This station was empty for 209 timesteps
+This station was empty for 0 timesteps
 
 
 Station 39:
 This station was full for 0 timesteps
-This station was empty for 2880 timesteps
+This station was empty for 0 timesteps
 
 
 Station 40:
 This station was full for 0 timesteps
-This station was empty for 2880 timesteps
+This station was empty for 0 timesteps
 
 
 Station 41:
-At time 210, there were 1 cars that did not get parking
-At time 211, there were 1 cars that did not get parking
 This station was full for 2666 timesteps
-This station was empty for 116 timesteps
+This station was empty for 0 timesteps
 
 
 Station 42:
 This station was full for 0 timesteps
-This station was empty for 2880 timesteps
+This station was empty for 0 timesteps
 
 
 Station 43:
@@ -242,7 +237,7 @@ This station was empty for 0 timesteps
 
 Station 47:
 This station was full for 0 timesteps
-This station was empty for 2880 timesteps
+This station was empty for 0 timesteps
 
 
 Station 48:
@@ -252,7 +247,7 @@ This station was empty for 0 timesteps
 
 Station 49:
 This station was full for 0 timesteps
-This station was empty for 2880 timesteps
+This station was empty for 0 timesteps
 
 
 Station 50:
@@ -277,12 +272,12 @@ This station was empty for 0 timesteps
 
 Station 54:
 This station was full for 0 timesteps
-This station was empty for 2880 timesteps
+This station was empty for 0 timesteps
 
 
 Station 55:
 This station was full for 216 timesteps
-This station was empty for 2661 timesteps
+This station was empty for 0 timesteps
 
 
 Station 56:
