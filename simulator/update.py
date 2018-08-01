@@ -1,5 +1,3 @@
-# from simulator.state_tracker import Station, Employee, Person
-
 from simulator.output import output
 from simulator.measurement import Measurement
 from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
@@ -18,10 +16,6 @@ class Update:
         self.time = time
         self.station_dict = station_dict
         self.customer_requests = customer_requests
-        # self.driver_requests = driver_requests
-        # self.pedestrian_requests = pedestrian_requests
-        self.driver_requests = [[] for i in range(len(station_dict))]
-        self.pedestrian_requests = [[] for i in range(len(station_dict))]
         self.controller = controller
         self.errors = []
         self.tool = tool
@@ -33,7 +27,7 @@ class Update:
             if self.controller == "naive" or self.controller == "n":
                 driver_requests, pedestrian_requests = self.naive()
             else:
-                driver_requests, pedestrian_requests = self.smart()
+                driver_requests, pedestrian_requests = [], []
 
             # Loop Arrivals
             self.arrivals(station)
@@ -41,34 +35,29 @@ class Update:
 
             # Put customers into cars
             if len(self.customer_requests) > 0:
-                # Update Customer list and Assign Them
                 for customer_request in self.customer_requests:
                     if customer_request[0] == station_index:
-                        # add to station cust waiting list
-                        self.update_customer_list(station, customer_request)
+                        self.assign_customers(station, customer_request)
 
-                # assigns customers to cars if available
-                self.assign_customers(station)
-
-            if len(self.driver_requests[station_index]) > 0 or len(self.pedestrian_requests[station_index]) > 0:
-
-                # Assign drivers
-                self.assign_drivers(station, driver_requests)
-
-                # Assign Pedestrians
+            if len(driver_requests[station_index]) > 0:
+                request = 
+                self.assign_drivers(station, driver_requests[station_index])
+            if len(pedestrian_requests[station_index]) > 0:
                 self.assign_pedestrians(station, pedestrian_requests)
 
-            for origin, pedestrian_request in enumerate(pedestrian_requests):
-                if pedestrian_request != []:
-                    if origin == station_index:
-                        request = (origin, pedestrian_request[0], self.time)
-                        self.assign_pedestrians(request, station)
 
-            for origin, driver_request in enumerate(driver_requests):
-                if driver_request != []:
-                    if origin == station_index:
-                        request = (origin, driver_request[0], self.time)
-                        self.assign_drivers(request, station)
+
+            # for origin, pedestrian_request in enumerate(pedestrian_requests):
+            #     if pedestrian_request:
+            #         if origin == station_index:
+            #             request = (origin, pedestrian_request[0], self.time)
+            #             self.assign_pedestrians(request, station)
+            #
+            # for origin, driver_request in enumerate(driver_requests):
+            #     if driver_request:
+            #         if origin == station_index:
+            #             request = (origin, driver_request[0], self.time)
+            #             self.assign_drivers(request, station)
 
         text = output(self.time, self.station_dict)
 
@@ -78,10 +67,12 @@ class Update:
         while len(station.en_route_list) > 0:
             person = station.get_en_route_list(True)[0]
             if person.destination_time == self.time:
-                station.get_en_route_list().remove(person)
-                current_vehicle_id = person.vehicle_id
-                if current_vehicle_id is not None:
-                    station.car_list.append(current_vehicle_id)
+                station.en_route_list.remove(person)
+                if person.vehicle_id is not None:
+                    station.car_list.append(person.vehicle_id)
+                    if station.calc_parking() < 0:
+                        self.errors.append("No parking for person arriving at time {}".format(self.time))
+                        print("No parking")
                 if isinstance(person, Employee):
                     person.reset()
                     station.employee_list.append(person)
@@ -90,99 +81,53 @@ class Update:
             else:
                 break
 
-    def assign_drivers(self, request, station):
+    def assign_drivers(self, station, requests):
         # print('Driving {}'.format(request))
+
         driver = station.employee_list[0]
         try:
-            driver = station.employee_list.pop(0)
-            driver = simulator.people.Employee(request[0], request[1], request[2])
-            current_car = station.car_list.pop(0)
-            driver.update_status(driver, current_car)
-            self.station_dict[driver.destination].append_en_route_list(driver)
+            station.employee_list.remove(0)
+            driver = Employee(request[0], request[1], request[2])
+            driver.update_status(driver, station.car_list.pop(0))
+            self.station_dict[driver.destination].en_route_list.append(driver)
         except IndexError:
             self.errors.append('No car for employee at Station Number {}'.format(driver.origin))
 
     def assign_pedestrians(self, request, station):
         # print('Walking {}'.format(request))
-        ped = station.employee_list.pop(0)
-        ped = simulator.people.Employee(request[0], request[1], request[2])
-        self.station_dict[ped.destination].append_en_route_list(ped)
+        station.employee_list.remove(0)
+        ped = Employee(request[0], request[1], request[2])
+        self.station_dict[ped.destination].en_route_list.append(ped)
 
-    def update_customer_list(self, station, request):
+    def assign_customers(self, station, request):
         customer = Person(request[0], request[1], self.time)
-        station.waiting_customers.append(customer)
-
-    def assign_customers(self, station):
-        while len(station.waiting_customers) > 0:
-            customer = station.waiting_customers[0]
-            try:
-                current_car = station.car_list.pop(0)
-                customer = station.waiting_customers.pop(0)
-                customer.vehicle_id = current_car
-                self.station_dict[customer.destination].append_en_route_list(customer)
-            except IndexError:
-                self.errors.append('No car for customer at Station Number {}'.format(customer.origin))
-                #self.no_car_cust_errors[self.time, customer.origin] += 1
-                break
-
-    def smart(self):
-        return [], []
-        pedestrian_requests = tasks['driverRebalancingQueue']
-        vehicle_requests = tasks['vehicleRebalancingQueue']
-        idle_vehicles = []
-        idle_drivers = []
-
-        vehicle_arrivals = np.zeros(shape=(len(station_dict), 12))
-        driver_arrivals = np.zeros(shape=(len(station_dict), 12))
-
-        idle_vehicles.append(len(station_dict[station].car_list))
-        idle_drivers.append(len(station_dict[station].employee_list))
-
-
-        for person in station_dict[station].get_en_route_list(True):
-            for i in range(time, time + 12):
-                if person.destination_time == i:
-                    if isinstance(person, Employee):
-                        driver_arrivals[station][i - time] += 1
-                    if person.vehicle_id is not None:
-                        vehicle_arrivals[station][i - time] += 1
-
-        Forecast = {
-            'demand': demand_forecast_parser_alt(time),
-            'vehicleArrivals': vehicle_arrivals,  # ~ NM
-            'driverArrivals': driver_arrivals,  # ~ NM
-        }
-
-        State = {
-            'idleVehicles': np.array(idle_vehicles),
-            'idleDrivers': np.array(idle_drivers),
-            'privateVehicles': np.zeros((58, 1))
-        }
-
         try:
-            controller
-        except:
-            controller = MoDController(RoadNetwork)
+            current_car = station.car_list.pop(0)
+            customer.vehicle_id = current_car
+            self.station_dict[customer.destination].en_route_list.append(customer)
+        except IndexError:
+            self.errors.append('No car for customer at Station Number {}'.format(customer.origin))
 
-        [tasks, controller_output] = controller.computerebalancing(Parameters, State, Forecast, Flags)
-        return tasks, controller
     def naive(self):
-        morningStart = simulator.parameters.morningStart
-        morningEnd = simulator.parameters.morningEnd
-        eveningStart = simulator.parameters.eveningStart
-        eveningEnd = simulator.parameters.eveningEnd
 
-        if morningStart <= self.time and self.time <= morningEnd:
+        morning_start = simulator.parameters.morningStart
+        morning_end = simulator.parameters.morningEnd
+        evening_start = simulator.parameters.eveningStart
+        evening_end = simulator.parameters.eveningEnd
+
+        if morning_start <= self.time <= morning_end:
             driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict)
-            if self.time == morningEnd:
+
+            if self.time == morning_end:
                 simulator.parameters.morningStart += 288
                 simulator.parameters.morningEnd += 288
-        elif eveningStart <= self.time and self.time <= eveningEnd:
+        elif evening_start <= self.time <= evening_end:
             driver_requests, pedestrian_requests = evening_rebalancing(self.station_dict)
-            if self.time == eveningEnd:
+
+            if self.time == evening_end:
                 simulator.parameters.eveningStart += 288
                 simulator.parameters.eveningEnd += 288
         else:
-            driver_requests, pedestrian_requests = [], []
-
+            driver_requests = [[] for i in range(len(self.station_dict))]
+            pedestrian_requests = [[] for i in range(len(self.station_dict))]
         return driver_requests, pedestrian_requests

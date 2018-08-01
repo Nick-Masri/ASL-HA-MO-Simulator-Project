@@ -2,6 +2,7 @@
 # Output Functions ~ NM
 ##############################
 
+
 def output(time, station_dict):
     text = []
     text.append("\nTime: {}".format(time))
@@ -14,7 +15,7 @@ def output(time, station_dict):
         text.append('\t\tNumber of Idle Vehicles: {}'.format(len(station.car_list)))
         text.append('\t\tAvailable Parking: {}'.format(station.calc_parking()))
         text.append(
-            '\t\tNum People En_Route: {}'.format(len(station.get_en_route_list())))
+            '\t\tNumber of People En_Route: {}'.format(len(station.get_en_route_list())))
 
     # text.append('Errors: {}'.format(errors))
 

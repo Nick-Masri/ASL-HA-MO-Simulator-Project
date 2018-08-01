@@ -2,15 +2,8 @@
 # Variables for Initial State
 ####################################
 
-# in the form {Real Station Number: Logical Index}
-
-cars_per_station = 1
-# Dict of initial employee positions in the form {Station: number of employees
-
 employees_at_stations = {2:1, 5:1}
-text_file_output = []
 station_dict = {}
-
 
 ####################################
 # Defining Locations of the Data

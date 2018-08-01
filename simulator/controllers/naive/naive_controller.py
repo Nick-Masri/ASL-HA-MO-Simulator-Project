@@ -2,6 +2,7 @@
 # Naive Controller ~ NM
 ##############################
 
+
 def morning_rebalancing(dict):
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]

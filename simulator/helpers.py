@@ -25,6 +25,7 @@ def format_instructions(request):
 
     return var
 
+
 def format_travel_times(filename, station_mapping, station_mapping_int):
     graph = pd.read_csv(filename)
     fix_row_numbers(graph, station_mapping_int)
