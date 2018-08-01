@@ -2,6 +2,7 @@ from classes import *
 from globals import *
 
 import numpy as np
+import matlab
 
 
 
@@ -32,6 +33,32 @@ class Update:
         self.inverted_station_map = {v: k for k, v in station_mapping.items()}
         self.current_time = None
         self.station_ids = station_ids
+        self.driver_tasks = []
+        self.pedestrian_tasks = []
+
+    def update_driver_ped_tasks(self, tasks, task_type):
+        temp = []
+        for index, task in enumerate(tasks):
+            print(task)
+            if task != matlab.double([]):
+                print("Hello There")
+                origin = station_ids[index]
+                if type(task) == float:
+                    destination = station_ids[int(task)-1]
+                    temp.append((origin, destination))
+                else:
+                    for sub_task in task[0]:  # It returns a list of one list if there are multiple tasks
+                        destination = station_ids[int(sub_task)-1]
+                        temp.append((origin, destination))
+
+        if task_type == 'driver':
+            self.driver_tasks = temp
+            print("Driver Tasks: {}".format(self.driver_tasks))
+        else:
+            self.pedestrian_tasks = temp
+            print("Pedestrian Tasks: {}".format(self.pedestrian_tasks))
+
+
 
     def convert_cust_req_to_real_stations(self, tasks):
         temp = []
