@@ -2,6 +2,7 @@ from simulator.update import Update
 from simulator.output import write
 from simulator.setup import station_initializer
 from simulator.measurement import Measurement
+from simulator.heatmap import heatmap_run
 
 import math
 import simulator.formatting as var
@@ -30,8 +31,8 @@ def run(controller):
 
         output, idle_vehicles, parking = Update(tool, controller, time, station_dict, customer_requests).loop()
         text.append(output)
-
-        heatmap_run(time, idle_vehicles, parking)
+        if time % 100 == 0:
+            heatmap_run(time, idle_vehicles, parking)
 
     write("files/station_overview.txt", text)
     print("\n\nfiles/station_overview.txt created")

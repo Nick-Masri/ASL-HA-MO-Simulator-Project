@@ -55,7 +55,7 @@ class Update:
                 request = (station_index, ped_request[0], self.time)
                 self.assign_pedestrians(station, request)
         self.idle_vehicles[station_index] = len(station.car_list)
-        self.available_parking[station_index] = len(station.calc_parking())
+        self.available_parking[station_index] = station.calc_parking()
 
         self.tool.park_errors += self.no_parking
         self.tool.vehicle_errors += self.no_idle_vehicle
