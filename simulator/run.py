@@ -25,10 +25,13 @@ def run(controller):
 
         print('Time: {}'.format(time))
 
+
         customer_requests = var.cust_requests[time]
 
-        time_stamp= Update(tool, controller, time, station_dict, customer_requests).loop()
-        text.append(time_stamp)
+        output, idle_vehicles, parking = Update(tool, controller, time, station_dict, customer_requests).loop()
+        text.append(output)
+
+        heatmap_run(time, idle_vehicles, parking)
 
     write("files/station_overview.txt", text)
     print("\n\nfiles/station_overview.txt created")

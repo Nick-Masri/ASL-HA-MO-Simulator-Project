@@ -3,6 +3,7 @@ from simulator.controllers.naive.naive_controller import morning_rebalancing, ev
 
 import simulator.parameters
 from simulator.people import Employee, Person
+import numpy as np
 
 #########################
 # Update Function ~ NM
@@ -20,6 +21,8 @@ class Update:
         self.no_parking = 0
         self.no_idle_vehicle = 0
         self.tool = tool
+        self.idle_vehicles = np.zeros([58,])
+        self.available_parking = np.zeros([58,])
 
     def loop(self):
         for station_index in sorted(self.station_dict):
@@ -51,11 +54,13 @@ class Update:
             if len(ped_request) > 0:
                 request = (station_index, ped_request[0], self.time)
                 self.assign_pedestrians(station, request)
+        self.idle_vehicles[station_index] = len(station.car_list)
+        self.available_parking[station_index] = len(station.calc_parking())
 
         self.tool.park_errors += self.no_parking
         self.tool.vehicle_errors += self.no_idle_vehicle
         text = output(self.time, self.station_dict)
-        return text
+        return text, self.idle_vehicles, self.available_parking
 
     def arrivals(self, station):
         while len(station.en_route_list) > 0:
