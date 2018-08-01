@@ -1,0 +1,3228 @@
+
+
+Day: 1
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 53.81944444444445 % of the time
+
+
+	Station 2:
+		This station was full 38.88888888888889 % of the time
+		This station was empty 19.09722222222222 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 5:
+		This station was full 69.09722222222223 % of the time
+		This station was empty 25.0 % of the time
+
+
+	Station 6:
+		This station was full 22.916666666666668 % of the time
+		This station was empty 77.08333333333334 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 8:
+		This station was full 0.0 % of the time
+		This station was empty 92.01388888888889 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 30.208333333333336 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 92.36111111111111 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 19.791666666666668 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 13:
+		This station was full 25.34722222222222 % of the time
+		This station was empty 69.44444444444444 % of the time
+
+
+	Station 14:
+		This station was full 0.0 % of the time
+		This station was empty 95.13888888888889 % of the time
+
+
+	Station 15:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 45.13888888888889 % of the time
+
+
+	Station 18:
+		This station was full 43.75 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 19:
+		This station was full 25.0 % of the time
+		This station was empty 35.06944444444444 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 48.26388888888889 % of the time
+
+
+	Station 21:
+		This station was full 3.4722222222222223 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 20.13888888888889 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 26:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 18.40277777777778 % of the time
+
+
+	Station 28:
+		This station was full 0.0 % of the time
+		This station was empty 89.93055555555556 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 30:
+		This station was full 49.30555555555556 % of the time
+		This station was empty 50.69444444444444 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 32:
+		This station was full 0.0 % of the time
+		This station was empty 73.61111111111111 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 50.0 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 95.13888888888889 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 38:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 39:
+		This station was full 54.16666666666667 % of the time
+		This station was empty 28.472222222222225 % of the time
+
+
+	Station 40:
+		This station was full 23.958333333333336 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 41:
+		This station was full 0.0 % of the time
+		This station was empty 43.40277777777778 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 75.0 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 26.041666666666668 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 46:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 47:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 49:
+		This station was full 55.90277777777778 % of the time
+		This station was empty 44.09722222222222 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 54.16666666666667 % of the time
+
+
+	Station 56:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 2
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 38.54166666666667 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 42.01388888888889 % of the time
+
+
+	Station 2:
+		This station was full 2.430555555555556 % of the time
+		This station was empty 47.56944444444444 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 55.208333333333336 % of the time
+
+
+	Station 5:
+		This station was full 23.61111111111111 % of the time
+		This station was empty 52.77777777777778 % of the time
+
+
+	Station 6:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 8:
+		This station was full 23.61111111111111 % of the time
+		This station was empty 70.83333333333334 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 48.958333333333336 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 98.26388888888889 % of the time
+
+
+	Station 12:
+		This station was full 46.18055555555556 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 13:
+		This station was full 39.583333333333336 % of the time
+		This station was empty 38.88888888888889 % of the time
+
+
+	Station 14:
+		This station was full 21.52777777777778 % of the time
+		This station was empty 59.72222222222222 % of the time
+
+
+	Station 15:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 37.15277777777778 % of the time
+
+
+	Station 18:
+		This station was full 18.75 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 19:
+		This station was full 27.77777777777778 % of the time
+		This station was empty 49.30555555555556 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 30.90277777777778 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 32.29166666666667 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 26:
+		This station was full 0.0 % of the time
+		This station was empty 25.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 63.19444444444445 % of the time
+
+
+	Station 28:
+		This station was full 0.0 % of the time
+		This station was empty 31.944444444444446 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 88.88888888888889 % of the time
+
+
+	Station 30:
+		This station was full 38.54166666666667 % of the time
+		This station was empty 61.458333333333336 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 32:
+		This station was full 0.0 % of the time
+		This station was empty 68.40277777777779 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 38:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 39:
+		This station was full 0.0 % of the time
+		This station was empty 56.59722222222222 % of the time
+
+
+	Station 40:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 41:
+		This station was full 0.0 % of the time
+		This station was empty 60.06944444444445 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 30.90277777777778 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 66.66666666666667 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 46:
+		This station was full 86.11111111111111 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 47:
+		This station was full 37.5 % of the time
+		This station was empty 62.5 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 49:
+		This station was full 51.04166666666667 % of the time
+		This station was empty 48.958333333333336 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 56:
+		This station was full 43.75 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 3
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 96.52777777777779 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 2:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 44.09722222222222 % of the time
+
+
+	Station 5:
+		This station was full 0.0 % of the time
+		This station was empty 37.84722222222222 % of the time
+
+
+	Station 6:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 8:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 21.875 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 33.68055555555556 % of the time
+		This station was empty 44.79166666666667 % of the time
+
+
+	Station 13:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 14:
+		This station was full 52.77777777777778 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 15:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 30.208333333333336 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 19:
+		This station was full 0.0 % of the time
+		This station was empty 62.15277777777778 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 55.90277777777778 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 26:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 35.06944444444444 % of the time
+
+
+	Station 28:
+		This station was full 1.0416666666666667 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 30:
+		This station was full 9.027777777777779 % of the time
+		This station was empty 90.97222222222223 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 32:
+		This station was full 0.0 % of the time
+		This station was empty 49.30555555555556 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 32.63888888888889 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 38:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 39:
+		This station was full 0.0 % of the time
+		This station was empty 79.16666666666667 % of the time
+
+
+	Station 40:
+		This station was full 2.0833333333333335 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 41:
+		This station was full 0.0 % of the time
+		This station was empty 52.43055555555556 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 53.125 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 46:
+		This station was full 34.375 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 47:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 49:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 42.361111111111114 % of the time
+
+
+	Station 56:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 4
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 55.55555555555556 % of the time
+
+
+	Station 1:
+		This station was full 21.875 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 2:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 37.15277777777778 % of the time
+
+
+	Station 5:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 6:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 44.09722222222222 % of the time
+
+
+	Station 8:
+		This station was full 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 6.944444444444445 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 97.56944444444444 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 0.0 % of the time
+		This station was empty 37.15277777777778 % of the time
+
+
+	Station 13:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 14:
+		This station was full 10.76388888888889 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 15:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 34.375 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 19:
+		This station was full 0.0 % of the time
+		This station was empty 75.34722222222223 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 26.73611111111111 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 26:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 28:
+		This station was full 26.73611111111111 % of the time
+		This station was empty 68.75 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 30:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 32:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 38:
+		This station was full 67.70833333333334 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 39:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 40:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 41:
+		This station was full 0.0 % of the time
+		This station was empty 66.31944444444444 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 50.69444444444444 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 46:
+		This station was full 34.02777777777778 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 47:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 49:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 95.13888888888889 % of the time
+
+
+	Station 56:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 5
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 1:
+		This station was full 34.02777777777778 % of the time
+		This station was empty 2.0833333333333335 % of the time
+
+
+	Station 2:
+		This station was full 26.73611111111111 % of the time
+		This station was empty 48.611111111111114 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 53.81944444444445 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 5:
+		This station was full 0.0 % of the time
+		This station was empty 26.38888888888889 % of the time
+
+
+	Station 6:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 47.91666666666667 % of the time
+
+
+	Station 8:
+		This station was full 28.125 % of the time
+		This station was empty 40.625 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 47.22222222222222 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 13:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 14:
+		This station was full 0.0 % of the time
+		This station was empty 68.40277777777779 % of the time
+
+
+	Station 15:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 77.08333333333334 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 27.77777777777778 % of the time
+
+
+	Station 19:
+		This station was full 0.0 % of the time
+		This station was empty 72.56944444444444 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 72.22222222222223 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 44.79166666666667 % of the time
+
+
+	Station 26:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 20.13888888888889 % of the time
+
+
+	Station 28:
+		This station was full 0.0 % of the time
+		This station was empty 6.944444444444445 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 40.27777777777778 % of the time
+
+
+	Station 30:
+		This station was full 89.93055555555556 % of the time
+		This station was empty 10.069444444444445 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 57.986111111111114 % of the time
+
+
+	Station 32:
+		This station was full 0.0 % of the time
+		This station was empty 69.79166666666667 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 94.09722222222223 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 52.43055555555556 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 68.75 % of the time
+
+
+	Station 36:
+		This station was full 19.791666666666668 % of the time
+		This station was empty 50.0 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 4.861111111111112 % of the time
+
+
+	Station 38:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 39:
+		This station was full 0.0 % of the time
+		This station was empty 81.59722222222223 % of the time
+
+
+	Station 40:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 41:
+		This station was full 5.555555555555555 % of the time
+		This station was empty 14.583333333333334 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 70.13888888888889 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 89.93055555555556 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 46:
+		This station was full 55.55555555555556 % of the time
+		This station was empty 20.13888888888889 % of the time
+
+
+	Station 47:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 79.86111111111111 % of the time
+
+
+	Station 49:
+		This station was full 33.68055555555556 % of the time
+		This station was empty 66.31944444444444 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 56:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 6
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 7.986111111111112 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 52.77777777777778 % of the time
+
+
+	Station 2:
+		This station was full 0.0 % of the time
+		This station was empty 49.65277777777778 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 36.111111111111114 % of the time
+
+
+	Station 5:
+		This station was full 5.208333333333334 % of the time
+		This station was empty 48.26388888888889 % of the time
+
+
+	Station 6:
+		This station was full 33.333333333333336 % of the time
+		This station was empty 66.66666666666667 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 64.23611111111111 % of the time
+
+
+	Station 8:
+		This station was full 0.0 % of the time
+		This station was empty 67.70833333333334 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 55.90277777777778 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 13:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 14:
+		This station was full 0.0 % of the time
+		This station was empty 69.79166666666667 % of the time
+
+
+	Station 15:
+		This station was full 26.041666666666668 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 43.05555555555556 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 76.73611111111111 % of the time
+
+
+	Station 19:
+		This station was full 7.638888888888889 % of the time
+		This station was empty 19.09722222222222 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 71.52777777777779 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 52.77777777777778 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 87.15277777777779 % of the time
+
+
+	Station 26:
+		This station was full 0.0 % of the time
+		This station was empty 50.69444444444444 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 67.36111111111111 % of the time
+
+
+	Station 28:
+		This station was full 23.958333333333336 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 30:
+		This station was full 24.65277777777778 % of the time
+		This station was empty 75.34722222222223 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 53.125 % of the time
+
+
+	Station 32:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 36:
+		This station was full 41.66666666666667 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 54.16666666666667 % of the time
+
+
+	Station 38:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 39:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 40:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 41:
+		This station was full 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 37.5 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 45.833333333333336 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 46:
+		This station was full 0.0 % of the time
+		This station was empty 76.04166666666667 % of the time
+
+
+	Station 47:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 49:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 56:
+		This station was full 79.86111111111111 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 7
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 71.875 % of the time
+
+
+	Station 2:
+		This station was full 0.0 % of the time
+		This station was empty 50.34722222222222 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 75.0 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 63.54166666666667 % of the time
+
+
+	Station 5:
+		This station was full 0.0 % of the time
+		This station was empty 67.70833333333334 % of the time
+
+
+	Station 6:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 8:
+		This station was full 0.0 % of the time
+		This station was empty 82.63888888888889 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 12.5 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 78.47222222222223 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 95.83333333333334 % of the time
+
+
+	Station 12:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 13:
+		This station was full 21.52777777777778 % of the time
+		This station was empty 60.06944444444445 % of the time
+
+
+	Station 14:
+		This station was full 0.0 % of the time
+		This station was empty 93.40277777777779 % of the time
+
+
+	Station 15:
+		This station was full 57.63888888888889 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 68.75 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 92.01388888888889 % of the time
+
+
+	Station 19:
+		This station was full 0.0 % of the time
+		This station was empty 71.875 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 96.52777777777779 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 96.18055555555556 % of the time
+
+
+	Station 26:
+		This station was full 0.0 % of the time
+		This station was empty 86.11111111111111 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 51.04166666666667 % of the time
+
+
+	Station 28:
+		This station was full 72.91666666666667 % of the time
+		This station was empty 25.34722222222222 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 30:
+		This station was full 65.625 % of the time
+		This station was empty 34.375 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 32:
+		This station was full 25.0 % of the time
+		This station was empty 73.61111111111111 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 71.52777777777779 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 89.23611111111111 % of the time
+
+
+	Station 38:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 39:
+		This station was full 23.26388888888889 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 40:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 41:
+		This station was full 42.01388888888889 % of the time
+		This station was empty 0.6944444444444444 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 58.68055555555556 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 79.51388888888889 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 46:
+		This station was full 0.0 % of the time
+		This station was empty 70.48611111111111 % of the time
+
+
+	Station 47:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 49:
+		This station was full 23.61111111111111 % of the time
+		This station was empty 76.38888888888889 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 39.583333333333336 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 56:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 8
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 56.94444444444445 % of the time
+
+
+	Station 2:
+		This station was full 0.0 % of the time
+		This station was empty 70.13888888888889 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 64.58333333333334 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 82.29166666666667 % of the time
+
+
+	Station 5:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 6:
+		This station was full 31.944444444444446 % of the time
+		This station was empty 68.05555555555556 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 8:
+		This station was full 0.0 % of the time
+		This station was empty 50.69444444444444 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 84.72222222222223 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 53.81944444444445 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 13:
+		This station was full 33.68055555555556 % of the time
+		This station was empty 53.125 % of the time
+
+
+	Station 14:
+		This station was full 6.25 % of the time
+		This station was empty 71.875 % of the time
+
+
+	Station 15:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 86.45833333333334 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 60.41666666666667 % of the time
+
+
+	Station 19:
+		This station was full 0.0 % of the time
+		This station was empty 65.625 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 59.375 % of the time
+
+
+	Station 26:
+		This station was full 12.847222222222223 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 51.38888888888889 % of the time
+
+
+	Station 28:
+		This station was full 0.0 % of the time
+		This station was empty 35.41666666666667 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 30:
+		This station was full 55.55555555555556 % of the time
+		This station was empty 44.44444444444444 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 49.30555555555556 % of the time
+
+
+	Station 32:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 77.77777777777779 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 34.72222222222222 % of the time
+
+
+	Station 38:
+		This station was full 0.0 % of the time
+		This station was empty 59.72222222222222 % of the time
+
+
+	Station 39:
+		This station was full 0.0 % of the time
+		This station was empty 28.472222222222225 % of the time
+
+
+	Station 40:
+		This station was full 0.0 % of the time
+		This station was empty 50.34722222222222 % of the time
+
+
+	Station 41:
+		This station was full 34.02777777777778 % of the time
+		This station was empty 53.47222222222222 % of the time
+
+
+	Station 42:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 35.41666666666667 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 84.375 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 54.51388888888889 % of the time
+
+
+	Station 46:
+		This station was full 0.0 % of the time
+		This station was empty 93.75 % of the time
+
+
+	Station 47:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 49:
+		This station was full 33.68055555555556 % of the time
+		This station was empty 66.31944444444444 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 55.90277777777778 % of the time
+
+
+	Station 56:
+		This station was full 14.583333333333334 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 9
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 98.95833333333334 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 4.861111111111112 % of the time
+
+
+	Station 2:
+		This station was full 0.0 % of the time
+		This station was empty 57.29166666666667 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 49.30555555555556 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 5:
+		This station was full 8.333333333333334 % of the time
+		This station was empty 55.55555555555556 % of the time
+
+
+	Station 6:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 8:
+		This station was full 0.0 % of the time
+		This station was empty 72.22222222222223 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 86.80555555555556 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 88.19444444444444 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 13:
+		This station was full 0.0 % of the time
+		This station was empty 52.083333333333336 % of the time
+
+
+	Station 14:
+		This station was full 0.0 % of the time
+		This station was empty 69.79166666666667 % of the time
+
+
+	Station 15:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 43.05555555555556 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 19:
+		This station was full 0.0 % of the time
+		This station was empty 75.0 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 81.94444444444444 % of the time
+
+
+	Station 21:
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 97.56944444444444 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 54.16666666666667 % of the time
+
+
+	Station 26:
+		This station was full 55.208333333333336 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 57.986111111111114 % of the time
+
+
+	Station 28:
+		This station was full 0.0 % of the time
+		This station was empty 25.34722222222222 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 30:
+		This station was full 21.875 % of the time
+		This station was empty 78.125 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 32:
+		This station was full 30.208333333333336 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 45.486111111111114 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 76.38888888888889 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 37.5 % of the time
+
+
+	Station 38:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 39:
+		This station was full 0.0 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 40:
+		This station was full 0.0 % of the time
+		This station was empty 70.48611111111111 % of the time
+
+
+	Station 41:
+		This station was full 0.0 % of the time
+		This station was empty 83.68055555555556 % of the time
+
+
+	Station 42:
+		This station was full 86.80555555555556 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 48.958333333333336 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 81.25 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 72.22222222222223 % of the time
+
+
+	Station 46:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 47:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 49:
+		This station was full 19.09722222222222 % of the time
+		This station was empty 80.90277777777779 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 56:
+		This station was full 78.125 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Day: 10
+
+
+	Station 0:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 1:
+		This station was full 0.0 % of the time
+		This station was empty 11.458333333333334 % of the time
+
+
+	Station 2:
+		This station was full 0.0 % of the time
+		This station was empty 56.59722222222222 % of the time
+
+
+	Station 3:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 4:
+		This station was full 0.0 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 5:
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 65.27777777777779 % of the time
+
+
+	Station 6:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 7:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 8:
+		This station was full 0.0 % of the time
+		This station was empty 71.52777777777779 % of the time
+
+
+	Station 9:
+		This station was full 0.0 % of the time
+		This station was empty 65.97222222222223 % of the time
+
+
+	Station 10:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 11:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 12:
+		This station was full 0.0 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 13:
+		This station was full 0.0 % of the time
+		This station was empty 81.59722222222223 % of the time
+
+
+	Station 14:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 15:
+		This station was full 19.791666666666668 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 16:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 17:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 18:
+		This station was full 0.0 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 19:
+		This station was full 0.0 % of the time
+		This station was empty 75.34722222222223 % of the time
+
+
+	Station 20:
+		This station was full 0.0 % of the time
+		This station was empty 59.375 % of the time
+
+
+	Station 21:
+		This station was full 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 22:
+		This station was full 0.0 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 23:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 24:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 25:
+		This station was full 0.0 % of the time
+		This station was empty 72.91666666666667 % of the time
+
+
+	Station 26:
+		This station was full 76.38888888888889 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 27:
+		This station was full 0.0 % of the time
+		This station was empty 61.458333333333336 % of the time
+
+
+	Station 28:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 29:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 30:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 31:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 32:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 33:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 34:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 35:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 36:
+		This station was full 0.0 % of the time
+		This station was empty 20.13888888888889 % of the time
+
+
+	Station 37:
+		This station was full 0.0 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 38:
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 39:
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 83.33333333333334 % of the time
+
+
+	Station 40:
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 41:
+		This station was full 0.0 % of the time
+		This station was empty 46.52777777777778 % of the time
+
+
+	Station 42:
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 43:
+		This station was full 0.0 % of the time
+		This station was empty 51.736111111111114 % of the time
+
+
+	Station 44:
+		This station was full 0.0 % of the time
+		This station was empty 60.06944444444445 % of the time
+
+
+	Station 45:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 46:
+		This station was full 0.0 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 47:
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 48:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 49:
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 99.65277777777779 % of the time
+
+
+	Station 50:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 51:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 52:
+		This station was full 0.0 % of the time
+		This station was empty 100.0 % of the time
+
+
+	Station 53:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 54:
+		This station was full 81.25 % of the time
+		This station was empty 0.0 % of the time
+
+
+	Station 55:
+		This station was full 16.319444444444446 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 56:
+		This station was full 0.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
+
+
+	Station 57:
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
+
+
+Means and STD:
+	Station 0
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 38.84032495974248
+		Average Time Full: 0.0%
+		Average Time Empty: 69.75694444444444%
+	Station 1
+		Standard Deviation Full: 11.506055923585052
+		Standard Deviation Empty: 26.950708034859623
+		Average Time Full: 5.590277777777778%
+		Average Time Empty: 29.583333333333332%
+	Station 2
+		Standard Deviation Full: 13.303822956087231
+		Standard Deviation Empty: 23.407619841980235
+		Average Time Full: 6.805555555555555%
+		Average Time Empty: 59.93055555555554%
+	Station 3
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 36.57687408702929
+		Average Time Full: 0.0%
+		Average Time Empty: 34.270833333333336%
+	Station 4
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 34.02770691602599
+		Average Time Full: 0.0%
+		Average Time Empty: 51.805555555555564%
+	Station 5
+		Standard Deviation Full: 20.717880325955583
+		Standard Deviation Empty: 26.218128984022478
+		Average Time Full: 10.659722222222223%
+		Average Time Empty: 47.88194444444444%
+	Station 6
+		Standard Deviation Full: 13.70732012466332
+		Standard Deviation Empty: 13.707320124663315
+		Average Time Full: 8.819444444444446%
+		Average Time Empty: 91.18055555555557%
+	Station 7
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 24.342234229502242
+		Average Time Full: 0.0%
+		Average Time Empty: 15.625%
+	Station 8
+		Standard Deviation Full: 38.67756321958428
+		Standard Deviation Empty: 30.644382408939308
+		Average Time Full: 25.13888888888889%
+		Average Time Empty: 54.82638888888889%
+	Station 9
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 26.740529937868185
+		Average Time Full: 0.0%
+		Average Time Empty: 46.111111111111114%
+	Station 10
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 14.132243035338604
+		Average Time Full: 0.0%
+		Average Time Empty: 91.04166666666666%
+	Station 11
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 1.2996505050147826
+		Average Time Full: 0.0%
+		Average Time Empty: 99.40972222222223%
+	Station 12
+		Standard Deviation Full: 16.326867401655303
+		Standard Deviation Empty: 41.06071246837412
+		Average Time Full: 9.965277777777779%
+		Average Time Empty: 68.15972222222223%
+	Station 13
+		Standard Deviation Full: 15.37469260959406
+		Standard Deviation Empty: 22.588266724024642
+		Average Time Full: 12.01388888888889%
+		Average Time Empty: 75.52083333333334%
+	Station 14
+		Standard Deviation Full: 16.031028519274816
+		Standard Deviation Empty: 33.810245725953884
+		Average Time Full: 9.131944444444446%
+		Average Time Empty: 62.847222222222214%
+	Station 15
+		Standard Deviation Full: 18.224900294397795
+		Standard Deviation Empty: 0.13888888888888892
+		Average Time Full: 10.347222222222223%
+		Average Time Empty: 0.06944444444444445%
+	Station 16
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 0.0%
+	Station 17
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 23.90543677508126
+		Average Time Full: 0.0%
+		Average Time Empty: 46.52777777777778%
+	Station 18
+		Standard Deviation Full: 13.693063937629153
+		Standard Deviation Empty: 42.26031096787921
+		Average Time Full: 6.25%
+		Average Time Empty: 45.65972222222222%
+	Station 19
+		Standard Deviation Full: 10.440020117879486
+		Standard Deviation Empty: 18.547517803379154
+		Average Time Full: 6.041666666666667%
+		Average Time Empty: 60.13888888888889%
+	Station 20
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 30.616574174742855
+		Average Time Full: 0.0%
+		Average Time Empty: 58.75%
+	Station 21
+		Standard Deviation Full: 28.94694436980811
+		Standard Deviation Empty: 0.0
+		Average Time Full: 90.3125%
+		Average Time Empty: 0.0%
+	Station 22
+		Standard Deviation Full: 10.832498632373346
+		Standard Deviation Empty: 44.46045989655261
+		Average Time Full: 5.243055555555555%
+		Average Time Empty: 50.59027777777778%
+	Station 23
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 0.0%
+	Station 24
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 0.0%
+	Station 25
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 36.66186574209444
+		Average Time Full: 0.0%
+		Average Time Empty: 41.458333333333336%
+	Station 26
+		Standard Deviation Full: 26.385325051748364
+		Standard Deviation Empty: 43.91311084416983
+		Average Time Full: 14.444444444444446%
+		Average Time Empty: 46.18055555555556%
+	Station 27
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 21.77061181882699
+		Average Time Full: 0.0%
+		Average Time Empty: 42.60416666666667%
+	Station 28
+		Standard Deviation Full: 22.478690397590796
+		Standard Deviation Empty: 34.20667612826226
+		Average Time Full: 12.465277777777777%
+		Average Time Empty: 38.36805555555556%
+	Station 29
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 45.90799106805177
+		Average Time Full: 0.0%
+		Average Time Empty: 42.95138888888889%
+	Station 30
+		Standard Deviation Full: 28.27866543165853
+		Standard Deviation Empty: 28.27866543165853
+		Average Time Full: 35.45138888888889%
+		Average Time Empty: 64.54861111111111%
+	Station 31
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 21.410297727155314
+		Average Time Full: 0.0%
+		Average Time Empty: 86.04166666666666%
+	Station 32
+		Standard Deviation Full: 30.21354121774981
+		Standard Deviation Empty: 37.26878630281067
+		Average Time Full: 15.520833333333334%
+		Average Time Empty: 43.50694444444445%
+	Station 33
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 49.403316618433976
+		Average Time Full: 0.0%
+		Average Time Empty: 49.44444444444444%
+	Station 34
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 22.782011801603364
+		Average Time Full: 0.0%
+		Average Time Empty: 82.56944444444443%
+	Station 35
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 44.33636217810694
+		Average Time Full: 0.0%
+		Average Time Empty: 66.42361111111111%
+	Station 36
+		Standard Deviation Full: 13.229166666666668
+		Standard Deviation Empty: 35.52984367636124
+		Average Time Full: 6.145833333333334%
+		Average Time Empty: 35.06944444444444%
+	Station 37
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 36.35162956763042
+		Average Time Full: 0.0%
+		Average Time Empty: 32.01388888888889%
+	Station 38
+		Standard Deviation Full: 45.86725386211662
+		Standard Deviation Empty: 40.951045021449275
+		Average Time Full: 36.80555555555556%
+		Average Time Empty: 25.9375%
+	Station 39
+		Standard Deviation Full: 16.94230974713605
+		Standard Deviation Empty: 36.83445209986045
+		Average Time Full: 7.777777777777779%
+		Average Time Empty: 55.72916666666667%
+	Station 40
+		Standard Deviation Full: 7.133198661760946
+		Standard Deviation Empty: 35.4575778143386
+		Average Time Full: 2.638888888888889%
+		Average Time Empty: 22.048611111111114%
+	Station 41
+		Standard Deviation Full: 30.98296400672433
+		Standard Deviation Empty: 26.720346181836053
+		Average Time Full: 18.125%
+		Average Time Empty: 42.11805555555556%
+	Station 42
+		Standard Deviation Full: 29.717536786714895
+		Standard Deviation Empty: 0.0
+		Average Time Full: 88.71527777777777%
+		Average Time Empty: 0.0%
+	Station 43
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 13.561461671580725
+		Average Time Full: 0.0%
+		Average Time Empty: 51.215277777777786%
+	Station 44
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 22.65744063495573
+		Average Time Full: 0.0%
+		Average Time Empty: 73.36805555555556%
+	Station 45
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 31.274990007992006
+		Average Time Full: 0.0%
+		Average Time Empty: 82.70833333333333%
+	Station 46
+		Standard Deviation Full: 29.031287168244226
+		Standard Deviation Empty: 43.25453851606389
+		Average Time Full: 21.006944444444446%
+		Average Time Empty: 46.00694444444444%
+	Station 47
+		Standard Deviation Full: 30.832101608280503
+		Standard Deviation Empty: 30.832101608280507
+		Average Time Full: 13.784722222222223%
+		Average Time Empty: 86.21527777777779%
+	Station 48
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 48.288625255742225
+		Average Time Full: 0.0%
+		Average Time Empty: 48.02083333333333%
+	Station 49
+		Standard Deviation Full: 33.9152049462068
+		Standard Deviation Empty: 33.9152049462068
+		Average Time Full: 41.736111111111114%
+		Average Time Empty: 58.26388888888889%
+	Station 50
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 0.0%
+	Station 51
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 0.0%
+	Station 52
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 100.0%
+	Station 53
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 0.0%
+	Station 54
+		Standard Deviation Full: 40.25957443060388
+		Standard Deviation Empty: 0.0
+		Average Time Full: 72.08333333333334%
+		Average Time Empty: 0.0%
+	Station 55
+		Standard Deviation Full: 4.895833333333334
+		Standard Deviation Empty: 41.089990821111314
+		Average Time Full: 1.6319444444444446%
+		Average Time Empty: 54.791666666666664%
+	Station 56
+		Standard Deviation Full: 42.36681712480933
+		Standard Deviation Empty: 0.10416666666666667
+		Average Time Full: 51.63194444444444%
+		Average Time Empty: 0.034722222222222224%
+	Station 57
+		Standard Deviation Full: 0.0
+		Standard Deviation Empty: 0.0
+		Average Time Full: 0.0%
+		Average Time Empty: 0.0%
+
+
+Errors:
+	There were 862 times when a customer or employee did not get a car
+	There were 40 times when a customer could not park
