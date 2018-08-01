@@ -155,14 +155,13 @@ class Update:
                 # assigns customers to cars if available
                 self.assign_customers(current_station, station_dict, errors)
 
-            # TODO - I wasn't assigning any of the tasks!!!
             # If there's only one task at the station it's not in a list. This will make sure everything is the same format.
             # REFACTOR?
 
             if type(driver_requests[logical_station]) == float:
                 driver_requests[logical_station] = [[driver_requests[logical_station]]]
             if type(pedestrian_requests[logical_station]) == float:
-                pedestrian_requests[logical_station] = [[pedestrian_requests[station]]]
+                pedestrian_requests[logical_station] = [[pedestrian_requests[logical_station]]]
 
             if len(driver_requests[logical_station]) > 0:
                 # requests are in the
@@ -177,12 +176,13 @@ class Update:
                 for task in temp_tasks:
                     tasks.append(self.station_ids[task])
                 self.assign_drivers(current_station, tasks, station_dict, errors)
+
             if len(pedestrian_requests[logical_station]) > 0:
                 # Assign Pedestrians
                 # Update employee object and add it to destination enroute list (no car and time travel)
-                print("Station: {}, Ped request: {}".format(station, pedestrian_requests[station]))
+                print("Station: {}, Logical Station: {}, Ped request: {}".format(station, logical_station, pedestrian_requests[logical_station]))
                 # Make destinations of tasks 0 indexed
-                temp_tasks = np.array(driver_requests[logical_station]).astype(int)[0] - 1
+                temp_tasks = np.array(pedestrian_requests[logical_station]).astype(int)[0] - 1
                 # Make them "real" indexed
                 tasks = []
                 for task in temp_tasks:

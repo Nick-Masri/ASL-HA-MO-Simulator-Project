@@ -23,14 +23,17 @@ for curr_time in range(70, len(cust_requests)):
     smart.update_contoller()
     smart.controller.forecast_demand(curr_time)
     [tasks, output] = smart.controller.compute_rebalancing()
-    print("Driver: {}".format(tasks['driverRebalancingQueue']))
-    print("Vehicle: {}".format(tasks['vehicleRebalancingQueue']))
+
     # for k, v in output.items():
     #     print(k, v)
 
     driver_requests = tasks['vehicleRebalancingQueue']
     # driver_requests = [matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), 14.0, matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([])]
     pedestrian_requests = tasks['driverRebalancingQueue']
+    # pedestrian_requests = [matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), 15.0, matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([])]
+
+    print("Ped: {}".format(pedestrian_requests))
+    print("Vehicle: {}".format(driver_requests))
 
     for task in driver_requests:
         if task != matlab.double([]):
