@@ -18,16 +18,21 @@ class Update:
         self.customer_requests = customer_requests
         self.controller = controller
         self.errors = []
+        self.no_parking = 0
+        self.no_idle_vehicle = 0
         self.tool = tool
 
     def loop(self):
         for station_index in sorted(self.station_dict):
-            station = self.station_dict[station_index]
 
             if self.controller == "naive" or self.controller == "n":
                 driver_requests, pedestrian_requests = self.naive()
             else:
                 driver_requests, pedestrian_requests = [], []
+
+            station = self.station_dict[station_index]
+            driver_request = driver_requests[station_index]
+            ped_request = pedestrian_requests[station_index]
 
             # Loop Arrivals
             self.arrivals(station)
@@ -39,25 +44,13 @@ class Update:
                     if customer_request[0] == station_index:
                         self.assign_customers(station, customer_request)
 
-            if len(driver_requests[station_index]) > 0:
-                request = 
-                self.assign_drivers(station, driver_requests[station_index])
-            if len(pedestrian_requests[station_index]) > 0:
-                self.assign_pedestrians(station, pedestrian_requests)
+            if len(driver_request) > 0:
+                request = (station_index, driver_request[0], self.time)
+                self.assign_drivers(station, request)
 
-
-
-            # for origin, pedestrian_request in enumerate(pedestrian_requests):
-            #     if pedestrian_request:
-            #         if origin == station_index:
-            #             request = (origin, pedestrian_request[0], self.time)
-            #             self.assign_pedestrians(request, station)
-            #
-            # for origin, driver_request in enumerate(driver_requests):
-            #     if driver_request:
-            #         if origin == station_index:
-            #             request = (origin, driver_request[0], self.time)
-            #             self.assign_drivers(request, station)
+            if len(ped_request) > 0:
+                request = (station_index, ped_request[0], self.time)
+                self.assign_pedestrians(station, request)
 
         text = output(self.time, self.station_dict)
 
@@ -71,8 +64,7 @@ class Update:
                 if person.vehicle_id is not None:
                     station.car_list.append(person.vehicle_id)
                     if station.calc_parking() < 0:
-                        self.errors.append("No parking for person arriving at time {}".format(self.time))
-                        print("No parking")
+                        self.no_parking += 1
                 if isinstance(person, Employee):
                     person.reset()
                     station.employee_list.append(person)
@@ -81,21 +73,21 @@ class Update:
             else:
                 break
 
-    def assign_drivers(self, station, requests):
+    def assign_drivers(self, station, request):
         # print('Driving {}'.format(request))
 
         driver = station.employee_list[0]
         try:
-            station.employee_list.remove(0)
+            station.employee_list.pop(0)
             driver = Employee(request[0], request[1], request[2])
             driver.update_status(driver, station.car_list.pop(0))
             self.station_dict[driver.destination].en_route_list.append(driver)
         except IndexError:
-            self.errors.append('No car for employee at Station Number {}'.format(driver.origin))
+            self.no_idle_vehicle += 1
 
-    def assign_pedestrians(self, request, station):
+    def assign_pedestrians(self, station, request):
         # print('Walking {}'.format(request))
-        station.employee_list.remove(0)
+        station.employee_list.pop(0)
         ped = Employee(request[0], request[1], request[2])
         self.station_dict[ped.destination].en_route_list.append(ped)
 
@@ -106,7 +98,7 @@ class Update:
             customer.vehicle_id = current_car
             self.station_dict[customer.destination].en_route_list.append(customer)
         except IndexError:
-            self.errors.append('No car for customer at Station Number {}'.format(customer.origin))
+            self.no_idle_vehicle += 1
 
     def naive(self):
 
