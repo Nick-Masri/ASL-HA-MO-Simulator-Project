@@ -2,7 +2,7 @@
 # Variables for Initial State
 ####################################
 
-employees_at_stations = {2: 1, 5: 1}
+employees_at_stations = {2: 5, 5: 5}
 station_dict = {}
 
 ####################################

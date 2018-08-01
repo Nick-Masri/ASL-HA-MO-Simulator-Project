@@ -63,10 +63,10 @@ class Update:
             if person.destination_time == self.time:
                 station.en_route_list.remove(person)
                 if person.vehicle_id is not None:
+                    station.car_list.append(person.vehicle_id)
                     if station.calc_parking() <= 0:
-                        self.no_parking += 1
-                    else:
-                        station.car_list.append(person.vehicle_id)
+                        if station.parking_spots != 0:
+                            self.no_parking += 1
                 if isinstance(person, Employee):
                     person.reset()
                     station.employee_list.append(person)
@@ -99,7 +99,10 @@ class Update:
             customer.vehicle_id = current_car
             self.station_dict[customer.destination].en_route_list.append(customer)
         except IndexError:
-            self.no_idle_vehicle += 1
+            if station.parking_spots != 0:
+                self.no_idle_vehicle += 1
+                print(request)
+                print("No Vehicle")
 
     def naive(self):
 

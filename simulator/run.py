@@ -6,7 +6,7 @@ from simulator.measurement import Measurement
 import math
 import simulator.formatting as var
 
-
+import numpy as np
 ###################
 # Run Setup ~ NM
 ##################
@@ -17,6 +17,7 @@ def run(controller):
 
     tool = Measurement()
     text = []
+    # print(len(np.sum(var.cust_requests, axis=0)))
     for time in range(2880):
         # x = time / 28.79
         # if time % 100 == 0 or time == 2879:

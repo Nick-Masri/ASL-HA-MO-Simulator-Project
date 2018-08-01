@@ -14,8 +14,8 @@ Day: 1
 
 
 	Station 2:
-		This station was full 38.88888888888889 % of the time
-		This station was empty 19.09722222222222 % of the time
+		This station was full 8.333333333333334 % of the time
+		This station was empty 37.15277777777778 % of the time
 
 
 	Station 3:
@@ -29,8 +29,8 @@ Day: 1
 
 
 	Station 5:
-		This station was full 69.09722222222223 % of the time
-		This station was empty 25.0 % of the time
+		This station was full 28.472222222222225 % of the time
+		This station was empty 54.861111111111114 % of the time
 
 
 	Station 6:
@@ -55,12 +55,12 @@ Day: 1
 
 	Station 10:
 		This station was full 0.0 % of the time
-		This station was empty 92.36111111111111 % of the time
+		This station was empty 35.41666666666667 % of the time
 
 
 	Station 11:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 59.375 % of the time
 
 
 	Station 12:
@@ -69,7 +69,7 @@ Day: 1
 
 
 	Station 13:
-		This station was full 25.34722222222222 % of the time
+		This station was full 4.861111111111112 % of the time
 		This station was empty 69.44444444444444 % of the time
 
 
@@ -90,7 +90,7 @@ Day: 1
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 45.13888888888889 % of the time
+		This station was empty 44.09722222222222 % of the time
 
 
 	Station 18:
@@ -99,13 +99,13 @@ Day: 1
 
 
 	Station 19:
-		This station was full 25.0 % of the time
-		This station was empty 35.06944444444444 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 46.875 % of the time
 
 
 	Station 20:
 		This station was full 0.0 % of the time
-		This station was empty 48.26388888888889 % of the time
+		This station was empty 56.25 % of the time
 
 
 	Station 21:
@@ -140,7 +140,7 @@ Day: 1
 
 	Station 27:
 		This station was full 0.0 % of the time
-		This station was empty 18.40277777777778 % of the time
+		This station was empty 19.09722222222222 % of the time
 
 
 	Station 28:
@@ -154,8 +154,8 @@ Day: 1
 
 
 	Station 30:
-		This station was full 49.30555555555556 % of the time
-		This station was empty 50.69444444444444 % of the time
+		This station was full 2.430555555555556 % of the time
+		This station was empty 29.86111111111111 % of the time
 
 
 	Station 31:
@@ -189,7 +189,7 @@ Day: 1
 
 
 	Station 37:
-		This station was full 0.0 % of the time
+		This station was full 3.8194444444444446 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -199,8 +199,8 @@ Day: 1
 
 
 	Station 39:
-		This station was full 54.16666666666667 % of the time
-		This station was empty 28.472222222222225 % of the time
+		This station was full 33.333333333333336 % of the time
+		This station was empty 25.34722222222222 % of the time
 
 
 	Station 40:
@@ -303,12 +303,12 @@ Day: 2
 
 	Station 1:
 		This station was full 0.0 % of the time
-		This station was empty 42.01388888888889 % of the time
+		This station was empty 55.208333333333336 % of the time
 
 
 	Station 2:
-		This station was full 2.430555555555556 % of the time
-		This station was empty 47.56944444444444 % of the time
+		This station was full 3.125 % of the time
+		This station was empty 50.69444444444444 % of the time
 
 
 	Station 3:
@@ -318,12 +318,12 @@ Day: 2
 
 	Station 4:
 		This station was full 0.0 % of the time
-		This station was empty 55.208333333333336 % of the time
+		This station was empty 46.18055555555556 % of the time
 
 
 	Station 5:
-		This station was full 23.61111111111111 % of the time
-		This station was empty 52.77777777777778 % of the time
+		This station was full 1.7361111111111112 % of the time
+		This station was empty 72.22222222222223 % of the time
 
 
 	Station 6:
@@ -337,23 +337,23 @@ Day: 2
 
 
 	Station 8:
-		This station was full 23.61111111111111 % of the time
+		This station was full 3.4722222222222223 % of the time
 		This station was empty 70.83333333333334 % of the time
 
 
 	Station 9:
 		This station was full 0.0 % of the time
-		This station was empty 48.958333333333336 % of the time
+		This station was empty 49.65277777777778 % of the time
 
 
 	Station 10:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 11:
-		This station was full 0.0 % of the time
-		This station was empty 98.26388888888889 % of the time
+		This station was full 18.75 % of the time
+		This station was empty 58.333333333333336 % of the time
 
 
 	Station 12:
@@ -362,8 +362,8 @@ Day: 2
 
 
 	Station 13:
-		This station was full 39.583333333333336 % of the time
-		This station was empty 38.88888888888889 % of the time
+		This station was full 21.52777777777778 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 14:
@@ -383,7 +383,7 @@ Day: 2
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 37.15277777777778 % of the time
+		This station was empty 36.458333333333336 % of the time
 
 
 	Station 18:
@@ -392,13 +392,13 @@ Day: 2
 
 
 	Station 19:
-		This station was full 27.77777777777778 % of the time
-		This station was empty 49.30555555555556 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 72.22222222222223 % of the time
 
 
 	Station 20:
 		This station was full 0.0 % of the time
-		This station was empty 30.90277777777778 % of the time
+		This station was empty 29.86111111111111 % of the time
 
 
 	Station 21:
@@ -433,22 +433,22 @@ Day: 2
 
 	Station 27:
 		This station was full 0.0 % of the time
-		This station was empty 63.19444444444445 % of the time
+		This station was empty 69.09722222222223 % of the time
 
 
 	Station 28:
-		This station was full 0.0 % of the time
-		This station was empty 31.944444444444446 % of the time
+		This station was full 68.05555555555556 % of the time
+		This station was empty 28.819444444444446 % of the time
 
 
 	Station 29:
 		This station was full 0.0 % of the time
-		This station was empty 88.88888888888889 % of the time
+		This station was empty 100.0 % of the time
 
 
 	Station 30:
-		This station was full 38.54166666666667 % of the time
-		This station was empty 61.458333333333336 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
@@ -457,8 +457,8 @@ Day: 2
 
 
 	Station 32:
-		This station was full 0.0 % of the time
-		This station was empty 68.40277777777779 % of the time
+		This station was full 24.65277777777778 % of the time
+		This station was empty 42.708333333333336 % of the time
 
 
 	Station 33:
@@ -477,17 +477,17 @@ Day: 2
 
 
 	Station 36:
-		This station was full 0.0 % of the time
+		This station was full 25.34722222222222 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 37:
-		This station was full 0.0 % of the time
+		This station was full 19.444444444444446 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 38:
-		This station was full 100.0 % of the time
+		This station was full 76.04166666666667 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -518,7 +518,7 @@ Day: 2
 
 	Station 44:
 		This station was full 0.0 % of the time
-		This station was empty 66.66666666666667 % of the time
+		This station was empty 63.19444444444445 % of the time
 
 
 	Station 45:
@@ -542,7 +542,7 @@ Day: 2
 
 
 	Station 49:
-		This station was full 51.04166666666667 % of the time
+		This station was full 36.458333333333336 % of the time
 		This station was empty 48.958333333333336 % of the time
 
 
@@ -601,7 +601,7 @@ Day: 3
 
 	Station 2:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 71.52777777777779 % of the time
 
 
 	Station 3:
@@ -616,7 +616,7 @@ Day: 3
 
 	Station 5:
 		This station was full 0.0 % of the time
-		This station was empty 37.84722222222222 % of the time
+		This station was empty 100.0 % of the time
 
 
 	Station 6:
@@ -630,7 +630,7 @@ Day: 3
 
 
 	Station 8:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -641,7 +641,7 @@ Day: 3
 
 	Station 10:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 11:
@@ -656,7 +656,7 @@ Day: 3
 
 	Station 13:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 83.68055555555556 % of the time
 
 
 	Station 14:
@@ -676,7 +676,7 @@ Day: 3
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 30.208333333333336 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 18:
@@ -686,7 +686,7 @@ Day: 3
 
 	Station 19:
 		This station was full 0.0 % of the time
-		This station was empty 62.15277777777778 % of the time
+		This station was empty 96.18055555555556 % of the time
 
 
 	Station 20:
@@ -726,11 +726,11 @@ Day: 3
 
 	Station 27:
 		This station was full 0.0 % of the time
-		This station was empty 35.06944444444444 % of the time
+		This station was empty 63.54166666666667 % of the time
 
 
 	Station 28:
-		This station was full 1.0416666666666667 % of the time
+		This station was full 98.95833333333334 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -740,8 +740,8 @@ Day: 3
 
 
 	Station 30:
-		This station was full 9.027777777777779 % of the time
-		This station was empty 90.97222222222223 % of the time
+		This station was full 0.3472222222222222 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
@@ -750,8 +750,8 @@ Day: 3
 
 
 	Station 32:
-		This station was full 0.0 % of the time
-		This station was empty 49.30555555555556 % of the time
+		This station was full 49.30555555555556 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 33:
@@ -765,13 +765,13 @@ Day: 3
 
 
 	Station 35:
-		This station was full 0.0 % of the time
+		This station was full 11.11111111111111 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 36:
-		This station was full 0.0 % of the time
-		This station was empty 32.63888888888889 % of the time
+		This station was full 67.36111111111111 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 37:
@@ -780,7 +780,7 @@ Day: 3
 
 
 	Station 38:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -835,7 +835,7 @@ Day: 3
 
 
 	Station 49:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -860,7 +860,7 @@ Day: 3
 
 
 	Station 54:
-		This station was full 100.0 % of the time
+		This station was full 16.666666666666668 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -894,7 +894,7 @@ Day: 4
 
 	Station 2:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 38.19444444444444 % of the time
 
 
 	Station 3:
@@ -909,7 +909,7 @@ Day: 4
 
 	Station 5:
 		This station was full 0.0 % of the time
-		This station was empty 0.0 % of the time
+		This station was empty 86.80555555555556 % of the time
 
 
 	Station 6:
@@ -923,23 +923,23 @@ Day: 4
 
 
 	Station 8:
-		This station was full 99.65277777777779 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 9:
 		This station was full 0.0 % of the time
-		This station was empty 6.944444444444445 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 10:
 		This station was full 0.0 % of the time
-		This station was empty 97.56944444444444 % of the time
+		This station was empty 41.66666666666667 % of the time
 
 
 	Station 11:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 61.80555555555556 % of the time
 
 
 	Station 12:
@@ -969,7 +969,7 @@ Day: 4
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 34.375 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 18:
@@ -984,7 +984,7 @@ Day: 4
 
 	Station 20:
 		This station was full 0.0 % of the time
-		This station was empty 26.73611111111111 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 21:
@@ -1019,12 +1019,12 @@ Day: 4
 
 	Station 27:
 		This station was full 0.0 % of the time
-		This station was empty 0.0 % of the time
+		This station was empty 63.54166666666667 % of the time
 
 
 	Station 28:
-		This station was full 26.73611111111111 % of the time
-		This station was empty 68.75 % of the time
+		This station was full 2.7777777777777777 % of the time
+		This station was empty 67.01388888888889 % of the time
 
 
 	Station 29:
@@ -1034,7 +1034,7 @@ Day: 4
 
 	Station 30:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
@@ -1058,12 +1058,12 @@ Day: 4
 
 
 	Station 35:
-		This station was full 0.0 % of the time
-		This station was empty 0.3472222222222222 % of the time
+		This station was full 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 36:
-		This station was full 0.0 % of the time
+		This station was full 100.0 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -1073,13 +1073,13 @@ Day: 4
 
 
 	Station 38:
-		This station was full 67.70833333333334 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 39:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 91.31944444444444 % of the time
 
 
 	Station 40:
@@ -1128,7 +1128,7 @@ Day: 4
 
 
 	Station 49:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -1153,13 +1153,13 @@ Day: 4
 
 
 	Station 54:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 55:
 		This station was full 0.0 % of the time
-		This station was empty 95.13888888888889 % of the time
+		This station was empty 87.84722222222223 % of the time
 
 
 	Station 56:
@@ -1186,8 +1186,8 @@ Day: 5
 
 
 	Station 2:
-		This station was full 26.73611111111111 % of the time
-		This station was empty 48.611111111111114 % of the time
+		This station was full 3.125 % of the time
+		This station was empty 34.72222222222222 % of the time
 
 
 	Station 3:
@@ -1202,12 +1202,12 @@ Day: 5
 
 	Station 5:
 		This station was full 0.0 % of the time
-		This station was empty 26.38888888888889 % of the time
+		This station was empty 61.80555555555556 % of the time
 
 
 	Station 6:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 49.30555555555556 % of the time
+		This station was empty 50.69444444444444 % of the time
 
 
 	Station 7:
@@ -1216,23 +1216,23 @@ Day: 5
 
 
 	Station 8:
-		This station was full 28.125 % of the time
-		This station was empty 40.625 % of the time
+		This station was full 1.7361111111111112 % of the time
+		This station was empty 37.5 % of the time
 
 
 	Station 9:
 		This station was full 0.0 % of the time
-		This station was empty 47.22222222222222 % of the time
+		This station was empty 45.833333333333336 % of the time
 
 
 	Station 10:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 9.027777777777779 % of the time
+		This station was empty 38.19444444444444 % of the time
 
 
 	Station 11:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 36.111111111111114 % of the time
+		This station was empty 59.72222222222222 % of the time
 
 
 	Station 12:
@@ -1247,7 +1247,7 @@ Day: 5
 
 	Station 14:
 		This station was full 0.0 % of the time
-		This station was empty 68.40277777777779 % of the time
+		This station was empty 58.333333333333336 % of the time
 
 
 	Station 15:
@@ -1262,7 +1262,7 @@ Day: 5
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 77.08333333333334 % of the time
+		This station was empty 44.79166666666667 % of the time
 
 
 	Station 18:
@@ -1277,7 +1277,7 @@ Day: 5
 
 	Station 20:
 		This station was full 0.0 % of the time
-		This station was empty 72.22222222222223 % of the time
+		This station was empty 46.18055555555556 % of the time
 
 
 	Station 21:
@@ -1312,11 +1312,11 @@ Day: 5
 
 	Station 27:
 		This station was full 0.0 % of the time
-		This station was empty 20.13888888888889 % of the time
+		This station was empty 65.625 % of the time
 
 
 	Station 28:
-		This station was full 0.0 % of the time
+		This station was full 68.05555555555556 % of the time
 		This station was empty 6.944444444444445 % of the time
 
 
@@ -1326,8 +1326,8 @@ Day: 5
 
 
 	Station 30:
-		This station was full 89.93055555555556 % of the time
-		This station was empty 10.069444444444445 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
@@ -1336,8 +1336,8 @@ Day: 5
 
 
 	Station 32:
-		This station was full 0.0 % of the time
-		This station was empty 69.79166666666667 % of the time
+		This station was full 2.430555555555556 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 33:
@@ -1351,18 +1351,18 @@ Day: 5
 
 
 	Station 35:
-		This station was full 0.0 % of the time
-		This station was empty 68.75 % of the time
+		This station was full 31.25 % of the time
+		This station was empty 64.58333333333334 % of the time
 
 
 	Station 36:
-		This station was full 19.791666666666668 % of the time
-		This station was empty 50.0 % of the time
+		This station was full 30.208333333333336 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 37:
-		This station was full 0.0 % of the time
-		This station was empty 4.861111111111112 % of the time
+		This station was full 3.4722222222222223 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 38:
@@ -1372,7 +1372,7 @@ Day: 5
 
 	Station 39:
 		This station was full 0.0 % of the time
-		This station was empty 81.59722222222223 % of the time
+		This station was empty 41.66666666666667 % of the time
 
 
 	Station 40:
@@ -1406,8 +1406,8 @@ Day: 5
 
 
 	Station 46:
-		This station was full 55.55555555555556 % of the time
-		This station was empty 20.13888888888889 % of the time
+		This station was full 49.30555555555556 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 47:
@@ -1421,8 +1421,8 @@ Day: 5
 
 
 	Station 49:
-		This station was full 33.68055555555556 % of the time
-		This station was empty 66.31944444444444 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 50:
@@ -1446,13 +1446,13 @@ Day: 5
 
 
 	Station 54:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 55:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 82.29166666666667 % of the time
 
 
 	Station 56:
@@ -1475,12 +1475,12 @@ Day: 6
 
 	Station 1:
 		This station was full 0.0 % of the time
-		This station was empty 52.77777777777778 % of the time
+		This station was empty 54.861111111111114 % of the time
 
 
 	Station 2:
 		This station was full 0.0 % of the time
-		This station was empty 49.65277777777778 % of the time
+		This station was empty 80.20833333333334 % of the time
 
 
 	Station 3:
@@ -1494,13 +1494,13 @@ Day: 6
 
 
 	Station 5:
-		This station was full 5.208333333333334 % of the time
-		This station was empty 48.26388888888889 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 68.40277777777779 % of the time
 
 
 	Station 6:
-		This station was full 33.333333333333336 % of the time
-		This station was empty 66.66666666666667 % of the time
+		This station was full 11.805555555555555 % of the time
+		This station was empty 56.94444444444445 % of the time
 
 
 	Station 7:
@@ -1509,8 +1509,8 @@ Day: 6
 
 
 	Station 8:
-		This station was full 0.0 % of the time
-		This station was empty 67.70833333333334 % of the time
+		This station was full 3.125 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 9:
@@ -1524,8 +1524,8 @@ Day: 6
 
 
 	Station 11:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 32.63888888888889 % of the time
+		This station was empty 59.72222222222222 % of the time
 
 
 	Station 12:
@@ -1540,7 +1540,7 @@ Day: 6
 
 	Station 14:
 		This station was full 0.0 % of the time
-		This station was empty 69.79166666666667 % of the time
+		This station was empty 67.01388888888889 % of the time
 
 
 	Station 15:
@@ -1555,7 +1555,7 @@ Day: 6
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 43.05555555555556 % of the time
+		This station was empty 37.84722222222222 % of the time
 
 
 	Station 18:
@@ -1564,13 +1564,13 @@ Day: 6
 
 
 	Station 19:
-		This station was full 7.638888888888889 % of the time
+		This station was full 10.069444444444445 % of the time
 		This station was empty 19.09722222222222 % of the time
 
 
 	Station 20:
 		This station was full 0.0 % of the time
-		This station was empty 71.52777777777779 % of the time
+		This station was empty 58.68055555555556 % of the time
 
 
 	Station 21:
@@ -1595,12 +1595,12 @@ Day: 6
 
 	Station 25:
 		This station was full 0.0 % of the time
-		This station was empty 87.15277777777779 % of the time
+		This station was empty 79.51388888888889 % of the time
 
 
 	Station 26:
 		This station was full 0.0 % of the time
-		This station was empty 50.69444444444444 % of the time
+		This station was empty 39.93055555555556 % of the time
 
 
 	Station 27:
@@ -1609,7 +1609,7 @@ Day: 6
 
 
 	Station 28:
-		This station was full 23.958333333333336 % of the time
+		This station was full 28.819444444444446 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -1619,18 +1619,18 @@ Day: 6
 
 
 	Station 30:
-		This station was full 24.65277777777778 % of the time
-		This station was empty 75.34722222222223 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
 		This station was full 0.0 % of the time
-		This station was empty 53.125 % of the time
+		This station was empty 50.0 % of the time
 
 
 	Station 32:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 1.7361111111111112 % of the time
+		This station was empty 68.75 % of the time
 
 
 	Station 33:
@@ -1649,13 +1649,13 @@ Day: 6
 
 
 	Station 36:
-		This station was full 41.66666666666667 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 37:
 		This station was full 0.0 % of the time
-		This station was empty 54.16666666666667 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 38:
@@ -1674,7 +1674,7 @@ Day: 6
 
 
 	Station 41:
-		This station was full 99.65277777777779 % of the time
+		This station was full 94.09722222222223 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -1685,12 +1685,12 @@ Day: 6
 
 	Station 43:
 		This station was full 0.0 % of the time
-		This station was empty 37.5 % of the time
+		This station was empty 3.4722222222222223 % of the time
 
 
 	Station 44:
 		This station was full 0.0 % of the time
-		This station was empty 45.833333333333336 % of the time
+		This station was empty 19.09722222222222 % of the time
 
 
 	Station 45:
@@ -1700,7 +1700,7 @@ Day: 6
 
 	Station 46:
 		This station was full 0.0 % of the time
-		This station was empty 76.04166666666667 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 47:
@@ -1715,7 +1715,7 @@ Day: 6
 
 	Station 49:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 50:
@@ -1739,13 +1739,13 @@ Day: 6
 
 
 	Station 54:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 55:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 56:
@@ -1768,12 +1768,12 @@ Day: 7
 
 	Station 1:
 		This station was full 0.0 % of the time
-		This station was empty 71.875 % of the time
+		This station was empty 44.44444444444444 % of the time
 
 
 	Station 2:
-		This station was full 0.0 % of the time
-		This station was empty 50.34722222222222 % of the time
+		This station was full 1.7361111111111112 % of the time
+		This station was empty 66.31944444444444 % of the time
 
 
 	Station 3:
@@ -1783,12 +1783,12 @@ Day: 7
 
 	Station 4:
 		This station was full 0.0 % of the time
-		This station was empty 63.54166666666667 % of the time
+		This station was empty 59.375 % of the time
 
 
 	Station 5:
 		This station was full 0.0 % of the time
-		This station was empty 67.70833333333334 % of the time
+		This station was empty 73.61111111111111 % of the time
 
 
 	Station 6:
@@ -1802,8 +1802,8 @@ Day: 7
 
 
 	Station 8:
-		This station was full 0.0 % of the time
-		This station was empty 82.63888888888889 % of the time
+		This station was full 4.861111111111112 % of the time
+		This station was empty 0.3472222222222222 % of the time
 
 
 	Station 9:
@@ -1813,12 +1813,12 @@ Day: 7
 
 	Station 10:
 		This station was full 0.0 % of the time
-		This station was empty 78.47222222222223 % of the time
+		This station was empty 48.611111111111114 % of the time
 
 
 	Station 11:
-		This station was full 0.0 % of the time
-		This station was empty 95.83333333333334 % of the time
+		This station was full 15.277777777777779 % of the time
+		This station was empty 59.375 % of the time
 
 
 	Station 12:
@@ -1827,7 +1827,7 @@ Day: 7
 
 
 	Station 13:
-		This station was full 21.52777777777778 % of the time
+		This station was full 3.125 % of the time
 		This station was empty 60.06944444444445 % of the time
 
 
@@ -1848,7 +1848,7 @@ Day: 7
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 68.75 % of the time
+		This station was empty 43.75 % of the time
 
 
 	Station 18:
@@ -1888,12 +1888,12 @@ Day: 7
 
 	Station 25:
 		This station was full 0.0 % of the time
-		This station was empty 96.18055555555556 % of the time
+		This station was empty 39.236111111111114 % of the time
 
 
 	Station 26:
 		This station was full 0.0 % of the time
-		This station was empty 86.11111111111111 % of the time
+		This station was empty 44.79166666666667 % of the time
 
 
 	Station 27:
@@ -1902,8 +1902,8 @@ Day: 7
 
 
 	Station 28:
-		This station was full 72.91666666666667 % of the time
-		This station was empty 25.34722222222222 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 29:
@@ -1912,17 +1912,17 @@ Day: 7
 
 
 	Station 30:
-		This station was full 65.625 % of the time
-		This station was empty 34.375 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 51.736111111111114 % of the time
 
 
 	Station 32:
-		This station was full 25.0 % of the time
+		This station was full 2.430555555555556 % of the time
 		This station was empty 73.61111111111111 % of the time
 
 
@@ -1933,7 +1933,7 @@ Day: 7
 
 	Station 34:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 42.01388888888889 % of the time
 
 
 	Station 35:
@@ -1942,13 +1942,13 @@ Day: 7
 
 
 	Station 36:
-		This station was full 0.0 % of the time
-		This station was empty 71.52777777777779 % of the time
+		This station was full 11.805555555555555 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 37:
-		This station was full 0.0 % of the time
-		This station was empty 89.23611111111111 % of the time
+		This station was full 15.972222222222223 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 38:
@@ -1963,12 +1963,12 @@ Day: 7
 
 	Station 40:
 		This station was full 0.0 % of the time
-		This station was empty 0.0 % of the time
+		This station was empty 70.48611111111111 % of the time
 
 
 	Station 41:
-		This station was full 42.01388888888889 % of the time
-		This station was empty 0.6944444444444444 % of the time
+		This station was full 0.6944444444444444 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 42:
@@ -1978,12 +1978,12 @@ Day: 7
 
 	Station 43:
 		This station was full 0.0 % of the time
-		This station was empty 58.68055555555556 % of the time
+		This station was empty 26.041666666666668 % of the time
 
 
 	Station 44:
 		This station was full 0.0 % of the time
-		This station was empty 79.51388888888889 % of the time
+		This station was empty 49.65277777777778 % of the time
 
 
 	Station 45:
@@ -1993,7 +1993,7 @@ Day: 7
 
 	Station 46:
 		This station was full 0.0 % of the time
-		This station was empty 70.48611111111111 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 47:
@@ -2007,8 +2007,8 @@ Day: 7
 
 
 	Station 49:
-		This station was full 23.61111111111111 % of the time
-		This station was empty 76.38888888888889 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 50:
@@ -2032,13 +2032,13 @@ Day: 7
 
 
 	Station 54:
-		This station was full 39.583333333333336 % of the time
+		This station was full 60.41666666666667 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 55:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 56:
@@ -2061,27 +2061,27 @@ Day: 8
 
 	Station 1:
 		This station was full 0.0 % of the time
-		This station was empty 56.94444444444445 % of the time
+		This station was empty 22.569444444444446 % of the time
 
 
 	Station 2:
 		This station was full 0.0 % of the time
-		This station was empty 70.13888888888889 % of the time
+		This station was empty 64.93055555555556 % of the time
 
 
 	Station 3:
 		This station was full 0.0 % of the time
-		This station was empty 64.58333333333334 % of the time
+		This station was empty 39.93055555555556 % of the time
 
 
 	Station 4:
 		This station was full 0.0 % of the time
-		This station was empty 82.29166666666667 % of the time
+		This station was empty 93.05555555555556 % of the time
 
 
 	Station 5:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 95.48611111111111 % of the time
 
 
 	Station 6:
@@ -2095,13 +2095,13 @@ Day: 8
 
 
 	Station 8:
-		This station was full 0.0 % of the time
-		This station was empty 50.69444444444444 % of the time
+		This station was full 5.555555555555555 % of the time
+		This station was empty 39.236111111111114 % of the time
 
 
 	Station 9:
 		This station was full 0.0 % of the time
-		This station was empty 84.72222222222223 % of the time
+		This station was empty 71.18055555555556 % of the time
 
 
 	Station 10:
@@ -2111,7 +2111,7 @@ Day: 8
 
 	Station 11:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 60.41666666666667 % of the time
 
 
 	Station 12:
@@ -2120,8 +2120,8 @@ Day: 8
 
 
 	Station 13:
-		This station was full 33.68055555555556 % of the time
-		This station was empty 53.125 % of the time
+		This station was full 13.194444444444445 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 14:
@@ -2141,7 +2141,7 @@ Day: 8
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 86.45833333333334 % of the time
+		This station was empty 49.65277777777778 % of the time
 
 
 	Station 18:
@@ -2181,7 +2181,7 @@ Day: 8
 
 	Station 25:
 		This station was full 0.0 % of the time
-		This station was empty 59.375 % of the time
+		This station was empty 36.80555555555556 % of the time
 
 
 	Station 26:
@@ -2191,12 +2191,12 @@ Day: 8
 
 	Station 27:
 		This station was full 0.0 % of the time
-		This station was empty 51.38888888888889 % of the time
+		This station was empty 55.208333333333336 % of the time
 
 
 	Station 28:
 		This station was full 0.0 % of the time
-		This station was empty 35.41666666666667 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 29:
@@ -2205,17 +2205,17 @@ Day: 8
 
 
 	Station 30:
-		This station was full 55.55555555555556 % of the time
-		This station was empty 44.44444444444444 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
 		This station was full 0.0 % of the time
-		This station was empty 49.30555555555556 % of the time
+		This station was empty 28.125 % of the time
 
 
 	Station 32:
-		This station was full 100.0 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -2226,7 +2226,7 @@ Day: 8
 
 	Station 34:
 		This station was full 0.0 % of the time
-		This station was empty 77.77777777777779 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 35:
@@ -2236,32 +2236,32 @@ Day: 8
 
 	Station 36:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 66.31944444444444 % of the time
 
 
 	Station 37:
 		This station was full 0.0 % of the time
-		This station was empty 34.72222222222222 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 38:
-		This station was full 0.0 % of the time
-		This station was empty 59.72222222222222 % of the time
+		This station was full 1.0416666666666667 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 39:
-		This station was full 0.0 % of the time
-		This station was empty 28.472222222222225 % of the time
+		This station was full 31.944444444444446 % of the time
+		This station was empty 25.34722222222222 % of the time
 
 
 	Station 40:
 		This station was full 0.0 % of the time
-		This station was empty 50.34722222222222 % of the time
+		This station was empty 79.51388888888889 % of the time
 
 
 	Station 41:
-		This station was full 34.02777777777778 % of the time
-		This station was empty 53.47222222222222 % of the time
+		This station was full 53.47222222222222 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 42:
@@ -2270,13 +2270,13 @@ Day: 8
 
 
 	Station 43:
-		This station was full 0.0 % of the time
+		This station was full 4.513888888888889 % of the time
 		This station was empty 35.41666666666667 % of the time
 
 
 	Station 44:
 		This station was full 0.0 % of the time
-		This station was empty 84.375 % of the time
+		This station was empty 41.66666666666667 % of the time
 
 
 	Station 45:
@@ -2286,7 +2286,7 @@ Day: 8
 
 	Station 46:
 		This station was full 0.0 % of the time
-		This station was empty 93.75 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 47:
@@ -2300,8 +2300,8 @@ Day: 8
 
 
 	Station 49:
-		This station was full 33.68055555555556 % of the time
-		This station was empty 66.31944444444444 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 50:
@@ -2325,18 +2325,18 @@ Day: 8
 
 
 	Station 54:
-		This station was full 0.0 % of the time
+		This station was full 100.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 55:
-		This station was full 0.0 % of the time
-		This station was empty 55.90277777777778 % of the time
+		This station was full 44.09722222222222 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 56:
-		This station was full 14.583333333333334 % of the time
-		This station was empty 0.0 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 8.333333333333334 % of the time
 
 
 	Station 57:
@@ -2349,22 +2349,22 @@ Day: 9
 
 	Station 0:
 		This station was full 0.0 % of the time
-		This station was empty 98.95833333333334 % of the time
+		This station was empty 100.0 % of the time
 
 
 	Station 1:
-		This station was full 0.0 % of the time
-		This station was empty 4.861111111111112 % of the time
+		This station was full 19.444444444444446 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 2:
 		This station was full 0.0 % of the time
-		This station was empty 57.29166666666667 % of the time
+		This station was empty 73.95833333333334 % of the time
 
 
 	Station 3:
 		This station was full 0.0 % of the time
-		This station was empty 49.30555555555556 % of the time
+		This station was empty 13.88888888888889 % of the time
 
 
 	Station 4:
@@ -2373,13 +2373,13 @@ Day: 9
 
 
 	Station 5:
-		This station was full 8.333333333333334 % of the time
-		This station was empty 55.55555555555556 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 88.19444444444444 % of the time
 
 
 	Station 6:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 42.361111111111114 % of the time
+		This station was empty 57.63888888888889 % of the time
 
 
 	Station 7:
@@ -2388,23 +2388,23 @@ Day: 9
 
 
 	Station 8:
-		This station was full 0.0 % of the time
-		This station was empty 72.22222222222223 % of the time
+		This station was full 2.0833333333333335 % of the time
+		This station was empty 48.26388888888889 % of the time
 
 
 	Station 9:
 		This station was full 0.0 % of the time
-		This station was empty 86.80555555555556 % of the time
+		This station was empty 47.22222222222222 % of the time
 
 
 	Station 10:
 		This station was full 0.0 % of the time
-		This station was empty 88.19444444444444 % of the time
+		This station was empty 60.41666666666667 % of the time
 
 
 	Station 11:
-		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was full 40.625 % of the time
+		This station was empty 33.333333333333336 % of the time
 
 
 	Station 12:
@@ -2413,13 +2413,13 @@ Day: 9
 
 
 	Station 13:
-		This station was full 0.0 % of the time
-		This station was empty 52.083333333333336 % of the time
+		This station was full 34.72222222222222 % of the time
+		This station was empty 46.875 % of the time
 
 
 	Station 14:
 		This station was full 0.0 % of the time
-		This station was empty 69.79166666666667 % of the time
+		This station was empty 39.93055555555556 % of the time
 
 
 	Station 15:
@@ -2434,17 +2434,17 @@ Day: 9
 
 	Station 17:
 		This station was full 0.0 % of the time
-		This station was empty 43.05555555555556 % of the time
+		This station was empty 41.66666666666667 % of the time
 
 
 	Station 18:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 28.125 % of the time
 
 
 	Station 19:
 		This station was full 0.0 % of the time
-		This station was empty 75.0 % of the time
+		This station was empty 73.61111111111111 % of the time
 
 
 	Station 20:
@@ -2459,7 +2459,7 @@ Day: 9
 
 	Station 22:
 		This station was full 0.0 % of the time
-		This station was empty 97.56944444444444 % of the time
+		This station was empty 80.20833333333334 % of the time
 
 
 	Station 23:
@@ -2474,7 +2474,7 @@ Day: 9
 
 	Station 25:
 		This station was full 0.0 % of the time
-		This station was empty 54.16666666666667 % of the time
+		This station was empty 23.26388888888889 % of the time
 
 
 	Station 26:
@@ -2484,12 +2484,12 @@ Day: 9
 
 	Station 27:
 		This station was full 0.0 % of the time
-		This station was empty 57.986111111111114 % of the time
+		This station was empty 49.30555555555556 % of the time
 
 
 	Station 28:
 		This station was full 0.0 % of the time
-		This station was empty 25.34722222222222 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 29:
@@ -2498,17 +2498,17 @@ Day: 9
 
 
 	Station 30:
-		This station was full 21.875 % of the time
-		This station was empty 78.125 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 31:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 18.40277777777778 % of the time
 
 
 	Station 32:
-		This station was full 30.208333333333336 % of the time
+		This station was full 0.0 % of the time
 		This station was empty 0.0 % of the time
 
 
@@ -2519,7 +2519,7 @@ Day: 9
 
 	Station 34:
 		This station was full 0.0 % of the time
-		This station was empty 45.486111111111114 % of the time
+		This station was empty 17.708333333333336 % of the time
 
 
 	Station 35:
@@ -2529,22 +2529,22 @@ Day: 9
 
 	Station 36:
 		This station was full 0.0 % of the time
-		This station was empty 76.38888888888889 % of the time
+		This station was empty 78.47222222222223 % of the time
 
 
 	Station 37:
 		This station was full 0.0 % of the time
-		This station was empty 37.5 % of the time
+		This station was empty 27.083333333333336 % of the time
 
 
 	Station 38:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 39:
 		This station was full 0.0 % of the time
-		This station was empty 99.65277777777779 % of the time
+		This station was empty 98.61111111111111 % of the time
 
 
 	Station 40:
@@ -2553,8 +2553,8 @@ Day: 9
 
 
 	Station 41:
-		This station was full 0.0 % of the time
-		This station was empty 83.68055555555556 % of the time
+		This station was full 83.68055555555556 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 42:
@@ -2563,13 +2563,13 @@ Day: 9
 
 
 	Station 43:
-		This station was full 0.0 % of the time
-		This station was empty 48.958333333333336 % of the time
+		This station was full 45.486111111111114 % of the time
+		This station was empty 17.708333333333336 % of the time
 
 
 	Station 44:
 		This station was full 0.0 % of the time
-		This station was empty 81.25 % of the time
+		This station was empty 60.06944444444445 % of the time
 
 
 	Station 45:
@@ -2579,7 +2579,7 @@ Day: 9
 
 	Station 46:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 47:
@@ -2593,8 +2593,8 @@ Day: 9
 
 
 	Station 49:
-		This station was full 19.09722222222222 % of the time
-		This station was empty 80.90277777777779 % of the time
+		This station was full 22.916666666666668 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 50:
@@ -2618,18 +2618,18 @@ Day: 9
 
 
 	Station 54:
-		This station was full 0.0 % of the time
+		This station was full 100.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 55:
-		This station was full 0.0 % of the time
+		This station was full 100.0 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 56:
-		This station was full 78.125 % of the time
-		This station was empty 0.0 % of the time
+		This station was full 0.0 % of the time
+		This station was empty 21.875 % of the time
 
 
 	Station 57:
@@ -2646,13 +2646,13 @@ Day: 10
 
 
 	Station 1:
-		This station was full 0.0 % of the time
-		This station was empty 11.458333333333334 % of the time
+		This station was full 88.19444444444444 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 2:
 		This station was full 0.0 % of the time
-		This station was empty 56.59722222222222 % of the time
+		This station was empty 13.194444444444445 % of the time
 
 
 	Station 3:
@@ -2681,23 +2681,23 @@ Day: 10
 
 
 	Station 8:
-		This station was full 0.0 % of the time
-		This station was empty 71.52777777777779 % of the time
+		This station was full 5.208333333333334 % of the time
+		This station was empty 0.3472222222222222 % of the time
 
 
 	Station 9:
 		This station was full 0.0 % of the time
-		This station was empty 65.97222222222223 % of the time
+		This station was empty 48.958333333333336 % of the time
 
 
 	Station 10:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 76.04166666666667 % of the time
 
 
 	Station 11:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
 
 
 	Station 12:
@@ -2712,7 +2712,7 @@ Day: 10
 
 	Station 14:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 52.77777777777778 % of the time
 
 
 	Station 15:
@@ -2732,7 +2732,7 @@ Day: 10
 
 	Station 18:
 		This station was full 0.0 % of the time
-		This station was empty 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 19:
@@ -2752,7 +2752,7 @@ Day: 10
 
 	Station 22:
 		This station was full 0.0 % of the time
-		This station was empty 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 23:
@@ -2767,7 +2767,7 @@ Day: 10
 
 	Station 25:
 		This station was full 0.0 % of the time
-		This station was empty 72.91666666666667 % of the time
+		This station was empty 66.66666666666667 % of the time
 
 
 	Station 26:
@@ -2782,7 +2782,7 @@ Day: 10
 
 	Station 28:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
 
 
 	Station 29:
@@ -2792,7 +2792,7 @@ Day: 10
 
 	Station 30:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 0.3472222222222222 % of the time
 
 
 	Station 31:
@@ -2817,7 +2817,7 @@ Day: 10
 
 	Station 35:
 		This station was full 0.0 % of the time
-		This station was empty 100.0 % of the time
+		This station was empty 93.40277777777779 % of the time
 
 
 	Station 36:
@@ -2827,17 +2827,17 @@ Day: 10
 
 	Station 37:
 		This station was full 0.0 % of the time
-		This station was empty 99.65277777777779 % of the time
+		This station was empty 61.458333333333336 % of the time
 
 
 	Station 38:
 		This station was full 0.3472222222222222 % of the time
-		This station was empty 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 39:
 		This station was full 0.3472222222222222 % of the time
-		This station was empty 83.33333333333334 % of the time
+		This station was empty 99.65277777777779 % of the time
 
 
 	Station 40:
@@ -2847,7 +2847,7 @@ Day: 10
 
 	Station 41:
 		This station was full 0.0 % of the time
-		This station was empty 46.52777777777778 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 42:
@@ -2856,13 +2856,13 @@ Day: 10
 
 
 	Station 43:
-		This station was full 0.0 % of the time
-		This station was empty 51.736111111111114 % of the time
+		This station was full 51.736111111111114 % of the time
+		This station was empty 0.3472222222222222 % of the time
 
 
 	Station 44:
 		This station was full 0.0 % of the time
-		This station was empty 60.06944444444445 % of the time
+		This station was empty 71.875 % of the time
 
 
 	Station 45:
@@ -2872,7 +2872,7 @@ Day: 10
 
 	Station 46:
 		This station was full 0.0 % of the time
-		This station was empty 99.65277777777779 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 47:
@@ -2886,8 +2886,8 @@ Day: 10
 
 
 	Station 49:
-		This station was full 0.3472222222222222 % of the time
-		This station was empty 99.65277777777779 % of the time
+		This station was full 100.0 % of the time
+		This station was empty 0.0 % of the time
 
 
 	Station 50:
@@ -2911,18 +2911,18 @@ Day: 10
 
 
 	Station 54:
-		This station was full 81.25 % of the time
+		This station was full 19.09722222222222 % of the time
 		This station was empty 0.0 % of the time
 
 
 	Station 55:
-		This station was full 16.319444444444446 % of the time
+		This station was full 83.33333333333334 % of the time
 		This station was empty 0.3472222222222222 % of the time
 
 
 	Station 56:
 		This station was full 0.0 % of the time
-		This station was empty 0.3472222222222222 % of the time
+		This station was empty 99.65277777777779 % of the time
 
 
 	Station 57:
@@ -2933,79 +2933,79 @@ Day: 10
 Means and STD:
 	Station 0
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 38.84032495974248
+		Standard Deviation Empty: 38.91981657091385
 		Average Time Full: 0.0%
-		Average Time Empty: 69.75694444444444%
+		Average Time Empty: 69.86111111111111%
 	Station 1
-		Standard Deviation Full: 11.506055923585052
-		Standard Deviation Empty: 26.950708034859623
-		Average Time Full: 5.590277777777778%
-		Average Time Empty: 29.583333333333332%
+		Standard Deviation Full: 26.679887673114365
+		Standard Deviation Empty: 24.525517583355533
+		Average Time Full: 16.354166666666668%
+		Average Time Empty: 23.298611111111114%
 	Station 2
-		Standard Deviation Full: 13.303822956087231
-		Standard Deviation Empty: 23.407619841980235
-		Average Time Full: 6.805555555555555%
-		Average Time Empty: 59.93055555555554%
+		Standard Deviation Full: 2.5565083519722176
+		Standard Deviation Empty: 20.583250159151195
+		Average Time Full: 1.6319444444444442%
+		Average Time Empty: 53.090277777777786%
 	Station 3
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 36.57687408702929
+		Standard Deviation Empty: 35.10044009783536
 		Average Time Full: 0.0%
-		Average Time Empty: 34.270833333333336%
+		Average Time Empty: 28.263888888888893%
 	Station 4
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 34.02770691602599
+		Standard Deviation Empty: 35.05715199855801
 		Average Time Full: 0.0%
-		Average Time Empty: 51.805555555555564%
+		Average Time Empty: 51.5625%
 	Station 5
-		Standard Deviation Full: 20.717880325955583
-		Standard Deviation Empty: 26.218128984022478
-		Average Time Full: 10.659722222222223%
-		Average Time Empty: 47.88194444444444%
+		Standard Deviation Full: 8.487861248880481
+		Standard Deviation Empty: 14.344774987585005
+		Average Time Full: 3.055555555555556%
+		Average Time Empty: 76.66666666666667%
 	Station 6
-		Standard Deviation Full: 13.70732012466332
-		Standard Deviation Empty: 13.707320124663315
-		Average Time Full: 8.819444444444446%
-		Average Time Empty: 91.18055555555557%
+		Standard Deviation Full: 18.44871101924481
+		Standard Deviation Empty: 20.076651916106275
+		Average Time Full: 15.833333333333334%
+		Average Time Empty: 81.04166666666667%
 	Station 7
 		Standard Deviation Full: 0.0
 		Standard Deviation Empty: 24.342234229502242
 		Average Time Full: 0.0%
 		Average Time Empty: 15.625%
 	Station 8
-		Standard Deviation Full: 38.67756321958428
-		Standard Deviation Empty: 30.644382408939308
-		Average Time Full: 25.13888888888889%
-		Average Time Empty: 54.82638888888889%
+		Standard Deviation Full: 2.073181283128914
+		Standard Deviation Empty: 32.30116721054489
+		Average Time Full: 2.6041666666666665%
+		Average Time Empty: 28.854166666666668%
 	Station 9
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 26.740529937868185
+		Standard Deviation Empty: 20.585446547692406
 		Average Time Full: 0.0%
-		Average Time Empty: 46.111111111111114%
+		Average Time Empty: 38.333333333333336%
 	Station 10
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 14.132243035338604
-		Average Time Full: 0.0%
-		Average Time Empty: 91.04166666666666%
+		Standard Deviation Full: 2.7083333333333335
+		Standard Deviation Empty: 29.17980854721038
+		Average Time Full: 0.9027777777777779%
+		Average Time Empty: 45.41666666666667%
 	Station 11
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 1.2996505050147826
-		Average Time Full: 0.0%
-		Average Time Empty: 99.40972222222223%
+		Standard Deviation Full: 15.932317300628345
+		Standard Deviation Empty: 23.77062639894347
+		Average Time Full: 14.375%
+		Average Time Empty: 55.24305555555556%
 	Station 12
 		Standard Deviation Full: 16.326867401655303
 		Standard Deviation Empty: 41.06071246837412
 		Average Time Full: 9.965277777777779%
 		Average Time Empty: 68.15972222222223%
 	Station 13
-		Standard Deviation Full: 15.37469260959406
-		Standard Deviation Empty: 22.588266724024642
-		Average Time Full: 12.01388888888889%
-		Average Time Empty: 75.52083333333334%
+		Standard Deviation Full: 11.30052312579673
+		Standard Deviation Empty: 36.214728476712004
+		Average Time Full: 7.7430555555555545%
+		Average Time Empty: 64.16666666666667%
 	Station 14
 		Standard Deviation Full: 16.031028519274816
-		Standard Deviation Empty: 33.810245725953884
+		Standard Deviation Empty: 31.271770965783496
 		Average Time Full: 9.131944444444446%
-		Average Time Empty: 62.847222222222214%
+		Average Time Empty: 53.85416666666667%
 	Station 15
 		Standard Deviation Full: 18.224900294397795
 		Standard Deviation Empty: 0.13888888888888892
@@ -3018,24 +3018,24 @@ Means and STD:
 		Average Time Empty: 0.0%
 	Station 17
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 23.90543677508126
+		Standard Deviation Empty: 19.82906432619727
 		Average Time Full: 0.0%
-		Average Time Empty: 46.52777777777778%
+		Average Time Empty: 29.826388888888893%
 	Station 18
 		Standard Deviation Full: 13.693063937629153
-		Standard Deviation Empty: 42.26031096787921
+		Standard Deviation Empty: 33.825023068299416
 		Average Time Full: 6.25%
-		Average Time Empty: 45.65972222222222%
+		Average Time Empty: 28.506944444444446%
 	Station 19
-		Standard Deviation Full: 10.440020117879486
-		Standard Deviation Empty: 18.547517803379154
-		Average Time Full: 6.041666666666667%
-		Average Time Empty: 60.13888888888889%
+		Standard Deviation Full: 3.0208333333333335
+		Standard Deviation Empty: 19.539820650389366
+		Average Time Full: 1.0069444444444444%
+		Average Time Empty: 66.875%
 	Station 20
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 30.616574174742855
+		Standard Deviation Empty: 33.50327412252439
 		Average Time Full: 0.0%
-		Average Time Empty: 58.75%
+		Average Time Empty: 52.88194444444444%
 	Station 21
 		Standard Deviation Full: 28.94694436980811
 		Standard Deviation Empty: 0.0
@@ -3043,9 +3043,9 @@ Means and STD:
 		Average Time Empty: 0.0%
 	Station 22
 		Standard Deviation Full: 10.832498632373346
-		Standard Deviation Empty: 44.46045989655261
+		Standard Deviation Empty: 41.497631663047656
 		Average Time Full: 5.243055555555555%
-		Average Time Empty: 50.59027777777778%
+		Average Time Empty: 38.88888888888889%
 	Station 23
 		Standard Deviation Full: 0.0
 		Standard Deviation Empty: 0.0
@@ -3058,44 +3058,44 @@ Means and STD:
 		Average Time Empty: 0.0%
 	Station 25
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 36.66186574209444
+		Standard Deviation Empty: 27.89696651503064
 		Average Time Full: 0.0%
-		Average Time Empty: 41.458333333333336%
+		Average Time Empty: 29.02777777777778%
 	Station 26
 		Standard Deviation Full: 26.385325051748364
-		Standard Deviation Empty: 43.91311084416983
+		Standard Deviation Empty: 41.75944531657656
 		Average Time Full: 14.444444444444446%
-		Average Time Empty: 46.18055555555556%
+		Average Time Empty: 40.97222222222222%
 	Station 27
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 21.77061181882699
+		Standard Deviation Empty: 14.02090040433025
 		Average Time Full: 0.0%
-		Average Time Empty: 42.60416666666667%
+		Average Time Empty: 56.527777777777786%
 	Station 28
-		Standard Deviation Full: 22.478690397590796
-		Standard Deviation Empty: 34.20667612826226
-		Average Time Full: 12.465277777777777%
-		Average Time Empty: 38.36805555555556%
+		Standard Deviation Full: 35.75336954249173
+		Standard Deviation Empty: 31.193312782480785
+		Average Time Full: 26.666666666666668%
+		Average Time Empty: 19.305555555555557%
 	Station 29
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 45.90799106805177
+		Standard Deviation Empty: 47.12470783303346
 		Average Time Full: 0.0%
-		Average Time Empty: 42.95138888888889%
+		Average Time Empty: 44.0625%
 	Station 30
-		Standard Deviation Full: 28.27866543165853
-		Standard Deviation Empty: 28.27866543165853
-		Average Time Full: 35.45138888888889%
-		Average Time Empty: 64.54861111111111%
+		Standard Deviation Full: 0.7250212853410106
+		Standard Deviation Empty: 8.947358156371916
+		Average Time Full: 0.2777777777777778%
+		Average Time Empty: 3.020833333333333%
 	Station 31
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 21.410297727155314
+		Standard Deviation Empty: 31.288633526617343
 		Average Time Full: 0.0%
-		Average Time Empty: 86.04166666666666%
+		Average Time Empty: 70.625%
 	Station 32
-		Standard Deviation Full: 30.21354121774981
-		Standard Deviation Empty: 37.26878630281067
-		Average Time Full: 15.520833333333334%
-		Average Time Empty: 43.50694444444445%
+		Standard Deviation Full: 15.507117043872007
+		Standard Deviation Empty: 32.67772512179822
+		Average Time Full: 8.055555555555557%
+		Average Time Empty: 25.90277777777778%
 	Station 33
 		Standard Deviation Full: 0.0
 		Standard Deviation Empty: 49.403316618433976
@@ -3103,69 +3103,69 @@ Means and STD:
 		Average Time Empty: 49.44444444444444%
 	Station 34
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 22.782011801603364
+		Standard Deviation Empty: 36.71932049070874
 		Average Time Full: 0.0%
-		Average Time Empty: 82.56944444444443%
+		Average Time Empty: 66.21527777777779%
 	Station 35
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 44.33636217810694
-		Average Time Full: 0.0%
-		Average Time Empty: 66.42361111111111%
+		Standard Deviation Full: 30.02315930280498
+		Standard Deviation Empty: 43.91954856047786
+		Average Time Full: 14.201388888888891%
+		Average Time Empty: 65.31250000000001%
 	Station 36
-		Standard Deviation Full: 13.229166666666668
-		Standard Deviation Empty: 35.52984367636124
-		Average Time Full: 6.145833333333334%
-		Average Time Empty: 35.06944444444444%
+		Standard Deviation Full: 32.74517269578133
+		Standard Deviation Empty: 28.708055319032276
+		Average Time Full: 23.47222222222222%
+		Average Time Empty: 16.493055555555557%
 	Station 37
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 36.35162956763042
-		Average Time Full: 0.0%
-		Average Time Empty: 32.01388888888889%
+		Standard Deviation Full: 6.909722222222223
+		Standard Deviation Empty: 19.304587555667812
+		Average Time Full: 4.270833333333334%
+		Average Time Empty: 8.854166666666668%
 	Station 38
-		Standard Deviation Full: 45.86725386211662
-		Standard Deviation Empty: 40.951045021449275
-		Average Time Full: 36.80555555555556%
-		Average Time Empty: 25.9375%
+		Standard Deviation Full: 35.546280392869775
+		Standard Deviation Empty: 0.0
+		Average Time Full: 17.743055555555557%
+		Average Time Empty: 0.0%
 	Station 39
-		Standard Deviation Full: 16.94230974713605
-		Standard Deviation Empty: 36.83445209986045
-		Average Time Full: 7.777777777777779%
-		Average Time Empty: 55.72916666666667%
+		Standard Deviation Full: 13.721385770727963
+		Standard Deviation Empty: 36.99129300391988
+		Average Time Full: 8.88888888888889%
+		Average Time Empty: 51.770833333333336%
 	Station 40
 		Standard Deviation Full: 7.133198661760946
-		Standard Deviation Empty: 35.4575778143386
+		Standard Deviation Empty: 39.925965919807496
 		Average Time Full: 2.638888888888889%
-		Average Time Empty: 22.048611111111114%
+		Average Time Empty: 32.01388888888889%
 	Station 41
-		Standard Deviation Full: 30.98296400672433
-		Standard Deviation Empty: 26.720346181836053
-		Average Time Full: 18.125%
-		Average Time Empty: 42.11805555555556%
+		Standard Deviation Full: 36.20320787999966
+		Standard Deviation Empty: 26.91534439476651
+		Average Time Full: 23.75%
+		Average Time Empty: 23.680555555555557%
 	Station 42
 		Standard Deviation Full: 29.717536786714895
 		Standard Deviation Empty: 0.0
 		Average Time Full: 88.71527777777777%
 		Average Time Empty: 0.0%
 	Station 43
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 13.561461671580725
-		Average Time Full: 0.0%
-		Average Time Empty: 51.215277777777786%
+		Standard Deviation Full: 19.31570102122514
+		Standard Deviation Empty: 24.462415466333876
+		Average Time Full: 10.17361111111111%
+		Average Time Empty: 36.28472222222222%
 	Station 44
 		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 22.65744063495573
+		Standard Deviation Empty: 27.331484241881146
 		Average Time Full: 0.0%
-		Average Time Empty: 73.36805555555556%
+		Average Time Empty: 62.15277777777777%
 	Station 45
 		Standard Deviation Full: 0.0
 		Standard Deviation Empty: 31.274990007992006
 		Average Time Full: 0.0%
 		Average Time Empty: 82.70833333333333%
 	Station 46
-		Standard Deviation Full: 29.031287168244226
-		Standard Deviation Empty: 43.25453851606389
-		Average Time Full: 21.006944444444446%
-		Average Time Empty: 46.00694444444444%
+		Standard Deviation Full: 28.3398217311996
+		Standard Deviation Empty: 0.0
+		Average Time Full: 20.381944444444446%
+		Average Time Empty: 0.0%
 	Station 47
 		Standard Deviation Full: 30.832101608280503
 		Standard Deviation Empty: 30.832101608280507
@@ -3177,10 +3177,10 @@ Means and STD:
 		Average Time Full: 0.0%
 		Average Time Empty: 48.02083333333333%
 	Station 49
-		Standard Deviation Full: 33.9152049462068
-		Standard Deviation Empty: 33.9152049462068
-		Average Time Full: 41.736111111111114%
-		Average Time Empty: 58.26388888888889%
+		Standard Deviation Full: 32.163725038206216
+		Standard Deviation Empty: 18.642826418004642
+		Average Time Full: 21.52777777777778%
+		Average Time Empty: 9.305555555555555%
 	Station 50
 		Standard Deviation Full: 0.0
 		Standard Deviation Empty: 0.0
@@ -3202,20 +3202,20 @@ Means and STD:
 		Average Time Full: 0.0%
 		Average Time Empty: 0.0%
 	Station 54
-		Standard Deviation Full: 40.25957443060388
+		Standard Deviation Full: 44.35441456535285
 		Standard Deviation Empty: 0.0
-		Average Time Full: 72.08333333333334%
+		Average Time Full: 49.61805555555556%
 		Average Time Empty: 0.0%
 	Station 55
-		Standard Deviation Full: 4.895833333333334
-		Standard Deviation Empty: 41.089990821111314
-		Average Time Full: 1.6319444444444446%
-		Average Time Empty: 54.791666666666664%
+		Standard Deviation Full: 37.03585248395078
+		Standard Deviation Empty: 34.76783462425977
+		Average Time Full: 22.743055555555557%
+		Average Time Empty: 26.701388888888893%
 	Station 56
-		Standard Deviation Full: 42.36681712480933
-		Standard Deviation Empty: 0.10416666666666667
-		Average Time Full: 51.63194444444444%
-		Average Time Empty: 0.034722222222222224%
+		Standard Deviation Full: 45.10789534241452
+		Standard Deviation Empty: 29.65172064209828
+		Average Time Full: 42.36111111111111%
+		Average Time Empty: 12.98611111111111%
 	Station 57
 		Standard Deviation Full: 0.0
 		Standard Deviation Empty: 0.0
@@ -3224,5 +3224,5 @@ Means and STD:
 
 
 Errors:
-	There were 862 times when a customer or employee did not get a car
-	There were 40 times when a customer could not park
+	There were 734 times when a customer or employee did not get a car
+	There were 185 times when a customer could not park
