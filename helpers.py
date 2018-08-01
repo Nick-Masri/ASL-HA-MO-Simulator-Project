@@ -19,25 +19,8 @@ no_car_emp_errors = np.zeros(shape=(2880, 58))
 ######################################
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def convert_real_to_logical(station):
-    return station_mapping[station]
+# def convert_real_to_logical(station):
+#     return station_mapping[station]
 
 
 ######################################
@@ -77,20 +60,20 @@ class Update:
                 break
             print("length of customer_list: {}".format(len(station.waiting_customers)))
 
-    def assign_pedestrians(self, station, pedestrian_tasks, station_dictionary):
+    def assign_pedestrians(self, station, real_station_id, pedestrian_tasks, station_dictionary):
         for destination in pedestrian_tasks:
             print("Destination: {}".format(destination))
             ped = station.employee_list.pop(0)
-            ped.update_status(station.station_id, destination, self.current_time)
+            ped.update_status(real_station_id, destination, self.current_time)
             station_dictionary[ped.destination].append_en_route_list(ped)
 
-    def assign_drivers(self, station, driver_tasks, station_dictionary, errors):
+    def assign_drivers(self, station, real_station_id, driver_tasks, station_dictionary, errors):
         for destination in driver_tasks:
             driver = station.employee_list[0]
             try:
                 current_car = station.car_list.pop(0)
                 driver = station.employee_list.pop(0)
-                driver.update_status(station.station_id, destination, self.current_time, current_car)
+                driver.update_status(real_station_id, destination, self.current_time, current_car)
                 station_dictionary[driver.destination].append_en_route_list(driver)
             except IndexError:
                 errors.append('No car for employee at Station Number {}'.format(driver.origin))
@@ -175,7 +158,7 @@ class Update:
                 tasks = []
                 for task in temp_tasks:
                     tasks.append(self.station_ids[task])
-                self.assign_drivers(current_station, tasks, station_dict, errors)
+                self.assign_drivers(current_station, station, tasks, station_dict, errors)
 
             if len(pedestrian_requests[logical_station]) > 0:
                 # Assign Pedestrians
@@ -187,7 +170,7 @@ class Update:
                 tasks = []
                 for task in temp_tasks:
                     tasks.append(self.station_ids[task])
-                self.assign_pedestrians(current_station, tasks, station_dict)
+                self.assign_pedestrians(current_station, station, tasks, station_dict)
 
         return errors
 
@@ -220,35 +203,35 @@ def format_instructions(request):
 ######################################
 
 
-def demand_forecast_parser(time):
-    """
-    :param time: current time block
-    :param demand_forecast: matrix with the mean times mod 288 to handle multiple days
-    :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
-    """
-    time = time % 288
-    first_11_time_blocks = DEMAND_FORECAST[time:time + 11]
-
-    time = time + 11
-    next_12_time_blocks = np.sum(DEMAND_FORECAST[time: time + 12], axis=0)
-    parsed_demand = np.vstack((first_11_time_blocks, next_12_time_blocks))
-
-    return parsed_demand
-
-
-def demand_forecast_parser_alt(time):
-    time = time % 288  # For dealing with multiple days
-    first_11_time_blocks = DEMAND_FORECAST_ALT[:, :, time:time + 11]
-    time += 11
-    next_12_time_blocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time + 12], axis=2)
-    parsed_demand = np.zeros((first_11_time_blocks.shape[0],
-                              first_11_time_blocks.shape[1],
-                              first_11_time_blocks.shape[2] + 1))
-
-    for station in range(first_11_time_blocks.shape[0]):
-        parsed_demand[station] = np.hstack((first_11_time_blocks[station], next_12_time_blocks[station].reshape((58, 1))))
-
-    return parsed_demand
+# def demand_forecast_parser(time):
+#     """
+#     :param time: current time block
+#     :param demand_forecast: matrix with the mean times mod 288 to handle multiple days
+#     :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
+#     """
+#     time = time % 288
+#     first_11_time_blocks = DEMAND_FORECAST[time:time + 11]
+#
+#     time = time + 11
+#     next_12_time_blocks = np.sum(DEMAND_FORECAST[time: time + 12], axis=0)
+#     parsed_demand = np.vstack((first_11_time_blocks, next_12_time_blocks))
+#
+#     return parsed_demand
+#
+#
+# def demand_forecast_parser_alt(time):
+#     time = time % 288  # For dealing with multiple days
+#     first_11_time_blocks = DEMAND_FORECAST_ALT[:, :, time:time + 11]
+#     time += 11
+#     next_12_time_blocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time + 12], axis=2)
+#     parsed_demand = np.zeros((first_11_time_blocks.shape[0],
+#                               first_11_time_blocks.shape[1],
+#                               first_11_time_blocks.shape[2] + 1))
+#
+#     for station in range(first_11_time_blocks.shape[0]):
+#         parsed_demand[station] = np.hstack((first_11_time_blocks[station], next_12_time_blocks[station].reshape((58, 1))))
+#
+#     return parsed_demand
 
 
 

@@ -172,9 +172,6 @@ class MoDController():
         #
         #     cleanpaths.append(cleanpath)
 
-
-        # QUESTION - Do the tasks come back with the logical indices? Do I use the station_map?
-        print("when is it printing ******")
         return tasks, output
         # return tasks
 

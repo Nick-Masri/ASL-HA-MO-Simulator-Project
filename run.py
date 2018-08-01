@@ -6,7 +6,6 @@ import matlab
 
 smart = SmartController()
 smart.run()
-print(smart.station_ids)
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
@@ -22,26 +21,32 @@ for curr_time in range(70, len(cust_requests)):
     smart.update_arrivals_and_idle(curr_time)
     smart.update_contoller()
     smart.controller.forecast_demand(curr_time)
+    # Create lots of demand from station 2008 (30) --> 48 (32)
+    fake_demand = np.zeros((58,58,24))
+    fake_demand[30][32] = np.ones((1,24))
+    fake_demand[30][32][23] = 12.
+    smart.controller.forecast['demand'] = fake_demand
+    print(smart.controller.forecast['demand'].shape)
     [tasks, output] = smart.controller.compute_rebalancing()
 
-    # for k, v in output.items():
-    #     print(k, v)
+    for k, v in output.items():
+        if k != 'cplex_out':
+            print(k, v)
 
     driver_requests = tasks['vehicleRebalancingQueue']
     # driver_requests = [matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), 14.0, matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([])]
     pedestrian_requests = tasks['driverRebalancingQueue']
     # pedestrian_requests = [matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), 15.0, matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([]), matlab.double([])]
+    # print("Ped: {}".format(pedestrian_requests))
+    # print("Vehicle: {}".format(driver_requests))
 
-    print("Ped: {}".format(pedestrian_requests))
-    print("Vehicle: {}".format(driver_requests))
-
-    for task in driver_requests:
+    for station, task in enumerate(driver_requests):
         if task != matlab.double([]):
-            print("Driver tasks: {}".format(task))
+            print("Logical Station: {}, Driver tasks: {}".format(station, task))
 
-    for task in pedestrian_requests:
+    for station, task in enumerate(pedestrian_requests):
         if task != matlab.double([]):
-            print("Ped tasks: {}".format(task))
+            print("Logical Station: {}, Driver tasks: {}".format(station, task))
 
 
 for k, v in smart.station_dict.items():
