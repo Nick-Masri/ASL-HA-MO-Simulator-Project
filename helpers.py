@@ -38,6 +38,11 @@ class Update:
         self.station_dict = station_dict
         self.travel_times = travel_times
 
+        self.parking_errors = []
+        self.lost_cust_errors = []
+        self.station_full = []
+        self.station_empty = []
+
     def update_driver_ped_tasks(self, tasks, task_type):
         temp = []
         for index, task in enumerate(tasks):
@@ -102,8 +107,8 @@ class Update:
         while len(station.waiting_customers) > 0:
             customer = station.waiting_customers[0]
             try:
-                current_car = station.car_list.pop(0)
                 customer = station.waiting_customers.pop(0)
+                current_car = station.car_list.pop(0)
                 customer.assign_cust_car(current_car)
                 station_dictionary[customer.destination].append_en_route_list(customer)
                 print("Customer put in car")
@@ -111,9 +116,7 @@ class Update:
                 errors.append('No car for customer at Station Number {}'.format(customer.origin))
                 print("No car for customer")
                 # no_car_cust_errors[current_time, customer.origin] += 1
-                no_car_cust_errors[self.current_time, station.station_id] += 1  # ADDED
-                break
-            print("length of customer_list: {}".format(len(station.waiting_customers)))
+                no_car_cust_errors[self.current_time, station.station_id] += 1  # TODO - update me for new error tracking
 
     def assign_pedestrians(self):
         for task in self.pedestrian_tasks:
@@ -151,7 +154,7 @@ class Update:
                 if current_vehicle_id is not None:
                     if station.get_available_parking() > 0:
                         station.car_list.append(current_vehicle_id)
-                        print("Number of cars at station: {}, Available Parking: {}".format(len(station.car_list), station.get_available_parking()))
+                        print("Number of cars at station: {}, Available Parking: {}".format(self.station_ids[station.station_id], station.get_available_parking()))
                         if isinstance(person, Employee):
                             person.reset()
                             station.employee_list.append(person)
@@ -167,7 +170,7 @@ class Update:
             else:
                 break
 
-    def run(self, station_dict, customer_requests, current_time, stations, driver_requests=[], pedestrian_requests=[]):
+    def run(self, station_dict, customer_requests, current_time, stations):
         self.current_time = current_time
         errors = []
 
