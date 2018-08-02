@@ -18,7 +18,7 @@ for curr_time in range(70, len(cust_requests)):
     print("Time: {}".format(curr_time))
 
     cust_request = cust_requests[curr_time]
-    cust_request = [(5,37), (5,37), (5,37), (5,37)]
+    # cust_request = [(5,37), (5,37), (5,37), (5,37)]
     errors = update.run(smart.station_dict, cust_request, curr_time,  smart.stations, driver_requests, pedestrian_requests)
     smart.update_arrivals_and_idle(curr_time)
     smart.update_contoller()

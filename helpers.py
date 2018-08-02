@@ -75,25 +75,28 @@ class Update:
         real_station_id = self.station_ids[station.station_id]
         # Get the correct travel_matrix. bit drop the current station (it'll always be the closest)
         if isinstance(person, Employee):
-            travel_matrix = self.travel_times['hamo'].drop(index=real_station_id)
+            travel_matrix = self.travel_times['hamo'][real_station_id].drop(index=real_station_id)
         else:
-            travel_matrix = self.travel_times['car'].drop(index=real_station_id)
+            travel_matrix = self.travel_times['car'][real_station_id].drop(index=real_station_id)
 
+        # Find the next closest station with available parking.
         closest_station = None
         while closest_station is None:
             closest_station = travel_matrix.idxmin()
+            print(closest_station)
             # Check if there's parking at the closest station, if there isn't remove that station from the matrix
-            if self.station_dict[closest_station].available_parking == 0:
+            if self.station_dict[closest_station].get_available_parking() == 0:
                 travel_matrix = travel_matrix.drop(index=closest_station)
                 closest_station = None
 
-        station.en_route_list.remove(person)
+        print("Rerouting to station: {}, which has {} parking spots".format(closest_station, self.station_dict[closest_station].get_available_parking()))
+
+        # update the station the person was rerouted to
         self.station_dict[closest_station].en_route_list.append(person)
 
     def update_customer_list(self, requests, time, cust_list):
         customer = Person(requests[0], requests[1], time)
         cust_list.append(customer)
-        print(customer.destination_time)
 
     def assign_customers(self, station, station_dictionary, errors):
         while len(station.waiting_customers) > 0:
@@ -142,11 +145,13 @@ class Update:
         while len(station.en_route_list) > 0:
             person = station.get_en_route_list(True)[0]
             if person.destination_time == self.current_time:
+                print("A person just arrived at station: {}, parking available: {}".format(self.station_ids[station.station_id], station.get_available_parking()))
                 station.get_en_route_list().remove(person)
                 current_vehicle_id = person.vehicle_id
                 if current_vehicle_id is not None:
-                    if station.available_parking > 0:
+                    if station.get_available_parking() > 0:
                         station.car_list.append(current_vehicle_id)
+                        print("Number of cars at station: {}, Available Parking: {}".format(len(station.car_list), station.get_available_parking()))
                         if isinstance(person, Employee):
                             person.reset()
                             station.employee_list.append(person)
