@@ -12,7 +12,7 @@ cust_requests = format_instructions(raw_requests)
 driver_requests = [[] for i in range(smart.n_stations)]
 pedestrian_requests = [[] for i in range(smart.n_stations)]
 
-update = Update(smart.station_mapping, smart.station_ids)
+update = Update(smart.station_mapping, smart.station_ids, smart.station_dict)
 
 for curr_time in range(70, len(cust_requests)):
     print("Time: {}".format(curr_time))
@@ -22,11 +22,11 @@ for curr_time in range(70, len(cust_requests)):
     smart.update_contoller()
     smart.controller.forecast_demand(curr_time)
     # Create lots of demand from station 2008 (30) --> 48 (32)
-    fake_demand = np.zeros((58,58,24))
-    fake_demand[30][32] = np.ones((1,24))
-    fake_demand[30][32][23] = 12.
-    smart.controller.forecast['demand'] = fake_demand
-    print(smart.controller.forecast['demand'].shape)
+    # fake_demand = np.zeros((58,58,24))
+    # fake_demand[30][32] = np.ones((1,24))
+    # fake_demand[30][32][23] = 12.
+    # smart.controller.forecast['demand'] = fake_demand
+    # print(smart.controller.forecast['demand'].shape)
     [tasks, output] = smart.controller.compute_rebalancing()
 
     for k, v in output.items():

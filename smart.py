@@ -120,9 +120,9 @@ class SmartController:
         station_ids = self.stations.index.tolist()
         self.n_stations = len(station_ids)
 
-        # Create the station objects and dictionary - TODO
-        # employees_at_stations = {22: 2, 55: 2}  # TODO - decide if I'm using Real or logical station indices
-        employees_at_stations = {2008: 4}
+        # Create the station objects and dictionary
+        employees_at_stations = {22: 2, 55: 2}
+
         self.station_initializer(employees_at_stations, 'real')
         for k,v in self.station_dict.items():
             print("Station: {}, Number of cars: {}".format(k, v.car_list))
