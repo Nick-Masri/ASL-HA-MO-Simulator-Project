@@ -51,16 +51,22 @@ class Update:
 
 
     def update_driver_ped_tasks(self, tasks, task_type):
+        '''
+        Converts the driver and ped tasks into the 'real_id' format (gotten from station_ids)
+        :param tasks: List where the index is the logical station id and the values are the logical station id (1 indexed
+        :param task_type:
+        :return:
+        '''
         temp = []
         for index, task in enumerate(tasks):
             if task != matlab.double([]):
                 origin = station_ids[index]
                 if type(task) == float:
-                    destination = station_ids[int(task)-1]
+                    destination = station_ids[int(task)-1]  # Matlab is 1 indexed
                     temp.append((origin, destination))
                 else:
                     for sub_task in task[0]:  # It returns a list of one list if there are multiple tasks
-                        destination = station_ids[int(sub_task)-1]
+                        destination = station_ids[int(sub_task)-1]  # Matlab id 1 indexed
                         temp.append((origin, destination))
 
         if task_type == 'driver':
@@ -71,6 +77,11 @@ class Update:
             print("Pedestrian Tasks: {}".format(self.pedestrian_tasks))
 
     def convert_cust_req_to_real_stations(self, tasks):
+        '''
+        Converts the station Requests to the 'real_ids'
+        :param tasks: List of (o, d) format, where o and d are the logical values found in 'inverted_station_map'
+        :return:
+        '''
         temp = []
         for task in tasks:
             temp.append([self.inverted_station_map[task[0]], self.inverted_station_map[task[1]]])
@@ -107,6 +118,13 @@ class Update:
         self.station_dict[closest_station].en_route_list.append(person)
 
     def update_customer_list(self, requests, time, cust_list):
+        '''
+        Adds customers to the customer list of the current station
+        :param requests: Customer request
+        :param time: Current Time
+        :param cust_list: Waiting customer list of the current station
+        :return: No return, appends to the Station objects waiting cust list instead.
+        '''
         customer = Person(requests[0], requests[1], time)
         cust_list.append(customer)
 
@@ -114,7 +132,7 @@ class Update:
         while len(station.waiting_customers) > 0:
             customer = station.waiting_customers[0]
             try:
-                customer = station.waiting_customers.pop(0)
+                customer = station.waiting_customers.pop(0)  # Either way we want to remove the customer from the list.
                 current_car = station.car_list.pop(0)
                 customer.assign_cust_car(current_car)
                 station_dictionary[customer.destination].append_en_route_list(customer)
@@ -126,13 +144,22 @@ class Update:
                 no_car_cust_errors[self.current_time, station.station_id] += 1  # TODO - update me for new error tracking
 
     def assign_pedestrians(self):
+        '''
+        Using the pedestrian tasks from the controller, send employees on the task.
+        :return: Nothing, uses Station objects in station dictionary
+        '''
         for task in self.pedestrian_tasks:
             ped = self.station_dict[task[0]].employee_list.pop(0)
             ped.update_status(task[0], task[1], self.current_time)
             self.station_dict[task[1]].append_en_route_list(ped)
 
     def assign_drivers(self):
-
+        '''
+        Using the pedestrian tasks from the controller, send employees on the task. If there is no car, it logs the
+        error and waits until the next timestep - TODO this could cause an issue. Is this the behavior we really want if
+        there is no car for a driver?
+        :return: Nothing, uses Station objects in station dictionary
+        '''
         for task in self.driver_tasks:
             origin_station = self.station_dict[task[0]]
             driver = origin_station.employee_list[0]
@@ -144,29 +171,36 @@ class Update:
             except IndexError:
                 self.errors['no_vehicle_for_employee'][station_ids[task[0]]] += 1
 
-    def update_employee_list(self, requests, employee_list):
-        for employee in requests:
-            emp_id = employee_list[employee]
-            employee_list[employee] = Employee(requests[0], requests[1], self.current_time, emp_id)
+    # def update_employee_list(self, requests, employee_list):
+    #     for employee in requests:
+    #         emp_id = employee_list[employee]
+    #         employee_list[employee] = Employee(requests[0], requests[1], self.current_time, emp_id)
 
     def arrivals(self, station):
+        '''
+        Processes arrivals. If employees or customers are set to arrive at the current time step, process the arrival.
+        If their is no parking, send them to the nearest station that has parking.
+        :param station: The current station.
+        '''
         while len(station.en_route_list) > 0:
             person = station.get_en_route_list(True)[0]
             if person.destination_time == self.current_time:
-                print("A person just arrived at station: {}, parking available: {}".format(self.station_ids[station.station_id], station.get_available_parking()))
+                print("A person just arrived at station: {}, parking available: {}"
+                      .format(self.station_ids[station.station_id], station.get_available_parking()))
                 station.get_en_route_list().remove(person)
                 current_vehicle_id = person.vehicle_id
                 if current_vehicle_id is not None:
                     if station.get_available_parking() > 0:
                         station.car_list.append(current_vehicle_id)
-                        print("Number of cars at station: {}, Available Parking: {}".format(self.station_ids[station.station_id], station.get_available_parking()))
+                        print("Number of cars at station: {}, Available Parking: {}"
+                              .format(self.station_ids[station.station_id], station.get_available_parking()))
                         if isinstance(person, Employee):
                             person.reset()
                             station.employee_list.append(person)
                         else:
                             del person
                     else:
-                        self.errors['parking_violation'][station.station_id] += 1  #TODO log me
+                        self.errors['parking_violation'][station.station_id] += 1
                         self.reroute_for_overflow(person, station)
                 else:
                     person.reset()
@@ -176,11 +210,26 @@ class Update:
                 break
 
     def update_error_lists(self):
+        '''
+        For all of the keys in self.errors, append them to the corresponding dictionary for error tracking over
+        the course of the simulation.
+        '''
         for k, v in self.errors.items():
             self.error_dict[k].append(v)
 
-    def run(self, station_dict, customer_requests, current_time, stations):
+    def run(self, station_dict, customer_requests, current_time):
+        '''
+        Main logic of the simulation.
+        :param station_dict: Reference to Station Dictionary created in 'SmartController' Class. Probably makes more
+        sense to move it heree.
+        :param customer_requests: The unformatted requests. Will use the station_mapping dictionary to convert to
+        'real_id'
+        :param current_time: current time
+        :return: Nothing is returned, handled within the class.
+        '''
         self.current_time = current_time
+
+        # Reset error dictionary for the current round
         self.errors = {
             'parking_violation': [0 for i in range(len(station_ids))],
             'no_vehicle_for_customer': [0 for i in range(len(station_ids))],

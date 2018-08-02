@@ -21,7 +21,7 @@ for curr_time in range(len(cust_requests)):
 
     cust_request = cust_requests[curr_time]
     # cust_request = [(5,37), (5,37), (5,37), (5,37)]
-    update.run(smart.station_dict, cust_request, curr_time,  smart.stations)
+    update.run(smart.station_dict, cust_request, curr_time)
 
 
     smart.update_arrivals_and_idle(curr_time)
