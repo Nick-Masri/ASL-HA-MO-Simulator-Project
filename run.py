@@ -16,12 +16,14 @@ update = Update(smart.station_mapping, smart.station_ids, smart.station_dict, sm
 
 
 
-for curr_time in range(70, len(cust_requests)):
+for curr_time in range(len(cust_requests)):
     print("Time: {}".format(curr_time))
 
     cust_request = cust_requests[curr_time]
     # cust_request = [(5,37), (5,37), (5,37), (5,37)]
-    errors = update.run(smart.station_dict, cust_request, curr_time,  smart.stations)
+    update.run(smart.station_dict, cust_request, curr_time,  smart.stations)
+
+
     smart.update_arrivals_and_idle(curr_time)
     smart.update_contoller()
     smart.controller.forecast_demand(curr_time)

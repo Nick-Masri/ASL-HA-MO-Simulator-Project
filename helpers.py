@@ -38,10 +38,17 @@ class Update:
         self.station_dict = station_dict
         self.travel_times = travel_times
 
-        self.parking_errors = []
-        self.lost_cust_errors = []
-        self.station_full = []
-        self.station_empty = []
+        self.errors = None
+        self.error_dict = {
+            'parking_violation': [],
+            'no_vehicle_for_customer': [],
+            'no_vehicle_for_employee': [],
+            'station_full': [],
+            'station_empty': [],
+            'available_parking': [],
+            'idle_vehicles': []
+        }
+
 
     def update_driver_ped_tasks(self, tasks, task_type):
         temp = []
@@ -103,7 +110,7 @@ class Update:
         customer = Person(requests[0], requests[1], time)
         cust_list.append(customer)
 
-    def assign_customers(self, station, station_dictionary, errors):
+    def assign_customers(self, station, station_dictionary):
         while len(station.waiting_customers) > 0:
             customer = station.waiting_customers[0]
             try:
@@ -113,7 +120,7 @@ class Update:
                 station_dictionary[customer.destination].append_en_route_list(customer)
                 print("Customer put in car")
             except IndexError:
-                errors.append('No car for customer at Station Number {}'.format(customer.origin))
+                self.errors['no_vehicle_for_customer'][station.station_id] += 1
                 print("No car for customer")
                 # no_car_cust_errors[current_time, customer.origin] += 1
                 no_car_cust_errors[self.current_time, station.station_id] += 1  # TODO - update me for new error tracking
@@ -124,7 +131,7 @@ class Update:
             ped.update_status(task[0], task[1], self.current_time)
             self.station_dict[task[1]].append_en_route_list(ped)
 
-    def assign_drivers(self, errors):
+    def assign_drivers(self):
 
         for task in self.driver_tasks:
             origin_station = self.station_dict[task[0]]
@@ -135,9 +142,7 @@ class Update:
                 driver.update_status(task[0], task[1], self.current_time, current_car)
                 self.station_dict[task[1]].append_en_route_list(driver)
             except IndexError:
-                errors.append('No car for employee at Station Number {}'.format(driver.origin))
-                no_car_emp_errors[self.current_time, station.station_id] += 1
-                break
+                self.errors['no_vehicle_for_employee'][station_ids[task[0]]] += 1
 
     def update_employee_list(self, requests, employee_list):
         for employee in requests:
@@ -161,7 +166,7 @@ class Update:
                         else:
                             del person
                     else:
-                        print("no parking")  #TODO log me
+                        self.errors['no_vehicles'][station.station_id] += 1  #TODO log me
                         self.reroute_for_overflow(person, station)
                 else:
                     person.reset()
@@ -170,9 +175,18 @@ class Update:
             else:
                 break
 
+    def update_error_lists(self):
+        for k, v in self.errors.items():
+            self.error_dict[k].append(v)
+
     def run(self, station_dict, customer_requests, current_time, stations):
         self.current_time = current_time
-        errors = []
+        self.errors = {
+            'parking_violation': [0 for i in range(len(station_ids))],
+            'no_vehicle_for_customer': [0 for i in range(len(station_ids))],
+            'no_vehicle_for_employee': [0 for i in range(len(station_ids))]
+        }
+
 
         # if we're using real station numbers this converts the cust requests into "real" format
         customer_requests = self.convert_cust_req_to_real_stations(customer_requests)
@@ -184,8 +198,6 @@ class Update:
 
             # Loop Arrivals - Need to check
             self.arrivals(current_station)
-
-
 
             # Put customers into cars
             if len(customer_requests) > 0:
@@ -200,16 +212,41 @@ class Update:
                         print("Station: {}, Car Count: {}".format(station, len(current_station.car_list)))
 
                 # assigns customers to cars if available
-                self.assign_customers(current_station, station_dict, errors)
+                self.assign_customers(current_station, station_dict)
 
 
 
         # Send out drivers and pedestrians on tasks
 
-        self.assign_drivers(errors)
+        self.assign_drivers()
         self.assign_pedestrians()
 
-        return errors
+        #update the errors
+        self.update_error_lists()
+
+
+        # update the full/empty arrays
+        station_full = [0 for i in range(len(station_ids))]
+        station_empty = [0 for i in range(len(station_ids))]
+        available_parking = [0 for i in range(len(station_ids))]
+        idle_vehicles = [0 for i in range(len(station_ids))]
+
+        for k, v in station_dict.items():
+            if v.get_available_parking() == 0:
+                station_full[v.station_id] += 1
+            elif v.get_available_parking() == v.parking_spots:
+                station_empty[v.station_id] += 1
+            available_parking[v.station_id] = v.get_available_parking
+            idle_vehicles[v.station_id] = len(v.car_list)
+
+        self.error_dict['station_full'].append(station_full)
+        self.error_dict['station_empty'].append(station_empty)
+        self.error_dict['available_parking'].append(available_parking)
+        self.error_dict['idle_vehicles'].append(idle_vehicles)
+
+        for k, v in self.error_dict.items():
+            np.save('./data/'+k+'.npy', v)
+
 
 ######################################
 # Format and Load Instructions ~ NM / MC
