@@ -166,7 +166,7 @@ class Update:
                         else:
                             del person
                     else:
-                        self.errors['no_vehicles'][station.station_id] += 1  #TODO log me
+                        self.errors['parking_violation'][station.station_id] += 1  #TODO log me
                         self.reroute_for_overflow(person, station)
                 else:
                     person.reset()
@@ -236,6 +236,7 @@ class Update:
                 station_full[v.station_id] += 1
             elif v.get_available_parking() == v.parking_spots:
                 station_empty[v.station_id] += 1
+
             available_parking[v.station_id] = v.get_available_parking
             idle_vehicles[v.station_id] = len(v.car_list)
 

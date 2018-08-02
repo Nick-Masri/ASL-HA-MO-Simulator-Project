@@ -27,9 +27,11 @@ class NaiveForecaster:
         # time_now = timestamp.time()
         # step = time_now.hour * 3600. + time_now.minute * 60. + time_now.second
         # step = int(np.round((step/self.timestepsize.seconds)))
-        step = timestamp
+        step = timestamp % 288  # Added to handle multiple days (self.forecaster only has two days worth of data
+
         # initialize forecast
         forecast = np.zeros((len(station_ids),len(station_ids),self.horizon))
+        print("Forecast Shape: {}".format(forecast.shape))
         # find the idx
         f_index = [] # for which stations do we have a forecast
         new_index = [] # what is their equivalent in the estimator
@@ -47,7 +49,7 @@ class NaiveForecaster:
             #forecast[:,:,i][f_idx] = poisson.ppf(
             #    q, 
             #    self.forecaster[step+i, :, :][idx]
-            #    ) 
+            #    )
             forecast[:,:,i][f_idx] = self.forecaster[step+i, :, :][idx]  # forecast 0-57 is in the same order as the stationIDs
         print('Forecasted demand: {}'.format(forecast.sum()))
         return forecast
