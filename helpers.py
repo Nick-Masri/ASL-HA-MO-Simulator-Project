@@ -28,7 +28,7 @@ no_car_emp_errors = np.zeros(shape=(2880, 58))
 # Update Loop ~ NM
 ######################################
 class Update:
-    def __init__(self, station_mapping, station_ids, station_dict):
+    def __init__(self, station_mapping, station_ids, station_dict, travel_times):
         self.station_mapping = station_mapping
         self.inverted_station_map = {v: k for k, v in station_mapping.items()}
         self.current_time = None
@@ -36,6 +36,7 @@ class Update:
         self.driver_tasks = []
         self.pedestrian_tasks = []
         self.station_dict = station_dict
+        self.travel_times = travel_times
 
     def update_driver_ped_tasks(self, tasks, task_type):
         temp = []
@@ -57,17 +58,42 @@ class Update:
             self.pedestrian_tasks = temp
             print("Pedestrian Tasks: {}".format(self.pedestrian_tasks))
 
-
-
     def convert_cust_req_to_real_stations(self, tasks):
         temp = []
         for task in tasks:
             temp.append([self.inverted_station_map[task[0]], self.inverted_station_map[task[1]]])
         return temp
 
+    def reroute_for_overflow(self, person, station):
+        '''
+        When a person tries to drop off a car and there is no room, this method will reroute them to the next
+        closest station.
+        :param person: Person who was trying to drop off a car
+        :param station: Station the person was trying to drop off a car at.
+        :return:
+        '''
+        real_station_id = self.station_ids[station.station_id]
+        # Get the correct travel_matrix. bit drop the current station (it'll always be the closest)
+        if isinstance(person, Employee):
+            travel_matrix = self.travel_times['hamo'].drop(index=real_station_id)
+        else:
+            travel_matrix = self.travel_times['car'].drop(index=real_station_id)
+
+        closest_station = None
+        while closest_station is None:
+            closest_station = travel_matrix.idxmin()
+            # Check if there's parking at the closest station, if there isn't remove that station from the matrix
+            if self.station_dict[closest_station].available_parking == 0:
+                travel_matrix = travel_matrix.drop(index=closest_station)
+                closest_station = None
+
+        station.en_route_list.remove(person)
+        self.station_dict[closest_station].en_route_list.append(person)
+
     def update_customer_list(self, requests, time, cust_list):
         customer = Person(requests[0], requests[1], time)
         cust_list.append(customer)
+        print(customer.destination_time)
 
     def assign_customers(self, station, station_dictionary, errors):
         while len(station.waiting_customers) > 0:
@@ -119,12 +145,20 @@ class Update:
                 station.get_en_route_list().remove(person)
                 current_vehicle_id = person.vehicle_id
                 if current_vehicle_id is not None:
-                    station.car_list.append(current_vehicle_id)
-                if isinstance(person, Employee):
+                    if station.available_parking > 0:
+                        station.car_list.append(current_vehicle_id)
+                        if isinstance(person, Employee):
+                            person.reset()
+                            station.employee_list.append(person)
+                        else:
+                            del person
+                    else:
+                        print("no parking")  #TODO log me
+                        self.reroute_for_overflow(person, station)
+                else:
                     person.reset()
                     station.employee_list.append(person)
-                else:
-                    del person
+
             else:
                 break
 

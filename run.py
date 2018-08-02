@@ -12,12 +12,14 @@ cust_requests = format_instructions(raw_requests)
 driver_requests = [[] for i in range(smart.n_stations)]
 pedestrian_requests = [[] for i in range(smart.n_stations)]
 
-update = Update(smart.station_mapping, smart.station_ids, smart.station_dict)
+update = Update(smart.station_mapping, smart.station_ids, smart.station_dict, smart.travel_times)
 
 for curr_time in range(70, len(cust_requests)):
     print("Time: {}".format(curr_time))
 
-    errors = update.run(smart.station_dict, cust_requests[curr_time], curr_time,  smart.stations, driver_requests, pedestrian_requests)
+    cust_request = cust_requests[curr_time]
+    cust_request = [(5,37), (5,37), (5,37), (5,37)]
+    errors = update.run(smart.station_dict, cust_request, curr_time,  smart.stations, driver_requests, pedestrian_requests)
     smart.update_arrivals_and_idle(curr_time)
     smart.update_contoller()
     smart.controller.forecast_demand(curr_time)

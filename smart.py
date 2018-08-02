@@ -21,6 +21,7 @@ class SmartController:
         self.idle_vehicles = None
         self.idle_drivers = None
         self.private_vehicles = np.zeros((58, 1))
+        self.travel_times = None
 
         station_map = np.load('data/10_days/station_mapping.npy').item()
         self.station_mapping = {int(k): v for k, v in station_map.items()}
@@ -147,6 +148,7 @@ class SmartController:
         travel_times = {
             mode: self.parse_ttimes(mode, self.stations, timestepsize) for mode in modes
         }
+        self.travel_times = travel_times
 
         roadGraph = [list(range(1, self.n_stations + 1)) for i in range(self.n_stations)]
 

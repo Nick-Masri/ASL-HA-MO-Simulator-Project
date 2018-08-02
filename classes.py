@@ -60,7 +60,6 @@ class Person:
         self.vehicle_id = vehicle_id
 
     def assign_cust_car(self, new_car=None):
-
         self.vehicle_id = new_car
 
 
@@ -94,7 +93,7 @@ class Station:
         self.station_id = station_id
         self.car_list = car_list
         self.parking_spots = parking_spots
-        self.availble_parking = parking_spots - len(car_list)
+        self.available_parking = parking_spots - len(car_list)
         self.employee_list = employee_list
         self.en_route_list = []
         self.waiting_customers = []
@@ -147,6 +146,6 @@ def get_travel_time(time_graph, origin, destination):
     return travel_time
 
 def get_travel_time_pandas(time_graph, origin, destination):
-    return time_graph.at[int(origin), int(destination)]
+    return int(time_graph.at[int(origin), int(destination)])
 
 
