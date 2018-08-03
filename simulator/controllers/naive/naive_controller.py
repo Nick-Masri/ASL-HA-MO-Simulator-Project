@@ -48,10 +48,18 @@ def evening_rebalancing(dict):
         station = dict[i]
         for emp in station.employee_list:
             if len(station.car_list) > 0:
-                for dest in buffer:
-                    if dict[dest].calc_parking() > 0:
-                        driver_task[i] = [dest]
-                        break
+                if dict[buffer[0]].calc_parking() > 0 and dict[buffer[0]].calc_parking() > 0:
+                    # print(len(dict[buffer[0]].car_list))
+                    # print(len(dict[buffer[1]].car_list))
+                    if len(dict[buffer[0]].car_list) > len(dict[buffer[1]].car_list):
+                        driver_task[i] = [buffer[1]]
+                        # print(buffer[1])
+                    else:
+                        driver_task[i] = [buffer[0]]
+                elif dict[buffer[0]].calc_parking() > 0:
+                    driver_task[i] = [buffer[0]]
+                elif dict[buffer[1]].calc_parking() > 0:
+                    driver_task[i] = [buffer[0]]
             else:
                 break
 
@@ -62,7 +70,7 @@ def evening_rebalancing(dict):
                 dest = home[1]
             else:
                 dest = home[0]
-        elif len(dict[home[2]].car_list) > 0 and  len(dict[home[3]].car_list) > 0:
+        elif len(dict[home[2]].car_list) > 0 and len(dict[home[3]].car_list) > 0:
             if len(dict[home[2]].car_list) > len(dict[home[3]].car_list):
                 dest = home[3]
             else:

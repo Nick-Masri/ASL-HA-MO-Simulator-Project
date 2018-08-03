@@ -2,7 +2,7 @@
 # Variables for Initial State
 ####################################
 
-employees_at_stations = {2: 5, 5: 5}
+employees_at_stations = {2: 2, 5: 2}
 station_dict = {}
 
 ####################################
@@ -25,9 +25,9 @@ customer_data = "./data/10_days/hamo10days.npy"
 ####################################
 
 # Time
-morningStart = 96  # 8am
-morningEnd = 120  # 10am
+morningStart = 72  # 6am
+morningEnd = 96 # 8am
 
 
-eveningStart = 204  # 5pm
-eveningEnd = 240  # 8pm
+eveningStart = 180  # 3pm
+eveningEnd = 204  # 5pm

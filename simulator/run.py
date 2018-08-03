@@ -12,6 +12,7 @@ import numpy as np
 # Run Setup ~ NM
 ##################
 
+
 def run(controller):
     station_dict = station_initializer(var.station_mapping_int, var.parking,
                                        var.employees_at_stations, var.cars_per_station)
@@ -26,13 +27,12 @@ def run(controller):
 
         print('Time: {}'.format(time))
 
-
         customer_requests = var.cust_requests[time]
 
         output, idle_vehicles, parking = Update(tool, controller, time, station_dict, customer_requests).loop()
         text.append(output)
-        if time % 100 == 0:
-            heatmap_run(time, idle_vehicles, parking)
+        # if time % 6 == 0:
+        #     heatmap_run(time, idle_vehicles, parking)
 
     write("files/station_overview.txt", text)
     print("\n\nfiles/station_overview.txt created")

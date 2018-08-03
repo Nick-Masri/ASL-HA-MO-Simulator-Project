@@ -4,6 +4,10 @@ from simulator.controllers.naive.naive_controller import morning_rebalancing, ev
 import simulator.parameters
 from simulator.people import Employee, Person
 import numpy as np
+import math
+
+from simulator.formatting import hamo_travel_times, car_travel_times
+import sys
 
 #########################
 # Update Function ~ NM
@@ -38,76 +42,118 @@ class Update:
             ped_request = pedestrian_requests[station_index]
 
             # Loop Arrivals
-            self.arrivals(station)
+            self.arrivals(station, station_index)
             self.tool.measure_station(self.time, station, station_index)
 
             # Put customers into cars
             if len(self.customer_requests) > 0:
                 for customer_request in self.customer_requests:
                     if customer_request[0] == station_index:
-                        self.assign_customers(station, customer_request)
+                        self.assign_customers(station, customer_request, station_index)
 
             if len(driver_request) > 0:
                 request = (station_index, driver_request[0], self.time)
-                self.assign_drivers(station, request)
+                self.assign_drivers(station, request, station_index)
 
             if len(ped_request) > 0:
                 request = (station_index, ped_request[0], self.time)
                 self.assign_pedestrians(station, request)
-        self.idle_vehicles[station_index] = len(station.car_list)
-        self.available_parking[station_index] = station.calc_parking()
 
-        self.tool.park_errors += self.no_parking
-        self.tool.vehicle_errors += self.no_idle_vehicle
+            self.idle_vehicles[station_index] = len(station.car_list)
+            self.available_parking[station_index] = station.calc_parking()
+
+        # self.tool.park_errors += self.no_parking
+        # self.tool.vehicle_errors += self.no_idle_vehicle
+
+        # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)]
         text = output(self.time, self.station_dict)
         return text, self.idle_vehicles, self.available_parking
 
-    def arrivals(self, station):
+    def arrivals(self, station, station_index):
         while len(station.en_route_list) > 0:
             person = station.get_en_route_list(True)[0]
             if person.destination_time == self.time:
                 station.en_route_list.remove(person)
                 if person.vehicle_id is not None:
-                    station.car_list.append(person.vehicle_id)
                     if station.calc_parking() <= 0:
                         if station.parking_spots != 0:
-                            self.no_parking += 1
-                if isinstance(person, Employee):
+                            # self.no_parking += 1
+                            self.tool.park_errors[station_index, math.floor(self.time / 288)] += 1
+                        self.reroute_for_overflow(person)
+                    else:
+                        station.car_list.append(person.vehicle_id)
+                        if isinstance(person, Employee):
+                            person.reset()
+                            station.employee_list.append(person)
+                        else:
+                            del person
+
+                else:
                     person.reset()
                     station.employee_list.append(person)
-                else:
-                    del person
+
             else:
                 break
 
-    def assign_drivers(self, station, request):
-        # print('Driving {}'.format(request))
+    def assign_drivers(self, station, request, station_index):
+        print('Driving {}'.format(request))
         try:
             station.employee_list.pop(0)
             driver = Employee(request[0], request[1], request[2])
-            driver.update_status(driver, station.car_list.pop(0))
+            driver.vehicle_id = station.car_list.pop(0)
             self.station_dict[driver.destination].en_route_list.append(driver)
         except IndexError:
             if station.parking_spots != 0:
-                self.no_idle_vehicle += 1
+                self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
+                print("No Parking at time: {0}, at station: {1}".format(self.time, driver.destination))
+
+    def reroute_for_overflow(self, person):
+        '''
+        When a person tries to drop off a car and there is no room, this method will reroute them to the next
+        closest station.
+        :param person: Person who was trying to drop off a car
+        :param station: Station the person was trying to drop off a car at.
+        :return:
+        '''
+        travel_matrix = hamo_travel_times[person.destination].copy()
+        travel_matrix[person.destination] = 1000 # Set the travel time of the current station to 1000
+
+        # Find the next closest station with available parking.
+        closest_station = None
+        while closest_station is None:
+            # closest_station = travel_matrix.idxmin()
+
+            closest_station = np.argmin(travel_matrix)
+            # Check if there's parking at the closest station, if there isn't remove that station from the matrix
+            if self.station_dict[closest_station].calc_parking() == 0:
+                # closest_station not in (11, 37, 27, 10, 2, 5):
+                travel_matrix[closest_station] = 1000
+                # travel_matrix = travel_matrix.drop(index=closest_station)
+                closest_station = None
+        # for x in (11, 37, 27, 10, 2, 5):
+        #     closest_
+        # update the station the person was rerouted to
+        self.station_dict[closest_station].en_route_list.append(person)
+        person.update_status((person.destination, closest_station, self.time), person.vehicle_id)
 
     def assign_pedestrians(self, station, request):
-        # print('Walking {}'.format(request))
+        print('Walking {}'.format(request))
         station.employee_list.pop(0)
         ped = Employee(request[0], request[1], request[2])
         self.station_dict[ped.destination].en_route_list.append(ped)
 
-    def assign_customers(self, station, request):
-        customer = Person(request[0], request[1], self.time)
-        try:
-            current_car = station.car_list.pop(0)
-            customer.vehicle_id = current_car
-            self.station_dict[customer.destination].en_route_list.append(customer)
-        except IndexError:
-            if station.parking_spots != 0:
-                self.no_idle_vehicle += 1
-                print(request)
-                print("No Vehicle")
+    def assign_customers(self, station, request, station_index):
+        if station.parking_spots != 0:
+            customer = Person(request[0], request[1], self.time)
+            try:
+                current_car = station.car_list.pop(0)
+                customer.vehicle_id = current_car
+                self.station_dict[customer.destination].en_route_list.append(customer)
+            except IndexError:
+                if station.parking_spots != 0:
+                    self.no_idle_vehicle += 1
+                    self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
+                    print("No Idle Vehicle at time: {0}, at station: {1}, heading to station {2}".format(self.time, customer.origin, customer.destination))
 
     def naive(self):
 

@@ -38,7 +38,7 @@ OUTPUTS:
 
 - saved heatmap file(s)
 """
-
+jst = np.load("data/10_days/time10days.npy")
 points = []
 
 class NaiveForecaster:
@@ -238,9 +238,8 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
     ############################
     ############################
 
-
-    plt.title('Test Controller Time: %d' % current_time)  # adds corresponding titles to the pictures before they save
-    plt.savefig('files/pictures/heatmap_test%d.png' % current_time, bbox_inches='tight')  # saves pics with diff file names
+    plt.title('Time of Day: {}'.format(jst[current_time].time()))  # adds corresponding titles to the pictures before they save
+    plt.savefig('files/pictures/heatmaps/heatmap_test%d.png' % current_time, bbox_inches='tight')  # saves pics with diff file names
 
     ############################
     ############################

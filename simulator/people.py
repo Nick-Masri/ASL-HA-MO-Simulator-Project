@@ -21,9 +21,9 @@ class Person:
         self.vehicle_id = vehicle_id
 
     def update_status(self, request, new_car=None):
-        self.origin = request.origin
-        self.destination = request.destination
-        self.origin_time = request.origin_time
+        self.origin = request[0]
+        self.destination = request[1]
+        self.origin_time = request[2]
         self.vehicle_id = new_car
 
 
