@@ -97,10 +97,9 @@ class Update:
         '''
         real_station_id = self.station_ids[station.station_id]
         # Get the correct travel_matrix. bit drop the current station (it'll always be the closest)
-        if isinstance(person, Employee):
-            travel_matrix = self.travel_times['hamo'][real_station_id].drop(index=real_station_id)
-        else:
-            travel_matrix = self.travel_times['car'][real_station_id].drop(index=real_station_id)
+
+        travel_matrix = self.travel_times['hamo'][real_station_id].drop(index=real_station_id)
+
 
         # Find the next closest station with available parking.
         closest_station = None
@@ -115,6 +114,7 @@ class Update:
         print("Rerouting to station: {}, which has {} parking spots".format(closest_station, self.station_dict[closest_station].get_available_parking()))
 
         # update the station the person was rerouted to
+        person.update_status(real_station_id, closest_station, self.current_time, person.vehicle_id)
         self.station_dict[closest_station].en_route_list.append(person)
 
     def update_customer_list(self, requests, time, cust_list):
@@ -286,16 +286,17 @@ class Update:
             elif v.get_available_parking() == v.parking_spots:
                 station_empty[v.station_id] += 1
 
-            available_parking[v.station_id] = v.get_available_parking
+            available_parking[v.station_id] = v.get_available_parking()
             idle_vehicles[v.station_id] = len(v.car_list)
 
         self.error_dict['station_full'].append(station_full)
         self.error_dict['station_empty'].append(station_empty)
         self.error_dict['available_parking'].append(available_parking)
         self.error_dict['idle_vehicles'].append(idle_vehicles)
-
-        for k, v in self.error_dict.items():
-            np.save('./data/'+k+'.npy', v)
+        #
+        # for k, v in self.error_dict.items():
+        #     np.save(k+'.npy', v)
+        # np.save('station_state.npy', self.error_dict)
 
 
 ######################################

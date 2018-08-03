@@ -55,25 +55,12 @@ class Person:
             self.destination_time = None
         else:
             # self.destination_time = origin_time + get_travel_time(car_travel_times, origin, destination)
-            self.destination_time = origin_time + get_travel_time_pandas(travel_times['car'], origin, destination)
+            self.destination_time = origin_time + get_travel_time_pandas(travel_times['hamo'], origin, destination)
         self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
     def assign_cust_car(self, new_car=None):
         self.vehicle_id = new_car
-
-
-class Employee(Person):
-    def __init__(self, origin, destination, origin_time, vehicle_id=None):
-        Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
-
-    # Unique Methods
-    def reset(self):
-        self.origin = None
-        self.destination = None
-        self.origin_time = None
-        self.destination_time = None
-        self.vehicle_id = None
 
     def update_status(self, origin, destination, origin_time, new_car=None):
         self.origin = origin
@@ -88,12 +75,25 @@ class Employee(Person):
             self.destination_time = origin_time + get_travel_time_pandas(travel_times['walk'], origin, destination)  # ADDED
 
 
+
+class Employee(Person):
+    def __init__(self, origin, destination, origin_time, vehicle_id=None):
+        Person.__init__(self, origin, destination, origin_time, vehicle_id=None)
+
+    # Unique Methods
+    def reset(self):
+        self.origin = None
+        self.destination = None
+        self.origin_time = None
+        self.destination_time = None
+        self.vehicle_id = None
+
+
 class Station:
     def __init__(self, station_id, parking_spots, car_list=[], employee_list=[]):
         self.station_id = station_id
         self.car_list = car_list
         self.parking_spots = parking_spots
-        # self.available_parking = parking_spots - len(car_list)
         self.employee_list = employee_list
         self.en_route_list = []
         self.waiting_customers = []
