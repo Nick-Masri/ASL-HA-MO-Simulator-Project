@@ -15,4 +15,5 @@ __pycache__
 output.txt
 .DS_Store
 data/*
+files/*
 controllers/smart-controller/*
