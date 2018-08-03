@@ -15,4 +15,4 @@ manager.add_command('db', MigrateCommand)
 #manager.add_command('runcelery', Command(run_celery))
 
 if __name__ == '__main__':
-    manager.run()
+    manager.initialize()

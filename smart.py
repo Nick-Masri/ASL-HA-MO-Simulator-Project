@@ -27,6 +27,12 @@ class SmartController:
         self.station_mapping = {int(k): v for k, v in station_map.items()}
 
     def update_arrivals_and_idle(self, curr_time):
+        '''
+        The controller needs a matrix of arrivals for the next 12 timesteps for drivers
+        and vehicles
+        :param curr_time:
+        :return:
+        '''
         self.vehicle_arrivals = np.zeros(shape=(self.n_stations, 12))
         self.driver_arrivals = np.zeros(shape=(self.n_stations, 12))
 
@@ -37,7 +43,6 @@ class SmartController:
         for station in self.stations.index:
             # Update the driver and vehicle arrivals
             for person in self.station_dict[station].get_en_route_list(True):  # todo - This probably doesn't need to loop like this
-                # print("Inside Person list Station: {}, person.destination_time = {}, curr_time: {}".format(station, person.destination_time, curr_time))
                 for i in range(curr_time, curr_time + 12):
                     # print("i: {}, destination_time: {}".format(curr_time, person.destination_time))
                     # print(i == person.destination_time)
@@ -58,27 +63,32 @@ class SmartController:
 
         self.idle_vehicles = np.array(idle_vehicles)
         self.idle_drivers = np.array(idle_drivers)
-        # print("Station: 55, idle_vehicles: {}".format(self.idle_vehicles)[17])
-        # print("Station: 55, idle_drivers: {}".format(self.idle_drivers[17]))
-        if self.driver_arrivals.max() > 0:
-            print("Station: 55, driver_arrivals: {}".format(self.driver_arrivals.max()))
-        if self.vehicle_arrivals.max() > 0:
-            print("Station: 55, vehicle_arrivals: {}".format(self.vehicle_arrivals.max))
 
-
-
-    def parse_ttimes(self, mode, stations, timestepsize):
+    def parse_ttimes(self, mode, timestepsize):
+        '''
+        Formats travel times in same orders as station_state.csv
+        :param mode: Mode of travel
+        :param stations: station_state as a pandas dataframe
+        :param timestepsize:
+        :return:
+        '''
         tt = pd.read_csv(
                 'data/travel_times_matrix_'+mode+'.csv', index_col=0
             ).dropna(axis=0, how='all').dropna(axis=1, how='all')
         tt.columns = [int(c) for c in tt.columns]
         tt.iloc[:,:] = np.ceil(tt.values.astype(np.float64) / float(timestepsize.seconds))
         # reorder to match the index
-        tt = tt.loc[stations.index][stations.index]  # QUESTION - Order them the same as the stations (random?)
+        tt = tt.loc[self.stations.index][self.stations.index]  # QUESTION - Order them the same as the stations (random?)
         np.fill_diagonal(tt.values, 1)
         return tt
 
     def station_initializer(self, employees_at_stations, idx_type='real'):
+        '''
+        Creates station dictionary
+        :param employees_at_stations:
+        :param idx_type:
+        :return:
+        '''
         self.station_dict = {}
         car_count = 1
         # if idx_type == 'logical':  # TODO - FIX ME
@@ -113,10 +123,9 @@ class SmartController:
         print("Total Arrivals: {}".format(self.vehicle_arrivals.sum() + self.driver_arrivals.sum()))
         print("Total Idle: {}".format(self.idle_vehicles.sum() + self.idle_drivers.sum()))
 
-
         self.controller.update_state_arrivals(forecast, state)
 
-    def run(self):
+    def initialize(self):
         # Get info about stations from the station csv
         station_ids = self.stations.index.tolist()
         self.n_stations = len(station_ids)
@@ -146,7 +155,7 @@ class SmartController:
         modes = ['walk','hamo','car','bike']
 
         travel_times = {
-            mode: self.parse_ttimes(mode, self.stations, timestepsize) for mode in modes
+            mode: self.parse_ttimes(mode, timestepsize) for mode in modes
         }
         self.travel_times = travel_times
 
@@ -183,7 +192,6 @@ class SmartController:
         self.controller = Controller(forecast_settings, control_settings)
 
 
-
 if __name__ == "__main__":
     example = SmartController()
-    example.run()
+    example.initialize()

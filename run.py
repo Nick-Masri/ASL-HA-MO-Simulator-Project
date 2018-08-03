@@ -5,7 +5,7 @@ import numpy as np
 import matlab
 
 smart = SmartController()
-smart.run()
+smart.initialize()
 
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
@@ -20,9 +20,9 @@ for curr_time in range(len(cust_requests)):
     print("Time: {}".format(curr_time))
 
     cust_request = cust_requests[curr_time]
-    # cust_request = [(5,37), (5,37), (5,37), (5,37)]
+
     update.run(smart.station_dict, cust_request, curr_time)
-    print(update.error_dict)
+
     np.save('station_state2', update.error_dict)
 
     smart.update_arrivals_and_idle(curr_time)
@@ -34,9 +34,6 @@ for curr_time in range(len(cust_requests)):
     for k, v in output.items():
         if k != 'cplex_out':
             print(k, v)
-
-    driver_requests = tasks['vehicleRebalancingQueue']
-    pedestrian_requests = tasks['driverRebalancingQueue']
 
 
     update.update_driver_ped_tasks(tasks['vehicleRebalancingQueue'], 'driver')
