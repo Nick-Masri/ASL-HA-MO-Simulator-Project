@@ -13,10 +13,13 @@ class SmartController:
         self.station_mapping = {int(k): v for k, v in station_map.items()}
 
         # Added logic to remove stations that aren't in the station_mapping
-        stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
-        self.station_ids = stations.index.tolist()
-        extra_stations = set(self.station_ids) - set(self.station_mapping.keys())
-        self.stations = stations.drop(index=extra_stations)
+        temp_stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
+        temp_station_ids = temp_stations.index.tolist()
+        extra_stations = set(temp_station_ids) - set(self.station_mapping.keys())
+        self.stations = temp_stations.drop(index=extra_stations)
+        self.station_ids = self.stations.index.tolist()
+        print(self.stations)
+        print(self.station_ids)
 
         self.n_stations = None
         self.controller = None
@@ -42,8 +45,11 @@ class SmartController:
         idle_vehicles = []
         idle_drivers = []
 
+        print(self.stations.index)
+
         count = 0  # go through in the same order as the stations index
-        for station in self.stations.index:
+        for station in self.station_ids:
+
             # Update the driver and vehicle arrivals
             for person in station_dict[station].get_en_route_list(True):  # todo - This probably doesn't need to loop like this
                 for i in range(curr_time, curr_time + 12):
@@ -66,6 +72,7 @@ class SmartController:
 
         self.idle_vehicles = np.array(idle_vehicles)
         self.idle_drivers = np.array(idle_drivers)
+        print(idle_drivers)
 
     def parse_ttimes(self, mode, timestepsize):
         '''
@@ -103,8 +110,7 @@ class SmartController:
 
     def initialize(self):
         # Get info about stations from the station csv
-        station_ids = self.stations.index.tolist()  # todo - Already have a class attribute for this
-        self.n_stations = len(station_ids)
+        self.n_stations = len(self.station_ids)
 
         # Control Settings
         dt = 5 #         minutes
@@ -143,7 +149,7 @@ class SmartController:
         control_settings = {
             "RoadNetwork": road_network,
             "timestep_size": timestepsize,
-            "station_ids": station_ids,
+            "station_ids": self.station_ids,
             "travel_times": travel_times,
             "horizon": horizon,
             "params": control_parameters,

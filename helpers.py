@@ -10,11 +10,16 @@ import matlab
 class Update:
     def __init__(self, travel_times):
         # Initialize the statino information
-        self.stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')  # duplicated from smart.py
-        self.station_ids = self.stations.index.tolist()
         station_map = np.load('data/10_days/station_mapping.npy').item()
         self.station_mapping = {int(k): v for k, v in station_map.items()}   # duplicate from smart.py
         self.inverted_station_map = {v: k for k, v in station_mapping.items()}
+
+        # todo - Duplicate code to that in the smart controller, probably could use a refactor.
+        temp_stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
+        temp_station_ids = stations.index.tolist()
+        extra_stations = set(temp_station_ids) - set(self.station_mapping.keys())
+        self.stations = temp_stations.drop(index=extra_stations)
+        self.station_ids = self.stations.index.tolist()
 
         employees_at_stations = {22: 2, 55: 2}
         self.station_dict = self.station_initializer(employees_at_stations)
@@ -47,7 +52,7 @@ class Update:
         station_dict = {}
         car_count = 1
 
-        for logical_station, station in enumerate(self.stations.index):
+        for logical_station, station in enumerate(self.station_ids):
             parkingSpots = self.stations['parking_spots'].get(station)
             # Assign cars to the station.
             car_list = []
@@ -76,13 +81,13 @@ class Update:
         temp = []
         for index, task in enumerate(tasks):
             if task != matlab.double([]):
-                origin = station_ids[index]
+                origin = self.station_ids[index]
                 if type(task) == float:
-                    destination = station_ids[int(task)-1]  # Matlab is 1 indexed
+                    destination = self.station_ids[int(task)-1]  # Matlab is 1 indexed
                     temp.append((origin, destination))
                 else:
                     for sub_task in task[0]:  # It returns a list of one list if there are multiple tasks
-                        destination = station_ids[int(sub_task)-1]  # Matlab id 1 indexed
+                        destination = self.station_ids[int(sub_task)-1]  # Matlab id 1 indexed
                         temp.append((origin, destination))
 
         if task_type == 'driver':
@@ -90,6 +95,7 @@ class Update:
             print("Driver Tasks: {}".format(self.driver_tasks))
         else:
             self.pedestrian_tasks = temp
+            print("Original Driver Task: {}".format(tasks))
             print("Pedestrian Tasks: {}".format(self.pedestrian_tasks))
 
     def convert_cust_req_to_real_stations(self, tasks):

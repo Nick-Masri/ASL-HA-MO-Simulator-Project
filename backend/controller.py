@@ -85,7 +85,10 @@ class Controller:
         assert 'station_ids' in list(control_settings.keys())
         for key, value in control_settings.items():
             setattr(self, key, value)
+        print("inside the controller")
+        print(self.station_ids)
         return
+
 
     def set_state(self, stations_state):
         self.state['idleVehicles'] = stations_state.loc[self.station_ids]['idle_vehicles'].values

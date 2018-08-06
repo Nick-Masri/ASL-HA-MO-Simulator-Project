@@ -15,6 +15,9 @@ pedestrian_requests = [[] for i in range(smart.n_stations)]
 
 # Initialize the simulator
 update = Update(smart.travel_times)
+for k, v in update.station_dict.items():
+    if len(v.employee_list) > 0:
+        print(k)
 
 for curr_time in range(len(cust_requests)):
     print("Time: {}".format(curr_time))
