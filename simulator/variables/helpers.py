@@ -97,3 +97,15 @@ def fix_header(graph, station_mapping):
 def fix_row_numbers(graph, station_mapping):
     graph['station_id'] = graph['station_id'].replace(station_mapping)
     graph.sort_values(by=['station_id'], inplace=True)
+
+
+def parse_ttimes(mode, stations, timestepsize):
+    tt = pd.read_csv(
+        'data/travel_times_matrix_' + mode + '.csv', index_col=0
+    ).dropna(axis=0, how='all').dropna(axis=1, how='all')
+    tt.columns = [int(c) for c in tt.columns]
+    tt.iloc[:, :] = np.ceil(tt.values.astype(np.float64) / float(timestepsize.seconds))
+    # reorder to match the index
+    tt = tt.loc[stations.index][stations.index]  # QUESTION - Order them the same as the stations (random?)
+    np.fill_diagonal(tt.values, 1)
+    return tt

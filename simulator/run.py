@@ -1,13 +1,11 @@
 from simulator.update import Update
-from simulator.output import write
+from simulator.output.overview import write
 from simulator.setup import station_initializer
-from simulator.measurement import Measurement
-from simulator.heatmap import heatmap_run
+from simulator.output.measurement import Measurement
 
-import math
-import simulator.formatting as var
+import simulator.variables.formatting as var
 
-import numpy as np
+
 ###################
 # Run Setup ~ NM
 ##################

@@ -6,18 +6,16 @@ from math import floor
 # Station Initializer ~ MC/NM
 ##############################
 
+
 def station_initializer(station_mapping_int, parking, employees_at_stations, cars_per_station):
     station_dict = {}
     car_count = 1
     for station in station_mapping_int.values():
         # print(station)
-        # if station ==2 or station ==5:
-        #     parking_spots = 2000
-        # else:
         parking_spots = parking[station]
-        # parking_spots = 50
         # Assign cars to the station.
         car_list = []
+        print(cars_per_station[station])
         for car in range(cars_per_station[station]):
             car_list.append(car_count)
             car_count += 1

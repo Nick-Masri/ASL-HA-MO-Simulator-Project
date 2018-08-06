@@ -1,13 +1,16 @@
-from simulator.output import output
-from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
+from simulator.output import overview
 
-import simulator.parameters
+from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
+from simulator.controllers.smart.smart import SmartController
+
+import simulator.variables.parameters
 from simulator.people import Employee, Person
+
 import numpy as np
 import math
 
-from simulator.formatting import hamo_travel_times, car_travel_times
-import sys
+from simulator.variables.formatting import hamo_travel_times
+
 
 #########################
 # Update Function ~ NM
@@ -66,7 +69,7 @@ class Update:
         # self.tool.vehicle_errors += self.no_idle_vehicle
 
         # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)]
-        text = output(self.time, self.station_dict)
+        text = overview(self.time, self.station_dict)
         return text, self.idle_vehicles, self.available_parking
 
     def arrivals(self, station, station_index):
@@ -97,9 +100,9 @@ class Update:
 
     def assign_drivers(self, station, request, station_index):
         print('Driving {}'.format(request))
+        station.employee_list.pop(0)
+        driver = Employee(request[0], request[1], request[2])
         try:
-            station.employee_list.pop(0)
-            driver = Employee(request[0], request[1], request[2])
             driver.vehicle_id = station.car_list.pop(0)
             self.station_dict[driver.destination].en_route_list.append(driver)
         except IndexError:
@@ -157,24 +160,28 @@ class Update:
 
     def naive(self):
 
-        morning_start = simulator.parameters.morningStart
-        morning_end = simulator.parameters.morningEnd
-        evening_start = simulator.parameters.eveningStart
-        evening_end = simulator.parameters.eveningEnd
+        morning_start = simulator.variables.parameters.morningStart
+        morning_end = simulator.variables.parameters.morningEnd
+        evening_start = simulator.variables.parameters.eveningStart
+        evening_end = simulator.variables.parameters.eveningEnd
 
         if morning_start <= self.time <= morning_end:
             driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict)
 
             if self.time == morning_end:
-                simulator.parameters.morningStart += 288
-                simulator.parameters.morningEnd += 288
+                simulator.variables.parameters.morningStart += 288
+                simulator.variables.parameters.morningEnd += 288
         elif evening_start <= self.time <= evening_end:
             driver_requests, pedestrian_requests = evening_rebalancing(self.station_dict)
 
             if self.time == evening_end:
-                simulator.parameters.eveningStart += 288
-                simulator.parameters.eveningEnd += 288
+                simulator.variables.parameters.eveningStart += 288
+                simulator.variables.parameters.eveningEnd += 288
         else:
             driver_requests = [[] for i in range(len(self.station_dict))]
             pedestrian_requests = [[] for i in range(len(self.station_dict))]
         return driver_requests, pedestrian_requests
+
+    def smart(self):
+        smart = SmartController()
+        smart.initialize()
