@@ -4,8 +4,6 @@ from globals import *
 import numpy as np
 import matlab
 
-
-
 ######################################
 # Instantiating Error Arrays ~ JS
 ######################################
@@ -28,15 +26,24 @@ no_car_emp_errors = np.zeros(shape=(2880, 58))
 # Update Loop ~ NM
 ######################################
 class Update:
-    def __init__(self, station_mapping, station_ids, station_dict, travel_times):
-        self.station_mapping = station_mapping
+    def __init__(self, travel_times):
+        # Initialize the statino information
+        self.stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')  # duplicated from smart.py
+        self.station_ids = self.stations.index.tolist()
+        station_map = np.load('data/10_days/station_mapping.npy').item()
+        self.station_mapping = {int(k): v for k, v in station_map.items()}   # duplicate from smart.py
         self.inverted_station_map = {v: k for k, v in station_mapping.items()}
+
+        employees_at_stations = {22: 2, 55: 2}
+        self.station_dict = self.station_initializer(employees_at_stations)
+
+        self.travel_times = travel_times  # Imported from smart.py
+
+        # Keep track of current_time internally
         self.current_time = None
-        self.station_ids = station_ids
+
         self.driver_tasks = []
         self.pedestrian_tasks = []
-        self.station_dict = station_dict
-        self.travel_times = travel_times
 
         self.errors = None
         self.error_dict = {
@@ -48,6 +55,34 @@ class Update:
             'available_parking': [],
             'idle_vehicles': []
         }
+
+    def station_initializer(self, employees_at_stations, idx_type='real'):
+        '''
+        Creates station dictionary
+        :
+        :param employees_at_stations:
+        :param idx_type:
+        :return: the station dictionary
+        '''
+        station_dict = {}
+        car_count = 1
+
+        for logical_station, station in enumerate(self.stations.index):
+            parkingSpots = self.stations['parking_spots'].get(station)
+            # Assign cars to the station.
+            car_list = []
+            for car in range(self.stations['idle_vehicles'].get(station)):
+                car_list.append(car_count)
+                car_count += 1
+            # Set up employee list
+            emp_list = []
+            if station in employees_at_stations.keys():
+                for emp in range(employees_at_stations[station]):
+                    emp_list.append(Employee(None, None, None))
+            # Create the station
+            station_dict[station] = Station(logical_station, parkingSpots, car_list, emp_list)
+
+        return station_dict
 
 
     def update_driver_ped_tasks(self, tasks, task_type):
@@ -128,14 +163,14 @@ class Update:
         customer = Person(requests[0], requests[1], time)
         cust_list.append(customer)
 
-    def assign_customers(self, station, station_dictionary):
+    def assign_customers(self, station):
         while len(station.waiting_customers) > 0:
             customer = station.waiting_customers[0]
             try:
                 customer = station.waiting_customers.pop(0)  # Either way we want to remove the customer from the list.
                 current_car = station.car_list.pop(0)
                 customer.assign_cust_car(current_car)
-                station_dictionary[customer.destination].append_en_route_list(customer)
+                self.station_dict[customer.destination].append_en_route_list(customer)
                 print("Customer put in car")
             except IndexError:
                 self.errors['no_vehicle_for_customer'][station.station_id] += 1
@@ -217,11 +252,9 @@ class Update:
         for k, v in self.errors.items():
             self.error_dict[k].append(v)
 
-    def run(self, station_dict, customer_requests, current_time):
+    def run(self, customer_requests, current_time):
         '''
         Main logic of the simulation.
-        :param station_dict: Reference to Station Dictionary created in 'SmartController' Class. Probably makes more
-        sense to move it heree.
         :param customer_requests: The unformatted requests. Will use the station_mapping dictionary to convert to
         'real_id'
         :param current_time: current time
@@ -243,7 +276,7 @@ class Update:
         for logical_station, station in enumerate(self.station_ids):  # Goes through the stations in order
             # For future efficiency check to see if there are any requests before doing all this work
             # Grab information relevant to this loop and organize
-            current_station = station_dict[station]
+            current_station = self.station_dict[station]
 
             # Loop Arrivals - Need to check
             self.arrivals(current_station)
@@ -261,7 +294,7 @@ class Update:
                         print("Station: {}, Car Count: {}".format(station, len(current_station.car_list)))
 
                 # assigns customers to cars if available
-                self.assign_customers(current_station, station_dict)
+                self.assign_customers(current_station)
 
 
 
@@ -280,7 +313,7 @@ class Update:
         available_parking = [0 for i in range(len(station_ids))]
         idle_vehicles = [0 for i in range(len(station_ids))]
 
-        for k, v in station_dict.items():
+        for k, v in self.station_dict.items():
             if v.get_available_parking() == 0:
                 station_full[v.station_id] += 1
             elif v.get_available_parking() == v.parking_spots:

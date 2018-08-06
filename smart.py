@@ -10,12 +10,9 @@ from backend.controller import Controller
 class SmartController:
     def __init__(self):
         self.stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
-        # self.station_mapping = np.load('data/10_days/station_mapping.npy').item()
         self.station_ids = self.stations.index.tolist()
         self.n_stations = None
-        self.station_dict = None
         self.controller = None
-        self.station_dict = None
         self.vehicle_arrivals = None
         self.driver_arrivals = None
         self.idle_vehicles = None
@@ -26,7 +23,7 @@ class SmartController:
         station_map = np.load('data/10_days/station_mapping.npy').item()
         self.station_mapping = {int(k): v for k, v in station_map.items()}
 
-    def update_arrivals_and_idle(self, curr_time):
+    def update_arrivals_and_idle(self, curr_time, station_dict):
         '''
         The controller needs a matrix of arrivals for the next 12 timesteps for drivers
         and vehicles
@@ -42,7 +39,7 @@ class SmartController:
         count = 0  # go through in the same order as the stations index
         for station in self.stations.index:
             # Update the driver and vehicle arrivals
-            for person in self.station_dict[station].get_en_route_list(True):  # todo - This probably doesn't need to loop like this
+            for person in station_dict[station].get_en_route_list(True):  # todo - This probably doesn't need to loop like this
                 for i in range(curr_time, curr_time + 12):
                     # print("i: {}, destination_time: {}".format(curr_time, person.destination_time))
                     # print(i == person.destination_time)
@@ -56,8 +53,8 @@ class SmartController:
 
 
             # Update the idle_vehicle and driver lists
-            idle_vehicles.append(len(self.station_dict[station].car_list))
-            idle_drivers.append(len(self.station_dict[station].employee_list))
+            idle_vehicles.append(len(station_dict[station].car_list))
+            idle_drivers.append(len(station_dict[station].employee_list))
 
             count += 1
 
@@ -82,31 +79,30 @@ class SmartController:
         np.fill_diagonal(tt.values, 1)
         return tt
 
-    def station_initializer(self, employees_at_stations, idx_type='real'):
-        '''
-        Creates station dictionary
-        :param employees_at_stations:
-        :param idx_type:
-        :return:
-        '''
-        self.station_dict = {}
-        car_count = 1
-        # if idx_type == 'logical':  # TODO - FIX ME
-        #     station_mapping = self.station_mapping.values
-        for logical_station, station in enumerate(self.stations.index):  # TODO - Use the station.index or station_map here? - use idx_type to decide
-            parkingSpots = self.stations['parking_spots'].get(station)
-            # Assign cars to the station.
-            car_list = []
-            for car in range(self.stations['idle_vehicles'].get(station)):
-                car_list.append(car_count)
-                car_count += 1
-            # Set up employee list
-            emp_list = []
-            if station in employees_at_stations.keys():
-                for emp in range(employees_at_stations[station]):
-                    emp_list.append(Employee(None, None, None))
-            # Create the station
-            self.station_dict[station] = Station(logical_station, parkingSpots, car_list, emp_list)
+    # def station_initializer(self, employees_at_stations, idx_type='real'):
+    #     '''
+    #     Creates station dictionary
+    #     :param employees_at_stations:
+    #     :param idx_type:
+    #     :return:
+    #     '''
+    #     self.station_dict = {}
+    #     car_count = 1
+    #
+    #     for logical_station, station in enumerate(self.stations.index):
+    #         parkingSpots = self.stations['parking_spots'].get(station)
+    #         # Assign cars to the station.
+    #         car_list = []
+    #         for car in range(self.stations['idle_vehicles'].get(station)):
+    #             car_list.append(car_count)
+    #             car_count += 1
+    #         # Set up employee list
+    #         emp_list = []
+    #         if station in employees_at_stations.keys():
+    #             for emp in range(employees_at_stations[station]):
+    #                 emp_list.append(Employee(None, None, None))
+    #         # Create the station
+    #         self.station_dict[station] = Station(logical_station, parkingSpots, car_list, emp_list)
 
 
     def update_contoller(self,):
@@ -127,15 +123,9 @@ class SmartController:
 
     def initialize(self):
         # Get info about stations from the station csv
-        station_ids = self.stations.index.tolist()
+        station_ids = self.stations.index.tolist()  # todo - Already have a class attribute for this
         self.n_stations = len(station_ids)
 
-        # Create the station objects and dictionary
-        employees_at_stations = {22: 2, 55: 2}
-
-        self.station_initializer(employees_at_stations, 'real')
-        for k,v in self.station_dict.items():
-            print("Station: {}, Number of cars: {}".format(k, v.car_list))
         # Control Settings
         dt = 5 #         minutes
         timestepsize = timedelta(0, 60 * dt)  # in seconds
