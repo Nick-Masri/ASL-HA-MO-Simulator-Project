@@ -15,19 +15,10 @@ def station_initializer(station_mapping_int, parking, employees_at_stations, car
         parking_spots = parking[station]
         # Assign cars to the station.
         car_list = []
-        print(cars_per_station[station])
         for car in range(cars_per_station[station]):
             car_list.append(car_count)
             car_count += 1
 
-        # for car in range(25):
-        #     car_list.append(car_count)
-        #     car_count += 1
-        # Set up employee list    return station_dict
-        # x = floor(parking[station]/2)
-        # for car in range(x):
-        #     car_list.append(car_count)
-        #     car_count += 1
         emp_list = []
         if station in employees_at_stations.keys():
             for emp in range(employees_at_stations[station]):

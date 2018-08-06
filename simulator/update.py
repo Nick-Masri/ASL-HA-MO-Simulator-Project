@@ -1,4 +1,4 @@
-from simulator.output import overview
+from simulator.output.overview import output
 
 from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
 from simulator.controllers.smart.smart import SmartController
@@ -69,7 +69,7 @@ class Update:
         # self.tool.vehicle_errors += self.no_idle_vehicle
 
         # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)]
-        text = overview(self.time, self.station_dict)
+        text = output(self.time, self.station_dict)
         return text, self.idle_vehicles, self.available_parking
 
     def arrivals(self, station, station_index):

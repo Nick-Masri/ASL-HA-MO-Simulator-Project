@@ -16,8 +16,8 @@ state = pd.read_csv(simulator.variables.parameters.parking_data)
 simulator.variables.helpers.fix_row_numbers(state, station_mapping_int)
 # print(state[['station_id', 'parking_spots', 'idle_vehicles']])
 
-parking = state['parking_spots'].values
-cars_per_station = state['idle_vehicles'].values
+parking = state['parking_spots'].values.astype(int)
+cars_per_station = state['idle_vehicles'].values.astype(int)
 
 employees_at_stations = simulator.variables.parameters.employees_at_stations
 
