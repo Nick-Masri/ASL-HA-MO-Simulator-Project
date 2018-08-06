@@ -13,6 +13,8 @@ hamo_travel_times = format_travel_times("./data/travel_times_matrix_hamo.csv", S
 
 ######################################
 # Setting up roadgraphs in the format of the controller api w/real-station names
+# OPTIMAL
+# A lot of this is duplicate. It's all static so it can be imported from a Constants class or something
 ######################################
 
 stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
@@ -148,6 +150,8 @@ def get_travel_time(time_graph, origin, destination):
 
     return travel_time
 
+
+# OPTIMAL - Should be added to a class. Probably could be done without the function at all. Only used with the Employee class.
 def get_travel_time_pandas(time_graph, origin, destination):
     return int(time_graph.at[int(origin), int(destination)])
 

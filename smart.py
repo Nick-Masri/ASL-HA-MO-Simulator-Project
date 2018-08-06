@@ -2,15 +2,22 @@ from datetime import timedelta
 import pandas as pd
 import numpy as np
 
-from classes import Station, Employee
+from classes import Employee
 
 from backend.controller import Controller
 
 
 class SmartController:
     def __init__(self):
-        self.stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
-        self.station_ids = self.stations.index.tolist()
+        station_map = np.load('data/10_days/station_mapping.npy').item()
+        self.station_mapping = {int(k): v for k, v in station_map.items()}
+
+        # Added logic to remove stations that aren't in the station_mapping
+        stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
+        self.station_ids = stations.index.tolist()
+        extra_stations = set(self.station_ids) - set(self.station_mapping.keys())
+        self.stations = stations.drop(index=extra_stations)
+
         self.n_stations = None
         self.controller = None
         self.vehicle_arrivals = None
@@ -20,8 +27,7 @@ class SmartController:
         self.private_vehicles = np.zeros((58, 1))
         self.travel_times = None
 
-        station_map = np.load('data/10_days/station_mapping.npy').item()
-        self.station_mapping = {int(k): v for k, v in station_map.items()}
+
 
     def update_arrivals_and_idle(self, curr_time, station_dict):
         '''
@@ -78,32 +84,6 @@ class SmartController:
         tt = tt.loc[self.stations.index][self.stations.index]  # QUESTION - Order them the same as the stations (random?)
         np.fill_diagonal(tt.values, 1)
         return tt
-
-    # def station_initializer(self, employees_at_stations, idx_type='real'):
-    #     '''
-    #     Creates station dictionary
-    #     :param employees_at_stations:
-    #     :param idx_type:
-    #     :return:
-    #     '''
-    #     self.station_dict = {}
-    #     car_count = 1
-    #
-    #     for logical_station, station in enumerate(self.stations.index):
-    #         parkingSpots = self.stations['parking_spots'].get(station)
-    #         # Assign cars to the station.
-    #         car_list = []
-    #         for car in range(self.stations['idle_vehicles'].get(station)):
-    #             car_list.append(car_count)
-    #             car_count += 1
-    #         # Set up employee list
-    #         emp_list = []
-    #         if station in employees_at_stations.keys():
-    #             for emp in range(employees_at_stations[station]):
-    #                 emp_list.append(Employee(None, None, None))
-    #         # Create the station
-    #         self.station_dict[station] = Station(logical_station, parkingSpots, car_list, emp_list)
-
 
     def update_contoller(self,):
         forecast = {

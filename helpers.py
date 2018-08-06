@@ -5,24 +5,6 @@ import numpy as np
 import matlab
 
 ######################################
-# Instantiating Error Arrays ~ JS
-######################################
-
-no_car_cust_errors = np.zeros(shape=(2880, 58))
-no_park_errors = np.zeros(shape=(2880, 58))
-no_car_emp_errors = np.zeros(shape=(2880, 58))
-
-
-######################################
-# Creating Functions For Update ~ NM
-######################################
-
-
-# def convert_real_to_logical(station):
-#     return station_mapping[station]
-
-
-######################################
 # Update Loop ~ NM
 ######################################
 class Update:
@@ -56,12 +38,10 @@ class Update:
             'idle_vehicles': []
         }
 
-    def station_initializer(self, employees_at_stations, idx_type='real'):
+    def station_initializer(self, employees_at_stations):
         '''
-        Creates station dictionary
-        :
-        :param employees_at_stations:
-        :param idx_type:
+        Creates station dictionary, assumes you're using the real_station_ids for keys
+        :param employees_at_stations: Dictionary in the form {real_station_id: # of employees} both k, v are int
         :return: the station dictionary
         '''
         station_dict = {}
@@ -71,7 +51,8 @@ class Update:
             parkingSpots = self.stations['parking_spots'].get(station)
             # Assign cars to the station.
             car_list = []
-            for car in range(self.stations['idle_vehicles'].get(station)):
+            # Optimal (cast cars to int for range to work)
+            for car in range(int(self.stations['idle_vehicles'].get(station))):
                 car_list.append(car_count)
                 car_count += 1
             # Set up employee list
@@ -269,8 +250,8 @@ class Update:
             'no_vehicle_for_employee': [0 for i in range(len(station_ids))]
         }
 
-
-        # if we're using real station numbers this converts the cust requests into "real" format
+        # realStations - if we're using real station numbers this converts the cust requests into "real" format using
+        # the map Matt provided
         customer_requests = self.convert_cust_req_to_real_stations(customer_requests)
 
         for logical_station, station in enumerate(self.station_ids):  # Goes through the stations in order
@@ -296,16 +277,13 @@ class Update:
                 # assigns customers to cars if available
                 self.assign_customers(current_station)
 
-
-
         # Send out drivers and pedestrians on tasks
 
         self.assign_drivers()
         self.assign_pedestrians()
 
-        #update the errors
+        # update the errors
         self.update_error_lists()
-
 
         # update the full/empty arrays
         station_full = [0 for i in range(len(station_ids))]
@@ -326,10 +304,7 @@ class Update:
         self.error_dict['station_empty'].append(station_empty)
         self.error_dict['available_parking'].append(available_parking)
         self.error_dict['idle_vehicles'].append(idle_vehicles)
-        #
-        # for k, v in self.error_dict.items():
-        #     np.save(k+'.npy', v)
-        # np.save('station_state.npy', self.error_dict)
+
 
 
 ######################################

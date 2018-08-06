@@ -30,14 +30,14 @@ for curr_time in range(len(cust_requests)):
 
     [tasks, output] = smart.controller.compute_rebalancing()
 
+    # Print out information from controller solution
     for k, v in output.items():
         if k != 'cplex_out':
             print(k, v)
 
-
+    # Updated the driver and pedestrican tasks in the simulator
     update.update_driver_ped_tasks(tasks['vehicleRebalancingQueue'], 'driver')
     update.update_driver_ped_tasks(tasks['driverRebalancingQueue'], 'pedestrian')
-
 
 for k, v in smart.station_dict.items():
     print("Station: {}, Num of cars: {}, Enroute_List: {}".format(k, len(v.car_list), len(v.en_route_list)))
