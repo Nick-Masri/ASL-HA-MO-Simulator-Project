@@ -1,23 +1,16 @@
 from simulator.update import Update
+
 from simulator.output.overview import write
-from simulator.setup import station_initializer
 from simulator.output.measurement import Measurement
 
-import simulator.variables.formatting as var
-
-
-###################
-# Run Setup ~ NM
-##################
+from simulator.setup import cust_requests, travel_times, setup_vars
 
 
 def run(controller):
-    station_dict = station_initializer(var.station_mapping_int, var.parking,
-                                       var.employees_at_stations, var.cars_per_station)
 
     tool = Measurement()
     text = []
-    # print(len(np.sum(var.cust_requests, axis=0)))
+
     for time in range(2880):
         # x = time / 28.79
         # if time % 100 == 0 or time == 2879:
@@ -25,12 +18,12 @@ def run(controller):
 
         print('Time: {}'.format(time))
 
-        customer_requests = var.cust_requests[time]
+        customer_requests = cust_requests[time]
 
-        output, idle_vehicles, parking = Update(tool, controller, time, station_dict, customer_requests).loop()
+        output, idle_vehicles, parking = Update(tool, controller, time, customer_requests, travel_times, setup_vars).loop()
         text.append(output)
         # if time % 6 == 0:
-        #     heatmap_run(time, idle_vehicles, parking)
+        #     heatmap_run(time, idle_vehicles, parking_per_station)
 
     write("files/station_overview.txt", text)
     print("\n\nfiles/station_overview.txt created")

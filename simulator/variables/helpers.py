@@ -2,11 +2,6 @@ import numpy as np
 import pandas as pd
 
 
-######################################
-# Format and Load Instructions ~ NM / MC
-######################################
-
-
 def format_instructions(request):
     var = []
     count = 0

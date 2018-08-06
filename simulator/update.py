@@ -1,16 +1,11 @@
 from simulator.output.overview import output
 
-from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
-from simulator.controllers.smart.smart import SmartController
-
 import simulator.variables.parameters
 from simulator.people import Employee, Person
+from simulator.stations import Station
 
 import numpy as np
 import math
-
-from simulator.variables.formatting import hamo_travel_times
-
 
 #########################
 # Update Function ~ NM
@@ -19,9 +14,9 @@ from simulator.variables.formatting import hamo_travel_times
 
 class Update:
 
-    def __init__(self, tool, controller, time, station_dict, customer_requests):
+    def __init__(self, tool, controller, time, customer_requests, travel_times, setup_vars):
         self.time = time
-        self.station_dict = station_dict
+        self.station_dict = self.station_initializer(setup_vars)
         self.customer_requests = customer_requests
         self.controller = controller
         self.errors = []
@@ -30,6 +25,13 @@ class Update:
         self.tool = tool
         self.idle_vehicles = np.zeros([58,])
         self.available_parking = np.zeros([58,])
+        self.travel_times = travel_times
+
+        if controller == "smart" or controller == "s":
+            self.smart_setup()
+            from simulator.controllers.smart.smart import SmartController
+        else:
+            from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
 
     def loop(self):
         for station_index in sorted(self.station_dict):
@@ -118,16 +120,16 @@ class Update:
         :param station: Station the person was trying to drop off a car at.
         :return:
         '''
-        travel_matrix = hamo_travel_times[person.destination].copy()
+        travel_matrix = self.travel_times['hamo'][person.destination].copy()
         travel_matrix[person.destination] = 1000 # Set the travel time of the current station to 1000
 
-        # Find the next closest station with available parking.
+        # Find the next closest station with available parking_per_station.
         closest_station = None
         while closest_station is None:
             # closest_station = travel_matrix.idxmin()
 
             closest_station = np.argmin(travel_matrix)
-            # Check if there's parking at the closest station, if there isn't remove that station from the matrix
+            # Check if there's parking_per_station at the closest station, if there isn't remove that station from the matrix
             if self.station_dict[closest_station].calc_parking() == 0:
                 # closest_station not in (11, 37, 27, 10, 2, 5):
                 travel_matrix[closest_station] = 1000
@@ -160,28 +162,58 @@ class Update:
 
     def naive(self):
 
-        morning_start = simulator.variables.parameters.morningStart
-        morning_end = simulator.variables.parameters.morningEnd
-        evening_start = simulator.variables.parameters.eveningStart
-        evening_end = simulator.variables.parameters.eveningEnd
+        morning_start = 72  # 6am
+        morning_end = 96  # 8am
+
+        evening_start = 180  # 3pm
+        evening_end = 204  # 5pm
 
         if morning_start <= self.time <= morning_end:
             driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict)
 
             if self.time == morning_end:
-                simulator.variables.parameters.morningStart += 288
-                simulator.variables.parameters.morningEnd += 288
+                morning_start += 288
+                morning_end += 288
         elif evening_start <= self.time <= evening_end:
             driver_requests, pedestrian_requests = evening_rebalancing(self.station_dict)
 
             if self.time == evening_end:
-                simulator.variables.parameters.eveningStart += 288
-                simulator.variables.parameters.eveningEnd += 288
+                evening_start += 288
+                evening_end += 288
         else:
             driver_requests = [[] for i in range(len(self.station_dict))]
             pedestrian_requests = [[] for i in range(len(self.station_dict))]
         return driver_requests, pedestrian_requests
 
     def smart(self):
+        pass
+
+    def smart_setup(self):
         smart = SmartController()
         smart.initialize()
+
+    def station_initializer(self, setup_vars):
+        station_mapping_int = setup_vars[0]
+        parking = setup_vars[1]
+        employees_at_stations = setup_vars[2]
+        cars_per_station = setup_vars[3]
+
+        station_dict = {}
+        car_count = 1
+        for station in station_mapping_int.values():
+            # print(station)
+            parking_spots = parking[station]
+            # Assign cars to the station.
+            car_list = []
+            for car in range(cars_per_station[station]):
+                car_list.append(car_count)
+                car_count += 1
+
+            emp_list = []
+            if station in employees_at_stations.keys():
+                for emp in range(employees_at_stations[station]):
+                    emp_list.append(Employee(None, None, None))
+            # Create the station
+            station_dict[station] = Station(station, parking_spots, car_list, emp_list)
+
+        return station_dict

@@ -18,7 +18,6 @@ class Measurement:
         # self.vehicle_errors = 0
 
     def measure_station(self, time, station, station_index):
-        calc = station.get_en_route_drivers() - station.calc_parking()
         if station.parking_spots != 0:
 
             day = ceil(time/288) - 1
