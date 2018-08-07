@@ -6,9 +6,9 @@
 def morning_rebalancing(dict):
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]
-    home = (2, 5)  # real station 22 = 2, 55 = 5
-    buffer = (11, 37)  # real station 38 = 11, 41=37
-    extra = (27,10)  # real station 37 = 27, 43 =10
+    home = (22, 55)  # real station 22 = 2, 55 = 5
+    buffer = (38, 41)  # real station 38 = 11, 41=37
+    extra = (37,43)  # real station 37 = 27, 43 =10
     for i in home:
         station = dict[i]
         for emp in station.employee_list:
@@ -42,8 +42,8 @@ def morning_rebalancing(dict):
 def evening_rebalancing(dict):
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]
-    home = (11, 37, 27, 10)
-    buffer = (2, 5)
+    home = (38, 41, 37, 43)
+    buffer = (22, 55)
     for i in home:
         station = dict[i]
         for emp in station.employee_list:

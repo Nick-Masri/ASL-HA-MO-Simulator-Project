@@ -17,16 +17,16 @@ class Measurement:
         # self.vehicle_errors = 0self.park_errors = 0
         # self.vehicle_errors = 0
 
-    def measure_station(self, time, station, station_index):
+    def measure_station(self, time, station):
         if station.parking_spots != 0:
 
             day = ceil(time/288) - 1
 
             if station.calc_parking() == 0:
-                self.time_full[station_index][day] += 1
+                self.time_full[station.station_id][day] += 1
 
             if station.calc_parking() == station.parking_spots:
-                self.time_empty[station_index][day] += 1
+                self.time_empty[station.station_id][day] += 1
 
     def record(self, file,):
         errors = open(file, 'w')

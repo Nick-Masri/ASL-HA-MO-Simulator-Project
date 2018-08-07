@@ -1,11 +1,13 @@
 from simulator.output.overview import output
 
-import simulator.variables.parameters
 from simulator.people import Employee, Person
 from simulator.stations import Station
 
 import numpy as np
+
 import math
+
+import sys
 
 #########################
 # Update Function ~ NM
@@ -16,25 +18,44 @@ class Update:
 
     def __init__(self, tool, controller, time, customer_requests, travel_times, setup_vars):
         self.time = time
+
+        self.station_ids = setup_vars['station_ids'].index.tolist()
+
         self.station_dict = self.station_initializer(setup_vars)
-        self.customer_requests = customer_requests
+
+        self.inverted_station_map = {v: k for k, v in setup_vars['mapping'].items()}
         self.controller = controller
-        self.errors = []
-        self.no_parking = 0
-        self.no_idle_vehicle = 0
+
+        self.customer_requests = self.convert_cust_req_to_real_stations(customer_requests)
         self.tool = tool
-        self.idle_vehicles = np.zeros([58,])
-        self.available_parking = np.zeros([58,])
+        self.errors = {
+            'parking_violation': [],
+            'no_vehicle_for_customer': [],
+            'no_vehicle_for_employee': [],
+            'station_full': [],
+            'station_empty': [],
+            'available_parking': [],
+            'idle_vehicles': []
+        }
+        # self.idle_vehicles = np.zeros([58,])
+        # self.available_parking = np.zeros([58,])
         self.travel_times = travel_times
 
-        if controller == "smart" or controller == "s":
-            self.smart_setup()
-            from simulator.controllers.smart.smart import SmartController
-        else:
-            from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
+    def convert_cust_req_to_real_stations(self, tasks):
+        '''
+        Converts the station Requests to the 'real_ids'. The customer requests from 'hamo10days.npy' use the staton
+        map (or in this case the 'inverted_station_map' to convert to "real station ids".
+        :param tasks: List of (o, d) format, where o and d are the logical values found in 'inverted_station_map'
+        '''
+        temp = []
+        for task in tasks:
+            temp.append([self.inverted_station_map[task[0]], self.inverted_station_map[task[1]]])
+        return temp
 
     def loop(self):
-        for station_index in sorted(self.station_dict):
+        for station in self.station_ids:
+
+            station = self.station_dict[station]
 
             if self.controller == "naive" or self.controller == "n":
                 driver_requests, pedestrian_requests = self.naive()
@@ -42,39 +63,40 @@ class Update:
                 driver_requests = [[] for i in range(len(self.station_dict))]
                 pedestrian_requests = [[] for i in range(len(self.station_dict))]
 
-            station = self.station_dict[station_index]
-            driver_request = driver_requests[station_index]
-            ped_request = pedestrian_requests[station_index]
+            logical_station = station.station_id
+
+            driver_request = driver_requests[logical_station]
+            ped_request = pedestrian_requests[logical_station]
 
             # Loop Arrivals
-            self.arrivals(station, station_index)
-            self.tool.measure_station(self.time, station, station_index)
+            self.arrivals(station)
+            self.tool.measure_station(self.time, station)
 
             # Put customers into cars
             if len(self.customer_requests) > 0:
                 for customer_request in self.customer_requests:
-                    if customer_request[0] == station_index:
-                        self.assign_customers(station, customer_request, station_index)
+                    if customer_request[0] == logical_station:
+                        self.assign_customers(station, customer_request)
 
             if len(driver_request) > 0:
-                request = (station_index, driver_request[0], self.time)
-                self.assign_drivers(station, request, station_index)
+                request = (logical_station, driver_request[0], self.time)
+                self.assign_drivers(station, request)
 
             if len(ped_request) > 0:
-                request = (station_index, ped_request[0], self.time)
+                request = (logical_station, ped_request[0], self.time)
                 self.assign_pedestrians(station, request)
 
-            self.idle_vehicles[station_index] = len(station.car_list)
-            self.available_parking[station_index] = station.calc_parking()
+            # self.idle_vehicles[station_index] = len(station.car_list)
+            # self.available_parking[station_index] = station.calc_parking()
 
         # self.tool.park_errors += self.no_parking
         # self.tool.vehicle_errors += self.no_idle_vehicle
 
         # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)]
         text = output(self.time, self.station_dict)
-        return text, self.idle_vehicles, self.available_parking
+        return text, self.errors
 
-    def arrivals(self, station, station_index):
+    def arrivals(self, station):
         while len(station.en_route_list) > 0:
             person = station.get_en_route_list(True)[0]
             if person.destination_time == self.time:
@@ -83,7 +105,8 @@ class Update:
                     if station.calc_parking() <= 0:
                         if station.parking_spots != 0:
                             # self.no_parking += 1
-                            self.tool.park_errors[station_index, math.floor(self.time / 288)] += 1
+                            pass
+                            # self.tool.park_errors[station., math.floor(self.time / 288)] += 1
                         self.reroute_for_overflow(person)
                     else:
                         station.car_list.append(person.vehicle_id)
@@ -100,7 +123,7 @@ class Update:
             else:
                 break
 
-    def assign_drivers(self, station, request, station_index):
+    def assign_drivers(self, station, request):
         print('Driving {}'.format(request))
         station.employee_list.pop(0)
         driver = Employee(request[0], request[1], request[2])
@@ -109,9 +132,9 @@ class Update:
             self.station_dict[driver.destination].en_route_list.append(driver)
         except IndexError:
             if station.parking_spots != 0:
-                self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
-                print("No Parking at time: {0}, at station: {1}".format(self.time, driver.destination))
-
+                # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
+                # print("No Parking at time: {0}, at station: {1}".format(self.time, driver.destination))
+                pass
     def reroute_for_overflow(self, person):
         '''
         When a person tries to drop off a car and there is no room, this method will reroute them to the next
@@ -147,7 +170,7 @@ class Update:
         ped = Employee(request[0], request[1], request[2])
         self.station_dict[ped.destination].en_route_list.append(ped)
 
-    def assign_customers(self, station, request, station_index):
+    def assign_customers(self, station, request):
         if station.parking_spots != 0:
             customer = Person(request[0], request[1], self.time)
             try:
@@ -156,11 +179,13 @@ class Update:
                 self.station_dict[customer.destination].en_route_list.append(customer)
             except IndexError:
                 if station.parking_spots != 0:
-                    self.no_idle_vehicle += 1
-                    self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
-                    print("No Idle Vehicle at time: {0}, at station: {1}, heading to station {2}".format(self.time, customer.origin, customer.destination))
-
+                    # self.no_idle_vehicle += 1
+                    # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
+                    # print("No Idle Vehicle at time: {0}, at station: {1}, heading to station {2}".format(self.time, customer.origin, customer.destination))
+                    pass
     def naive(self):
+
+        from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
 
         morning_start = 72  # 6am
         morning_end = 96  # 8am
@@ -189,19 +214,20 @@ class Update:
         pass
 
     def smart_setup(self):
+
+        from simulator.controllers.smart.smart import SmartController
+
         smart = SmartController()
         smart.initialize()
 
     def station_initializer(self, setup_vars):
-        station_mapping_int = setup_vars[0]
-        parking = setup_vars[1]
-        employees_at_stations = setup_vars[2]
-        cars_per_station = setup_vars[3]
+        parking = setup_vars['parking']
+        employees_at_stations = setup_vars['employees']
+        cars_per_station = setup_vars['cars']
 
         station_dict = {}
         car_count = 1
-        for station in station_mapping_int.values():
-            # print(station)
+        for logical_station, station in enumerate(self.station_ids):
             parking_spots = parking[station]
             # Assign cars to the station.
             car_list = []
@@ -214,6 +240,7 @@ class Update:
                 for emp in range(employees_at_stations[station]):
                     emp_list.append(Employee(None, None, None))
             # Create the station
-            station_dict[station] = Station(station, parking_spots, car_list, emp_list)
+            station_dict[station] = Station(logical_station, parking_spots, car_list, emp_list)
 
         return station_dict
+

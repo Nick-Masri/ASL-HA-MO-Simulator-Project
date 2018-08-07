@@ -12,15 +12,11 @@ def run(controller):
     text = []
 
     for time in range(2880):
-        # x = time / 28.79
-        # if time % 100 == 0 or time == 2879:
-        #     print("{}%".format(math.ceil(x)))
-
         print('Time: {}'.format(time))
 
         customer_requests = cust_requests[time]
 
-        output, idle_vehicles, parking = Update(tool, controller, time, customer_requests, travel_times, setup_vars).loop()
+        output, errors = Update(tool, controller, time, customer_requests, travel_times, setup_vars).loop()
         text.append(output)
         # if time % 6 == 0:
         #     heatmap_run(time, idle_vehicles, parking_per_station)
