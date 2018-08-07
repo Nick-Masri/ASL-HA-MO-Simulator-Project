@@ -13,6 +13,11 @@ class Person:
         self.current_position = [origin, destination]
         self.vehicle_id = vehicle_id
 
+    def update_status(self, origin, destination, origin_time, new_car):
+        self.origin = origin
+        self.destination = destination
+        self.origin_time = origin_time
+        self.vehicle_id = new_car
 
 class Employee(Person):
     def __init__(self, origin, destination, origin_time, vehicle_id=None):
@@ -26,7 +31,7 @@ class Employee(Person):
         self.destination_time = None
         self.vehicle_id = None
 
-    def update_status(self, origin, destination, origin_time, new_car=None):
+    def update_status(self, origin, destination, origin_time, new_car):
         self.origin = origin
         self.destination = destination
         self.origin_time = origin_time

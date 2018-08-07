@@ -16,4 +16,6 @@ output.txt
 .DS_Store
 data/*
 files/*
+files/pictures/errors/*
+files/pictures/STD/*
 controllers/smart-controller/*

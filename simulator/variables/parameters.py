@@ -2,7 +2,7 @@
 # Variables for Initial State
 ####################################
 
-employees_at_stations = {2: 2, 5: 2}
+employees_at_stations = {22: 2, 55: 2}
 
 ####################################
 # Defining Locations of the Data

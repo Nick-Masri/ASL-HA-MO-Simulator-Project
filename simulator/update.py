@@ -1,45 +1,34 @@
-from simulator.output.overview import output
-
 from simulator.people import Employee, Person
 from simulator.stations import Station
 
 import numpy as np
 
-import math
-
-import sys
-
-#########################
-# Update Function ~ NM
-#########################
-
 
 class Update:
 
-    def __init__(self, tool, controller, time, customer_requests, travel_times, setup_vars):
-        self.time = time
+    def __init__(self, controller, setup_vars):
 
         self.station_ids = setup_vars['station_ids'].index.tolist()
-
         self.station_dict = self.station_initializer(setup_vars)
 
         self.inverted_station_map = {v: k for k, v in setup_vars['mapping'].items()}
         self.controller = controller
 
-        self.customer_requests = self.convert_cust_req_to_real_stations(customer_requests)
-        self.tool = tool
-        self.errors = {
-            'parking_violation': [],
-            'no_vehicle_for_customer': [],
-            'no_vehicle_for_employee': [],
-            'station_full': [],
-            'station_empty': [],
-            'available_parking': [],
-            'idle_vehicles': []
+        self.log = {
+            'parking_violation': np.zeros([58, 2880]).astype(int),
+            'no_vehicle_for_customer': np.zeros([58, 2880]).astype(int),
+            'no_vehicle_for_employee': np.zeros([58, 2880]).astype(int),
+            'station_full': np.zeros([58, 2880]).astype(int),
+            'station_empty': np.zeros([58, 2880]).astype(int),
+            'available_parking': np.zeros([58, 2880]).astype(int),
+            'idle_vehicles': np.zeros([58, 2880]).astype(int)
         }
-        # self.idle_vehicles = np.zeros([58,])
-        # self.available_parking = np.zeros([58,])
-        self.travel_times = travel_times
+
+        self.time = 0
+        self.customer_requests = []
+
+        self.travel_times = setup_vars['travel_time']
+
 
     def convert_cust_req_to_real_stations(self, tasks):
         '''
@@ -52,89 +41,110 @@ class Update:
             temp.append([self.inverted_station_map[task[0]], self.inverted_station_map[task[1]]])
         return temp
 
-    def loop(self):
-        for station in self.station_ids:
+    def loop(self, time, customer_requests):
+        '''
+        Loops through stations in order to handle requests
+        :return:
+        '''
 
-            station = self.station_dict[station]
+        self.time = time
+        self.customer_requests = self.convert_cust_req_to_real_stations(customer_requests)
 
-            if self.controller == "naive" or self.controller == "n":
-                driver_requests, pedestrian_requests = self.naive()
-            else:
-                driver_requests = [[] for i in range(len(self.station_dict))]
-                pedestrian_requests = [[] for i in range(len(self.station_dict))]
+        if self.controller == "naive" or self.controller == "n":
+            driver_requests, pedestrian_requests = self.naive()
+        else:
+            driver_requests = [[] for i in range(len(self.station_dict))]
+            pedestrian_requests = [[] for i in range(len(self.station_dict))]
 
-            logical_station = station.station_id
+        for station_number in self.station_ids:
 
-            driver_request = driver_requests[logical_station]
-            ped_request = pedestrian_requests[logical_station]
+            station_obj = self.station_dict[station_number]
+
+            driver_request = driver_requests[station_obj.station_id]
+            ped_request = pedestrian_requests[station_obj.station_id]
 
             # Loop Arrivals
-            self.arrivals(station)
-            self.tool.measure_station(self.time, station)
+            self.arrivals(station_obj)
 
             # Put customers into cars
             if len(self.customer_requests) > 0:
                 for customer_request in self.customer_requests:
-                    if customer_request[0] == logical_station:
-                        self.assign_customers(station, customer_request)
+                    if customer_request[0] == station_number:
+                        self.assign_customers(station_obj, customer_request)
 
+            # Assign Drivers
             if len(driver_request) > 0:
-                request = (logical_station, driver_request[0], self.time)
-                self.assign_drivers(station, request)
+                request = (station_number, driver_request[0], self.time)
+                self.assign_drivers(station_obj, request)
 
+            # Assign Pedestrians
             if len(ped_request) > 0:
-                request = (logical_station, ped_request[0], self.time)
-                self.assign_pedestrians(station, request)
+                request = (station_number, ped_request[0], self.time)
+                self.assign_pedestrians(station_obj, request)
 
-            # self.idle_vehicles[station_index] = len(station.car_list)
-            # self.available_parking[station_index] = station.calc_parking()
+        return self.record()
 
-        # self.tool.park_errors += self.no_parking
-        # self.tool.vehicle_errors += self.no_idle_vehicle
+    def record(self):
+        for station in self.station_ids:
 
-        # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)]
-        text = output(self.time, self.station_dict)
-        return text, self.errors
+            station = self.station_dict[station]
+            logical_station = station.station_id
+
+            # Log State and Errors
+            if station.calc_parking() == 0:
+                self.log['station_full'][logical_station, self.time] += 1
+
+            if station.calc_parking() == station.parking_spots:
+                self.log['station_empty'][logical_station, self.time] += 1
+
+            self.log['idle_vehicles'][logical_station, self.time] = len(station.car_list)
+            self.log['available_parking'][logical_station, self.time] = station.calc_parking()
+
+        return self.log
 
     def arrivals(self, station):
         while len(station.en_route_list) > 0:
+
+            # Grab the first person in the en_route_list
             person = station.get_en_route_list(True)[0]
-            if person.destination_time == self.time:
+
+            if person.destination_time <= self.time:
                 station.en_route_list.remove(person)
+
+                # Check if they have a car
                 if person.vehicle_id is not None:
                     if station.calc_parking() <= 0:
-                        if station.parking_spots != 0:
-                            # self.no_parking += 1
-                            pass
-                            # self.tool.park_errors[station., math.floor(self.time / 288)] += 1
+                        self.log['parking_violation'][station.station_id, self.time] += 1
                         self.reroute_for_overflow(person)
                     else:
                         station.car_list.append(person.vehicle_id)
-                        if isinstance(person, Employee):
-                            person.reset()
-                            station.employee_list.append(person)
-                        else:
-                            del person
 
-                else:
+                # Check if they are an employee
+                if isinstance(person, Employee):
                     person.reset()
                     station.employee_list.append(person)
+                else:
+                    del person
 
             else:
                 break
 
     def assign_drivers(self, station, request):
         print('Driving {}'.format(request))
-        station.employee_list.pop(0)
-        driver = Employee(request[0], request[1], request[2])
         try:
+            # Remove the employee from the station
+            station.employee_list.pop(0)
+
+            # Make them a driver object
+            driver = Employee(request[0], request[1], request[2])
+
+            # Remove a car and add them to the en_route_list of the other stations
             driver.vehicle_id = station.car_list.pop(0)
             self.station_dict[driver.destination].en_route_list.append(driver)
+
         except IndexError:
-            if station.parking_spots != 0:
-                # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
-                # print("No Parking at time: {0}, at station: {1}".format(self.time, driver.destination))
-                pass
+            self.log['no_vehicle_for_employee'][station.station_id, self.time] += 1
+
     def reroute_for_overflow(self, person):
         '''
         When a person tries to drop off a car and there is no room, this method will reroute them to the next
@@ -144,7 +154,9 @@ class Update:
         :return:
         '''
         travel_matrix = self.travel_times['hamo'][person.destination].copy()
-        travel_matrix[person.destination] = 1000 # Set the travel time of the current station to 1000
+
+        # Set the travel time of the current station to 1000
+        travel_matrix[person.destination] = 1000
 
         # Find the next closest station with available parking_per_station.
         closest_station = None
@@ -152,17 +164,19 @@ class Update:
             # closest_station = travel_matrix.idxmin()
 
             closest_station = np.argmin(travel_matrix)
-            # Check if there's parking_per_station at the closest station, if there isn't remove that station from the matrix
+
+            # Check if there's parking_per_station at the closest station
+            # if there isn't remove that station from the matrix
             if self.station_dict[closest_station].calc_parking() == 0:
                 # closest_station not in (11, 37, 27, 10, 2, 5):
                 travel_matrix[closest_station] = 1000
-                # travel_matrix = travel_matrix.drop(index=closest_station)
                 closest_station = None
         # for x in (11, 37, 27, 10, 2, 5):
         #     closest_
+
         # update the station the person was rerouted to
         self.station_dict[closest_station].en_route_list.append(person)
-        person.update_status((person.destination, closest_station, self.time), person.vehicle_id)
+        person.update_status(person.destination, closest_station, self.time, person.vehicle_id)
 
     def assign_pedestrians(self, station, request):
         print('Walking {}'.format(request))
@@ -171,18 +185,14 @@ class Update:
         self.station_dict[ped.destination].en_route_list.append(ped)
 
     def assign_customers(self, station, request):
-        if station.parking_spots != 0:
-            customer = Person(request[0], request[1], self.time)
-            try:
-                current_car = station.car_list.pop(0)
-                customer.vehicle_id = current_car
-                self.station_dict[customer.destination].en_route_list.append(customer)
-            except IndexError:
-                if station.parking_spots != 0:
-                    # self.no_idle_vehicle += 1
-                    # self.tool.vehicle_errors[station_index, math.floor(self.time / 288)] += 1
-                    # print("No Idle Vehicle at time: {0}, at station: {1}, heading to station {2}".format(self.time, customer.origin, customer.destination))
-                    pass
+        customer = Person(request[0], request[1], self.time)
+        try:
+            current_car = station.car_list.pop(0)
+            customer.vehicle_id = current_car
+            self.station_dict[customer.destination].en_route_list.append(customer)
+        except IndexError:
+            self.log['no_vehicle_for_customer'][station.station_id, self.time] += 1
+
     def naive(self):
 
         from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
@@ -237,8 +247,10 @@ class Update:
 
             emp_list = []
             if station in employees_at_stations.keys():
+                print(station)
                 for emp in range(employees_at_stations[station]):
                     emp_list.append(Employee(None, None, None))
+                print(emp_list)
             # Create the station
             station_dict[station] = Station(logical_station, parking_spots, car_list, emp_list)
 

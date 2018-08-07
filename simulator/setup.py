@@ -50,5 +50,5 @@ travel_times = {
 parking_per_station = {station: stations['parking_spots'].get(station) for station in stations.index.tolist()}
 cars_per_station = {station: stations['idle_vehicles'].get(station) for station in stations.index.tolist()}
 
-setup_vars = {'mapping': station_mapping_int, 'parking': parking_per_station,
+setup_vars = {'travel_time': travel_times, 'mapping': station_mapping_int, 'parking': parking_per_station,
               'employees': employees_at_stations, 'cars': cars_per_station, 'station_ids': stations}
