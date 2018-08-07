@@ -9,7 +9,7 @@ import matlab
 ######################################
 class Update:
     def __init__(self, travel_times):
-        # Initialize the statino information
+        # Initialize the station information
         station_map = np.load('data/10_days/station_mapping.npy').item()
         self.station_mapping = {int(k): v for k, v in station_map.items()}   # duplicate from smart.py
         self.inverted_station_map = {v: k for k, v in station_mapping.items()}
@@ -21,6 +21,7 @@ class Update:
         self.stations = temp_stations.drop(index=extra_stations)
         self.station_ids = self.stations.index.tolist()
 
+        # Set up station_dict
         employees_at_stations = {22: 2, 55: 2}
         self.station_dict = self.station_initializer(employees_at_stations)
 
@@ -29,9 +30,11 @@ class Update:
         # Keep track of current_time internally
         self.current_time = None
 
+        # Lists for controller tasks
         self.driver_tasks = []
         self.pedestrian_tasks = []
 
+        # Errors data structures
         self.errors = None
         self.error_dict = {
             'parking_violation': [],
@@ -79,7 +82,7 @@ class Update:
         :return:
         '''
         temp = []
-        # Loop throught the tasks
+        # Loop through the tasks
         for index, task in enumerate(tasks):
             if task != matlab.double([]):  # If a station has no task its and empty matlab double array
                 origin = self.station_ids[index]  # The task list has the same index as the station_ids list
@@ -101,9 +104,9 @@ class Update:
 
     def convert_cust_req_to_real_stations(self, tasks):
         '''
-        Converts the station Requests to the 'real_ids'
+        Converts the station Requests to the 'real_ids'. The customer requests from 'hamo10days.npy' use the staton
+        map (or in this case the 'inverted_station_map' to convert to "real station ids".
         :param tasks: List of (o, d) format, where o and d are the logical values found in 'inverted_station_map'
-        :return:
         '''
         temp = []
         for task in tasks:
@@ -116,13 +119,11 @@ class Update:
         closest station.
         :param person: Person who was trying to drop off a car
         :param station: Station the person was trying to drop off a car at.
-        :return:
         '''
         real_station_id = self.station_ids[station.station_id]
-        # Get the correct travel_matrix. bit drop the current station (it'll always be the closest)
 
+        # Get the correct travel_matrix. but drop the current station (it'll always be the closest)
         travel_matrix = self.travel_times['hamo'][real_station_id].drop(index=real_station_id)
-
 
         # Find the next closest station with available parking.
         closest_station = None
@@ -152,6 +153,12 @@ class Update:
         cust_list.append(customer)
 
     def assign_customers(self, station):
+        '''
+        Assign customers from the station 'customer waiting list'. If there's car for the customer, log the error
+        and drop the customer.
+        :param station: the staion that you're looking to send customers from.
+        :return:
+        '''
         while len(station.waiting_customers) > 0:
             customer = station.waiting_customers[0]
             try:
@@ -163,8 +170,6 @@ class Update:
             except IndexError:
                 self.errors['no_vehicle_for_customer'][station.station_id] += 1
                 print("No car for customer")
-                # no_car_cust_errors[current_time, customer.origin] += 1
-                no_car_cust_errors[self.current_time, station.station_id] += 1  # TODO - update me for new error tracking
 
     def assign_pedestrians(self):
         '''
@@ -179,7 +184,7 @@ class Update:
     def assign_drivers(self):
         '''
         Using the pedestrian tasks from the controller, send employees on the task. If there is no car, it logs the
-        error and waits until the next timestep - TODO this could cause an issue. Is this the behavior we really want if
+        error and waits until the next timestep - TODO this could cause an issue. What if there's still no car? Should we just drop the task?
         there is no car for a driver?
         :return: Nothing, uses Station objects in station dictionary
         '''
@@ -194,11 +199,6 @@ class Update:
             except IndexError:
                 self.errors['no_vehicle_for_employee'][station_ids[task[0]]] += 1
 
-    # def update_employee_list(self, requests, employee_list):
-    #     for employee in requests:
-    #         emp_id = employee_list[employee]
-    #         employee_list[employee] = Employee(requests[0], requests[1], self.current_time, emp_id)
-
     def arrivals(self, station):
         '''
         Processes arrivals. If employees or customers are set to arrive at the current time step, process the arrival.
@@ -208,27 +208,25 @@ class Update:
         while len(station.en_route_list) > 0:
             person = station.get_en_route_list(True)[0]
             if person.destination_time == self.current_time:
-                print("A person just arrived at station: {}, parking available: {}"
-                      .format(self.station_ids[station.station_id], station.get_available_parking()))
-                station.get_en_route_list().remove(person)
+                station.get_en_route_list().remove(person)  # The person has arrived
                 current_vehicle_id = person.vehicle_id
-                if current_vehicle_id is not None:
-                    if station.get_available_parking() > 0:
+                if current_vehicle_id is not None:  # Check if person has a car
+                    if station.get_available_parking() > 0:  # Check if there's parking
                         station.car_list.append(current_vehicle_id)
-                        print("Number of cars at station: {}, Available Parking: {}"
-                              .format(self.station_ids[station.station_id], station.get_available_parking()))
                         if isinstance(person, Employee):
                             person.reset()
                             station.employee_list.append(person)
                         else:
                             del person
                     else:
+                        # If there's no car, log the error and reroute to the nearest parking spot
+                        # TODO - should we log customers and employees seperately?
                         self.errors['parking_violation'][station.station_id] += 1
                         self.reroute_for_overflow(person, station)
                 else:
+                    # If there's no car then it's a Pedestrian. Reset them and add to current station's employee list
                     person.reset()
                     station.employee_list.append(person)
-
             else:
                 break
 
@@ -318,7 +316,6 @@ class Update:
 # Format and Load Instructions ~ NM / MC
 ######################################
 
-
 def format_instructions(request):
     var = []
     count = 0
@@ -337,115 +334,3 @@ def format_instructions(request):
 
     return var
 
-
-######################################
-# Demand Forecast ~ MC
-######################################
-
-
-# def demand_forecast_parser(time):
-#     """
-#     :param time: current time block
-#     :param demand_forecast: matrix with the mean times mod 288 to handle multiple days
-#     :return: a numpy array in the form [ Next 11 time blocks of data, sum of the 12 time blocks of data] --> len 12
-#     """
-#     time = time % 288
-#     first_11_time_blocks = DEMAND_FORECAST[time:time + 11]
-#
-#     time = time + 11
-#     next_12_time_blocks = np.sum(DEMAND_FORECAST[time: time + 12], axis=0)
-#     parsed_demand = np.vstack((first_11_time_blocks, next_12_time_blocks))
-#
-#     return parsed_demand
-#
-#
-# def demand_forecast_parser_alt(time):
-#     time = time % 288  # For dealing with multiple days
-#     first_11_time_blocks = DEMAND_FORECAST_ALT[:, :, time:time + 11]
-#     time += 11
-#     next_12_time_blocks = np.sum(DEMAND_FORECAST_ALT[:, :, time: time + 12], axis=2)
-#     parsed_demand = np.zeros((first_11_time_blocks.shape[0],
-#                               first_11_time_blocks.shape[1],
-#                               first_11_time_blocks.shape[2] + 1))
-#
-#     for station in range(first_11_time_blocks.shape[0]):
-#         parsed_demand[station] = np.hstack((first_11_time_blocks[station], next_12_time_blocks[station].reshape((58, 1))))
-#
-#     return parsed_demand
-
-
-
-
-
-
-def morning_rebalancing(dict):
-    driver_task = [[] for i in range(58)]
-    pedestrian_task = [[] for i in range(58)]
-    home = (22, 55)
-    buffer = (38, 41)
-    extra = (37,43)
-    for i in home:
-        station = dict[i]
-        for emp in station.employee_list:
-            if len(station.car_list) > 0:
-                for dest in buffer:
-                    if dict[dest].available_parking > 0:
-                        driver_task[i] = dest
-                        break
-                else:
-                    for dest in extra:
-                        if dict[dest].parking_spots > 0:
-                            driver_task[i] = dest
-                    else:
-                        break
-
-    for i in buffer + extra:
-        if dict[home[0]].available_parking + dict[home[1]] == 0:
-            break
-        station = dict[i]
-        if dict[home[0]].available_parking > dict(home[1]).available_parking:
-            dest = dict[home[1]]
-        else:
-            dest = dict[home[0]]
-
-        for emp in station.employee_list:
-            pedestrian_task[i] = dest
-
-    return driver_task, pedestrian_task
-
-def evening_rebalancing(dict):
-    driver_task = [[] for i in range(58)]
-    pedestrian_task = [[] for i in range(58)]
-    home = (22, 55)
-    buffer = (38, 41)
-    extra = (37, 43)
-    for i in buffer+extra:
-        station = dict[i]
-        for emp in station.employee_list:
-            if len(station.car_list) > 0:
-                for dest in buffer:
-                    if dict[dest].available_parking > 0:
-                        driver_task[i] = dest
-                        break
-                else:
-                    for dest in extra:
-                        if dict[dest].parking_spots > 0:
-                            driver_task[i] = dest
-                    else:
-                        break
-            else:
-                break
-
-    for i in home:
-        station = dict[i]
-        if dict(home[0]).available_parking > dict(home[1]).available_parking:
-            dest = dict[home[1]]
-        else:
-            dest = dict[home[0]]
-
-        for emp in station.employee_list:
-            pedestrian_task[i] = dest
-
-
-
-    return driver_task, pedestrian_task
