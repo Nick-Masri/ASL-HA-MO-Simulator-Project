@@ -12,25 +12,28 @@ class SmartController:
         station_map = np.load('data/10_days/station_mapping.npy').item()
         self.station_mapping = {int(k): v for k, v in station_map.items()}
 
+        # gets and formats the station data from stations_state.csv
         # Added logic to remove stations that aren't in the station_mapping
         temp_stations = pd.read_csv('./data/stations_state.csv').set_index('station_id')
         temp_station_ids = temp_stations.index.tolist()
         extra_stations = set(temp_station_ids) - set(self.station_mapping.keys())
         self.stations = temp_stations.drop(index=extra_stations)
         self.station_ids = self.stations.index.tolist()
-        print(self.stations)
-        print(self.station_ids)
-
         self.n_stations = None
+
+        # Travel times
+        self.travel_times = None
+
+        # The coontroller, inputs and settings for the controller.
         self.controller = None
         self.vehicle_arrivals = None
         self.driver_arrivals = None
         self.idle_vehicles = None
         self.idle_drivers = None
         self.private_vehicles = np.zeros((58, 1))
-        self.travel_times = None
 
-
+        # Initialize the controller
+        self.initialize()
 
     def update_arrivals_and_idle(self, curr_time, station_dict):
         '''
@@ -72,7 +75,6 @@ class SmartController:
 
         self.idle_vehicles = np.array(idle_vehicles)
         self.idle_drivers = np.array(idle_drivers)
-        print(idle_drivers)
 
     def parse_ttimes(self, mode, timestepsize):
         '''

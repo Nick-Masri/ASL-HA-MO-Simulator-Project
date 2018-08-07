@@ -5,11 +5,12 @@ import numpy as np
 import matlab
 
 smart = SmartController()
-smart.initialize()
 
-# Load cust rea
+# Load cust requests
 raw_requests = np.load('./data/10_days/hamo10days.npy')
 cust_requests = format_instructions(raw_requests)
+
+# Create lists for storing controller tasks
 driver_requests = [[] for i in range(smart.n_stations)]
 pedestrian_requests = [[] for i in range(smart.n_stations)]
 

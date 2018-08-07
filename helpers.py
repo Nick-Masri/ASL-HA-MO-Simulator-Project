@@ -79,10 +79,11 @@ class Update:
         :return:
         '''
         temp = []
+        # Loop throught the tasks
         for index, task in enumerate(tasks):
-            if task != matlab.double([]):
-                origin = self.station_ids[index]
-                if type(task) == float:
+            if task != matlab.double([]):  # If a station has no task its and empty matlab double array
+                origin = self.station_ids[index]  # The task list has the same index as the station_ids list
+                if type(task) == float:  # If there's only one task
                     destination = self.station_ids[int(task)-1]  # Matlab is 1 indexed
                     temp.append((origin, destination))
                 else:
