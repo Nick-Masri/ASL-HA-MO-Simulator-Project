@@ -40,7 +40,7 @@ class Measurement:
         for day in range(10):
             x = np.array([i for i in range(58)])
             y = time_empty[:, day*288:(day+1)*288]
-            y = np.sum(y, axis=0)
+            y = np.sum(y, axis=1)
             e = []
             temp = []
             for station in station_ids:
@@ -60,7 +60,7 @@ class Measurement:
         for day in range(10):
             x = np.array([i for i in range(58)])
             y = time_full[:, day*288:(day+1)*288]
-            y = np.sum(y, axis=0)
+            y = np.sum(y, axis=1)
             e = []
             temp = []
             for station in station_ids:
@@ -79,7 +79,7 @@ class Measurement:
         for day in range(10):
             x = np.array([i for i in range(58)])
             y = park_errors[:, day*288:(day+1)*288]
-            y = np.sum(y, axis=0)
+            y = np.sum(y, axis=1)
             e = []
             temp = []
             for station in station_ids:
@@ -87,7 +87,7 @@ class Measurement:
             # Error Bars (for the future maybe)
             # for i in range(58):
             #     e.append(np.std(park_errors[i][:] / 2.88))
-            plt.ylim(0, 10)
+            plt.ylim(0, 15)
             plt.xlim(0, 58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
             plt.bar(x, temp)
@@ -98,7 +98,7 @@ class Measurement:
         for day in range(10):
             x = np.array([i for i in range(58)])
             y = vehicle_errors[:, day*288:(day+1)*288]
-            y = np.sum(y, axis=0)
+            y = np.sum(y, axis=1)
             e = []
             temp = []
             for station in station_ids:

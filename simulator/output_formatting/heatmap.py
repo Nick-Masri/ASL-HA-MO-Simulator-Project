@@ -174,8 +174,6 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
     sys.exit()
     env = np.zeros((len(data3), imageWidth, imageHeight))
 
-    points = []
-
     pix = np.zeros((imageWidth, imageHeight, 2))
     for j in range(imageWidth):
         for k in range(imageHeight):
@@ -188,9 +186,6 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
         env[i, :, :] = -.005 * ((pix[:, :, 0] - coordinates[0]) ** 2 + (pix[:, :, 1] - coordinates[1]) ** 2)
         env[i, :, :] = s * np.exp(env[i, :, :])
 
-    points = np.array(points)
-    # print(points)
-
     grayscale = np.sum(env, axis=0)
 
     plt.imshow(grayscale.T, cmap='jet')
@@ -200,36 +195,11 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
     Y = locations[:, 0] - np.min(locations[:, 0])
     Y = imageHeight * Y / np.max(Y)
 
-    # fig, ax = plt.subplots()
-    # ax.scatter(X, Y, s=8, c='w', marker='.')
-    # n = input_data.iloc[:, 3]
-    # for i, txt in enumerate(n):
-    # ax.annotate(txt, (X[i], Y[i]))
-
     plt.scatter(X, Y, s=8, c='w', marker='.')
-    # plt.show()  # FIXME must be commented out to have the file save correctly
-
-    ############################
-    ############################
+    # plt.show()
 
     plt.title('Time of Day: {}'.format(jst[current_time].time()))  # adds corresponding titles
     plt.savefig('output_files/graphs/heatmaps/heatmap_%d.png' % current_time, bbox_inches='tight')  # saves pics with diff names
-
-    ############################
-    ############################
-
-
-# heatmap_run(0, [], [])  # test function run
-
-
-avail_parking = np.load("./input_data/input_data/available_parking.npy")
-idle_vehicles = np.load("./input_data/input_data/idle_vehicles.npy")
-
-total_timesteps = avail_parking.size / 58
-
-for timestep in range(0, int(total_timesteps)):
-    if timestep % 6 == 0:
-        heatmap_run(timestep, idle_vehicles[timestep], avail_parking[timestep])
 
 
 print("\noutput_files/graphs/heatmaps/* created")

@@ -31,7 +31,6 @@ class Update:
         if self.controller == "naive" or self.controller == "n":
             self.morning_start = 72  # 6am
             self.morning_end = 96  # 8am
-
             self.evening_start = 180  # 3pm
             self.evening_end = 204  # 5pm
         else:
@@ -247,7 +246,6 @@ class Update:
         from simulator.controllers.smart.smart import SmartController
 
         smart = SmartController()
-        smart.initialize()
         return smart
 
     def station_initializer(self, setup_vars):
