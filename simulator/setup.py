@@ -39,7 +39,7 @@ timestepsize = timedelta(0, 60 * dt)  # in seconds
 horizon = timedelta(0, 12 * 60 * dt)  # in seconds
 thor = int(horizon.seconds / timestepsize.seconds)
 
-stations = (pd.read_csv('./data/stations_state.csv').set_index('station_id'))
+stations = (pd.read_csv('./input_data/stations_state.csv').set_index('station_id'))
 
 modes = ['walk','hamo','car','bike']
 

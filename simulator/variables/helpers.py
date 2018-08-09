@@ -56,7 +56,7 @@ def demand_forecast_parser(time, demand_forecast, time_step):
 def demand_forecast_formatter(station_length, time_length, mean_demand):
     """
     :param station_length: int Number of stations
-    :param time_length: int Number of times we have data for
+    :param time_length: int Number of times we have input_data for
     :param mean_demand: T x N x N numpy array - the unformatted mean demand
     :return: the formatted numpy array. Now in the form N x N x T
     """
@@ -96,7 +96,7 @@ def fix_row_numbers(graph, station_mapping):
 
 def parse_ttimes(mode, stations, timestepsize):
     tt = pd.read_csv(
-        'data/travel_times_matrix_' + mode + '.csv', index_col=0
+        'input_data/travel_times_matrix_' + mode + '.csv', index_col=0
     ).dropna(axis=0, how='all').dropna(axis=1, how='all')
     tt.columns = [int(c) for c in tt.columns]
     tt.iloc[:, :] = np.ceil(tt.values.astype(np.float64) / float(timestepsize.seconds))

@@ -3,13 +3,21 @@
 ##############################
 
 
-def morning_rebalancing(dict):
+def morning_rebalancing(dict, ids):
+    '''
+    This code drives people from stations 22 and 55 to the
+    stations in buffer/extra and then waks them back to whatever home
+    station has the least amount of parking
+    :param dict: The station dictionary to pull the station object
+    :return: Returns the pedestrian task and driver task matrices
+    '''
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]
     home = (22, 55)
     buffer = (38, 41)
     extra = (37,43)
 
+    # Driving from home to buffer/extra
     for index, origin in enumerate(home):
         origin = dict[origin]
 
@@ -24,64 +32,86 @@ def morning_rebalancing(dict):
                             break
                     else:
                         break
-
                 dest = dict[dest]
                 driver_task[origin.station_id].append(dest.station_id)
             else:
-                dest = dict[(index+1)%2]
-                pedestrian_task[origin.station_id].append(dest.station_id)
-
-    if dict[home[0]].calc_parking() != 0 and dict[home[1]].calc_parking() != 0:
-        for origin in buffer + extra:
-            origin = dict[origin]
-
-            for emp in origin.employee_list:
-                if dict[home[0]].calc_parking() > dict[home[1]].calc_parking():
-                    dest = home[1]
+                # If an employee at 22 or 55 has no car to drive, walk them to the other home station
+                dest = dict[home[(index+1)%2]]
+                if len(dest.car_list) > 0:
+                    pedestrian_task[origin.station_id].append(dest.station_id)
                 else:
-                    dest = home[0]
+                    break
+    parking = []
 
-                pedestrian_task[origin.station_id].append(dict[dest].station_id)
-    print(driver_task, pedestrian_task)
+    # Making the list of parking
+    for dest in home:
+        parking.append(dict[dest].calc_parking())
+
+    # Walking the employees from buffer/extra to the home station with the least amount of parking
+    ids = ids.copy()
+    ids.remove(home[0])
+    ids.remove(home[1])
+    for origin in ids:
+        origin = dict[origin]
+        for emp in origin.employee_list:
+            for i in range(len(parking)-1):
+                if sorted(parking)[i] > 0:
+                    dest = home[parking.index(sorted(parking)[i])]
+                    break
+
+            pedestrian_task[origin.station_id].append(dict[dest].station_id)
     return driver_task, pedestrian_task
 
 
-def evening_rebalancing(dict):
+def evening_rebalancing(dict, ids):
+    '''
+    Does the reverse of morning rebalancing
+    :param dict:
+    :return:
+    '''
     driver_task = [[] for i in range(58)]
     pedestrian_task = [[] for i in range(58)]
     home = (38, 41, 37, 43)
     buffer = (22, 55)
-    for i in home:
-        station = dict[i]
-        for emp in station.employee_list:
-            if len(station.car_list) > 0:
-                if dict[buffer[0]].calc_parking() > 0 and dict[buffer[0]].calc_parking() > 0:
-                    if len(dict[buffer[0]].car_list) > len(dict[buffer[1]].car_list):
-                        driver_task[i] = [buffer[1]]
-                    else:
-                        driver_task[i] = [buffer[0]]
-                elif dict[buffer[0]].calc_parking() > 0:
-                    driver_task[i] = [buffer[0]]
-                elif dict[buffer[1]].calc_parking() > 0:
-                    driver_task[i] = [buffer[0]]
-            else:
-                break
 
-    for i in buffer:
-        station = dict[i]
-        if len(dict[home[0]].car_list) > 0 and len(dict[home[1]].car_list) > 0:
-            if len(dict[home[0]].car_list) > len(dict[home[1]].car_list):
-                dest = home[1]
+    for index, origin in enumerate(home):
+        origin = dict[origin]
+
+        for emp in origin.employee_list:
+            if len(origin.car_list) > 0:
+                for dest in buffer:
+                    if dict[dest].calc_parking() > 1:
+                        break
+                dest = dict[dest]
+                driver_task[origin.station_id].append(dest.station_id)
             else:
-                dest = home[0]
-        elif len(dict[home[2]].car_list) > 0 and len(dict[home[3]].car_list) > 0:
-            if len(dict[home[2]].car_list) > len(dict[home[3]].car_list):
-                dest = home[3]
-            else:
-                dest = home[2]
-        else:
-            break
-        for emp in station.employee_list:
-            pedestrian_task[i] = [dest]
-    # print(driver_task, pedestrian_task)
+                for i in range(4):
+                    dest = dict[home[(index+i)%4]]
+                    if len(dest.car_list) > 0:
+                        pedestrian_task[origin.station_id].append(dest.station_id)
+                    else:
+                        break
+
+    parking = []
+    # Making the list of parking
+    for dest in home:
+        parking.append(dict[dest].calc_parking())
+
+    # Walking the employees from buffer/extra to the home station with the least amount of parking
+
+    ids = ids.copy()
+    ids.remove(home[0])
+    ids.remove(home[1])
+    ids.remove(home[2])
+    ids.remove(home[3])
+
+    for origin in ids:
+        origin = dict[origin]
+        for emp in origin.employee_list:
+            for i in range(len(parking)-1):
+                if sorted(parking)[i] > 0:
+                    dest = home[parking.index(sorted(parking)[i])]
+                    pedestrian_task[origin.station_id].append(dict[dest].station_id)
+                    break
+
     return driver_task, pedestrian_task

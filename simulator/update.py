@@ -3,14 +3,13 @@ from simulator.stations import Station
 
 import numpy as np
 
-
+import sys
 class Update:
 
     def __init__(self, controller, setup_vars):
 
         self.station_ids = setup_vars['station_ids'].index.tolist()
         self.station_dict = self.station_initializer(setup_vars)
-
         self.inverted_station_map = {v: k for k, v in setup_vars['mapping'].items()}
         self.controller = controller
 
@@ -29,6 +28,11 @@ class Update:
 
         self.travel_times = setup_vars['travel_time']
 
+        self.morning_start = 72  # 6am
+        self.morning_end = 96  # 8am
+
+        self.evening_start = 180  # 3pm
+        self.evening_end = 204  # 5pm
 
     def convert_cust_req_to_real_stations(self, tasks):
         '''
@@ -74,15 +78,17 @@ class Update:
 
             # Assign Drivers
             if len(driver_request) > 0:
-                request = (station_number, driver_request[0], self.time)
-                self.assign_drivers(station_obj, request)
+                for i in range(len(driver_request)):
+                    request = (station_number, self.station_ids[driver_request[i]])
+                    self.assign_drivers(station_obj, request)
 
             # Assign Pedestrians
             if len(ped_request) > 0:
-                request = (station_number, ped_request[0], self.time)
-                self.assign_pedestrians(station_obj, request)
+                for i in range(len(ped_request)):
+                    request = (station_number, self.station_ids[ped_request[i]])
+                    self.assign_pedestrians(station_obj, request)
 
-        return self.record()
+        return self.record(), self.station_dict
 
     def record(self):
         for station in self.station_ids:
@@ -107,88 +113,97 @@ class Update:
 
             # Grab the first person in the en_route_list
             person = station.get_en_route_list(True)[0]
-
-            if person.destination_time <= self.time:
+            if person.destination_time == self.time:
                 station.en_route_list.remove(person)
 
                 # Check if they have a car
                 if person.vehicle_id is not None:
                     if station.calc_parking() <= 0:
                         self.log['parking_violation'][station.station_id, self.time] += 1
-                        self.reroute_for_overflow(person)
+                        self.reroute_for_overflow(person, station)
                     else:
                         station.car_list.append(person.vehicle_id)
-
-                # Check if they are an employee
-                if isinstance(person, Employee):
+                        # Check if they are an employee
+                        if isinstance(person, Employee):
+                            person.reset()
+                            station.employee_list.append(person)
+                        else:
+                            del person
+                else:
+                    # We don't have to check if they are an employee because they
+                    # don't have a car, so we already know
                     person.reset()
                     station.employee_list.append(person)
-                else:
-                    del person
+
 
             else:
                 break
 
     def assign_drivers(self, station, request):
         print('Driving {}'.format(request))
+
         try:
-            # Remove the employee from the station
-            station.employee_list.pop(0)
+            # Try removing a car
+            car = station.car_list.pop(0)
 
-            # Make them a driver object
-            driver = Employee(request[0], request[1], request[2])
+            # Update their status and remove them from the employee_list
+            driver = station.employee_list.pop(0)
+            driver.update_status(request[0], request[1], self.time, car)
 
-            # Remove a car and add them to the en_route_list of the other stations
-            driver.vehicle_id = station.car_list.pop(0)
+            # Add them the en_route_list of the destination
             self.station_dict[driver.destination].en_route_list.append(driver)
 
         except IndexError:
+            # If you can't remove a car, log the error
+            print("No Car")
             self.log['no_vehicle_for_employee'][station.station_id, self.time] += 1
 
-    def reroute_for_overflow(self, person):
+    def reroute_for_overflow(self, person, station):
         '''
         When a person tries to drop off a car and there is no room, this method will reroute them to the next
         closest station.
         :param person: Person who was trying to drop off a car
         :param station: Station the person was trying to drop off a car at.
-        :return:
         '''
-        travel_matrix = self.travel_times['hamo'][person.destination].copy()
+        real_station_id = self.station_ids[station.station_id]
 
-        # Set the travel time of the current station to 1000
-        travel_matrix[person.destination] = 1000
+        # Get the correct travel_matrix. but drop the current station (it'll always be the closest)
+        travel_matrix = self.travel_times['hamo'][real_station_id].drop(index=real_station_id)
 
-        # Find the next closest station with available parking_per_station.
+        # Find the next closest station with available parking.
         closest_station = None
         while closest_station is None:
-            # closest_station = travel_matrix.idxmin()
-
-            closest_station = np.argmin(travel_matrix)
-
-            # Check if there's parking_per_station at the closest station
-            # if there isn't remove that station from the matrix
+            closest_station = travel_matrix.idxmin()
+            # Check if there's parking at the closest station, if there isn't remove that station from the matrix
             if self.station_dict[closest_station].calc_parking() == 0:
-                # closest_station not in (11, 37, 27, 10, 2, 5):
-                travel_matrix[closest_station] = 1000
+                travel_matrix = travel_matrix.drop(index=closest_station)
                 closest_station = None
-        # for x in (11, 37, 27, 10, 2, 5):
-        #     closest_
+
+        print("Rerouting to station: {}, which has {} parking spots".format(closest_station, self.station_dict[
+            closest_station].calc_parking()))
 
         # update the station the person was rerouted to
+        person.update_status(real_station_id, closest_station, self.time, person.vehicle_id)
         self.station_dict[closest_station].en_route_list.append(person)
-        person.update_status(person.destination, closest_station, self.time, person.vehicle_id)
 
     def assign_pedestrians(self, station, request):
         print('Walking {}'.format(request))
-        station.employee_list.pop(0)
-        ped = Employee(request[0], request[1], request[2])
+
+        # Remove them from the employee list
+        ped = station.employee_list.pop(0)
+
+        # Updating their status
+        ped.update_status(request[0], request[1], self.time)
+
+        # Adding them to the en_route list of their destination
         self.station_dict[ped.destination].en_route_list.append(ped)
 
     def assign_customers(self, station, request):
-        customer = Person(request[0], request[1], self.time)
         try:
-            current_car = station.car_list.pop(0)
-            customer.vehicle_id = current_car
+            car = station.car_list.pop(0)
+
+            # If there is a car, create the person object, and add them to the en_route list
+            customer = Person(request[0], request[1], self.time, car)
             self.station_dict[customer.destination].en_route_list.append(customer)
         except IndexError:
             self.log['no_vehicle_for_customer'][station.station_id, self.time] += 1
@@ -197,24 +212,18 @@ class Update:
 
         from simulator.controllers.naive.naive_controller import morning_rebalancing, evening_rebalancing
 
-        morning_start = 72  # 6am
-        morning_end = 96  # 8am
+        if self.morning_start <= self.time <= self.morning_end:
+            driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict, self.station_ids)
 
-        evening_start = 180  # 3pm
-        evening_end = 204  # 5pm
+            if self.time == self.morning_end:
+                self.morning_start += 288
+                self.morning_end += 288
+        elif self.evening_start <= self.time <= self.evening_end:
+            driver_requests, pedestrian_requests = evening_rebalancing(self.station_dict, self.station_ids)
 
-        if morning_start <= self.time <= morning_end:
-            driver_requests, pedestrian_requests = morning_rebalancing(self.station_dict)
-
-            if self.time == morning_end:
-                morning_start += 288
-                morning_end += 288
-        elif evening_start <= self.time <= evening_end:
-            driver_requests, pedestrian_requests = evening_rebalancing(self.station_dict)
-
-            if self.time == evening_end:
-                evening_start += 288
-                evening_end += 288
+            if self.time == self.evening_end:
+                self.evening_start += 288
+                self.evening_end += 288
         else:
             driver_requests = [[] for i in range(len(self.station_dict))]
             pedestrian_requests = [[] for i in range(len(self.station_dict))]
@@ -247,10 +256,8 @@ class Update:
 
             emp_list = []
             if station in employees_at_stations.keys():
-                print(station)
                 for emp in range(employees_at_stations[station]):
                     emp_list.append(Employee(None, None, None))
-                print(emp_list)
             # Create the station
             station_dict[station] = Station(logical_station, parking_spots, car_list, emp_list)
 
