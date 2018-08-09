@@ -12,10 +12,10 @@ lib
 lib64
 .idea
 __pycache__
-output.txt
+venv/*
+
 .DS_Store
-data/*
-files/*
-files/pictures/errors/*
-files/pictures/STD/*
-controllers/smart-controller/*
+input_data/*
+output_files/*
+input_data/*
+
