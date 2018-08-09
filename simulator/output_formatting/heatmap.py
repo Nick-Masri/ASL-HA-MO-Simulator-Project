@@ -212,8 +212,8 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
     ############################
     ############################
 
-    plt.title('Optimal Time of Day: {}'.format(jst[current_time].time()))  # adds corresponding titles
-    plt.savefig('./saved_pictures/heatmap_test%d.png' % current_time, bbox_inches='tight')  # saves pics with diff names
+    plt.title('Time of Day: {}'.format(jst[current_time].time()))  # adds corresponding titles
+    plt.savefig('output_files/graphs/heatmaps/heatmap_%d.png' % current_time, bbox_inches='tight')  # saves pics with diff names
 
     ############################
     ############################
@@ -222,14 +222,14 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
 # heatmap_run(0, [], [])  # test function run
 
 
-avail_park = np.load("./input_data/input_data/available_parking.npy")
-idle_vehi = np.load("./input_data/input_data/idle_vehicles.npy")
+avail_parking = np.load("./input_data/input_data/available_parking.npy")
+idle_vehicles = np.load("./input_data/input_data/idle_vehicles.npy")
 
-total_timesteps = avail_park.size / 58
+total_timesteps = avail_parking.size / 58
 
 for timestep in range(0, int(total_timesteps)):
     if timestep % 6 == 0:
-        heatmap_run(timestep, idle_vehi[timestep], avail_park[timestep])
+        heatmap_run(timestep, idle_vehicles[timestep], avail_parking[timestep])
 
 
-print("\noutput_files/graphs/heatmap/* created")
+print("\noutput_files/graphs/heatmaps/* created")
