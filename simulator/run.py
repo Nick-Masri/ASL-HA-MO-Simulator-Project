@@ -18,6 +18,7 @@ def run(controller):
         errors, dict = simulator.loop(time, customer_requests)
         text.append(output(time, dict))
 
+
     # Creates an overview of the station at each time
     write("output_files/station_overview.txt", text)
 

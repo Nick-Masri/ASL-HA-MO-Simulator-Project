@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def output(time, station_dict):
     text = []
     text.append("\nTime: {}".format(time))
@@ -13,7 +16,7 @@ def output(time, station_dict):
             '\t\tNumber of People En_Route: {}'.format(len(station.get_en_route_list())))
 
     # text.append('Errors: {}'.format(errors))
-
+    np.save('output_files/state_data/station_state', station_dict)
     return text
 
 

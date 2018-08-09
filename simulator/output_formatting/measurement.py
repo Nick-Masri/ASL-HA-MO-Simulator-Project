@@ -9,7 +9,7 @@ class Measurement:
         time_full = log['station_full']
         time_empty = log['station_empty']
         park_errors = log['parking_violation']
-        vehicle_errors = log
+        vehicle_errors = log['no_vehicle_for_customer']
 
         errors = open(file, 'w')
 
@@ -17,8 +17,8 @@ class Measurement:
             errors.write("\n\nDay: {}\n".format(day+1))
             for i in range(58):
                 errors.write("\n\n\tStation {}:\n".format(i))
-                errors.write("\t\tThis station was full {} % of the time\n".format(time_full[i][day]/2.88))
-                errors.write("\t\tThis station was empty {} % of the time\n".format(time_empty[i][day]/2.88))
+                errors.write("\t\tThis station was full {} % of the time\n".format(time_full[i][day*288:(day+1)*288]/2.88))
+                errors.write("\t\tThis station was empty {} % of the time\n".format(time_empty[i][day*288:(day+1)*288]/2.88))
 
         errors.write("\n\nMeans and Full_Empty:\n")
         for i in range(58):
@@ -37,15 +37,17 @@ class Measurement:
         mapping = np.load("input_data/10_days/station_mapping.npy").item()
         station_ids = pd.read_csv('input_data/stations_state.csv')['station_id'].tolist()
 
-        for day in range(5):
+        for day in range(10):
             x = np.array([i for i in range(58)])
-            y = time_empty[:, day]
+            y = time_empty[:, day*288:(day+1)*288]
+            y = np.sum(y, axis=0)
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
-            for i in range(58):
-                e.append(np.std(time_empty[i][:]/2.88))
+            # Standard Deviation Bars (For the future maybe)
+            # for i in range(58):
+            #     e.append(np.std(time_empty[i][:]/2.88))
             plt.ylim(0, 300)
             plt.xlim(0,58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -55,15 +57,17 @@ class Measurement:
             plt.savefig("output_files/graphs/Full_Empty/Time_Empty_Day: {}".format(day+1))
             plt.clf()
 
-        for day in range(5):
+        for day in range(10):
             x = np.array([i for i in range(58)])
-            y = time_full[:, day]
+            y = time_full[:, day*288:(day+1)*288]
+            y = np.sum(y, axis=0)
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
-            for i in range(58):
-                e.append(np.std(time_empty[i][:] / 2.88))
+            # Standard Deviation Bars (For the future maybe)
+            # for i in range(58):
+            #     e.append(np.std(time_empty[i][:] / 2.88))
             plt.ylim(0, 300)
             plt.xlim(0, 58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -72,16 +76,17 @@ class Measurement:
             plt.savefig("output_files/graphs/Full_Empty/Time_Full_Day: {}".format(day + 1))
             plt.clf()
 
-
-        for day in range(5):
+        for day in range(10):
             x = np.array([i for i in range(58)])
-            y = park_errors[:, day]
+            y = park_errors[:, day*288:(day+1)*288]
+            y = np.sum(y, axis=0)
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
-            for i in range(58):
-                e.append(np.std(park_errors[i][:] / 2.88))
+            # Error Bars (for the future maybe)
+            # for i in range(58):
+            #     e.append(np.std(park_errors[i][:] / 2.88))
             plt.ylim(0, 10)
             plt.xlim(0, 58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -90,15 +95,17 @@ class Measurement:
             plt.savefig("output_files/graphs/errors/Park_Errors_Day: {}".format(day + 1))
             plt.clf()
 
-        for day in range(5):
+        for day in range(10):
             x = np.array([i for i in range(58)])
-            y = vehicle_errors[:, day]
+            y = vehicle_errors[:, day*288:(day+1)*288]
+            y = np.sum(y, axis=0)
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
-            for i in range(58):
-                e.append(np.std(vehicle_errors[i][:] / 2.88))
+            # Error Bars (for the future maybe)
+            # for i in range(58):
+            #     e.append(np.std(park_errors[i][:] / 2.88))
             plt.ylim(0, 30)
             plt.xlim(0, 58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -108,8 +115,8 @@ class Measurement:
             plt.clf()
 
         errors.write("\n\nErrors:\n")
-        errors.write("\tThere were {} times when a customer or employee did not get a car\n".format(vehicle_errors))
-        errors.write("\tThere were {} times when a customer could not park\n".format(park_errors))
+        errors.write("\tThere were {} times when a customer or employee did not get a car\n".format(np.sum(vehicle_errors)))
+        errors.write("\tThere were {} times when a customer could not park\n".format(np.sum(park_errors)))
 
         print("\noutput_files/measurements.txt created")
         print("\noutput_files/graphs/errors/* created")
