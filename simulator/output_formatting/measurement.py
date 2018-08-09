@@ -6,21 +6,26 @@ import pandas as pd
 class Measurement:
 
     def record(self, log, file):
+        time_full = log['station_full']
+        time_empty = log['station_empty']
+        park_errors = log['parking_violation']
+        vehicle_errors = log
+
         errors = open(file, 'w')
 
         for day in range(10):
             errors.write("\n\nDay: {}\n".format(day+1))
             for i in range(58):
                 errors.write("\n\n\tStation {}:\n".format(i))
-                errors.write("\t\tThis station was full {} % of the time\n".format(self.time_full[i][day]/2.88))
-                errors.write("\t\tThis station was empty {} % of the time\n".format(self.time_empty[i][day]/2.88))
+                errors.write("\t\tThis station was full {} % of the time\n".format(time_full[i][day]/2.88))
+                errors.write("\t\tThis station was empty {} % of the time\n".format(time_empty[i][day]/2.88))
 
         errors.write("\n\nMeans and Full_Empty:\n")
         for i in range(58):
-            avg_time_full = np.mean(self.time_full[i][:] / 2.88)
-            avg_time_empty = np.mean(self.time_empty[i][:] / 2.88)
-            std_full = np.std(self.time_full[i][:] / 2.88, dtype=np.float64)
-            std_empty = np.std(self.time_empty[i][:] / 2.88, dtype=np.float64)
+            avg_time_full = np.mean(time_full[i][:] / 2.88)
+            avg_time_empty = np.mean(time_empty[i][:] / 2.88)
+            std_full = np.std(time_full[i][:] / 2.88, dtype=np.float64)
+            std_empty = np.std(time_empty[i][:] / 2.88, dtype=np.float64)
 
 
             errors.write("\tStation {}\n".format(i))
@@ -34,13 +39,13 @@ class Measurement:
 
         for day in range(5):
             x = np.array([i for i in range(58)])
-            y = self.time_empty[:, day]
+            y = time_empty[:, day]
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
             for i in range(58):
-                e.append(np.std(self.time_empty[i][:]/2.88))
+                e.append(np.std(time_empty[i][:]/2.88))
             plt.ylim(0, 300)
             plt.xlim(0,58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -52,13 +57,13 @@ class Measurement:
 
         for day in range(5):
             x = np.array([i for i in range(58)])
-            y = self.time_full[:, day]
+            y = time_full[:, day]
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
             for i in range(58):
-                e.append(np.std(self.time_empty[i][:] / 2.88))
+                e.append(np.std(time_empty[i][:] / 2.88))
             plt.ylim(0, 300)
             plt.xlim(0, 58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -70,13 +75,13 @@ class Measurement:
 
         for day in range(5):
             x = np.array([i for i in range(58)])
-            y = self.park_errors[:, day]
+            y = park_errors[:, day]
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
             for i in range(58):
-                e.append(np.std(self.park_errors[i][:] / 2.88))
+                e.append(np.std(park_errors[i][:] / 2.88))
             plt.ylim(0, 10)
             plt.xlim(0, 58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -87,13 +92,13 @@ class Measurement:
 
         for day in range(5):
             x = np.array([i for i in range(58)])
-            y = self.vehicle_errors[:, day]
+            y = vehicle_errors[:, day]
             e = []
             temp = []
             for station in station_ids:
                 temp.append(y[mapping[str(station)]])
             for i in range(58):
-                e.append(np.std(self.vehicle_errors[i][:] / 2.88))
+                e.append(np.std(vehicle_errors[i][:] / 2.88))
             plt.ylim(0, 30)
             plt.xlim(0, 58)
             plt.plot([0, 58], [np.mean(y), np.mean(y)], '--', c='r')
@@ -103,8 +108,8 @@ class Measurement:
             plt.clf()
 
         errors.write("\n\nErrors:\n")
-        errors.write("\tThere were {} times when a customer or employee did not get a car\n".format(self.vehicle_errors))
-        errors.write("\tThere were {} times when a customer could not park\n".format(self.park_errors))
+        errors.write("\tThere were {} times when a customer or employee did not get a car\n".format(vehicle_errors))
+        errors.write("\tThere were {} times when a customer could not park\n".format(park_errors))
 
         print("\noutput_files/measurements.txt created")
         print("\noutput_files/graphs/errors/* created")

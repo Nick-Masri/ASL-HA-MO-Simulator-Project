@@ -28,11 +28,14 @@ class Update:
 
         self.travel_times = setup_vars['travel_time']
 
-        self.morning_start = 72  # 6am
-        self.morning_end = 96  # 8am
+        if self.controller == "naive" or self.controller == "n":
+            self.morning_start = 72  # 6am
+            self.morning_end = 96  # 8am
 
-        self.evening_start = 180  # 3pm
-        self.evening_end = 204  # 5pm
+            self.evening_start = 180  # 3pm
+            self.evening_end = 204  # 5pm
+        else:
+            self.smart_controller = self.smart_setup()
 
     def convert_cust_req_to_real_stations(self, tasks):
         '''
@@ -57,8 +60,7 @@ class Update:
         if self.controller == "naive" or self.controller == "n":
             driver_requests, pedestrian_requests = self.naive()
         else:
-            driver_requests = [[] for i in range(len(self.station_dict))]
-            pedestrian_requests = [[] for i in range(len(self.station_dict))]
+            driver_requests, pedestrian_requests = self.smart()
 
         for station_number in self.station_ids:
 
@@ -230,7 +232,15 @@ class Update:
         return driver_requests, pedestrian_requests
 
     def smart(self):
-        pass
+        smart = self.smart_controller
+        # Update the state of the Optimal Controller
+        smart.update_arrivals_and_idle(self.time, self.station_dict)
+        smart.update_contoller()
+        smart.controller.forecast_demand(self.time)
+
+        [tasks, output] = smart.controller.compute_rebalancing()
+
+        return tasks['vehicleRebalancingQueue'], tasks['driverRebalancingQueue']
 
     def smart_setup(self):
 
@@ -238,6 +248,7 @@ class Update:
 
         smart = SmartController()
         smart.initialize()
+        return smart
 
     def station_initializer(self, setup_vars):
         parking = setup_vars['parking']

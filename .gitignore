@@ -13,7 +13,6 @@ lib64
 .idea
 __pycache__
 venv/*
-
 .DS_Store
 input_data/*
 output_files/*
