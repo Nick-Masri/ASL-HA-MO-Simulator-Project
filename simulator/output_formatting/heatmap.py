@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import sys
+import matplotlib.pyplot as plt
 
 """
 Heatmap code takes inputs for station input_data, including longitude, latitude, available parking_per_station, idle vehicles, 
@@ -81,14 +81,14 @@ class NaiveForecaster:
         return forecast
 
 
-def score(eD, iV, eA, aP):
-    demandOut = eD - iV
-    demandIn = eA - aP
+def score(expected_demand, idle_vehicles, expected_arrivals, available_parking):
+    demand_out = expected_demand - idle_vehicles
+    demand_in = expected_arrivals - available_parking
 
-    if demandOut > demandIn:
-        evaluation = 2 * demandOut
+    if demand_out > demand_in:
+        evaluation = 2 * demand_out
     else:
-        evaluation = 2 * demandIn
+        evaluation = 2 * demand_in
 
     if evaluation >= 10:
         s = 10
@@ -113,15 +113,11 @@ def degrees_to_pixels(long, lat, max_width, max_height, locations):
     return np.array([x, y])
 
 
-def heatmap_run(current_time, idle_vehicles, available_parking):
-    # grab station_mapping for forecaster
-    id_to_idx_path_map = './input_data/10_days/station_mapping.npy'
-    # get mean demand for forecaster
-    forecast_path = './input_data/mean_demand_weekday_5min.npy'
+def heatmap(log, time):
 
-    # enter timestepsize
+    id_to_idx_path_map = './input_data/10_days/station_mapping.npy'
+    forecast_path = './input_data/mean_demand_weekday_5min.npy'
     time_step_size = 5
-    # time horizon
     time_horizon = 12
 
     # initializes naive forecaster
@@ -132,57 +128,36 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
     station_ids = stations.index.tolist()
     # set time start for predict method
 
-    start_time = current_time % 288  # TODO: insert current_time in here for time1, value should never be over 288, use this
+    start_time = time % 288
 
     forecast_prediction = forecaster_obj.predict(start_time, station_ids)
-
-    # gets total demand for each station for the next 12 timesteps
     demand_all = np.zeros([58, 58])
     for _ in range(0, 12):
         demand_all = demand_all + np.sum(forecast_prediction, axis=2)
 
-    forecast_departures_demand = np.sum(demand_all, axis=1)
-    forecast_arrivals_demand = np.sum(demand_all, axis=0)
+    forecast_demand = np.sum(demand_all, axis=1)
+    forecast_arrivals = np.sum(demand_all, axis=0)
 
     # image size settings
     imageWidth = 640
     imageHeight = 480
 
-    # reading in input_data from the static csv sample input_data
-    data = pd.read_csv('./input_data/stations_state_indexed.csv')
-    data["demand"] = forecast_departures_demand  # changes input_data in the csv to the forecast input_data
-    data["arrivals"] = forecast_arrivals_demand  # changes input_data in the csv to the forecast input_data
-
-    if np.shape(available_parking) != (0,):
-        data["available_parking"] = available_parking
-    if np.shape(idle_vehicles) != (0,):
-        data["idle_vehicles"] = idle_vehicles
-
-    # 6 and 7 are lat and long
-    # 0, 1, 2, and 4 are all car input_data
-    # 0 = arrivals, 1 = available_parking, 2 = demand, 4 = idle_vehicles
-    # 3, although not given, states the station ID numbers
-    # For basic input_data, only 6 and 7 are needed, all other input_data will be retrieved from simulator.
-
-    I = [0, 1, 2, 4, 6, 7]
-
-    data2 = data.iloc[:, I]
-    locations = data2.iloc[:, [4, 5]].values
-    # print(locations)
-    data3 = data2.values
-    print(len(data3))
-    sys.exit()
-    env = np.zeros((len(data3), imageWidth, imageHeight))
-
+    locations = pd.read_csv('./input_data/stations_state.csv').loc[:, ['longitude', 'latitude']]
+    env = np.zeros((len(locations), imageWidth, imageHeight))
     pix = np.zeros((imageWidth, imageHeight, 2))
     for j in range(imageWidth):
         for k in range(imageHeight):
             pix[j][k][1] = k
             pix[j][k][0] = j
 
-    for i, value in enumerate(data3):
-        s = score(value[2], value[3], value[0], value[1])
-        coordinates = degrees_to_pixels(value[5], value[4], imageWidth, imageHeight, locations)
+    idle_vehicles = np.load('output_files/state_data/idle_vehicles.npy')[:, time]
+    available_parking = np.load('output_files/state_data/available_parking.npy')[:, time]
+    data = {'ed': forecast_demand, 'iv': idle_vehicles, 'ea': forecast_arrivals, 'ap': available_parking}
+
+    for i in range(len(data)):
+
+        s = score(data['ed'][i], data['iv'][i], data['ea'][i], data['ap'][i])
+        coordinates = degrees_to_pixels(locations['longitude'].values[i], locations['latitude'].values[i], imageWidth, imageHeight, locations.values)
         env[i, :, :] = -.005 * ((pix[:, :, 0] - coordinates[0]) ** 2 + (pix[:, :, 1] - coordinates[1]) ** 2)
         env[i, :, :] = s * np.exp(env[i, :, :])
 
@@ -190,6 +165,8 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
 
     plt.imshow(grayscale.T, cmap='jet')
     plt.gca().invert_yaxis()
+
+    locations = locations.values
     X = locations[:, 1] - np.min(locations[:, 1])
     X = imageWidth * X / np.max(X)
     Y = locations[:, 0] - np.min(locations[:, 0])
@@ -198,8 +175,14 @@ def heatmap_run(current_time, idle_vehicles, available_parking):
     plt.scatter(X, Y, s=8, c='w', marker='.')
     # plt.show()
 
-    plt.title('Time of Day: {}'.format(jst[current_time].time()))  # adds corresponding titles
-    plt.savefig('output_files/graphs/heatmaps/heatmap_%d.png' % current_time, bbox_inches='tight')  # saves pics with diff names
+    plt.title('Time of Day: {}'.format(jst[time].time()))  # adds corresponding titles
+    plt.savefig('output_files/graphs/heatmaps/heatmap_{}.png'.format(time), bbox_inches='tight')  # saves pics with diff names
 
 
-print("\noutput_files/graphs/heatmaps/* created")
+def heatmap_run(log):
+
+    for time in range((log['parking_violation']).shape[1]):
+        if time % 6 == 0:
+            heatmap(log, time)
+
+    print("\noutput_files/graphs/heatmaps/* created")

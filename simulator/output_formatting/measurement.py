@@ -12,30 +12,36 @@ class Measurement:
         vehicle_errors = log['no_vehicle_for_customer']
 
         errors = open(file, 'w')
+        mapping = np.load("input_data/10_days/station_mapping.npy").item()
+        station_ids = pd.read_csv('input_data/stations_state.csv')['station_id'].tolist()
 
         for day in range(10):
             errors.write("\n\nDay: {}\n".format(day+1))
-            for i in range(58):
-                errors.write("\n\n\tStation {}:\n".format(i))
-                errors.write("\t\tThis station was full {} % of the time\n".format(time_full[i][day*288:(day+1)*288]/2.88))
-                errors.write("\t\tThis station was empty {} % of the time\n".format(time_empty[i][day*288:(day+1)*288]/2.88))
+            for index, station in enumerate(station_ids):
+                errors.write("\n\n\tStation {}:\n".format(station))
+                errors.write("\t\tThis station was full {} % of the time\n".format(np.sum(time_full[index][day*288:(day+1)*288])*100/288))
+                errors.write("\t\tThis station was empty {} % of the time\n".format(np.sum(time_empty[index][day*288:(day+1)*288])*100/288))
 
         errors.write("\n\nMeans and Full_Empty:\n")
-        for i in range(58):
-            avg_time_full = np.mean(time_full[i][:] / 2.88)
-            avg_time_empty = np.mean(time_empty[i][:] / 2.88)
-            std_full = np.std(time_full[i][:] / 2.88, dtype=np.float64)
-            std_empty = np.std(time_empty[i][:] / 2.88, dtype=np.float64)
+
+        for index, station in enumerate(station_ids):
+            avg_time_full = np.mean(time_full[index][:])*100
+            avg_time_empty = np.mean(time_empty[index][:])*100
+            std_full = np.std(time_full[index][:] / 2.88, dtype=np.float64)
+            std_empty = np.std(time_empty[index][:] / 2.88, dtype=np.float64)
 
 
-            errors.write("\tStation {}\n".format(i))
-            errors.write("\t\tStandard Deviation Full: {}\n".format(std_full))
-            errors.write("\t\tStandard Deviation Empty: {}\n".format(std_empty))
-            errors.write("\t\tAverage Time Full: {}%\n".format(avg_time_full))
-            errors.write("\t\tAverage Time Empty: {}%\n".format(avg_time_empty))
+            errors.write("\tStation {}\n".format(station))
+            errors.write("\t\tStandard Deviation Full: +/-{} %\n".format(std_full*100))
+            errors.write("\t\tStandard Deviation Empty: +/-{} %\n".format(std_empty*100))
+            errors.write("\t\tAverage Time Full: {} %\n".format(avg_time_full))
+            errors.write("\t\tAverage Time Empty: {} %\n".format(avg_time_empty))
 
-        mapping = np.load("input_data/10_days/station_mapping.npy").item()
-        station_ids = pd.read_csv('input_data/stations_state.csv')['station_id'].tolist()
+        errors.write("\n\nErrors:\n")
+        errors.write(
+            "\tThere were {} times when a customer or employee did not get a car\n".format(np.sum(vehicle_errors)))
+        errors.write("\tThere were {} times when a customer could not park\n".format(np.sum(park_errors)))
+        errors.close()
 
         for day in range(10):
             x = np.array([i for i in range(58)])
@@ -114,11 +120,12 @@ class Measurement:
             plt.savefig("output_files/graphs/errors/Vehicle_Errors_Day: {}".format(day + 1))
             plt.clf()
 
-        errors.write("\n\nErrors:\n")
-        errors.write("\tThere were {} times when a customer or employee did not get a car\n".format(np.sum(vehicle_errors)))
-        errors.write("\tThere were {} times when a customer could not park\n".format(np.sum(park_errors)))
+
+        np.save("output_files/state_data/idle_vehicles", log['idle_vehicles'])
+        np.save("output_files/state_data/available_parking", log['available_parking'])
 
         print("\noutput_files/measurements.txt created")
+        print("\noutput_files/state_data/* created")
         print("\noutput_files/graphs/errors/* created")
         print("\noutput_files/graphs/Full_Empty/* created")
-        errors.close()
+

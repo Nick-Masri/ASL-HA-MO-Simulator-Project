@@ -9,22 +9,21 @@ from simulator.setup import cust_requests, setup_vars
 
 def run(controller):
 
-    text, errors = [], []
+    text, errors, log = [], [], []
     simulator = Update(controller, setup_vars)
     for time in range(len(cust_requests)):
         print('Time: {}'.format(time))
 
         customer_requests = cust_requests[time]
 
-        errors, dict = simulator.loop(time, customer_requests)
+        log, dict = simulator.loop(time, customer_requests)
         text.append(output(time, dict))
-
 
     # Creates an overview of the station at each time
     write("output_files/station_overview.txt", text)
 
-    # Creates Heatmap images
-    # heatmap_run()
-
     # Creates graphs and a file full of measurements
-    Measurement().record(errors, "output_files/measurements.txt")
+    Measurement().record(log, "output_files/measurements.txt")
+
+    # Creates Heatmap images
+    heatmap_run(log)
