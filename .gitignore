@@ -14,5 +14,4 @@ lib64
 __pycache__
 venv/*
 .DS_Store
-
 output_files/*

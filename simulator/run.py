@@ -11,7 +11,7 @@ def run(controller):
 
     text, errors, log = [], [], []
     simulator = Update(controller, setup_vars)
-    for time in range(len(cust_requests)):
+    for time in range(288):
         print('Time: {}'.format(time))
 
         customer_requests = cust_requests[time]

@@ -9,9 +9,9 @@ def output(time, station_dict):
 
     station_ids = pd.read_csv('input_data/stations_state.csv')['station_id'].tolist()
     
-    for station_index, station in station_ids:
+    for station in station_ids:
 
-        station_obj = station_dict[station_index]
+        station_obj = station_dict[station]
         text.append('\tStation: {}'.format(station))
         text.append('\t\tNumber of Idle Vehicles: {}'.format(len(station_obj.car_list)))
         text.append('\t\tAvailable Parking: {}'.format(station_obj.calc_parking()))
