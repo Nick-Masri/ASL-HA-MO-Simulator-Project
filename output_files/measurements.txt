@@ -2931,296 +2931,296 @@ Day: 10
 
 
 Means and Full_Empty:
-	Station 0
-		Standard Deviation Full: 0.17325642674490432
-		Standard Deviation Empty: 0.1609418074456524
-		Average Time Full: 53.19444444444444%
-		Average Time Empty: 31.25%
-	Station 1
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.15238262755310253
-		Average Time Full: 0.0%
-		Average Time Empty: 73.95833333333334%
-	Station 2
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.17316642502412388
-		Average Time Full: 0.0%
-		Average Time Empty: 53.57638888888889%
-	Station 3
-		Standard Deviation Full: 0.1732939660897464
-		Standard Deviation Empty: 0.1557602815166292
-		Average Time Full: 53.02083333333333%
-		Average Time Empty: 27.916666666666668%
-	Station 4
-		Standard Deviation Full: 0.1027039867275503
-		Standard Deviation Empty: 0.0
-		Average Time Full: 90.3125%
-		Average Time Empty: 0.0%
-	Station 5
-		Standard Deviation Full: 0.17339396141873417
-		Standard Deviation Empty: 0.06537642759721245
-		Average Time Full: 47.5%
-		Average Time Empty: 3.680555555555556%
-	Station 6
-		Standard Deviation Full: 0.1427969528232474
-		Standard Deviation Empty: 0.1733294008029017
-		Average Time Full: 21.5625%
-		Average Time Empty: 47.15277777777778%
-	Station 7
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.08183218183185435
-		Average Time Full: 0.0%
-		Average Time Empty: 5.902777777777778%
-	Station 8
-		Standard Deviation Full: 0.1736050828428716
-		Standard Deviation Empty: 0.006468980722075767
-		Average Time Full: 49.583333333333336%
-		Average Time Empty: 0.034722222222222224%
-	Station 9
-		Standard Deviation Full: 0.16203591572296744
-		Standard Deviation Empty: 0.12386484174763893
-		Average Time Full: 32.048611111111114%
-		Average Time Empty: 14.965277777777777%
-	Station 10
-		Standard Deviation Full: 0.13600557725014104
-		Standard Deviation Empty: 0.08555669593536923
-		Average Time Full: 18.92361111111111%
-		Average Time Empty: 6.493055555555556%
-	Station 11
-		Standard Deviation Full: 0.06417726883469069
-		Standard Deviation Empty: 0.0
-		Average Time Full: 96.45833333333333%
-		Average Time Empty: 0.0%
-	Station 12
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.0
-		Average Time Full: 0.0%
-		Average Time Empty: 0.0%
-	Station 13
-		Standard Deviation Full: 0.03804435118993456
-		Standard Deviation Empty: 0.15820689933327098
-		Average Time Full: 1.215277777777778%
-		Average Time Empty: 29.40972222222222%
-	Station 14
-		Standard Deviation Full: 0.11331145351437694
-		Standard Deviation Empty: 0.1688188905765604
-		Average Time Full: 12.118055555555555%
-		Average Time Empty: 38.333333333333336%
 	Station 15
-		Standard Deviation Full: 0.1689052709921691
-		Standard Deviation Empty: 0.15663758232628752
-		Average Time Full: 61.5625%
-		Average Time Empty: 28.4375%
-	Station 16
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.16316340286270165
-		Average Time Full: 0.0%
-		Average Time Empty: 67.08333333333333%
-	Station 17
-		Standard Deviation Full: 0.08046403946969972
-		Standard Deviation Empty: 0.17161011823992614
-		Average Time Full: 5.694444444444445%
-		Average Time Empty: 57.56944444444444%
-	Station 18
-		Standard Deviation Full: 0.11645288722569873
-		Standard Deviation Empty: 0.11645288722569871
-		Average Time Full: 12.916666666666668%
-		Average Time Empty: 87.08333333333333%
-	Station 19
-		Standard Deviation Full: 0.12169552960980284
-		Standard Deviation Empty: 0.17267922634503027
-		Average Time Full: 14.340277777777777%
-		Average Time Empty: 44.82638888888889%
-	Station 20
-		Standard Deviation Full: 0.08361182405134562
-		Standard Deviation Empty: 0.15698129660334859
-		Average Time Full: 6.180555555555555%
-		Average Time Empty: 28.645833333333332%
-	Station 21
-		Standard Deviation Full: 0.13484510127530472
-		Standard Deviation Empty: 0.16778232211543853
-		Average Time Full: 18.506944444444446%
-		Average Time Empty: 37.15277777777778%
-	Station 22
-		Standard Deviation Full: 0.1329547795070556
-		Standard Deviation Empty: 0.14161494495535376
-		Average Time Full: 17.84722222222222%
-		Average Time Empty: 21.07638888888889%
-	Station 23
-		Standard Deviation Full: 0.09651020234618225
-		Standard Deviation Empty: 0.1735975472131951
-		Average Time Full: 8.4375%
-		Average Time Empty: 49.375%
-	Station 24
-		Standard Deviation Full: 0.08404911775623734
-		Standard Deviation Empty: 0.1736003940450735
-		Average Time Full: 6.25%
-		Average Time Empty: 49.44444444444444%
-	Station 25
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.16822201538875073
-		Average Time Full: 0.0%
-		Average Time Empty: 62.361111111111114%
-	Station 26
-		Standard Deviation Full: 0.12181807465873426
-		Standard Deviation Empty: 0.17082377615322858
-		Average Time Full: 14.374999999999998%
-		Average Time Empty: 41.076388888888886%
-	Station 27
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.16483675744999696
-		Average Time Full: 0.0%
-		Average Time Empty: 65.69444444444444%
-	Station 28
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.17347504735189367
-		Average Time Full: 0.0%
-		Average Time Empty: 48.020833333333336%
-	Station 29
-		Standard Deviation Full: 0.11957445585031172
-		Standard Deviation Empty: 0.11957445585031172
-		Average Time Full: 13.750000000000002%
-		Average Time Empty: 86.25%
-	Station 30
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.15916977539837326
-		Average Time Full: 0.0%
-		Average Time Empty: 30.03472222222222%
-	Station 31
-		Standard Deviation Full: 0.16742410169574157
-		Standard Deviation Empty: 0.15225074400865135
-		Average Time Full: 36.770833333333336%
-		Average Time Empty: 25.972222222222225%
-	Station 32
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.13120646658646612
-		Average Time Full: 0.0%
-		Average Time Empty: 82.74305555555556%
-	Station 33
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 1.1102230246251565e-16
-		Average Time Full: 0.0%
-		Average Time Empty: 100.0%
-	Station 34
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.0
-		Average Time Full: 0.0%
-		Average Time Empty: 0.0%
-	Station 35
-		Standard Deviation Full: 0.12961734845866926
-		Standard Deviation Empty: 0.16519152544529977
-		Average Time Full: 16.73611111111111%
-		Average Time Empty: 34.61805555555556%
-	Station 36
-		Standard Deviation Full: 0.10684484191850412
-		Standard Deviation Empty: 0.17189447710398728
-		Average Time Full: 10.590277777777777%
-		Average Time Empty: 42.986111111111114%
-	Station 37
-		Standard Deviation Full: 0.15042117541744576
-		Standard Deviation Empty: 0.16822201538875076
-		Average Time Full: 25.03472222222222%
-		Average Time Empty: 37.638888888888886%
-	Station 38
-		Standard Deviation Full: 0.16784624516526983
-		Standard Deviation Empty: 0.0
-		Average Time Full: 62.77777777777778%
-		Average Time Empty: 0.0%
-	Station 39
-		Standard Deviation Full: 0.1256153581079198
-		Standard Deviation Empty: 0.16638950174267114
-		Average Time Full: 15.48611111111111%
-		Average Time Empty: 35.729166666666664%
-	Station 40
-		Standard Deviation Full: 1.1102230246251565e-16
-		Standard Deviation Empty: 1.1102230246251565e-16
-		Average Time Full: 100.0%
-		Average Time Empty: 100.0%
-	Station 41
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.0
-		Average Time Full: 0.0%
-		Average Time Empty: 0.0%
-	Station 42
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.16410339852605596
-		Average Time Full: 0.0%
-		Average Time Empty: 66.31944444444444%
-	Station 43
-		Standard Deviation Full: 0.12218425858998003
-		Standard Deviation Empty: 0.1719954128421101
-		Average Time Full: 14.479166666666668%
-		Average Time Empty: 56.80555555555556%
-	Station 44
-		Standard Deviation Full: 0.1210791432459935
-		Standard Deviation Empty: 0.1652304572366194
-		Average Time Full: 14.166666666666666%
-		Average Time Empty: 65.34722222222223%
-	Station 45
-		Standard Deviation Full: 0.16901917222449167
-		Standard Deviation Empty: 0.1690191722244917
-		Average Time Full: 61.42361111111111%
-		Average Time Empty: 38.57638888888889%
-	Station 46
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.0
-		Average Time Full: 0.0%
-		Average Time Empty: 0.0%
-	Station 47
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.0
-		Average Time Full: 0.0%
-		Average Time Empty: 0.0%
-	Station 48
-		Standard Deviation Full: 0.1352347528402304
-		Standard Deviation Empty: 0.0
-		Average Time Full: 81.35416666666667%
-		Average Time Empty: 0.0%
-	Station 49
-		Standard Deviation Full: 0.17350642393030968
-		Standard Deviation Empty: 0.12765048809078475
-		Average Time Full: 48.26388888888889%
-		Average Time Empty: 16.11111111111111%
-	Station 50
-		Standard Deviation Full: 0.043530520818233574
-		Standard Deviation Empty: 0.17280039773739886
-		Average Time Full: 1.597222222222222%
-		Average Time Empty: 54.826388888888886%
-	Station 51
-		Standard Deviation Full: 0.1656523118726283
-		Standard Deviation Empty: 0.1656523118726283
-		Average Time Full: 35.03472222222222%
-		Average Time Empty: 64.96527777777777%
-	Station 52
-		Standard Deviation Full: 0.0
-		Standard Deviation Empty: 0.1068448419185041
-		Average Time Full: 0.0%
-		Average Time Empty: 10.590277777777777%
-	Station 53
-		Standard Deviation Full: 0.03406973854394302
-		Standard Deviation Empty: 0.17227964198154463
-		Average Time Full: 0.9722222222222222%
-		Average Time Empty: 43.81944444444444%
-	Station 54
-		Standard Deviation Full: 0.17309455790239
-		Standard Deviation Empty: 0.1597920968695371
-		Average Time Full: 46.145833333333336%
-		Average Time Empty: 30.451388888888886%
-	Station 55
-		Standard Deviation Full: 0.11001053354237283
-		Standard Deviation Empty: 0.0
-		Average Time Full: 88.68055555555556%
-		Average Time Empty: 0.0%
-	Station 56
-		Standard Deviation Full: 0.05493823689218759
-		Standard Deviation Empty: 0.0
-		Average Time Full: 2.569444444444444%
-		Average Time Empty: 0.0%
+		Standard Deviation Full: +/-17.32564267449043 %
+		Standard Deviation Empty: +/-16.09418074456524 %
+		Average Time Full: 53.19444444444444 %
+		Average Time Empty: 31.25 %
 	Station 57
-		Standard Deviation Full: 0.07690755571174904
-		Standard Deviation Empty: 0.16184958009820827
-		Average Time Full: 5.173611111111111%
-		Average Time Empty: 31.90972222222222%
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-15.238262755310252 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 73.95833333333334 %
+	Station 3
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-17.31664250241239 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 53.57638888888889 %
+	Station 2014
+		Standard Deviation Full: +/-17.32939660897464 %
+		Standard Deviation Empty: +/-15.576028151662921 %
+		Average Time Full: 53.02083333333333 %
+		Average Time Empty: 27.916666666666668 %
+	Station 2
+		Standard Deviation Full: +/-10.270398672755029 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 90.3125 %
+		Average Time Empty: 0.0 %
+	Station 40
+		Standard Deviation Full: +/-17.33939614187342 %
+		Standard Deviation Empty: +/-6.537642759721245 %
+		Average Time Full: 47.5 %
+		Average Time Empty: 3.680555555555556 %
+	Station 44
+		Standard Deviation Full: +/-14.27969528232474 %
+		Standard Deviation Empty: +/-17.33294008029017 %
+		Average Time Full: 21.5625 %
+		Average Time Empty: 47.15277777777778 %
+	Station 4
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-8.183218183185435 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 5.902777777777778 %
+	Station 13
+		Standard Deviation Full: +/-17.36050828428716 %
+		Standard Deviation Empty: +/-0.6468980722075768 %
+		Average Time Full: 49.583333333333336 %
+		Average Time Empty: 0.034722222222222224 %
+	Station 41
+		Standard Deviation Full: +/-16.203591572296745 %
+		Standard Deviation Empty: +/-12.386484174763893 %
+		Average Time Full: 32.048611111111114 %
+		Average Time Empty: 14.965277777777777 %
+	Station 9
+		Standard Deviation Full: +/-13.600557725014104 %
+		Standard Deviation Empty: +/-8.555669593536923 %
+		Average Time Full: 18.92361111111111 %
+		Average Time Empty: 6.493055555555556 %
+	Station 30
+		Standard Deviation Full: +/-6.417726883469069 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 96.45833333333333 %
+		Average Time Empty: 0.0 %
+	Station 1
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 0.0 %
+	Station 7
+		Standard Deviation Full: +/-3.8044351189934558 %
+		Standard Deviation Empty: +/-15.820689933327097 %
+		Average Time Full: 1.215277777777778 %
+		Average Time Empty: 29.40972222222222 %
+	Station 16
+		Standard Deviation Full: +/-11.331145351437694 %
+		Standard Deviation Empty: +/-16.88188905765604 %
+		Average Time Full: 12.118055555555555 %
+		Average Time Empty: 38.333333333333336 %
+	Station 2015
+		Standard Deviation Full: +/-16.89052709921691 %
+		Standard Deviation Empty: +/-15.663758232628751 %
+		Average Time Full: 61.5625 %
+		Average Time Empty: 28.4375 %
+	Station 43
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-16.316340286270165 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 67.08333333333333 %
+	Station 55
+		Standard Deviation Full: +/-8.046403946969972 %
+		Standard Deviation Empty: +/-17.161011823992613 %
+		Average Time Full: 5.694444444444445 %
+		Average Time Empty: 57.56944444444444 %
+	Station 49
+		Standard Deviation Full: +/-11.645288722569873 %
+		Standard Deviation Empty: +/-11.645288722569871 %
+		Average Time Full: 12.916666666666668 %
+		Average Time Empty: 87.08333333333333 %
+	Station 22
+		Standard Deviation Full: +/-12.169552960980285 %
+		Standard Deviation Empty: +/-17.267922634503027 %
+		Average Time Full: 14.340277777777777 %
+		Average Time Empty: 44.82638888888889 %
+	Station 66
+		Standard Deviation Full: +/-8.361182405134562 %
+		Standard Deviation Empty: +/-15.698129660334859 %
+		Average Time Full: 6.180555555555555 %
+		Average Time Empty: 28.645833333333332 %
+	Station 38
+		Standard Deviation Full: +/-13.484510127530472 %
+		Standard Deviation Empty: +/-16.778232211543852 %
+		Average Time Full: 18.506944444444446 %
+		Average Time Empty: 37.15277777777778 %
+	Station 17
+		Standard Deviation Full: +/-13.295477950705559 %
+		Standard Deviation Empty: +/-14.161494495535376 %
+		Average Time Full: 17.84722222222222 %
+		Average Time Empty: 21.07638888888889 %
+	Station 20
+		Standard Deviation Full: +/-9.651020234618226 %
+		Standard Deviation Empty: +/-17.359754721319508 %
+		Average Time Full: 8.4375 %
+		Average Time Empty: 49.375 %
+	Station 42
+		Standard Deviation Full: +/-8.404911775623734 %
+		Standard Deviation Empty: +/-17.36003940450735 %
+		Average Time Full: 6.25 %
+		Average Time Empty: 49.44444444444444 %
+	Station 28
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-16.822201538875074 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 62.361111111111114 %
+	Station 61
+		Standard Deviation Full: +/-12.181807465873426 %
+		Standard Deviation Empty: +/-17.08237761532286 %
+		Average Time Full: 14.374999999999998 %
+		Average Time Empty: 41.076388888888886 %
+	Station 2010
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-16.483675744999697 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 65.69444444444444 %
+	Station 47
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-17.347504735189368 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 48.020833333333336 %
+	Station 46
+		Standard Deviation Full: +/-11.957445585031172 %
+		Standard Deviation Empty: +/-11.957445585031172 %
+		Average Time Full: 13.750000000000002 %
+		Average Time Empty: 86.25 %
+	Station 2008
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-15.916977539837326 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 30.03472222222222 %
+	Station 11
+		Standard Deviation Full: +/-16.742410169574157 %
+		Standard Deviation Empty: +/-15.225074400865136 %
+		Average Time Full: 36.770833333333336 %
+		Average Time Empty: 25.972222222222225 %
+	Station 48
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-13.120646658646612 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 82.74305555555556 %
+	Station 9118
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-1.1102230246251565e-14 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 100.0 %
+	Station 10
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 0.0 %
+	Station 51
+		Standard Deviation Full: +/-12.961734845866927 %
+		Standard Deviation Empty: +/-16.519152544529977 %
+		Average Time Full: 16.73611111111111 %
+		Average Time Empty: 34.61805555555556 %
+	Station 71
+		Standard Deviation Full: +/-10.684484191850412 %
+		Standard Deviation Empty: +/-17.189447710398728 %
+		Average Time Full: 10.590277777777777 %
+		Average Time Empty: 42.986111111111114 %
+	Station 60
+		Standard Deviation Full: +/-15.042117541744576 %
+		Standard Deviation Empty: +/-16.822201538875074 %
+		Average Time Full: 25.03472222222222 %
+		Average Time Empty: 37.638888888888886 %
+	Station 1030
+		Standard Deviation Full: +/-16.784624516526982 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 62.77777777777778 %
+		Average Time Empty: 0.0 %
+	Station 69
+		Standard Deviation Full: +/-12.56153581079198 %
+		Standard Deviation Empty: +/-16.638950174267116 %
+		Average Time Full: 15.48611111111111 %
+		Average Time Empty: 35.729166666666664 %
+	Station 14
+		Standard Deviation Full: +/-1.1102230246251565e-14 %
+		Standard Deviation Empty: +/-1.1102230246251565e-14 %
+		Average Time Full: 100.0 %
+		Average Time Empty: 100.0 %
+	Station 2549
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 0.0 %
+	Station 2011
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-16.410339852605595 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 66.31944444444444 %
+	Station 2016
+		Standard Deviation Full: +/-12.218425858998003 %
+		Standard Deviation Empty: +/-17.19954128421101 %
+		Average Time Full: 14.479166666666668 %
+		Average Time Empty: 56.80555555555556 %
+	Station 59
+		Standard Deviation Full: +/-12.107914324599351 %
+		Standard Deviation Empty: +/-16.523045723661937 %
+		Average Time Full: 14.166666666666666 %
+		Average Time Empty: 65.34722222222223 %
+	Station 58
+		Standard Deviation Full: +/-16.901917222449168 %
+		Standard Deviation Empty: +/-16.90191722244917 %
+		Average Time Full: 61.42361111111111 %
+		Average Time Empty: 38.57638888888889 %
+	Station 2507
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 0.0 %
+	Station 9121
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 0.0 %
+	Station 67
+		Standard Deviation Full: +/-13.52347528402304 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 81.35416666666667 %
+		Average Time Empty: 0.0 %
+	Station 65
+		Standard Deviation Full: +/-17.350642393030967 %
+		Standard Deviation Empty: +/-12.765048809078476 %
+		Average Time Full: 48.26388888888889 %
+		Average Time Empty: 16.11111111111111 %
+	Station 1029
+		Standard Deviation Full: +/-4.353052081823358 %
+		Standard Deviation Empty: +/-17.280039773739887 %
+		Average Time Full: 1.597222222222222 %
+		Average Time Empty: 54.826388888888886 %
+	Station 2013
+		Standard Deviation Full: +/-16.56523118726283 %
+		Standard Deviation Empty: +/-16.56523118726283 %
+		Average Time Full: 35.03472222222222 %
+		Average Time Empty: 64.96527777777777 %
+	Station 37
+		Standard Deviation Full: +/-0.0 %
+		Standard Deviation Empty: +/-10.68448419185041 %
+		Average Time Full: 0.0 %
+		Average Time Empty: 10.590277777777777 %
+	Station 19
+		Standard Deviation Full: +/-3.406973854394302 %
+		Standard Deviation Empty: +/-17.227964198154464 %
+		Average Time Full: 0.9722222222222222 %
+		Average Time Empty: 43.81944444444444 %
+	Station 70
+		Standard Deviation Full: +/-17.309455790239 %
+		Standard Deviation Empty: +/-15.97920968695371 %
+		Average Time Full: 46.145833333333336 %
+		Average Time Empty: 30.451388888888886 %
+	Station 68
+		Standard Deviation Full: +/-11.001053354237284 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 88.68055555555556 %
+		Average Time Empty: 0.0 %
+	Station 64
+		Standard Deviation Full: +/-5.493823689218759 %
+		Standard Deviation Empty: +/-0.0 %
+		Average Time Full: 2.569444444444444 %
+		Average Time Empty: 0.0 %
+	Station 45
+		Standard Deviation Full: +/-7.690755571174904 %
+		Standard Deviation Empty: +/-16.184958009820825 %
+		Average Time Full: 5.173611111111111 %
+		Average Time Empty: 31.90972222222222 %
 
 
 Errors:
