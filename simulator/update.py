@@ -2,8 +2,9 @@ from simulator.people import Employee, Person
 from simulator.stations import Station
 
 import numpy as np
+import matlab
 
-import sys
+
 class Update:
 
     def __init__(self, controller, setup_vars):
@@ -25,6 +26,10 @@ class Update:
 
         self.time = 0
         self.customer_requests = []
+
+        # Lists for controller tasks
+        self.driver_tasks = []
+        self.pedestrian_tasks = []
 
         self.travel_times = setup_vars['travel_time']
 
@@ -61,6 +66,9 @@ class Update:
         else:
             driver_requests, pedestrian_requests = self.smart()
 
+        for x in driver_requests, pedestrian_requests:
+            if x != matlab.double([]):
+                print(x)
         for station_number in self.station_ids:
 
             station_obj = self.station_dict[station_number]
@@ -135,8 +143,6 @@ class Update:
                     # don't have a car, so we already know
                     person.reset()
                     station.employee_list.append(person)
-
-
             else:
                 break
 
@@ -239,7 +245,7 @@ class Update:
 
         [tasks, output] = smart.controller.compute_rebalancing()
 
-        return tasks['vehicleRebalancingQueue'], tasks['driverRebalancingQueue']
+        return self.update_driver_ped_tasks(tasks['vehicleRebalancingQueue']), self.update_driver_ped_tasks(tasks['driverRebalancingQueue'])
 
     def smart_setup(self):
 
@@ -272,3 +278,45 @@ class Update:
 
         return station_dict
 
+    def update_driver_ped_tasks(self, tasks):
+        '''
+        Converts the driver and ped tasks into the 'real_id' format (gotten from station_ids)
+        :param tasks: List where the index is the logical station id and the values are the logical station id (1 indexed
+        :param task_type:
+        :return:
+        '''
+        print(tasks)
+        temp = []
+        # # Loop through the tasks
+        # for index, task in enumerate(tasks):
+        #     if task != matlab.double([]):  # If a station has no task its and empty matlab double array
+        #         origin = self.station_ids[index]  # The task list has the same index as the station_ids list
+        #         if type(task) == float:  # If there's only one task
+        #             destination = self.station_ids[int(task)-1]  # Matlab is 1 indexed
+        #             temp.append((origin, destination))
+        #         else:
+        #             for sub_task in task[0]:  # It returns a list of one list if there are multiple tasks
+        #                 destination = self.station_ids[int(sub_task)-1]  # Matlab id 1 indexed
+        #                 temp.append((origin, destination))
+        for x in tasks:
+            if x == matlab.double([]):
+                temp.append([])
+            elif type(x) == float:
+                temp.append([int(x)-1])
+            else:
+                z = []
+                for sub_task in x[0]:
+                    z.append(sub_task-1)
+                temp.append(z)
+
+
+
+
+        # if task_type == 'driver':
+        #     print("Driver Tasks: {}".format(self.driver_tasks))
+        # else:
+        #
+        #     print("Original Driver Task: {}".format(tasks))
+        #     print("Pedestrian Tasks: {}".format(self.pedestrian_tasks))
+
+        return temp
