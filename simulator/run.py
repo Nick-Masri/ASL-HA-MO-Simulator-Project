@@ -25,5 +25,5 @@ def run(controller):
     # Creates graphs and a file full of measurements
     Measurement().record(log, "output_files/measurements.txt")
 
-    # Creates Heatmap images
-    heatmap_run(log)
+    # Creates Heatmap images, currently runs for only one day
+    # heatmap_run(log)

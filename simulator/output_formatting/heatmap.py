@@ -124,7 +124,7 @@ def heatmap(log, time):
     forecaster_obj = NaiveForecaster(forecast_path, time_step_size, time_horizon, id_to_idx_path_map)
 
     # grab station states for predict method
-    stations = pd.read_csv('./input_data/stations_state_indexed.csv').set_index('station_id')
+    stations = pd.read_csv('./input_data/stations_state.csv').set_index('station_id')
     mapping_dict = np.load(id_to_idx_path_map).item()
     mapping_order = [int(x) for x in mapping_dict.keys()]
     station_ids = stations.index.tolist()
@@ -149,7 +149,7 @@ def heatmap(log, time):
     imageWidth = 640
     imageHeight = 480
 
-    locations = pd.read_csv('./input_data/stations_state.csv').loc[:, ['longitude', 'latitude']]
+    locations = pd.read_csv('./input_data/stations_state.csv').loc[:, ['latitude', 'longitude']]
 
     env = np.zeros((len(locations), imageWidth, imageHeight))
     pix = np.zeros((imageWidth, imageHeight, 2))
@@ -158,26 +158,21 @@ def heatmap(log, time):
             pix[j][k][1] = k
             pix[j][k][0] = j
 
-    idle_vehicles = np.load('output_files/state_data/idle_vehicles.npy')[:, time]
-    available_parking = np.load('output_files/state_data/available_parking.npy')[:, time]
-    data = {'ed': ordered_demand, 'iv': idle_vehicles, 'ea': ordered_arrivals, 'ap': available_parking}
+    # idle_vehicles = np.load('output_files/state_data/idle_vehicles.npy')[:, time]
+    # available_parking = np.load('output_files/state_data/available_parking.npy')[:, time]
 
-    for i in range(len(data['ed'])):
+    idle_vehicles = log['idle_vehicles'][:, time]
+    available_parking = log['available_parking'][:, time]
+    data = {'ed': ordered_demand, 'iv': idle_vehicles, 'ea': ordered_arrivals, 'ap': available_parking}
+    # data = {'ed': forecast_demand, 'iv': idle_vehicles, 'ea': forecast_arrivals, 'ap': available_parking}
+
+    for i in range(58):
         s = score(data['ed'][i], data['iv'][i], data['ea'][i], data['ap'][i])
         coordinates = degrees_to_pixels(locations['longitude'].values[i], locations['latitude'].values[i], imageWidth, imageHeight, locations.values)
         env[i, :, :] = -.005 * ((pix[:, :, 0] - coordinates[0]) ** 2 + (pix[:, :, 1] - coordinates[1]) ** 2)
         env[i, :, :] = s * np.exp(env[i, :, :])
 
-    print(env)
-    print(env.shape)
-    print(env.size)
-
     grayscale = np.sum(env, axis=0)
-    print(grayscale)
-    print(grayscale.shape)
-    print(grayscale.size)
-    print(np.sum(grayscale))
-    sys.exit()
 
     plt.imshow(grayscale.T, cmap='jet')
     plt.gca().invert_yaxis()
@@ -189,7 +184,7 @@ def heatmap(log, time):
     Y = imageHeight * Y / np.max(Y)
 
     plt.scatter(X, Y, s=8, c='w', marker='.')
-    plt.show()
+    # plt.show()
 
     plt.title('Time of Day: {}'.format(jst[time].time()))  # adds corresponding titles
     plt.savefig('output_files/graphs/heatmaps/heatmap_{}.png'.format(time), bbox_inches='tight')  # saves pics with diff names
