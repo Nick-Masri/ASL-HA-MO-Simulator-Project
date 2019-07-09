@@ -9,7 +9,7 @@ By creating this simulator, we hope to gauge the effectiveness of the two contro
 
 
 **Created by:**
- Nicholas Masri, Matt Cooley, and Jackson Shilling
+ Nicholas Masri, Matt Cooley, and Jackson Schilling
 
 **Project Mentor:** Matthew Tsao
 
